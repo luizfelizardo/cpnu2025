@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz CPNU - Bloco 8</title>
+    <link rel="icon" type="image/png" href="brasil.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 48rem;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .themed-button {
+            transition: all 0.2s;
+        }
+        .themed-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .themed-button-active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .top-border {
+            width: 100%;
+            height: 1.5rem;
+            background-color: #1e3a8a;
+        }
+        .themed-footer {
+            width: 100%;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.5rem 1rem; /* Aumentado para 1.5rem no eixo vertical (topo/fundo) */
+        }
+        .footer-border-image {
+            width: 100%;
+            height: 18px;
+            display: block;
+        }
+        .footer-content {
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .contact-link {
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+        .contact-link:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-border"></div>
+
+    <div class="container">
+        
+        <div id="home-screen" class="text-center">
+
+            <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">Quiz Preparatório CPNU - Bloco 8</h1>
+            <p class="text-lg text-gray-600 mb-8">Selecione um eixo temático para estudar os conteúdos e começar o quiz.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Língua Portuguesa')">
+                    Língua Portuguesa
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Matemática')">
+                    Matemática
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Noções de Direito')">
+                    Noções de Direito
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Realidade Brasileira')">
+                    Realidade Brasileira
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Saúde')">
+                   Saúde
+                </button>
+               
+            </div>
+            
+            <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center w-full mt-6 justify-center" onclick="goToPreviousPage()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    Voltar
+</button>
+        </div>
+
+        <div id="eixo-content-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4" id="eixo-content-title"></h2>
+            <div id="eixo-content-text" class="text-left bg-gray-50 p-6 rounded-xl shadow-inner overflow-y-auto max-h-96 text-gray-700">
+                </div>
+            <div class="mt-6 flex justify-between gap-4">
+                <button class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="startQuiz()">
+                    Iniciar Quiz
+                </button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <div class="mb-6 pb-4 border-b border-gray-300">
+                <p class="text-indigo-600 font-semibold text-lg" id="current-eixo-title"></p>
+                <h2 class="text-2xl font-bold mt-2 text-gray-800" id="question-text"></h2>
+                <div class="flex justify-between items-center text-sm mt-2">
+                    <p class="text-gray-500" id="question-counter"></p>
+                    <p class="text-green-600 font-bold" id="score-counter"></p>
+                </div>
+            </div>
+
+            <div id="options-container" class="space-y-4 mb-4">
+                </div>
+            
+            <button id="hint-button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-lg shadow-sm transition-colors duration-200 mt-4" onclick="showHint()">
+                Dica
+            </button>
+            <div id="hint-text" class="hidden mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-gray-700"></div>
+
+            <div id="explanation-container" class="hidden mt-6 p-6 rounded-lg border border-green-600 bg-green-50">
+                <p class="font-bold text-green-700 mb-2">Explicação:</p>
+                <p id="explanation-text" class="text-gray-700"></p>
+            </div>
+            
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="back-to-home-button" class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button id="next-button" class="w-1/2 hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="nextQuestion()">
+                    Próxima Pergunta
+                </button>
+            </div>
+        </div>
+
+        <div id="results-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4">Quiz Concluído!</h2>
+            <p id="final-score" class="text-xl mb-6 text-gray-800"></p>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                Voltar para o Início
+            </button>
+        </div>
+    </div>
+    
+    <footer class="w-full mt-auto">
+        <img src="7e4bab99-0869-4fec-bb88-19225341d17c (1).png" alt="Borda decorativa" class="footer-border-image">
+        <div class="themed-footer">
+    <div class="footer-content">
+        <div class="flex items-center space-x-4">
+            <a href="contato.html" class="text-sm text-gray-300 hover:text-white transition-colors duration-200">
+                Dúvidas? Entre em contato!
+            </a>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
+            <a href="mailto:contato@luizcodedev.tech" class="contact-link text-sm">Email</a>
+            <a href="https://wa.me/5511995432530" target="_blank" class="contact-link text-sm">WhatsApp</a>
+            <a href="https://www.linkedin.com/in/luiz-eduardo-82a942179/" target="_blank" class="contact-link text-sm">LinkedIn</a>
+        </div>
+    </div>
+    <div class="text-center text-gray-400 text-xs mt-2 md:mt-0">
+        &copy; 2025 LuizDev. Todos os direitos reservados.
+    </div>
+</div>
+    </footer>
+
+      
+
+     <script>
+        // Objeto global para armazenar o estado do quiz
+        let quizState = {
+            questions: [],
+            currentQuestionIndex: 0,
+            score: 0,
+            currentEixo: ''
+        };
+
+        function goToPreviousPage() {
+    // Isso fará o navegador voltar para a página anterior no histórico
+    window.history.back();
+}
+
+        // Conteúdo de estudo para cada eixo temático
+        const eixoContent = {
+            'Língua Portuguesa': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Compreensão de textos;</li>
+  <li>2. A organização textual dos vários modos de organização discursiva; 2.1. Coerência e coesão;</li>
+  <li>3. Ortografia e acentuação gráfica;</li>
+  <li>4. Classe, estrutura, formação e significação de vocábulos;</li>
+  <li>5. Derivação e composição;</li>
+  <li>6. A oração e seus termos;</li>
+  <li>7. A estruturação do período;</li>
+  <li>8. As classes de palavras: aspectos morfológicos, sintáticos e estilísticos;</li>
+  <li>9. Linguagem figurada;</li>
+  <li>10. Norma padrão: concordância verbal e nominal; regência verbal e nominal; emprego do pronome relativo; emprego do acento grave; colocação pronominal; pontuação.</li>
+                </ul>
+            `,
+            'Matemática': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Conjuntos numéricos: naturais, inteiros, racionais e reais; múltiplos, divisores, números primos; potências e raízes;</li>
+  <li>2. Sistemas de Unidades de Medidas: comprimento, área, volume, massa e tempo;</li>
+  <li>3. Razão e proporção: regra de três simples e composta; porcentagem, juros simples e compostos;</li>
+  <li>4. Probabilidade;</li>
+  <li>5. Estatística básica: leitura e interpretação de dados representados em tabelas e gráficos; medidas de tendência central (média, mediana, moda).</li>
+                   
+                </ul>
+            `,
+            'Noções de Direito': `
+                <ul class="list-disc list-inside space-y-2">
+                  <li>1. Direito e garantias fundamentais. 1.1. Direitos e deveres individuais e coletivos. 1.2. Direito à vida, à liberdade, à igualdade, à segurança e à propriedade. 1.3. Direitos sociais. 1.4 Nacionalidade. 1.5. Cidadania. 1.6. Garantias constitucionais individuais. 1.7. Garantias dos direitos coletivos, sociais e políticos.</li>
+  <li>2. A Organização do Estado. 2.1. Administração pública (artigos de 37 a 41, da Constituição Federal de 1988).</li>
+  <li>3. Direito administrativo. 3.1. Conceito, fontes e princípios. 3.2. Organização administrativa da União; administração direta, indireta, centralizada e descentralizada. 3.3. Agentes públicos: poderes, deveres e prerrogativas; cargo, emprego e função públicos. Regime Jurídico Único (Lei nº 8.112/1990 e suas alterações): provimento, vacância, remoção, redistribuição e substituição; direitos e vantagens; regime disciplinar; responsabilidade civil, criminal e administrativa. 3.4. Poderes administrativos: poder hierárquico; poder disciplinar; poder regulamentar; poder de polícia; uso e abuso do poder. 3.5. Ato administrativo: validade, eficácia; atributos; extinção, desfazimento e sanatória; classificação, espécies e exteriorização; vinculação e discricionariedade. 3.6. Serviços públicos: conceito, classificação, regulamentação e controle; delegação: concessão, permissão, autorização. 3.7. Controle e responsabilização da administração: controle administrativo; controle judicial; controle legislativo; responsabilidade civil do Estado; sanções aplicáveis aos atos de improbidade administrativa (Lei nº 8.429/1992, Lei nº 14.230/2021 e suas alterações). 3.8. Lei do Processo Administrativo (Lei nº 9.784/1999 e suas alterações).</li>
+  <li>4. Acesso à informação no âmbito da Administração Pública (Lei nº 12.527/2011).</li>
+  <li>5. Lei Geral de Proteção de Dados - Lei nº 13.709/2018.</li>
+  <li>6. Noções de Direito do Consumidor (Lei nº 8.076, de 1990).</li>
+  <li>7. Noções de Defesa da Concorrência. (Lei nº 12.529/2011).</li>
+                </ul>
+            `,
+            'Realidade Brasileira': `
+                <ul class="list-disc list-inside space-y-2">
+                  <li>1. Dinâmica social no Brasil: estratificação, desigualdade e exclusão social. 1.1. Desafios sociopolíticos da inclusão de grupos vulnerabilizados: crianças e adolescentes; idosos; LGBTQIA+; pessoas com deficiências; pessoas em situação de rua, povos indígenas, comunidades quilombolas e demais minorias sociais.</li>
+  <li>2. Desenvolvimento econômico, concentração da renda e riqueza.</li>
+  <li>3. Desenvolvimento sustentável e meio ambiente.</li>
+  <li>4. Matriz energética: fontes renováveis e não renováveis; mudança climática; transição energética.</li>
+  <li>5. Desenvolvimento urbano brasileiro: redes urbanas; metropolização; crescimento das cidades e problemas urbanos.</li>
+  <li>6. Desenvolvimento nacional e infraestrutura.</li>
+  <li>7. Desigualdades regionais.</li>
+                </ul>
+            `,
+            'Saúde': `
+                <ul class="list-disc list-inside space-y-2">
+                  <li>1. Conceito de saúde e processo saúde-doença. 1.1. Determinantes e condicionantes do processo saúde-doença. 1.2. Prevenção de doenças e promoção da saúde.</li>
+  <li>2. Políticas de Saúde no Brasil. 2.1. Sistema Único de Saúde. Lei nº 8.080/1990. 2.2. Política Nacional de Prevenção e Controle do Câncer.</li>
+  <li>3. Modelos técnico-assistenciais em saúde. 3.1. Educação em saúde. 3.2. Atenção à saúde de doenças transmissíveis e não transmissíveis e outros agravos à saúde. 3.3. Trabalho em equipe multidisciplinar / interdisciplinar / transdisciplinar. 3.4. Programa Nacional de Humanização (PNH).</li>
+  <li>4. Aspectos éticos e bioéticos nos estudos e pesquisas em saúde.</li>
+  <li>5. Vigilância em saúde no contexto do SUS: vigilância epidemiológica, vigilância ambiental, vigilância sanitária e vigilância da saúde do trabalhador.</li>
+  <li>6. Noções de epidemiologia: conceitos, ocorrência e medição. 6.1. Sistemas de informação em saúde. 6.2. Tipos de estudos. 6.3. Indicadores de saúde.</li>
+  <li>7. Biossegurança. 7.1. Acidentes de trabalho e medidas de proteção. 7.2. Regulamentos e normas de higiene pessoal e ambiental: Norma Regulamentadora 32 (NR 32). 7.3. Controle de qualidade em laboratório. 7.4. Gestão de riscos e segurança do paciente/usuário e trabalhadores.</li>
+                    
+                </ul>
+            `,
+           
+        };
+
+        // Dados do quiz: perguntas, opções, respostas, dicas e explicações
+        const quizData = {
+             'Língua Portuguesa': [
+                {
+                question: "1. Leia o trecho a seguir: 'A necessidade de repensar a mobilidade urbana é urgente. Aumentar o número de ciclovias e investir no transporte público de qualidade são medidas essenciais. No entanto, essas ações demandam planejamento a longo prazo e grande investimento.' A palavra em destaque estabelece, no contexto, uma relação de:",
+                options: [
+                    "Adição.",
+                    "Conclusão.",
+                    "Comparação.",
+                    "Oposição."
+                ],
+                correctAnswer: "Oposição.",
+                hint: "A palavra em destaque introduz uma ideia que contrasta com a anterior.",
+                explanation: "A palavra 'No entanto' indica uma oposição à ideia anterior, sugerindo que, apesar da urgência, as ações requerem planejamento e investimento."
+            },
+            {
+                question: "2. Em qual das opções a palavra está empregada com o sentido denotativo?",
+                options: [
+                    "Ela tinha um coração de gelo.",
+                    "O sol de seus olhos me iluminava.",
+                    "O vento sussurrava na janela.",
+                    "A mesa da sala era de madeira maciça."
+                ],
+                correctAnswer: "A mesa da sala era de madeira maciça.",
+                hint: "O sentido denotativo é o sentido literal, de dicionário. As outras opções usam figuras de linguagem.",
+                explanation: "Na opção 'A mesa da sala era de madeira maciça', a palavra 'madeira' é usada em seu sentido literal, enquanto as outras opções usam metáforas ou personificações."
+            },
+            {
+                question: "3. Assinale a alternativa em que há erro de acentuação gráfica:",
+                options: [
+                    "Saúde, juízo, baú.",
+                    "Lápis, fênix, álbum.",
+                    "Hífen, próton, elétron.",
+                    "Íris, tórax, gratuíto."
+                ],
+                correctAnswer: "Íris, tórax, gratuíto.",
+                hint: "Verifique a regra de acentuação das paroxítonas e a pronúncia das palavras.",
+                explanation: "A palavra 'gratuíto' está incorreta, pois o correto é 'gratuito', sem acento, já que é uma paroxítona terminada em ditongo."
+            },
+            {
+                question: "4. Na oração 'O homem que me vendeu o carro era estrangeiro', o termo 'que me vendeu o carro' é uma oração subordinada:",
+                options: [
+                    "Substantiva completiva nominal.",
+                    "Adjetiva restritiva.",
+                    "Adverbial temporal.",
+                    "Adjetiva explicativa."
+                ],
+                correctAnswer: "Adjetiva restritiva.",
+                hint: "O pronome relativo 'que' introduz uma oração que qualifica o termo 'homem'.",
+                explanation: "A oração 'que me vendeu o carro' é uma oração adjetiva restritiva, pois especifica qual homem está sendo mencionado."
+            },
+            {
+                question: "5. Em 'O presidente e o governador reuniram-se hoje', a concordância verbal está correta. Qual seria a forma correta se o verbo estivesse antes dos sujeitos?",
+                options: [
+                    "Reuniu-se o presidente e o governador hoje.",
+                    "Reuniram-se hoje o presidente e o governador.",
+                    "Reuniu-se hoje o presidente e o governador.",
+                    "Reuniram-se-os o presidente e o governador hoje."
+                ],
+                correctAnswer: "Reuniram-se hoje o presidente e o governador.",
+                hint: "O verbo, mesmo antes do sujeito composto, deve concordar no plural.",
+                explanation: "A forma correta é 'Reuniram-se hoje o presidente e o governador', pois o verbo concorda com o sujeito composto 'o presidente e o governador'."
+            },
+            {
+                question: "6. Assinale a alternativa em que o uso da crase está incorreto:",
+                options: [
+                    "Fomos à festa ontem.",
+                    "Sempre obedeço à lei.",
+                    "Às vezes, penso nela.",
+                    "Fui à pé ao trabalho."
+                ],
+                correctAnswer: "Fui à pé ao trabalho.",
+                hint: "A crase é a fusão da preposição 'a' com o artigo 'a'. A palavra 'pé' é masculina.",
+                explanation: "A forma correta seria 'Fui a pé ao trabalho', pois 'pé' é um substantivo masculino e não admite crase."
+            },
+            {
+                question: "7. A colocação pronominal em 'Me diga a verdade.' está incorreta. Qual seria a forma correta de acordo com a norma-padrão?",
+                options: [
+                    "Diga-me a verdade.",
+                    "Me diga-a a verdade.",
+                    "A verdade me diga.",
+                    "Diga a verdade para mim."
+                ],
+                correctAnswer: "Diga-me a verdade.",
+                hint: "Em frases imperativas afirmativas, o pronome oblíquo átono deve vir depois do verbo.",
+                explanation: "A forma correta é 'Diga-me a verdade', pois o pronome oblíquo 'me' deve ser posposto ao verbo em frases afirmativas."
+            },
+            {
+                question: "8. Qual a função sintática do termo em destaque na frase: 'Ele comprou uma casa, **a casa dos seus sonhos**'?",
+                options: [
+                    "Aposto.",
+                    "Objeto direto.",
+                    "Adjunto adnominal.",
+                    "Predicativo do sujeito."
+                ],
+                correctAnswer: "Aposto.",
+                hint: "O termo em destaque explica ou resume outro termo da oração.",
+                explanation: "O termo 'a casa dos seus sonhos' é um aposto, pois explica qual casa foi comprada."
+            },
+            {
+                question: "9. O processo de formação da palavra 'subdesenvolvido' é:",
+                options: [
+                    "Composição por justaposição.",
+                    "Derivação prefixal e sufixal.",
+                    "Derivação parassintética.",
+                    "Derivação prefixal."
+                ],
+                correctAnswer: "Derivação prefixal e sufixal.",
+                hint: "A palavra base é 'desenvolvimento'. Os prefixos e sufixos foram adicionados para formar a palavra.",
+                explanation: "A palavra 'subdesenvolvido' é formada pelo prefixo 'sub-' e o sufixo '-ido', indicando um estado de desenvolvimento inferior."
+            },
+            {
+                question: "10. Em qual opção há um erro de concordância nominal?",
+                options: [
+                    "As frutas e os legumes estão maduros.",
+                    "Eram poucos os homens e as mulheres que restavam.",
+                    "Ela usava sapatos e meias azuis.",
+                    "É proibido a entrada de crianças."
+                ],
+                correctAnswer: "É proibido a entrada de crianças.",
+                hint: "A concordância nominal exige que a palavra 'proibido' concorde com o sujeito, que é 'a entrada'.",
+                explanation: "A concordância nominal correta seria 'É proibida a entrada de crianças', pois o sujeito 'a entrada' é feminino."
+            },
+            {
+                question: "11. 'O silêncio do bosque era tão profundo que podíamos ouvir a queda de uma folha.' Nessa frase, a figura de linguagem presente é a:",
+                options: [
+                    "Metáfora.",
+                    "Hipérbole.",
+                    "Sinestesia.",
+                    "Metonímia."
+                ],
+                correctAnswer: "Hipérbole.",
+                hint: "A figura de linguagem em questão é um exagero intencional para enfatizar o silêncio.",
+                explanation: "A hipérbole é uma figura de linguagem que utiliza exagero para enfatizar uma ideia, como no caso de ouvir a queda de uma folha em um bosque silencioso."
+            },
+            {
+                question: "12. Qual é a principal função da pontuação na escrita?",
+                options: [
+                    "Determinar a classe gramatical das palavras.",
+                    "Garantir a coesão entre parágrafos.",
+                    "Representar pausas e entonações da fala, e organizar a estrutura do texto.",
+                    "Realizar a concordância entre os termos da oração."
+                ],
+                correctAnswer: "Representar pausas e entonações da fala, e organizar a estrutura do texto.",
+                hint: "Pense no papel da pontuação para a clareza e sentido de uma frase.",
+                explanation: "A pontuação é essencial para organizar o texto, indicar pausas e entonações, e facilitar a compreensão do leitor."
+            },
+            {
+                question: "13. Assinale a alternativa em que a regência verbal está incorreta:",
+                options: [
+                    "Preferimos a vida ao luxo.",
+                    "Eles assistiram o jogo na TV.",
+                    "Lembrei-me do nosso compromisso.",
+                    "Ela obedeceu ao regulamento."
+                ],
+                correctAnswer: "Eles assistiram o jogo na TV.",
+                hint: "O verbo 'assistir' no sentido de 'ver' pede a preposição 'a'.",
+                explanation: "A regência verbal correta do verbo 'assistir' no sentido de 'ver' é com a preposição 'a', portanto, a forma correta seria 'Eles assistiram ao jogo na TV'."
+            },
+            {
+                question: "14. A palavra 'aguardente' é formada pelo processo de:",
+                options: [
+                    "Derivação regressiva.",
+                    "Derivação imprópria.",
+                    "Composição por justaposição.",
+                    "Composição por aglutinação."
+                ],
+                correctAnswer: "Composição por aglutinação.",
+                hint: "A palavra é a junção de 'água' e 'ardente', e houve perda fonética.",
+                explanation: "A composição por aglutinação ocorre quando há perda de fonemas na junção de duas palavras, como em 'aguardente', que resulta da união de 'água' e 'ardente'."
+            },
+            {
+                question: "15. Na frase 'O professor, um sábio, ensinava com paixão.', as vírgulas foram utilizadas para isolar:",
+                options: [
+                    "Uma oração subordinada.",
+                    "Um aposto explicativo.",
+                    "Um adjunto adverbial de modo.",
+                    "Um vocativo."
+                ],
+                correctAnswer: "Um aposto explicativo.",
+                hint: "O termo 'um sábio' serve para explicar ou dar uma característica extra para o termo 'o professor'.",
+                explanation: "O aposto explicativo é um termo que explica ou detalha outro termo, e é isolado por vírgulas."
+            }
+            ],
+            'Matemática': [
+             {
+                question: "1. Qual dos seguintes números é um número primo?",
+                options: [
+                    "51",
+                    "87",
+                    "91",
+                    "97"
+                ],
+                correctAnswer: "97",
+                hint: "Um número primo é divisível apenas por 1 e por ele mesmo. Tente dividir cada número por 3, 7 ou outros números primos menores.",
+                explanation: "O número 97 é primo porque não pode ser dividido por nenhum número além de 1 e 97. Os outros números têm divisores além de 1 e eles mesmos."
+            },
+            {
+                question: "2. Um terreno retangular tem 200 metros de comprimento e 50 metros de largura. Qual é a área do terreno em hectares?",
+                options: [
+                    "1 ha",
+                    "10 ha",
+                    "0,5 ha",
+                    "2 ha"
+                ],
+                correctAnswer: "1 ha",
+                hint: "Lembre-se que 1 hectare (ha) equivale a 10.000 metros quadrados (m²).",
+                explanation: "A área do terreno é calculada como A = comprimento × largura = 200 m × 50 m = 10.000 m², que equivale a 1 hectare (ha)."
+            },
+            {
+                question: "3. Se 5 operários constroem um muro em 12 dias, quantos dias 15 operários, com a mesma capacidade de trabalho, levarão para construir o mesmo muro?",
+                options: [
+                    "3 dias",
+                    "4 dias",
+                    "5 dias",
+                    "6 dias"
+                ],
+                correctAnswer: "4 dias",
+                hint: "Esta é uma regra de três simples inversa. Se você aumenta o número de operários, o tempo para construir o muro diminui.",
+                explanation: "Se 5 operários constroem o muro em 12 dias, 15 operários levarão 1/3 do tempo, ou seja, 4 dias. (5 * 12 / 15 = 4)."
+            },
+            {
+                question: "4. Um produto custa R$ 150,00. Se ele for vendido com um desconto de 20%, qual será o novo preço?",
+                options: [
+                    "R$ 120,00",
+                    "R$ 130,00",
+                    "R$ 100,00",
+                    "R$ 115,00"
+                ],
+                correctAnswer: "R$ 120,00",
+                hint: "Calcule o valor do desconto (20% de R$ 150,00) e subtraia do preço original.",
+                explanation: "O desconto de 20% sobre R$ 150,00 é R$ 30,00. Portanto, o novo preço é R$ 150,00 - R$ 30,00 = R$ 120,00."
+            },
+            {
+                question: "5. Um capital de R$ 5.000,00 foi aplicado a juros simples de 2% ao mês por 3 meses. Qual será o montante ao final desse período?",
+                options: [
+                    "R$ 5.300,00",
+                    "R$ 5.250,00",
+                    "R$ 5.350,00",
+                    "R$ 5.400,00"
+                ],
+                correctAnswer: "R$ 5.300,00",
+                hint: "A fórmula para juros simples é J = C * i * t. O montante é M = C + J.",
+                explanation: "O juro simples é calculado como J = 5000 * 0,02 * 3 = R$ 300,00. O montante final é M = 5000 + 300 = R$ 5300,00."
+            },
+            {
+                question: "6. Em uma urna, há 5 bolas azuis, 3 vermelhas e 2 amarelas. Qual é a probabilidade de sortear, aleatoriamente, uma bola vermelha?",
+                options: [
+                    "3/10",
+                    "1/5",
+                    "1/2",
+                    "3/5"
+                ],
+                correctAnswer: "3/10",
+                hint: "A probabilidade é calculada pela razão entre o número de resultados favoráveis e o número total de resultados possíveis.",
+                explanation: "A probabilidade de sortear uma bola vermelha é 3 (número de bolas vermelhas) dividido por 10 (total de bolas), resultando em 3/10."
+            },
+            {
+                question: "7. Qual a média aritmética do seguinte conjunto de dados: {10, 15, 20, 25, 30}?",
+                options: [
+                    "20",
+                    "25",
+                    "15",
+                    "22"
+                ],
+                correctAnswer: "20",
+                hint: "A média é a soma de todos os valores dividida pelo número de elementos do conjunto.",
+                explanation: "A média aritmética é calculada somando todos os valores (10 + 15 + 20 + 25 + 30 = 100) e dividindo pelo número de elementos (5), resultando em 100 / 5 = 20."
+            },
+            {
+                question: "8. Em uma amostra de salários (em R$), ordenada, {1200, 1500, 2000, 2500, 3000, 3500}. Qual é a mediana?",
+                options: [
+                    "R$ 2000,00",
+                    "R$ 2250,00",
+                    "R$ 2500,00",
+                    "R$ 2100,00"
+                ],
+                correctAnswer: "R$ 2250,00",
+                hint: "Quando o número de elementos é par, a mediana é a média dos dois termos centrais.",
+                explanation: "A mediana é o valor central de um conjunto ordenado. Como há 6 valores, a mediana é a média dos dois valores centrais (2000 e 2500), resultando em R$ 2250,00."
+            },
+            {
+                question: "9. Qual a moda da seguinte série de números: {12, 15, 18, 15, 20, 15, 22, 18}?",
+                options: [
+                    "12",
+                    "18",
+                    "20",
+                    "15"
+                ],
+                correctAnswer: "15",
+                hint: "A moda é o valor que aparece com maior frequência em um conjunto de dados.",
+                explanation: "Na série, o número 15 aparece três vezes, mais do que qualquer outro número, portanto é a moda."
+            },
+            {
+                question: "10. Uma empresa de 10 funcionários produz 500 peças em 5 dias. Quantos dias 20 funcionários produzirão 1000 peças?",
+                options: [
+                    "5 dias",
+                    "10 dias",
+                    "15 dias",
+                    "20 dias"
+                ],
+                correctAnswer: "5 dias",
+                hint: "Essa é uma regra de três composta. Lembre-se de analisar as relações de proporcionalidade (direta ou inversa) entre as grandezas.",
+                explanation: "Se dobramos o número de funcionários, o tempo para produzir o dobro das peças permanece o mesmo, pois a produção é proporcional ao número de funcionários."
+            }
+            ],
+            'Noções de Direito': [
+             {
+                question: "1. Segundo a Constituição Federal de 1988, é correto afirmar que a casa é asilo inviolável do indivíduo. Em qual das seguintes situações a entrada forçada é permitida sem o consentimento do morador?",
+                options: [
+                    "A qualquer hora do dia ou da noite, para cumprir ordem judicial.",
+                    "Durante o dia, por determinação do chefe de polícia.",
+                    "A qualquer hora, para prestar socorro ou em caso de flagrante delito.",
+                    "Durante a noite, apenas para cumprimento de mandado de busca e apreensão."
+                ],
+                correctAnswer: "A qualquer hora, para prestar socorro ou em caso de flagrante delito.",
+                hint: "A inviolabilidade do domicílio pode ser afastada em situações urgentes, independentemente do horário.",
+                explanation: "A Constituição Federal garante a inviolabilidade do domicílio, mas permite a entrada forçada em casos de urgência, como socorro ou flagrante delito, sem necessidade de consentimento."
+            },
+            {
+                question: "2. A respeito dos princípios da Administração Pública, previstos no art. 37 da CF/88, assinale a alternativa incorreta.",
+                options: [
+                    "Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência.",
+                    "O princípio da eficiência foi incluído pela Emenda Constitucional n. 19/98.",
+                    "O princípio da publicidade não se aplica a processos que correm em sigilo, como o processo administrativo disciplinar.",
+                    "O princípio da moralidade proíbe a prática de ato administrativo que, embora legal, ofenda a moral administrativa."
+                ],
+                correctAnswer: "O princípio da publicidade não se aplica a processos que correm em sigilo, como o processo administrativo disciplinar.",
+                hint: "Embora a publicidade seja a regra, ela pode ser mitigada em casos específicos, como a proteção da intimidade ou o interesse público. O processo administrativo disciplinar, por exemplo, tem publicidade restrita, mas não se enquadra como regra geral.",
+                explanation: "O princípio da publicidade é um dos pilares da Administração Pública, mas existem exceções, como em casos de sigilo legalmente previsto, como nos processos administrativos disciplinares, que podem ter publicidade restrita."
+            },
+            {
+                question: "3. Assinale a alternativa que indica um dos atributos do ato administrativo, segundo a teoria majoritária.",
+                options: [
+                    "Revogabilidade.",
+                    "Validabilidade.",
+                    "Vinculação.",
+                    "Presunção de legitimidade."
+                ],
+                correctAnswer: "Presunção de legitimidade.",
+                hint: "Os atributos são características que conferem ao ato administrativo a capacidade de produzir efeitos imediatos. Pense nos principais atributos: presunção de legitimidade, autoexecutoriedade e tipicidade.",
+                explanation: "A presunção de legitimidade é um dos atributos do ato administrativo, que confere a ele a presunção de que foi praticado de acordo com a lei e com os princípios da Administração Pública."
+            },
+            {
+                question: "4. A respeito da Lei nº 8.112/1990 (Regime Jurídico dos Servidores Públicos Civis da União), a forma de provimento de um cargo público que consiste no reingresso do servidor estável que foi demitido injustamente é a:",
+                options: [
+                    "Reversão.",
+                    "Reintegração.",
+                    "Aproveitamento.",
+                    "Recondução."
+                ],
+                correctAnswer: "Reintegração.",
+                hint: "O termo 'reintegração' está ligado à restituição do servidor ao cargo anteriormente ocupado, quando a demissão é invalidada por decisão judicial ou administrativa.",
+                explanation: "A reintegração é o ato que devolve ao servidor demitido injustamente o cargo que ocupava, reconhecendo a nulidade da demissão."
+            },
+            {
+                question: "5. A Lei nº 13.709/2018 (Lei Geral de Proteção de Dados - LGPD) tem como um de seus princípios o tratamento de dados pessoais para propósitos legítimos, específicos e explícitos, de acordo com o titular. Este princípio é conhecido como:",
+                options: [
+                    "Princípio da necessidade.",
+                    "Princípio da finalidade.",
+                    "Princípio da segurança.",
+                    "Princípio da transparência."
+                ],
+                correctAnswer: "Princípio da finalidade.",
+                hint: "Este princípio estabelece que a coleta e uso de dados devem ter uma razão clara e justificada.",
+                explanation: "O princípio da finalidade na LGPD determina que os dados pessoais devem ser coletados e tratados para finalidades legítimas, específicas e informadas ao titular, garantindo transparência e respeito aos direitos do indivíduo."
+            },
+            {
+                question: "6. O Poder da Administração Pública que consiste na faculdade de praticar atos que, embora subordinados à lei, permitem ao agente escolher a solução mais conveniente e oportuna para o interesse público, é o:",
+                options: [
+                    "Poder Hierárquico.",
+                    "Poder de Polícia.",
+                    "Poder Discricionário.",
+                    "Poder Vinculado."
+                ],
+                correctAnswer: "Poder Discricionário.",
+                hint: "A palavra 'discricionariedade' está relacionada à liberdade de escolha do administrador, dentro dos limites da lei.",
+                explanation: "O poder discricionário é aquele que permite ao agente público decidir, dentro dos limites legais, qual a melhor forma de atender ao interesse público, sem estar vinculado a uma única solução."
+            },
+            {
+                question: "7. De acordo com o art. 1º da Lei nº 8.078/1990 (Código de Defesa do Consumidor), as normas de proteção e defesa do consumidor são de:",
+                options: [
+                    "Ordem privada e interesse social.",
+                    "Ordem pública e interesse social.",
+                    "Ordem pública e interesse privado.",
+                    "Ordem privada e interesse individual."
+                ],
+                correctAnswer: "Ordem pública e interesse social.",
+                hint: "O CDC é um estatuto que busca proteger o lado mais fraco da relação, o consumidor, e por isso suas normas têm um caráter superior e de interesse geral.",
+                explanation: "O Código de Defesa do Consumidor estabelece que suas normas são de ordem pública e interesse social, visando proteger os direitos dos consumidores."
+            },
+            {
+                question: "8. A responsabilidade civil do Estado por danos que seus agentes, nessa qualidade, causarem a terceiros, é, em regra, de natureza:",
+                options: [
+                    "Subjetiva, baseada na culpa do agente.",
+                    "Subjetiva, baseada no dolo do agente.",
+                    "Objetiva, independente de culpa ou dolo.",
+                    "Objetiva, baseada na culpa exclusiva da vítima."
+                ],
+                correctAnswer: "Objetiva, independente de culpa ou dolo.",
+                hint: "A teoria da responsabilidade objetiva do Estado está prevista no art. 37, § 6º da Constituição Federal.",
+                explanation: "A responsabilidade civil do Estado é objetiva, ou seja, não depende da comprovação de culpa ou dolo do agente público, bastando a demonstração do dano e do nexo causal entre a ação do agente e o dano causado."
+            },
+            {
+                question: "9. Segundo a Lei nº 9.784/1999 (Lei do Processo Administrativo Federal), o prazo para a Administração anular seus próprios atos, quando eivados de vícios que os tornem ilegais, é de:",
+                options: [
+                    "1 ano, contado da data do ato.",
+                    "2 anos, contado da data do ato.",
+                    "5 anos, contado da data do ato.",
+                    "10 anos, contado da data do ato."
+                ],
+                correctAnswer: "5 anos, contado da data do ato.",
+                hint: "Esse prazo se aplica, salvo comprovada má-fé.",
+                explanation: "A Lei nº 9.784/1999 estabelece que a Administração Pública pode anular seus próprios atos ilegais no prazo de 5 anos, contados da data do ato, salvo comprovada má-fé."
+            },
+            {
+                question: "10. O órgão responsável por zelar pela livre concorrência no Brasil e investigar condutas anticoncorrenciais é o:",
+                options: [
+                    "Banco Central do Brasil (BACEN).",
+                    "Conselho Administrativo de Defesa Econômica (CADE).",
+                    "Ministério da Economia.",
+                    "Comissão de Valores Mobiliários (CVM)."
+                ],
+                correctAnswer: "Conselho Administrativo de Defesa Econômica (CADE).",
+                hint: "A Lei nº 12.529/2011 (Lei de Defesa da Concorrência) estabelece o CADE como a entidade responsável por essa função.",
+                explanation: "O CADE é o órgão responsável por promover e proteger a concorrência no mercado brasileiro, investigando práticas anticoncorrenciais e aprovando ou vetando fusões e aquisições."
+            },
+            {
+                question: "11. De acordo com a Constituição Federal, são direitos sociais, exceto:",
+                options: [
+                    "A moradia e a segurança.",
+                    "A educação e a saúde.",
+                    "O lazer e o trabalho.",
+                    "A herança e a propriedade."
+                ],
+                correctAnswer: "A herança e a propriedade.",
+                hint: "Os direitos de herança e propriedade são direitos individuais e não sociais. Pense no Art. 6º da CF/88.",
+                explanation: "Os direitos sociais estão previstos no Art. 6º da Constituição Federal e incluem moradia, segurança, educação, saúde, lazer e trabalho, mas não incluem herança e propriedade, que são direitos individuais."
+            },
+            {
+                question: "12. Qual é a principal diferença entre 'concessão' e 'permissão' de serviço público?",
+                options: [
+                    "A concessão é um ato administrativo unilateral e a permissão é um contrato.",
+                    "A concessão é realizada por meio de licitação e a permissão não exige licitação.",
+                    "A concessão é sempre por prazo indeterminado e a permissão é por prazo determinado.",
+                    "A concessão é um contrato administrativo e a permissão é um ato administrativo unilateral, mas atualmente ambas exigem licitação."
+                ],
+                correctAnswer: "A concessão é um contrato administrativo e a permissão é um ato administrativo unilateral, mas atualmente ambas exigem licitação.",
+                hint: "Historicamente, havia grandes diferenças. Mas a legislação atual aproximou bastante os dois institutos, principalmente em relação à exigência de licitação.",
+                explanation: "A concessão é um contrato administrativo celebrado entre a Administração Pública e o particular, enquanto a permissão é um ato administrativo unilateral que também exige licitação, mas não é formalizado como um contrato."
+            },
+            {
+                question: "13. A Lei de Acesso à Informação (Lei nº 12.527/2011) tem como objetivo garantir o acesso a informações por parte dos cidadãos. Qual é o princípio fundamental dessa lei?",
+                options: [
+                    "Princípio do sigilo.",
+                    "Princípio da exceção.",
+                    "Princípio da máxima divulgação.",
+                    "Princípio da seletividade."
+                ],
+                correctAnswer: "Princípio da máxima divulgação.",
+                hint: "A LAI defende a transparência e a publicidade dos atos do governo, com poucas exceções.",
+                explanation: "O princípio da máxima divulgação estabelece que as informações públicas devem ser amplamente acessíveis, salvo exceções previstas na lei."
+            },
+            {
+                question: "14. A respeito da Lei de Improbidade Administrativa (Lei nº 8.429/1992, com as alterações da Lei nº 14.230/2021), assinale a alternativa correta.",
+                options: [
+                    "A lei exige a comprovação de culpa para todos os atos de improbidade.",
+                    "O ressarcimento integral do dano é a única sanção aplicável.",
+                    "A pena de perda da função pública não pode ser aplicada ao servidor que já se aposentou.",
+                    "Os atos de improbidade que causam prejuízo ao erário exigem a comprovação de dolo."
+                ],
+                correctAnswer: "Os atos de improbidade que causam prejuízo ao erário exigem a comprovação de dolo.",
+                hint: "Com as alterações recentes, a lei passou a exigir dolo para a configuração de qualquer ato de improbidade.",
+                explanation: "A Lei de Improbidade Administrativa exige a comprovação de dolo para atos que causem prejuízo ao erário, conforme as alterações da Lei nº 14.230/2021."
+            },
+            {
+                question: "15. A respeito da organização administrativa da União, são entidades da Administração Indireta, exceto:",
+                options: [
+                    "Autarquias.",
+                    "Empresas Públicas.",
+                    "Ministérios.",
+                    "Fundações Públicas de direito público."
+                ],
+                correctAnswer: "Ministérios.",
+                hint: "Ministérios são órgãos da Administração Direta, responsáveis por auxiliar o Presidente da República. As outras opções são entidades com personalidade jurídica própria.",
+                explanation: "Os ministérios são órgãos da Administração Direta, enquanto as autarquias, empresas públicas e fundações públicas são entidades da Administração Indireta."
+            }
+            ],
+            'Realidade Brasileira': [
+     {
+                question: "1. Qual dos fatores abaixo é considerado um dos principais responsáveis pela desigualdade e estratificação social no Brasil?",
+                options: [
+                    "A ausência de acesso à internet.",
+                    "A concentração de renda e de terras.",
+                    "A falta de parques públicos nas cidades.",
+                    "O clima tropical do país."
+                ],
+                correctAnswer: "A concentração de renda e de terras.",
+                hint: "Pense na distribuição de riqueza e de recursos no Brasil ao longo da história.",
+                explanation: "A concentração de renda e de terras é um dos principais fatores que contribuem para a desigualdade social no Brasil, resultando em uma sociedade estratificada onde poucos detêm a maior parte da riqueza."
+            },
+            {
+                question: "2. A respeito dos desafios sociopolíticos da inclusão de grupos vulnerabilizados, qual é a principal pauta do movimento LGBTQIA+ no Brasil?",
+                options: [
+                    "Aumentar o número de feriados nacionais.",
+                    "Garantir a igualdade de direitos e o combate à discriminação.",
+                    "O fim das cotas raciais em universidades.",
+                    "A privatização de todas as empresas estatais."
+                ],
+                correctAnswer: "Garantir a igualdade de direitos e o combate à discriminação.",
+                hint: "As pautas desse grupo estão relacionadas à luta por direitos civis e ao fim de preconceitos.",
+                explanation: "O movimento LGBTQIA+ no Brasil busca garantir a igualdade de direitos e combater a discriminação, promovendo a inclusão social e o respeito à diversidade sexual e de gênero."
+            },
+            {
+                question: "3. O crescimento econômico do Brasil, historicamente, foi marcado por qual característica?",
+                options: [
+                    "Distribuição equitativa da renda entre a população.",
+                    "Diminuição constante da concentração de riqueza.",
+                    "Alta concentração de renda e pouca mobilidade social.",
+                    "Baixa participação do setor agrário na economia."
+                ],
+                correctAnswer: "Alta concentração de renda e pouca mobilidade social.",
+                hint: "Pense no conceito de 'desigualdade social' e como ele se manifesta na distribuição de renda.",
+                explanation: "O crescimento econômico do Brasil tem sido historicamente marcado por uma alta concentração de renda, onde uma pequena parte da população detém a maior parte da riqueza, resultando em pouca mobilidade social."
+            },
+            {
+                question: "4. Qual é o principal bioma brasileiro que tem sofrido com o desmatamento, impactando a biodiversidade e os serviços ecossistêmicos?",
+                options: [
+                    "Pampa.",
+                    "Cerrado.",
+                    "Mata Atlântica.",
+                    "Floresta Amazônica."
+                ],
+                correctAnswer: "Floresta Amazônica.",
+                hint: "Embora todos os biomas brasileiros sofram com o desmatamento, um deles é o mais conhecido mundialmente por esse problema.",
+                explanation: "A Floresta Amazônica é o bioma mais afetado pelo desmatamento no Brasil, sendo crucial para a biodiversidade global e os serviços ecossistêmicos, como a regulação do clima e a preservação da água."
+            },
+            {
+                question: "5. A matriz energética brasileira é considerada uma das mais limpas do mundo devido à predominância de qual fonte?",
+                options: [
+                    "Carvão mineral.",
+                    "Usinas termelétricas a gás natural.",
+                    "Usinas hidrelétricas.",
+                    "Energia nuclear."
+                ],
+                correctAnswer: "Usinas hidrelétricas.",
+                hint: "Essa fonte de energia utiliza a força da água e é largamente utilizada no país.",
+                explanation: "A matriz energética brasileira é predominantemente hidrelétrica, o que a torna uma das mais limpas do mundo, pois utiliza uma fonte renovável e de baixo impacto ambiental em comparação com combustíveis fósseis."
+            },
+            {
+                question: "6. Qual é a principal causa das mudanças climáticas globais, relacionada diretamente à matriz energética?",
+                options: [
+                    "O uso excessivo de carros elétricos.",
+                    "A poluição dos rios e lagos.",
+                    "A queima de combustíveis fósseis (petróleo, carvão, gás natural).",
+                    "A energia gerada por usinas solares."
+                ],
+                correctAnswer: "A queima de combustíveis fósseis (petróleo, carvão, gás natural).",
+                hint: "Essa prática libera grandes quantidades de gases do efeito estufa na atmosfera.",
+                explanation: "A queima de combustíveis fósseis é a principal causa das mudanças climáticas, pois libera dióxido de carbono (CO2) e outros gases do efeito estufa, contribuindo para o aquecimento global."
+            },
+            {
+                question: "7. O fenômeno da metropolização no Brasil se caracteriza pela:",
+                options: [
+                    "Migração de pessoas do campo para as cidades pequenas.",
+                    "Crescimento populacional e territorial de uma cidade que se integra a municípios vizinhos.",
+                    "Diminuição da população em grandes cidades.",
+                    "Formação de grandes condomínios rurais."
+                ],
+                correctAnswer: "Crescimento populacional e territorial de uma cidade que se integra a municípios vizinhos.",
+                hint: "Pense na formação de 'regiões metropolitanas', onde uma cidade principal influencia as que estão ao seu redor.",
+                explanation: "A metropolização é o processo de crescimento de uma cidade que se expande territorialmente e populacionalmente, integrando municípios vizinhos em uma região metropolitana."
+            },
+            {
+                question: "8. Um dos maiores problemas urbanos do Brasil, que se manifesta pela falta de planejamento e infraestrutura básica, é:",
+                options: [
+                    "A verticalização dos edifícios.",
+                    "A favelização e a segregação socioespacial.",
+                    "A proliferação de shoppings centers.",
+                    "A construção de ciclovias."
+                ],
+                correctAnswer: "A favelização e a segregação socioespacial.",
+                hint: "Este problema está diretamente ligado à falta de moradia adequada e à ocupação de áreas irregulares.",
+                explanation: "A favelização é um fenômeno urbano caracterizado pela ocupação irregular de áreas urbanas, resultando em segregação socioespacial e falta de infraestrutura básica, como saneamento e transporte."
+            },
+            {
+                question: "9. O setor de infraestrutura no Brasil, apesar dos avanços, ainda enfrenta desafios significativos. Qual dos seguintes problemas é um dos mais graves?",
+                options: [
+                    "O excesso de linhas de metrô.",
+                    "A falta de internet 5G em grandes centros urbanos.",
+                    "A precariedade das rodovias e a logística de transporte.",
+                    "O baixo custo da energia elétrica."
+                ],
+                correctAnswer: "A precariedade das rodovias e a logística de transporte.",
+                hint: "Pense nos custos e dificuldades de transportar mercadorias pelo país.",
+                explanation: "A infraestrutura de transporte no Brasil, especialmente as rodovias, é frequentemente criticada pela sua precariedade, o que afeta a logística e os custos de transporte de mercadorias."
+            },
+            {
+                question: "10. Qual é a principal causa das desigualdades regionais no Brasil?",
+                options: [
+                    "Diferenças climáticas entre as regiões.",
+                    "A diversidade cultural entre os estados.",
+                    "A concentração histórica de investimentos e políticas públicas em algumas regiões, como a Sudeste.",
+                    "O grande número de feriados estaduais."
+                ],
+                correctAnswer: "A concentração histórica de investimentos e políticas públicas em algumas regiões, como a Sudeste.",
+                hint: "A 'questão regional' brasileira é um reflexo de decisões políticas e econômicas do passado.",
+                explanation: "As desigualdades regionais no Brasil são resultado de uma série de fatores históricos, econômicos e sociais, sendo a concentração de investimentos e políticas públicas em regiões como o Sudeste um dos principais responsáveis por essas disparidades."
+            }
+            ],
+            'Saúde': [
+       {
+                question: "1. O conceito de saúde, segundo a Organização Mundial da Saúde (OMS), é definido como:",
+                options: [
+                    "A ausência de doenças e enfermidades.",
+                    "O perfeito estado físico e mental.",
+                    "O completo bem-estar físico, mental e social, e não apenas a ausência de doença ou enfermidade.",
+                    "O estado de equilíbrio biológico do corpo humano."
+                ],
+                correctAnswer: "O completo bem-estar físico, mental e social, e não apenas a ausência de doença ou enfermidade.",
+                hint: "A definição da OMS é abrangente e considera a saúde como um estado holístico de bem-estar.",
+                explanation: "A OMS define saúde como um estado completo de bem-estar físico, mental e social, indo além da simples ausência de doenças. Essa visão integral considera fatores sociais, econômicos e ambientais que influenciam a saúde das pessoas."
+            },
+            {
+                question: "2. Qual das alternativas abaixo NÃO é considerada um determinante ou condicionante social da saúde, de acordo com o modelo de Dahlgren e Whitehead?",
+                options: [
+                    "Saneamento básico.",
+                    "Cultura e estilo de vida.",
+                    "Genética.",
+                    "Acesso a serviços de saúde."
+                ],
+                correctAnswer: "Genética.",
+                hint: "Determinantes sociais são fatores externos à genética, relacionados ao contexto de vida das pessoas.",
+                explanation: "Os determinantes sociais da saúde incluem fatores como saneamento básico, cultura, estilo de vida e acesso a serviços de saúde, enquanto a genética é considerada um determinante biológico, não social."
+            },
+            {
+                question: "3. A principal diferença entre 'prevenção de doenças' e 'promoção da saúde' é que a promoção da saúde foca em:",
+                options: [
+                    "Identificar fatores de risco para doenças específicas.",
+                    "Impedir que uma doença já estabelecida evolua para um quadro mais grave.",
+                    "Criar condições e ambientes saudáveis para a população em geral.",
+                    "Realizar o diagnóstico precoce de enfermidades."
+                ],
+                correctAnswer: "Criar condições e ambientes saudáveis para a população em geral.",
+                hint: "A promoção da saúde é uma abordagem mais ampla, voltada para o coletivo e para as condições de vida.",
+                explanation: "A promoção da saúde visa criar condições e ambientes que favoreçam o bem-estar e a qualidade de vida da população, enquanto a prevenção de doenças foca em evitar o surgimento ou agravamento de enfermidades."
+            },
+            {
+                question: "4. A Lei nº 8.080/1990, que regulamenta o Sistema Único de Saúde (SUS), estabelece que a saúde é um direito fundamental do ser humano. Qual é o principal princípio doutrinário do SUS que garante o acesso a todos, sem distinção?",
+                options: [
+                    "Equidade.",
+                    "Integralidade.",
+                    "Universalidade.",
+                    "Hierarquização."
+                ],
+                correctAnswer: "Universalidade.",
+                hint: "Este princípio garante que a saúde é um direito de todos e dever do Estado, acessível a qualquer pessoa.",
+                explanation: "O princípio da universalidade no SUS assegura que todos os cidadãos têm direito ao acesso aos serviços de saúde, sem discriminação, sendo um dos pilares fundamentais do sistema."
+            },
+            {
+                question: "5. A Política Nacional de Prevenção e Controle do Câncer tem como um de seus objetivos:",
+                options: [
+                    "Restringir o acesso a tratamentos de alto custo.",
+                    "Concentrar o atendimento em grandes centros urbanos.",
+                    "Diminuir a incidência e mortalidade por câncer no país.",
+                    "Eliminar a necessidade de exames de rastreamento."
+                ],
+                correctAnswer: "Diminuir a incidência e mortalidade por câncer no país.",
+                hint: "O principal objetivo de políticas de prevenção e controle é reduzir o impacto da doença na população.",
+                explanation: "A Política Nacional de Prevenção e Controle do Câncer visa reduzir a incidência e mortalidade por câncer no Brasil, promovendo ações de prevenção, diagnóstico precoce e tratamento adequado."
+            },
+            {
+                question: "6. No contexto de trabalho em equipe na saúde, qual é o modelo em que profissionais de diferentes áreas atuam de forma isolada, sem intercâmbio de saberes?",
+                options: [
+                    "Equipe transdisciplinar.",
+                    "Equipe interdisciplinar.",
+                    "Equipe multidisciplinar.",
+                    "Equipe integrada."
+                ],
+                correctAnswer: "Equipe multidisciplinar.",
+                hint: "Pense na origem do prefixo 'multi', que significa 'muitos', e como isso se reflete na ausência de interação entre as áreas.",
+                explanation: "A equipe multidisciplinar é composta por profissionais de diferentes áreas que atuam de forma isolada, sem intercâmbio de saberes, ao contrário das equipes interdisciplinares e transdisciplinares, que promovem maior integração e troca de conhecimentos."
+            },
+            {
+                question: "7. A Política Nacional de Humanização (PNH) tem como um de seus princípios a 'indissociabilidade entre atenção e gestão'. Isso significa que:",
+                options: [
+                    "Apenas os gestores devem tomar decisões sobre a atenção à saúde.",
+                    "A gestão é separada da atenção ao usuário.",
+                    "O modelo de gestão não deve interferir na forma como o cuidado é prestado.",
+                    "As decisões sobre a atenção à saúde devem ser tomadas com a participação dos trabalhadores, gestores e usuários."
+                ],
+                correctAnswer: "As decisões sobre a atenção à saúde devem ser tomadas com a participação dos trabalhadores, gestores e usuários.",
+                hint: "A PNH busca a democratização do ambiente de trabalho e a participação de todos os envolvidos no processo de saúde.",
+                explanation: "A indissociabilidade entre atenção e gestão na PNH implica que as decisões sobre a saúde devem ser tomadas de forma coletiva, envolvendo trabalhadores, gestores e usuários, promovendo um ambiente mais democrático e participativo."
+            },
+            {
+                question: "8. Em estudos e pesquisas em saúde envolvendo seres humanos, o órgão responsável por avaliar e defender os interesses dos participantes da pesquisa é o:",
+                options: [
+                    "Conselho Federal de Medicina (CFM).",
+                    "Comitê de Ética em Pesquisa (CEP).",
+                    "Agência Nacional de Vigilância Sanitária (ANVISA).",
+                    "Ministério da Saúde."
+                ],
+                correctAnswer: "Comitê de Ética em Pesquisa (CEP).",
+                hint: "O CEP atua para garantir que os direitos e o bem-estar dos participantes de pesquisas sejam protegidos.",
+                explanation: "O Comitê de Ética em Pesquisa (CEP) é responsável por avaliar a ética das pesquisas envolvendo seres humanos, garantindo que os direitos e o bem-estar dos participantes sejam respeitados."
+            },
+            {
+                question: "9. O tipo de vigilância em saúde que tem como objetivo monitorar e controlar doenças e agravos de notificação compulsória, como a dengue e o sarampo, é a:",
+                options: [
+                    "Vigilância ambiental.",
+                    "Vigilância epidemiológica.",
+                    "Vigilância sanitária.",
+                    "Vigilância da saúde do trabalhador."
+                ],
+                correctAnswer: "Vigilância epidemiológica.",
+                hint: "A epidemiologia se dedica ao estudo da distribuição e dos fatores determinantes de doenças em populações humanas.",
+                explanation: "A vigilância epidemiológica é o sistema de monitoramento e controle de doenças e agravos de notificação compulsória, permitindo a identificação precoce de surtos e a implementação de medidas de controle."
+            },
+            {
+                question: "10. A incidência de uma doença é um indicador epidemiológico que mede:",
+                options: [
+                    "O número total de casos existentes de uma doença em uma população.",
+                    "A proporção de pessoas que têm a doença em um determinado momento.",
+                    "O número de casos novos de uma doença em uma população, em um período de tempo definido.",
+                    "A gravidade da doença na população."
+                ],
+                correctAnswer: "O número de casos novos de uma doença em uma população, em um período de tempo definido.",
+                hint: "Pense na palavra 'incidência' como o surgimento de novos casos.",
+                explanation: "A incidência é um indicador epidemiológico que mede o número de casos novos de uma doença em uma população durante um período específico, refletindo o risco de contrair a doença."
+            },
+            {
+                question: "11. Qual dos sistemas de informação em saúde é utilizado para monitorar doenças de notificação compulsória?",
+                options: [
+                    "Sistema de Informações sobre Mortalidade (SIM).",
+                    "Sistema de Informações de Agravos de Notificação (SINAN).",
+                    "Sistema de Informações Hospitalares (SIH/SUS).",
+                    "Sistema de Informações de Nascidos Vivos (SINASC)."
+                ],
+                correctAnswer: "Sistema de Informações de Agravos de Notificação (SINAN).",
+                hint: "O nome do sistema já dá a dica: 'Agravos de Notificação'.",
+                explanation: "O SINAN é o sistema utilizado para registrar e monitorar os agravos de notificação compulsória, permitindo o controle e a vigilância epidemiológica de doenças como dengue, sarampo, entre outras."
+            },
+            {
+                question: "12. A Norma Regulamentadora 32 (NR 32) estabelece diretrizes básicas para a proteção da segurança e saúde dos trabalhadores em serviços de saúde. Uma de suas principais exigências é:",
+                options: [
+                    "Permitir o uso de joias e adornos durante a manipulação de materiais biológicos.",
+                    "Proibir o uso de adornos (anéis, pulseiras, colares) pelos trabalhadores que atuam em áreas de risco.",
+                    "Não exigir a vacinação dos trabalhadores contra hepatite B.",
+                    "Dispensar o uso de equipamentos de proteção individual (EPIs) em caso de urgência."
+                ],
+                correctAnswer: "Proibir o uso de adornos (anéis, pulseiras, colares) pelos trabalhadores que atuam em áreas de risco.",
+                hint: "A NR 32 busca minimizar riscos de contaminação e acidentes. O uso de adornos aumenta o risco de acúmulo de microrganismos.",
+                explanation: "A NR 32 estabelece que os trabalhadores em serviços de saúde devem evitar o uso de adornos, como anéis, pulseiras e colares, para reduzir o risco de contaminação e acidentes durante a manipulação de materiais biológicos."
+            },
+            {
+                question: "13. Qual é o tipo de estudo epidemiológico que compara um grupo de pessoas com uma doença (casos) com um grupo sem a doença (controles) para investigar fatores de risco passados?",
+                options: [
+                    "Estudo de coorte.",
+                    "Ensaio clínico randomizado.",
+                    "Estudo de caso-controle.",
+                    "Estudo transversal."
+                ],
+                correctAnswer: "Estudo de caso-controle.",
+                hint: "A 'retrospectividade' é uma característica chave deste tipo de estudo.",
+                explanation: "O estudo de caso-controle é um tipo de estudo observacional que compara indivíduos com uma condição específica (casos) com aqueles sem a condição (controles), analisando fatores de risco passados para identificar possíveis associações."
+            },
+            {
+                question: "14. A Biossegurança, no contexto da saúde, é o conjunto de ações voltadas para a prevenção de riscos. Um dos seus focos principais é:",
+                options: [
+                    "Apenas a segurança do paciente.",
+                    "Apenas a segurança dos trabalhadores.",
+                    "A segurança dos pacientes, dos profissionais de saúde, da comunidade e do meio ambiente.",
+                    "A segurança dos equipamentos hospitalares."
+                ],
+    correctAnswer: "A segurança dos pacientes, dos profissionais de saúde, da comunidade e do meio ambiente.",
+    hint: "A Biossegurança tem um escopo amplo, protegendo não só o indivíduo, mas todo o entorno.",
+    explanation: "A Biossegurança envolve medidas para proteger a saúde de pacientes, profissionais de saúde, a comunidade e o meio ambiente, prevenindo riscos biológicos, químicos e físicos."
+            },
+            {
+                question: "15. A gestão de riscos e segurança do paciente tem como principal objetivo:",
+                options: [
+                    "Punir os profissionais de saúde que cometeram erros.",
+                    "Implementar sistemas e processos para prevenir a ocorrência de eventos adversos e mitigar seus danos.",
+                    "Diminuir os custos operacionais dos hospitais.",
+                    "Aumentar a burocracia nos procedimentos de atendimento."
+                ],
+                correctAnswer: "Implementar sistemas e processos para prevenir a ocorrência de eventos adversos e mitigar seus danos.",
+                hint: "A gestão de riscos é uma abordagem proativa e sistemática que foca na prevenção.",
+                explanation: "A gestão de riscos e segurança do paciente visa implementar medidas que previnam eventos adversos, garantindo a segurança e qualidade do atendimento prestado."
+            }
+            ],
+            
+            
+        };
+
+        // Referências aos elementos da interface
+        const homeScreen = document.getElementById('home-screen');
+        const eixoContentScreen = document.getElementById('eixo-content-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        
+        const eixoContentTitle = document.getElementById('eixo-content-title');
+        const eixoContentText = document.getElementById('eixo-content-text');
+        const currentEixoTitle = document.getElementById('current-eixo-title');
+        const questionText = document.getElementById('question-text');
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const optionsContainer = document.getElementById('options-container');
+        const hintButton = document.getElementById('hint-button');
+        const hintText = document.getElementById('hint-text');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const nextButton = document.getElementById('next-button');
+        const finalScore = document.getElementById('final-score');
+
+        // Função para exibir a tela de conteúdo do eixo temático
+        function showEixoContent(eixo) {
+            quizState.currentEixo = eixo;
+            eixoContentTitle.textContent = ` ${eixo}`;
+            eixoContentText.innerHTML = eixoContent[eixo];
+            
+            homeScreen.classList.add('hidden');
+            eixoContentScreen.classList.remove('hidden');
+        }
+
+        // Função para iniciar o quiz após ver o conteúdo do eixo
+        function startQuiz() {
+            quizState.questions = quizData[quizState.currentEixo];
+            quizState.currentQuestionIndex = 0;
+            quizState.score = 0;
+
+            eixoContentScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            updateQuizUI();
+        }
+
+        // Função para voltar à tela inicial
+        function goToHome() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            eixoContentScreen.classList.add('hidden');
+            homeScreen.classList.remove('hidden');
+        }
+
+        // Função para atualizar a interface do quiz com a pergunta atual
+        function updateQuizUI() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            
+            currentEixoTitle.textContent = quizState.currentEixo;
+            questionText.textContent = currentQuestion.question;
+            questionCounter.textContent = `Pergunta ${quizState.currentQuestionIndex + 1} de ${quizState.questions.length}`;
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+            
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('w-full', 'bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white', 'text-gray-800', 'font-medium', 'py-3', 'px-4', 'rounded-lg', 'text-left', 'transition-colors', 'duration-200');
+                button.onclick = () => selectAnswer(button, option);
+                optionsContainer.appendChild(button);
+            });
+
+            // Resetar estados de dica e explicação
+            hintButton.classList.remove('hidden');
+            hintText.classList.add('hidden');
+            explanationContainer.classList.add('hidden');
+            nextButton.classList.add('hidden');
+        }
+        
+        // Função para mostrar a dica
+        function showHint() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            hintText.textContent = `Dica: ${currentQuestion.hint}`;
+            hintText.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+        }
+
+        // Função para selecionar uma resposta
+        function selectAnswer(selectedButton, selectedOption) {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correctAnswer;
+            
+            // Desabilitar todas as opções
+            Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+
+            // Destacar respostas
+            if (isCorrect) {
+                quizState.score++;
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-green-500', 'text-white');
+            } else {
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-red-500', 'text-white');
+                // Destacar a resposta correta também
+                Array.from(optionsContainer.children).find(btn => btn.textContent === currentQuestion.correctAnswer).classList.add('bg-green-500', 'text-white');
+            }
+            
+            // Mostrar a explicação e o botão de próxima pergunta
+            explanationText.textContent = currentQuestion.explanation;
+            explanationContainer.classList.remove('hidden');
+            nextButton.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+        }
+
+        // Função para avançar para a próxima pergunta
+        function nextQuestion() {
+            quizState.currentQuestionIndex++;
+            if (quizState.currentQuestionIndex < quizState.questions.length) {
+                updateQuizUI();
+            } else {
+                showResults();
+            }
+        }
+
+        // Função para exibir os resultados finais
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScore.textContent = `Você acertou ${quizState.score} de ${quizState.questions.length} perguntas do eixo '${quizState.currentEixo}'.`;
+        }
+    </script>
+
+</body>
+</html>

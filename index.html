@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial CPNU- Quiz</title>
+    <!-- Adicione a linha do favicon aqui -->
+    <link rel="icon" type="image/png" href="brasil.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter para todo o corpo da página */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Fundo cinza claro */
+            color: #1f2937; /* Cor do texto principal */
+        }
+        /* Efeito de transição para os botões */
+        .themed-button {
+            transition: all 0.2s;
+        }
+        /* Efeito de elevação (hover) nos botões */
+        .themed-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        /* Estilos para as bordas superior e inferior fixas */
+        .top-border {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 1.5rem; /* Altura da borda */
+            z-index: 10;
+            background-color: #1e3a8a; /* Azul escuro */
+        }
+        /* Estilos para a imagem no rodapé */
+        .footer-image {
+            width: 100%; /* A imagem ocupa a largura total do contêiner */
+            height: auto; /* Mantém a proporção da imagem */
+            display: block; /* Remove o espaço extra abaixo da imagem */
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Borda Superior fixa -->
+    <div class="top-border"></div>
+
+    <div class="flex-grow container mx-auto p-4 sm:p-6 lg:p-8 mt-6 mb-6">
+        <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-gray-200">
+            <div class="text-center">
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-indigo-600 mb-2 sm:mb-4">Quiz Preparatório CPNU</h1>
+                <p class="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
+                    Selecione o bloco que você deseja estudar para o Concurso Público Nacional Unificado.
+                </p>
+
+                 <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 sm:mb-8" role="alert">
+                    <p class="font-bold">Aviso Importante!</p>
+                    <p>As perguntas foram elaboradas por inteligência artificial e podem conter erros. Use-as como um auxílio de estudo.</p>
+                </div>
+
+                <!-- Grade de botões responsiva -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                    <a href="cpnu1.html" class="themed-button flex items-center justify-center bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-4 rounded-lg text-lg sm:text-xl shadow-md">
+                        Bloco 1
+                    </a>
+                    <a href="cpnu2.html" class="themed-button flex items-center justify-center bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-4 rounded-lg text-lg sm:text-xl shadow-md">
+                        Bloco 2
+                    </a>
+                    <a href="cpnu3.html" class="themed-button flex items-center justify-center bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-4 rounded-lg text-lg sm:text-xl shadow-md">
+                        Bloco 3
+                    </a>
+                    <a href="cpnu4.html" class="themed-button flex items-center justify-center bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-4 rounded-lg text-lg sm:text-xl shadow-md">
+                        Bloco 4
+                    </a>
+                    <a href="cpnu5.html" class="themed-button flex items-center justify-center bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-4 rounded-lg text-lg sm:text-xl shadow-md">
+                        Bloco 5
+                    </a>
+                    <a href="cpnu6.html" class="themed-button flex items-center justify-center bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-4 rounded-lg text-lg sm:text-xl shadow-md">
+                        Bloco 6
+                    </a>
+                    <a href="cpnu7.html" class="themed-button flex items-center justify-center bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-4 rounded-lg text-lg sm:text-xl shadow-md">
+                        Bloco 7
+                    </a>
+                    <a href="cpnu8.html" class="themed-button flex items-center justify-center bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-4 rounded-lg text-lg sm:text-xl shadow-md">
+                        Bloco 8
+                    </a>
+                    <a href="cpnu9.html" class="themed-button flex items-center justify-center bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-4 rounded-lg text-lg sm:text-xl shadow-md">
+                        Bloco 9
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé fixo na parte inferior -->
+   <footer class="bg-gray-800 text-white w-full mt-auto">
+
+    <img src="7e4bab99-0869-4fec-bb88-19225341d17c (1).png" alt="Borda decorativa" class="footer-image">
+
+    <div class="container mx-auto px-4 py-4 w-11/12 sm:w-3/4 md:w-2/3">
+        <div class="flex flex-col sm:flex-row justify-center sm:justify-between items-center flex-wrap text-center sm:text-left">
+            <a href="contato.html" class="text-sm text-gray-300 hover:text-white transition-colors duration-200">
+                Dúvidas? Entre em contato!
+            </a>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
+                <a href="mailto:contato@luizcodedev.tech" class="text-gray-300 hover:text-white transition-colors duration-200">
+                    Email
+                </a>
+                <a href="https://wa.me/5511995432530" target="_blank" class="text-gray-300 hover:text-white transition-colors duration-200">
+                    WhatsApp
+                </a>
+                <a href="https://www.linkedin.com/in/luiz-eduardo-82a942179/" target="_blank" class="text-gray-300 hover:text-white transition-colors duration-200">
+                    LinkedIn
+                </a>
+                <a href="politica-de-privacidade.html" class="text-gray-300 hover:text-white transition-colors duration-200">
+                    Política de Privacidade
+                </a>
+            </div>
+        </div>
+
+        <p class="mt-4 text-xs text-center text-gray-500">© 2025 LuizDev. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+</body>
+</html>

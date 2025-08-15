@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz CPNU - Bloco 4</title>
+    <link rel="icon" type="image/png" href="brasil.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 48rem;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .themed-button {
+            transition: all 0.2s;
+        }
+        .themed-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .themed-button-active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .top-border {
+            width: 100%;
+            height: 1.5rem;
+            background-color: #1e3a8a;
+        }
+        .themed-footer {
+            width: 100%;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.5rem 1rem; /* Aumentado para 1.5rem no eixo vertical (topo/fundo) */
+        }
+        .footer-border-image {
+            width: 100%;
+            height: 18px;
+            display: block;
+        }
+        .footer-content {
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .contact-link {
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+        .contact-link:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-border"></div>
+
+    <div class="container">
+        
+        <div id="home-screen" class="text-center">
+
+            <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">Quiz Preparatório CPNU - Bloco 4</h1>
+            <p class="text-lg text-gray-600 mb-8">Selecione um eixo temático para estudar os conteúdos e começar o quiz.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Conhecimentos Gerais')">
+                    Conhecimentos Gerais
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 1 - Gestão de Obras e Serviços de Engenharia')">
+                    Eixo 1: Gestão de Obras e Serviços de Engenharia
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 2 - Planejamento Territorial')">
+                    Eixo 2: Planejamento Territorial
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 3 - Planejamento e Projetos de Obras')">
+                    Eixo 3: Planejamento e Projetos de Obras
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 4 - Agrário e Pesqueiro')">
+                    Eixo 4: Agrário e Pesqueiro
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 5 - Sustentabilidade e Patrimônio Cultural')">
+                    Eixo 5: Sustentabilidade e Patrimônio Cultural
+                </button>
+            </div>
+            
+            <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center w-full mt-6 justify-center" onclick="goToPreviousPage()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    Voltar
+</button>
+        </div>
+
+        <div id="eixo-content-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4" id="eixo-content-title"></h2>
+            <div id="eixo-content-text" class="text-left bg-gray-50 p-6 rounded-xl shadow-inner overflow-y-auto max-h-96 text-gray-700">
+                </div>
+            <div class="mt-6 flex justify-between gap-4">
+                <button class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="startQuiz()">
+                    Iniciar Quiz
+                </button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <div class="mb-6 pb-4 border-b border-gray-300">
+                <p class="text-indigo-600 font-semibold text-lg" id="current-eixo-title"></p>
+                <h2 class="text-2xl font-bold mt-2 text-gray-800" id="question-text"></h2>
+                <div class="flex justify-between items-center text-sm mt-2">
+                    <p class="text-gray-500" id="question-counter"></p>
+                    <p class="text-green-600 font-bold" id="score-counter"></p>
+                </div>
+            </div>
+
+            <div id="options-container" class="space-y-4 mb-4">
+                </div>
+            
+            <button id="hint-button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-lg shadow-sm transition-colors duration-200 mt-4" onclick="showHint()">
+                Dica
+            </button>
+            <div id="hint-text" class="hidden mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-gray-700"></div>
+
+            <div id="explanation-container" class="hidden mt-6 p-6 rounded-lg border border-green-600 bg-green-50">
+                <p class="font-bold text-green-700 mb-2">Explicação:</p>
+                <p id="explanation-text" class="text-gray-700"></p>
+            </div>
+            
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="back-to-home-button" class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button id="next-button" class="w-1/2 hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="nextQuestion()">
+                    Próxima Pergunta
+                </button>
+            </div>
+        </div>
+
+        <div id="results-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4">Quiz Concluído!</h2>
+            <p id="final-score" class="text-xl mb-6 text-gray-800"></p>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                Voltar para o Início
+            </button>
+        </div>
+    </div>
+    
+    <footer class="w-full mt-auto">
+        <img src="7e4bab99-0869-4fec-bb88-19225341d17c (1).png" alt="Borda decorativa" class="footer-border-image">
+        <div class="themed-footer">
+    <div class="footer-content">
+        <div class="flex items-center space-x-4">
+          <a href="contato.html" class="text-sm text-gray-300 hover:text-white transition-colors duration-200">
+                Dúvidas? Entre em contato!
+            </a>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
+            <a href="mailto:contato@luizcodedev.tech" class="contact-link text-sm">Email</a>
+            <a href="https://wa.me/5511995432530" target="_blank" class="contact-link text-sm">WhatsApp</a>
+            <a href="https://www.linkedin.com/in/luiz-eduardo-82a942179/" target="_blank" class="contact-link text-sm">LinkedIn</a>
+        </div>
+    </div>
+    <div class="text-center text-gray-400 text-xs mt-2 md:mt-0">
+        &copy; 2025 LuizDev. Todos os direitos reservados.
+    </div>
+</div>
+    </footer>
+
+      
+
+     <script>
+        // Objeto global para armazenar o estado do quiz
+        let quizState = {
+            questions: [],
+            currentQuestionIndex: 0,
+            score: 0,
+            currentEixo: ''
+        };
+
+        function goToPreviousPage() {
+    // Isso fará o navegador voltar para a página anterior no histórico
+    window.history.back();
+}
+
+        // Conteúdo de estudo para cada eixo temático
+        const eixoContent = {
+            'Conhecimentos Gerais': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Desafios do estado de direito: democracia e cidadania.</li>
+                    <li>2. Políticas públicas: fundamentos, ciclos, federalismo e transformação digital.</li>
+                    <li>3. Ética e integridade: princípios, governança e transparência.</li>
+                    <li>4. Diversidade e inclusão na sociedade.</li>
+                    <li>5. Administração pública federal: princípios, reformas e finanças públicas.</li>
+                    <li>6. Trabalho e tecnologia: IA, automação e riscos no setor público.</li>
+                </ul>
+            `,
+            'Eixo Temático 1 - Gestão de Obras e Serviços de Engenharia': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Estudos de viabilidade técnica, econômica, ambiental e social.</li>
+                    <li>2. Planejamento de obras e serviços: parametrização,
+composição de custos e orçamentação, cálculo de benefícios e despesas indiretas (BDI) e encargos sociais.</li>
+                    <li>3. Licitação e Contratação de obras e serviços de engenharia e arquitetura
+nos termos da Lei nº 14.133/2021.</li>
+                    <li>4. Gestão da Manutenção: preditiva e corretiva.</li>
+                    <li>5. Projetos de infraestrutura urbana (saneamento, drenagem, pavimentação, abastecimento de água).</li>
+                   <li>6. Gestão da
+Qualidade na Construção Civil. Ensaios, vistorias e elaboração de pareceres.</li>
+                    <li>7. Gerenciamento e fiscalização de obras.</li>
+                    <li>8. Gestão de Riscos – princípios, matriz de riscos e outras ferramentas.</li>
+                    <li>9. Noções de segurança do trabalho na
+construção civil.</li>    
+                    <li>10. Geração, Transmissão e Distribuição de Energia.</li>
+                    <li>11. Projeto e análise de máquinas, Sistemas hidráulicos e pneumáticos, Sistemas dinâmicos e vibrações.</li>
+                    <li>12. CLPs
+(controladores lógicos programáveis).</li>
+                </ul>
+            `,
+            'Eixo Temático 2 - Planejamento Territorial': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1.Lei de parcelamento do solo urbano (Lei nº 6.766/1979).</li>
+                    <li>2. Princípios e diretrizes da política de gestão do patrimônio imobiliário
+e fundiário da União (Lei nº 9.636/1998).</li>
+                    <li>3. Política Nacional de Gestão Territorial e Ambiental de Terras Indígenas – PNGATI (Decreto nº 7.747/2012), Demarcação das terras indígenas (Decreto nº 1.775/1996).</li>
+                    <li>4. Regularização fundiária rural e urbana (Lei nº 13.465/2017).</li>
+                    <li>5. Princípios e diretrizes das políticas
+nacionais setoriais de habitação, saneamento (Lei nº 11.445/2007), mobilidade urbana (Lei nº 12.587/2012).</li>
+                    <li>6. Fundamentos da topografia, técnicas de levantamento topográfico e geodésico, Noções básicas de cartografia,
+escala, sistemas de coordenadas, projeção cartográfica sistema global de posicionamento por satélites artificiais.</li>
+                </ul>
+            `,
+            'Eixo Temático 3 - Planejamento e Projetos de Obras': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Elaboração de projetos: Definição de programa de necessidades, dimensionamento, zoneamento das atividades,
+orientação e implantação da edificação.</li>
+                    <li>2. Acessibilidade e inclusão (Estatuto da Pessoa com Deficiência, Lei nº
+13.146/2015).</li>
+                    <li>3. Coordenação modular e dimensional, Funcionalidade, flexibilidade e adaptabilidade dos edifícios.</li>
+                    <li>4. Intervenções em imóveis e bens tombados: conservação e restauração (metodologias, justificativa conceitual,
+especificações técnicas).</li>
+                    <li>5. Sistemas estruturais, fundações e tecnologias construtivas, tradicionais e contemporâneas.</li>
+                    <li>6.  Propriedades físicas e mecânicas dos materiais e estruturas na
+construção civil e instalações industriais.</li>
+                    <li>7. Projetos complementares de Instalações prediais (elétricas, hidrossanitárias, ventilação mecânica e
+ar-condicionado, e prevenção e combate a incêndio).</li>
+                    <li>8. Ergonomia e conforto ambiental (térmico, acústico e luminoso) nas edificações.</li>
+                    <li>9. Ferramentas de planejamento e simulação que utilizam
+metodologia CAD (Projeto Assistido por Computador) e BIM (Modelagem da Informação da Construção).</li>  
+                </ul>
+            `,
+            'Eixo Temático 4 - Agrário e Pesqueiro': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Política agrícola (Lei nº 8.171/1991).</li>
+                    <li>2. Certificação e Rotulagem de Produtos Agroecológicos. 2.1 Sistemas de
+certificação orgânica e agroecológica.</li>
+                    <li>3. Zoneamento Ecológico-Econômico, Reforma agrária, Agricultura familiar e comunitária.</li>
+                    <li>4. Registro Geral da Atividade Pesqueira - Decreto n° 8.425/2015 e suas
+alterações.</li>
+                    <li>5. Programa Nacional de Desenvolvimento Sustentável da Aquicultura (Decreto n° 11.852/2023). 5.1. Programa Povos
+da Pesca Artesanal (Decreto n° 11.626/2023).</li>
+                    <li>6. Ecologia de ecossistemas aquáticos marinhos e continentais, Principais técnicas
+empregadas na pesca artesanal, ornamental, amadora/esportiva e industrial..</li>
+                    <li>7. Noções de ordenamento
+e gestão dos principais recursos pesqueiros e aquícolas no Brasil.</li>
+                    <li>8. Comunidades, sociedades pesqueiras e o comanejo. Noções de ecologia humana na pesca.</li>
+                    <li>9. Política Nacional de Desenvolvimento Sustentável da Aquicultura e da Pesca (Lei nº 11.959/2009).</li>
+                    
+                </ul>
+            `,
+            'Eixo Temático 5 - Sustentabilidade e Patrimônio Cultural': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Gestão ambiental, Política Nacional do Meio Ambiente (Lei nº 6.938/1981).</li>
+                    <li>2.Política Nacional sobre Mudança do Clima (Lei nº 12.187/2009).</li>
+                    <li>3. Proteção
+ao Patrimônio Histórico e Cultural – Lei nº 6.292/1975, Decreto nº 25/1937 - Preservação e sustentabilidade da
+Paisagem no Patrimônio Cultural em centros históricos tombados.</li>
+                    <li>4. Licenciamento ambiental, Procedimentos para o licenciamento
+ambiental.</li>
+                    <li>5. Política Nacional de Resíduos Sólidos (Lei nº 12.305/2010).</li>
+                    <li>6. Política Energética Nacional (Lei nº
+9.478/1997), Lei do Gás (Lei nº14.134/2021), Eficiência Energética.</li>
+                    <li>7. Política Nacional de Recursos Hídricos (PNRH) (Lei
+nº 9.433/1997); Sistema Nacional de Gerenciamento de Recursos Hídricos (SINGREH), Gestão e conservação das
+águas, açudes, irrigação e drenagem.</li>
+                    
+                </ul>
+            `
+        };
+
+        // Dados do quiz: perguntas, opções, respostas, dicas e explicações
+        const quizData = {
+             'Conhecimentos Gerais': [
+                 {
+                question: "Qual dos seguintes itens NÃO é considerado um direito fundamental garantido pela Constituição Federal de 1988?",
+                options: [
+                    "Direito à vida.",
+                    "Direito à liberdade de expressão.",
+                    "Direito de propriedade sobre recursos naturais do país.",
+                    "Direito à igualdade.",
+                    "Direito à moradia."
+                ],
+                correctAnswer: "Direito de propriedade sobre recursos naturais do país.",
+                hint: "A Constituição estabelece que os recursos naturais são bens da União, de domínio público.",
+                explanation: "Embora a Constituição garanta o direito à propriedade, os recursos naturais são considerados bens da União e não podem ser apropriados individualmente. O Estado é responsável por sua gestão e proteção, garantindo que sejam utilizados em benefício de toda a sociedade."
+            },
+            {
+                question: "No ciclo de políticas públicas, qual é a etapa que envolve a elaboração de planos, programas e projetos detalhados para alcançar os objetivos definidos?",
+                options: [
+                    "Formulação.",
+                    "Agenda.",
+                    "Monitoramento.",
+                    "Avaliação.",
+                    "Implementação."
+                ],
+                correctAnswer: "Formulação.",
+                hint: "É nesta fase que as soluções para o problema público são desenhadas e as estratégias são definidas.",
+                explanation: "A etapa de formulação é crucial no ciclo de políticas públicas, pois é onde se define como o problema identificado será abordado, quais recursos serão necessários e quais ações serão implementadas para alcançar os objetivos estabelecidos."
+            },
+            {
+                question: "Qual é o principal objetivo do princípio da 'transparência' na administração pública?",
+                options: [
+                    "Apenas divulgar os gastos públicos.",
+                    "Tornar as ações e decisões governamentais acessíveis e compreensíveis para a sociedade.",
+                    "Impedir a participação cidadã.",
+                    "Garantir a confidencialidade das informações.",
+                    "Apenas cumprir a Lei de Acesso à Informação (LAI)."
+                ],
+                correctAnswer: "Tornar as ações e decisões governamentais acessíveis e compreensíveis para a sociedade.",
+                hint: "A transparência vai além da simples divulgação; ela busca a inteligibilidade e o controle social sobre a gestão pública.",
+                explanation: "O princípio da transparência é fundamental para a democracia, pois permite que os cidadãos acompanhem e fiscalizem as ações do governo, promovendo a accountability e a confiança nas instituições públicas."
+            },
+            {
+                question: "Qual dos seguintes conceitos está diretamente ligado à ideia de que diferentes formas de discriminação (como raça, gênero e classe) não podem ser analisadas isoladamente, mas sim em suas interconexões?",
+                options: [
+                    "Federalismo.",
+                    "Intersetorialidade.",
+                    "Interseccionalidade.",
+                    "Transversalidade.",
+                    "Governabilidade."
+                ],
+                correctAnswer: "Interseccionalidade.",
+                hint: "Este conceito reconhece que as identidades sociais se cruzam e criam experiências únicas de opressão e privilégio.",
+                explanation: "A interseccionalidade é um conceito que analisa como diferentes formas de discriminação e opressão se interconectam, afetando as experiências de indivíduos e grupos de maneira complexa. É fundamental para entender a diversidade e a inclusão nas políticas públicas."
+            },
+            {
+                question: "A estrutura organizacional da Administração Pública Federal é regida por quais princípios constitucionais?",
+                options: [
+                    "Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência.",
+                    "Probidade, Meritocracia e Hierarquia.",
+                    "Eficiência, Descentralização e Autonomia.",
+                    "Transparência, Responsabilidade e Equidade.",
+                    "Legalidade, Publicidade, Autonomia e Flexibilidade."
+                ],
+                correctAnswer: "Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência.",
+                hint: "Esses são os cinco princípios fundamentais da Administração Pública, frequentemente lembrados pela sigla 'LIMPE'.",
+                explanation: "Os princípios constitucionais da Administração Pública são fundamentais para garantir que a gestão pública seja realizada de forma ética, transparente e eficiente, assegurando o respeito aos direitos dos cidadãos e a boa aplicação dos recursos públicos."
+            },
+            {
+                question: "A automação no setor público, impulsionada por novas tecnologias como a Inteligência Artificial, tem como um de seus principais desafios:",
+                options: [
+                    "Aumento da carga de trabalho dos servidores.",
+                    "A ausência de dados para treinamento de algoritmos.",
+                    "Aumento de burocracia nos processos.",
+                    "A necessidade de requalificação dos servidores e o risco de desumanização do serviço.",
+                    "A impossibilidade de monitorar os resultados."
+                ],
+                correctAnswer: "A necessidade de requalificação dos servidores e o risco de desumanização do serviço.",
+                hint: "Enquanto a tecnologia automatiza tarefas, a dimensão humana e a adaptabilidade dos profissionais se tornam ainda mais importantes.",
+                explanation: "A automação traz eficiência, mas também exige que os servidores se adaptem às novas tecnologias e mantenham a humanização no atendimento ao cidadão. O risco de desumanização é um desafio ético importante."
+            },
+            {
+                question: "Qual dos instrumentos a seguir estabelece as metas e prioridades do governo para um período de quatro anos?",
+                options: [
+                    "Lei de Diretrizes Orçamentárias (LDO).",
+                    "Lei Orçamentária Anual (LOA).",
+                    "Plano Plurianual (PPA).",
+                    "Lei de Responsabilidade Fiscal (LRF).",
+                    "Lei de Acesso à Informação (LAI)."
+                ],
+                correctAnswer: "Plano Plurianual (PPA).",
+                hint: "É o planejamento de médio prazo que orienta a elaboração da LDO e da LOA, definindo as grandes diretrizes governamentais.",
+                explanation: "O PPA é um instrumento de planejamento de médio prazo que estabelece as diretrizes, objetivos e metas da administração pública federal para um período de quatro anos, servindo como base para a elaboração da LDO e da LOA."
+            },
+            {
+                question: "A 'judicialização de políticas públicas' é um fenômeno que ocorre quando:",
+                options: [
+                    "O Poder Executivo cria leis sem a aprovação do Legislativo.",
+                    "As decisões políticas são tomadas exclusivamente pelo Poder Judiciário.",
+                    "O Poder Judiciário é acionado para resolver conflitos sobre a implementação ou a falta de políticas públicas.",
+                    "O Legislativo se sobrepõe ao Executivo na criação de políticas.",
+                    "O Judiciário se abstém de qualquer tipo de intervenção na área política."
+                ],
+                correctAnswer: "O Poder Judiciário é acionado para resolver conflitos sobre a implementação ou a falta de políticas públicas.",
+                hint: "Este fenômeno reflete a busca por direitos e a resolução de impasses políticos no âmbito judicial.",
+                explanation: "A judicialização de políticas públicas ocorre quando cidadãos ou grupos sociais recorrem ao Judiciário para garantir direitos ou questionar a omissão do Estado na implementação de políticas públicas. Isso pode ocorrer em diversas áreas, como saúde, educação e assistência social."
+            },
+            {
+                question: "O princípio da 'intersetorialidade' em políticas públicas refere-se à:",
+                options: [
+                    "Criação de políticas que atendam a um único setor da sociedade.",
+                    "Articulação e colaboração entre diferentes setores da administração pública para solucionar um problema complexo.",
+                    "Exclusividade de um setor na tomada de decisões.",
+                    "Centralização de todas as ações em um único ministério.",
+                    "Ausência de diálogo entre as diferentes esferas de governo."
+                ],
+                correctAnswer: "Articulação e colaboração entre diferentes setores da administração pública para solucionar um problema complexo.",
+                hint: "Problemas sociais complexos, como a violência urbana, exigem a cooperação de setores como segurança, educação, saúde e assistência social.",
+                explanation: "A intersetorialidade é essencial para a efetividade das políticas públicas, pois reconhece que muitos problemas sociais não podem ser resolvidos por um único setor, mas sim por uma abordagem integrada que envolva múltiplas áreas de atuação do governo."
+            },
+            {
+                question: "Qual a principal função de uma 'capacidade estatal'?",
+                options: [
+                    "Representar o Estado em nível internacional.",
+                    "Aumentar o poder do Legislativo sobre o Executivo.",
+                    "Apenas arrecadar impostos.",
+                    "A capacidade do Estado de realizar suas funções, implementar políticas e fornecer serviços de maneira eficaz.",
+                    "Controlar a mídia e a opinião pública."
+                ],
+                correctAnswer: "A capacidade do Estado de realizar suas funções, implementar políticas e fornecer serviços de maneira eficaz.",
+                hint: "É a competência técnica e administrativa do Estado que permite a ele cumprir com suas responsabilidades e gerar resultados para a sociedade.",
+                explanation: "A capacidade estatal é essencial para a efetividade das políticas públicas, pois envolve a habilidade do governo de planejar, executar e avaliar ações que atendam às necessidades da população. Sem essa capacidade, o Estado não consegue cumprir seu papel de forma eficiente."
+            },
+                {
+                    question: "Segundo a Constituição de 1988, qual a principal função dos direitos fundamentais, sociais e políticos?",
+                    options: ["Consolidar a democracia e a cidadania.", "Limitar o poder do Poder Executivo.", "Viabilizar a judicialização de políticas públicas.", "Aumentar a burocracia estatal."],
+                    correctAnswer: "Consolidar a democracia e a cidadania.",
+                    hint: "A Constituição de 88 é conhecida como a 'Constituição Cidadã'.",
+                    explanation: "A Constituição de 1988, conhecida como a 'Constituição Cidadã', tem como um de seus pilares a consolidação da democracia. Os direitos fundamentais, sociais e políticos servem para assegurar a participação ativa do cidadão e a proteção de suas liberdades, fortalecendo o Estado Democrático de Direito."
+                },
+                {
+                    question: "Na etapa de 'Formulação' do ciclo de políticas públicas, qual atividade é central?",
+                    options: ["Implementar planos e programas.", "Monitorar e avaliar os resultados.", "Elaborar alternativas e selecionar a melhor solução.", "Definir se o problema será tratado pelo governo."],
+                    correctAnswer: "Elaborar alternativas e selecionar a melhor solução.",
+                    hint: "Pense na fase que vem depois de identificar o problema, mas antes de agir.",
+                    explanation: "Após a fase de 'Agenda', onde o problema é reconhecido, a 'Formulação' é a etapa em que se criam as propostas de ação, avaliando as possíveis soluções e escolhendo a mais adequada para ser implementada."
+                },
+                {
+                    question: "A Lei de Acesso à Informação (LAI) e a transparência pública estão diretamente relacionadas a qual princípio constitucional da administração pública?",
+                    options: ["Legalidade.", "Impessoalidade.", "Moralidade.", "Publicidade."],
+                    correctAnswer: "Publicidade.",
+                    hint: "É o princípio que exige a divulgação dos atos da administração.",
+                    explanation: "A publicidade é o princípio constitucional que exige a transparência total dos atos da administração, salvo exceções legais. A Lei de Acesso à Informação (LAI) é o principal instrumento que concretiza este princípio, garantindo que o cidadão possa acessar as informações públicas."
+                },
+                {
+                    question: "Qual instrumento do planejamento-orçamento no Brasil define as diretrizes, metas e prioridades da administração pública federal para um período de quatro anos?",
+                    options: ["Plano Plurianual (PPA).", "Lei de Diretrizes Orçamentárias (LDO).", "Lei Orçamentária Anual (LOA).", "Plano Nacional de Desenvolvimento."],
+                    correctAnswer: "Plano Plurianual (PPA).",
+                    hint: "O nome do instrumento já indica sua abrangência de tempo.",
+                    explanation: "O PPA é o principal instrumento de planejamento de médio prazo do governo federal, definindo as diretrizes e os objetivos estratégicos para um período de quatro anos. A LDO e a LOA devem estar alinhadas com o que foi estabelecido no PPA."
+                },
+                {
+                    question: "Qual o princípio da Administração Pública que exige que a atuação dos agentes públicos seja voltada ao interesse público, não podendo beneficiar a si próprios ou a terceiros?",
+                    options: ["Moralidade.", "Impessoalidade.", "Eficiência.", "Legalidade."],
+                    correctAnswer: "Impessoalidade.",
+                    hint: "Pense na atuação 'sem rosto', sem distinção pessoal.",
+                    explanation: "O princípio da impessoalidade exige que a Administração Pública atue com o objetivo de alcançar o interesse público, sem favorecer ou prejudicar pessoas por razões pessoais. A conduta deve ser objetiva e voltada à finalidade da lei."
+                },
+                {
+                    question: "A governança pública, como conceito de gestão, tem como um de seus pilares a 'accountability'. O que esse termo significa?",
+                    options: ["A capacidade de inovar na gestão.", "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.", "A agilidade na execução de projetos.", "A gestão baseada em dados e evidências."],
+                    correctAnswer: "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.",
+                    hint: "É a junção de 'conta' e 'habilidade'.",
+                    explanation: "Accountability é o dever de prestar contas sobre as ações tomadas e de se responsabilizar pelas consequências delas. É um pilar fundamental da governança, promovendo a transparência e a responsabilidade na gestão pública."
+                },
+                {
+                    question: "A transformação digital na Administração Pública tem como principal objetivo:",
+                    options: ["Substituir servidores por robôs.", "Simplificar e desburocratizar os serviços para o cidadão.", "Aumentar a arrecadação de impostos.", "Centralizar todas as informações em um único sistema."],
+                    correctAnswer: "Simplificar e desburocratizar os serviços para o cidadão.",
+                    hint: "O foco é na melhoria da experiência do usuário, ou seja, do cidadão.",
+                    explanation: "A transformação digital na Administração Pública busca usar a tecnologia para simplificar processos, tornar os serviços mais acessíveis e eficientes, e melhorar a relação entre o governo e a população. O objetivo é facilitar a vida do cidadão."
+                },
+                {
+                    question: "De acordo com o edital, quais são os principais eixos da diversidade e inclusão na sociedade brasileira?",
+                    options: ["Gênero, raça, etnia e idade.", "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.", "Gênero e nacionalidade.", "Etnia, raça e classe social."],
+                    correctAnswer: "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.",
+                    hint: "Pense nos diversos grupos sociais que precisam de políticas de inclusão.",
+                    explanation: "O tema de diversidade e inclusão, conforme abordado em concursos públicos, engloba a garantia de direitos e a promoção da igualdade para grupos historicamente marginalizados, incluindo as dimensões de gênero, raça, etnia, orientação sexual, pessoas com deficiência (PCD) e a diversidade entre as gerações."
+                },
+                {
+                    question: "A Reforma Administrativa no Brasil, em diferentes momentos históricos, teve como uma de suas motivações a busca por:",
+                    options: ["Aumento da burocracia e do controle interno.", "Centralização do poder no governo federal.", "Maior eficiência e modernização da máquina pública.", "Redução do número de estados e municípios."],
+                    correctAnswer: "Maior eficiência e modernização da máquina pública.",
+                    hint: "Pense no objetivo de tornar o governo mais ágil e econômico.",
+                    explanation: "As reformas administrativas, desde a criação do DASP no período Vargas até as mais recentes, sempre buscaram melhorar a eficiência, a produtividade e a qualidade dos serviços públicos. O objetivo é modernizar o Estado para que ele responda melhor às demandas da sociedade."
+                },
+                {
+                    question: "Qual o principal risco ético associado ao uso de inteligência artificial (IA) e automação no setor público?",
+                    options: ["Aumento de produtividade.", "Redução de custos operacionais.", "A perda da transparência e a tomada de decisões não explicáveis.", "A simplificação de processos."],
+                    correctAnswer: "A perda da transparência e a tomada de decisões não explicáveis.",
+                    hint: "Pense na 'caixa preta' dos algoritmos.",
+                    explanation: "O uso de IA pode gerar um risco de 'caixa preta', onde o processo de tomada de decisão do algoritmo não é transparente ou facilmente compreendido. Isso pode minar a confiança do cidadão e dificultar a responsabilização por decisões que afetem direitos e serviços públicos, indo contra o princípio da publicidade e da transparência."
+                },
+                {
+                    question: "Qual é um dos principais desafios para a consolidação da democracia e do Estado de Direito no Brasil?",
+                    options: ["A centralização do poder no legislativo.", "A baixa participação popular em decisões políticas.", "A completa ausência de liberdade de expressão.", "A excessiva intervenção de organismos internacionais."],
+                    correctAnswer: "A baixa participação popular em decisões políticas.",
+                    hint: "Pense no papel do cidadão na vida política.",
+                    explanation: "A participação ativa da sociedade civil é crucial para a vitalidade democrática. A baixa participação pode levar à deslegitimação das instituições e à fragilização do controle social sobre o Estado."
+                },
+                {
+                    question: "No ciclo de políticas públicas, a etapa de 'Avaliação' é fundamental para qual propósito?",
+                    options: ["Apenas para punir os responsáveis por falhas.", "Para decidir se a política deve ser implementada ou não.", "Para medir a eficácia, eficiência e impacto da política.", "Para justificar novos gastos sem análise prévia."],
+                    correctAnswer: "Para medir a eficácia, eficiência e impacto da política.",
+                    hint: "Pense no que se faz depois que a política já foi implementada por um tempo.",
+                    explanation: "A avaliação busca verificar se a política pública alcançou os resultados esperados, se foi implementada de forma eficiente e qual foi seu impacto real na sociedade, fornecendo subsídios para ajustes ou para o planejamento de novas políticas."
+                },
+                {
+                    question: "Qual dos seguintes conceitos está mais associado à integridade pública?",
+                    options: ["A velocidade na tomada de decisões.", "A capacidade de gerar lucros.", "A adesão e defesa dos valores morais da organização.", "A centralização das informações."],
+                    correctAnswer: "A adesão e defesa dos valores morais da organização.",
+                    hint: "Pense na conduta do servidor público.",
+                    explanation: "A integridade pública refere-se ao alinhamento da conduta dos servidores e das instituições aos mais altos padrões éticos e morais, evitando conflitos de interesse e garantindo a confiança da população."
+                },
+                {
+                    question: "Políticas de ações afirmativas para a inclusão de grupos minoritários têm como objetivo principal:",
+                    options: ["Aumentar a desigualdade social.", "Apenas a inclusão de pessoas com deficiência.", "Corrigir desigualdades históricas e promover a igualdade de oportunidades.", "Excluir a maioria da sociedade."],
+                    correctAnswer: "Corrigir desigualdades históricas e promover a igualdade de oportunidades.",
+                    hint: "O objetivo é compensar injustiças do passado.",
+                    explanation: "Ações afirmativas são políticas temporárias que visam a compensar desigualdades históricas e estruturais, garantindo que grupos que foram marginalizados tenham acesso a oportunidades de forma equitativa."
+                },
+                {
+                    question: "A Lei de Responsabilidade Fiscal (LRF) tem como um de seus principais pilares o controle e a transparência na gestão de quais recursos?",
+                    options: ["Apenas os recursos da saúde.", "Apenas os recursos da educação.", "Os recursos financeiros e orçamentários dos entes federativos.", "Os recursos de empresas privadas."],
+                    correctAnswer: "Os recursos financeiros e orçamentários dos entes federativos.",
+                    hint: "Pense no controle dos gastos públicos em geral.",
+                    explanation: "A LRF estabelece normas de finanças públicas voltadas para a responsabilidade na gestão fiscal. Ela impõe limites para despesas com pessoal, dívidas e outras obrigações, promovendo a transparência e o equilíbrio das contas públicas."
+                },
+                {
+                    question: "O uso de Inteligência Artificial no setor público levanta preocupações sobre a 'exclusão digital', que se refere a:",
+                    options: ["Apenas a dificuldade de acesso à internet.", "O desemprego causado pela automação.", "A falta de capacitação de servidores para usar novas tecnologias.", "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados."],
+                    correctAnswer: "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados.",
+                    hint: "Pense nas pessoas que ficam de fora do mundo digital.",
+                    explanation: "A exclusão digital ocorre quando a digitalização dos serviços públicos não é acompanhada de políticas de inclusão, deixando de fora da acessibilidade e da cidadania digital aqueles que não possuem acesso, conhecimento ou habilidades para utilizar as novas tecnologias."
+                },
+                {
+                    question: "O conflito de interesses na Administração Pública ocorre quando:",
+                    options: ["O servidor público tem um cargo de liderança.", "O interesse privado do agente público se choca com o interesse público.", "O servidor trabalha em mais de um setor.", "O servidor utiliza a tecnologia no trabalho."],
+                    correctAnswer: "O interesse privado do agente público se choca com o interesse público.",
+                    hint: "Pense na dualidade entre o que é bom para o servidor e o que é bom para a sociedade.",
+                    explanation: "O conflito de interesses acontece quando o agente público utiliza sua posição para favorecer interesses particulares em detrimento do interesse coletivo. A Lei de Conflito de Interesses (Lei nº 12.813/2013) estabelece as regras para evitar essa situação."
+                },
+                {
+                    question: "No contexto do federalismo brasileiro, qual o principal desafio na implementação de políticas públicas sociais?",
+                    options: ["A ausência de recursos financeiros.", "A falta de leis federais.", "A coordenação entre os diferentes níveis de governo (União, estados e municípios).", "A dificuldade de acesso à internet."],
+                    correctAnswer: "A coordenação entre os diferentes níveis de governo (União, estados e municípios).",
+                    hint: "Pense nos desafios de fazer 3 esferas de governo trabalharem juntas.",
+                    explanation: "O federalismo impõe o desafio da coordenação entre os entes federativos para a oferta de serviços públicos. É fundamental que União, estados e municípios trabalhem em conjunto para garantir a efetividade das políticas, evitando duplicidade de ações e falhas na cobertura."
+                },
+                {
+                    question: "A 'interseccionalidade' é um conceito importante para a análise da diversidade, pois se refere a:",
+                    options: ["A união de diferentes grupos sociais em um único movimento.", "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.", "A separação de grupos sociais para uma análise individual.", "O estudo de apenas uma dimensão da identidade de uma pessoa."],
+                    correctAnswer: "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.",
+                    hint: "Pense no 'cruzamento' de diferentes dimensões da identidade de uma pessoa.",
+                    explanation: "A interseccionalidade reconhece que as identidades sociais não existem de forma isolada. A opressão e o privilégio são influenciados pela forma como gênero, raça, classe, orientação sexual, entre outros, se interligam e se manifestam nas experiências individuais."
+                },
+                {
+                    question: "Qual a principal vantagem da automação de processos na Administração Pública?",
+                    options: ["A eliminação de todos os servidores públicos.", "Aumento da burocracia.", "Maior agilidade e redução de erros em tarefas repetitivas.", "A substituição completa da tomada de decisão humana."],
+                    correctAnswer: "Maior agilidade e redução de erros em tarefas repetitivas.",
+                    hint: "Pense no que os robôs podem fazer melhor que os humanos, em termos de repetição.",
+                    explanation: "A automação permite que tarefas repetitivas e baseadas em regras sejam executadas de forma mais rápida e precisa por sistemas, liberando os servidores para se dedicarem a atividades mais complexas, estratégicas e que exigem interação humana."
+                }
+            ],
+            'Eixo Temático 1 - Gestão de Obras e Serviços de Engenharia': [
+                  {
+                question: "1. No contexto da Lei nº 14.133/2021, qual é o principal objetivo do controle de execução de obras e serviços?",
+                options: [
+                    "Apenas verificar o cumprimento do cronograma financeiro.",
+                    "Garantir que a obra seja executada exatamente conforme o projeto básico e o cronograma físico-financeiro, com a devida gestão de qualidade e fiscalização.",
+                    "Permitir que a empresa contratada altere o projeto livremente.",
+                    "Focar apenas na medição dos serviços para pagamento, sem análise técnica.",
+                    "Responsabilizar unicamente o gestor do contrato por eventuais falhas."
+                ],
+                correctAnswer: "Garantir que a obra seja executada exatamente conforme o projeto básico e o cronograma físico-financeiro, com a devida gestão de qualidade e fiscalização.",
+                hint: "O controle de execução é fundamental para assegurar que a obra ou serviço atenda aos requisitos contratuais e técnicos definidos.",
+                explanation: "O controle de execução de obras e serviços é essencial para garantir que o que foi contratado seja entregue conforme o planejado, respeitando os prazos, custos e qualidade. A fiscalização adequada evita desvios e garante a conformidade com as normas técnicas e legais."
+            },
+            {
+                question: "2. O BDI (Benefícios e Despesas Indiretas) em uma orçamentação de obras tem como objetivo:",
+                options: [
+                    "Cobrir os custos diretos da obra, como mão de obra e materiais.",
+                    "Remunerar a empresa contratada e cobrir despesas indiretas, impostos e riscos do negócio.",
+                    "Apenas prever o lucro da empresa.",
+                    "Ser calculado somente para obras públicas.",
+                    "Ser fixo e não depender da complexidade do projeto."
+                ],
+                correctAnswer: "Remunerar a empresa contratada e cobrir despesas indiretas, impostos e riscos do negócio.",
+                hint: "O BDI é um percentual aplicado sobre os custos diretos para compor o preço final de uma obra, garantindo a sustentabilidade financeira da empresa.",
+                explanation: "O BDI é um componente essencial na formação do preço de uma obra, pois inclui não apenas o lucro da empresa, mas também custos indiretos como administração, tributos e riscos. É fundamental para garantir que a empresa possa operar de forma sustentável e cumprir com suas obrigações contratuais."
+            },
+            {
+                question: "3. Qual a principal característica da 'manutenção preditiva'?",
+                options: [
+                    "É a manutenção que ocorre apenas após a quebra do equipamento.",
+                    "É a manutenção realizada em intervalos de tempo fixos, independentemente das condições do equipamento.",
+                    "É a manutenção baseada no monitoramento contínuo das condições do equipamento para prever falhas e intervir antes que ocorram.",
+                    "É a manutenção mais barata de todas.",
+                    "É a manutenção que se aplica apenas a sistemas elétricos."
+                ],
+                correctAnswer: "É a manutenção baseada no monitoramento contínuo das condições do equipamento para prever falhas e intervir antes que ocorram.",
+                hint: "A 'predição' de falhas é a chave para este tipo de manutenção, utilizando ferramentas como termografia e análise de vibração.",
+                explanation: "A manutenção preditiva é uma estratégia avançada que utiliza tecnologias de monitoramento para avaliar o estado dos equipamentos e prever quando uma falha pode ocorrer. Isso permite intervenções programadas, reduzindo custos com paradas inesperadas e aumentando a vida útil dos ativos."
+            },
+            {
+                question: "4. No contexto de saneamento básico, qual a principal função da infraestrutura de 'drenagem urbana'?",
+                options: [
+                    "Tratar o esgoto sanitário.",
+                    "Abastecer a cidade com água potável.",
+                    "Coletar e encaminhar adequadamente as águas pluviais para evitar inundações e alagamentos.",
+                    "Pavimentar as vias públicas.",
+                    "Garantir a iluminação pública."
+                ],
+                correctAnswer: "Coletar e encaminhar adequadamente as águas pluviais para evitar inundações e alagamentos.",
+                hint: "O foco da drenagem é o gerenciamento das águas da chuva, diferenciando-se dos sistemas de esgoto e de abastecimento de água.",
+                explanation: "A drenagem urbana é essencial para a gestão das águas pluviais, prevenindo alagamentos e garantindo a segurança e a funcionalidade das áreas urbanas. Ela envolve a construção de bueiros, galerias e outros dispositivos que direcionam as águas da chuva para locais apropriados, evitando danos à infraestrutura e à população."
+            },
+            {
+                question: "5. A Matriz de Riscos é uma ferramenta de gestão utilizada para:",
+                options: [
+                    "Apenas listar os riscos de um projeto.",
+                    "Avaliar e priorizar os riscos de um projeto com base em sua probabilidade e impacto, permitindo a criação de estratégias de mitigação.",
+                    "Atribuir responsabilidades financeiras por prejuízos.",
+                    "Identificar os custos diretos e indiretos da obra.",
+                    "Definir o cronograma físico-financeiro."
+                ],
+                correctAnswer: "Avaliar e priorizar os riscos de um projeto com base em sua probabilidade e impacto, permitindo a criação de estratégias de mitigação.",
+                hint: "É uma ferramenta visual que ajuda a classificar os riscos, geralmente em uma tabela, para guiar a tomada de decisões.",
+                explanation: "A Matriz de Riscos é uma ferramenta fundamental na gestão de projetos, pois permite identificar, avaliar e priorizar os riscos associados a uma obra ou serviço. Com base nessa análise, é possível desenvolver planos de ação para mitigar ou evitar esses riscos, garantindo maior segurança e eficiência na execução do projeto."
+            },
+            {
+                question: "6. Qual a principal finalidade da Norma Regulamentadora NR-10?",
+                options: [
+                    "Estabelecer os requisitos para a gestão da qualidade na construção civil.",
+                    "Garantir a segurança em instalações e serviços com eletricidade.",
+                    "Definir os parâmetros de projetos de saneamento básico.",
+                    "Regulamentar a utilização de CLPs em obras.",
+                    "Estabelecer critérios para a contratação de obras públicas."
+                ],
+                correctAnswer: "Garantir a segurança em instalações e serviços com eletricidade.",
+                hint: "A NR-10 é uma norma específica para o trabalho com eletricidade, visando proteger os trabalhadores de acidentes.",
+                explanation: "A NR-10 estabelece diretrizes e requisitos mínimos para garantir a segurança dos trabalhadores que atuam em instalações elétricas e serviços com eletricidade. Ela abrange desde o planejamento e execução de trabalhos até a manutenção de sistemas elétricos, visando prevenir acidentes e garantir a integridade física dos profissionais envolvidos."
+            },
+            {
+                question: "7. O que são 'sistemas pneumáticos'?",
+                options: [
+                    "Sistemas que utilizam água para gerar movimento.",
+                    "Sistemas que utilizam a força da gravidade para operar.",
+                    "Sistemas que utilizam ar comprimido para realizar trabalho mecânico.",
+                    "Sistemas que utilizam combustíveis fósseis.",
+                    "Sistemas que utilizam energia solar."
+                ],
+                correctAnswer: "Sistemas que utilizam ar comprimido para realizar trabalho mecânico.",
+                hint: "O termo 'pneumático' vem do grego 'pneuma', que significa 'sopro' ou 'ar'.",
+                explanation: "Sistemas pneumáticos são aqueles que utilizam ar comprimido para gerar movimento e realizar trabalho mecânico. Eles são amplamente utilizados em diversas aplicações industriais, como em ferramentas pneumáticas, atuadores e sistemas de transporte de materiais, devido à sua eficiência e capacidade de operar em ambientes com alta demanda de força."
+            },
+            {
+                question: "8. A Curva S é uma ferramenta de controle de obras que tem como principal objetivo:",
+                options: [
+                    "Medir a qualidade dos materiais utilizados na obra.",
+                    "Representar graficamente o avanço físico-financeiro da obra ao longo do tempo.",
+                    "Listar todos os riscos do projeto.",
+                    "Calcular os encargos sociais de cada trabalhador.",
+                    "Ajustar os índices de atualização de custos."
+                ],
+                correctAnswer: "Representar graficamente o avanço físico-financeiro da obra ao longo do tempo.",
+                hint: "O formato de 'S' da curva representa o início lento, o pico de produção e a desaceleração final da obra.",
+                explanation: "A Curva S é uma ferramenta de gestão de projetos que permite visualizar o progresso físico e financeiro de uma obra ao longo do tempo. Ela ajuda a identificar desvios em relação ao cronograma e ao orçamento, facilitando a tomada de decisões para manter o projeto dentro dos parâmetros estabelecidos."
+            },
+            {
+                question: "9. Em uma vistoria de obra, a principal finalidade da 'elaboração de um parecer' é:",
+                options: [
+                    "Apenas registrar a presença do vistoriador no local.",
+                    "Fornecer uma opinião técnica e fundamentada sobre as condições, conformidade e patologias encontradas na obra.",
+                    "Aprovar a obra sem qualquer ressalva.",
+                    "Substituir o projeto de engenharia.",
+                    "Aprovar os pagamentos da empresa contratada de forma automática."
+                ],
+                correctAnswer: "Fornecer uma opinião técnica e fundamentada sobre as condições, conformidade e patologias encontradas na obra.",
+                hint: "O parecer técnico é um documento formal que atesta as condições da obra sob uma perspectiva especializada.",
+                explanation: "O parecer técnico é um documento elaborado por profissionais qualificados que avalia as condições de uma obra, identificando possíveis problemas, conformidades e não conformidades. Ele é essencial para a tomada de decisões sobre a continuidade da obra, necessidade de correções ou ajustes, e para garantir a qualidade e segurança do projeto."
+            },
+            {
+                question: "10. Os CLPs (Controladores Lógicos Programáveis) são utilizados para quê?",
+                options: [
+                    "Desenhar projetos de arquitetura.",
+                    "Controlar as finanças de uma obra.",
+                    "Automatizar e controlar processos industriais e de máquinas de forma programável.",
+                    "Realizar medições de serviços.",
+                    "Calcular o BDI de um orçamento."
+                ],
+                correctAnswer: "Automatizar e controlar processos industriais e de máquinas de forma programável.",
+                hint: "CLPs são o cérebro de muitos sistemas de automação, como em linhas de montagem, controle de semáforos, etc.",
+                explanation: "Os CLPs são dispositivos eletrônicos utilizados para automatizar e controlar processos industriais. Eles permitem programar sequências de operações, monitorar condições de máquinas e equipamentos, e realizar ações corretivas automaticamente, aumentando a eficiência e a segurança operacional."
+            }
+            ],
+            'Eixo Temático 2 - Planejamento Territorial': [
+                  {
+                question: "1. De acordo com o Estatuto da Metrópole (Lei nº 13.089/2015), qual é o principal objetivo da governança interfederativa?",
+                options: [
+                    "Criar novas cidades-satélite.",
+                    "Coordenar ações e políticas públicas entre os entes federativos (União, estados e municípios) que compõem uma região metropolitana.",
+                    "Priorizar o desenvolvimento de apenas um município na região metropolitana.",
+                    "Determinar que a União tome todas as decisões sobre a metrópole.",
+                    "Descentralizar completamente as decisões, sem qualquer tipo de coordenação."
+                ],
+                correctAnswer: "Coordenar ações e políticas públicas entre os entes federativos (União, estados e municípios) que compõem uma região metropolitana.",
+                hint: "A governança interfederativa é essencial para resolver problemas de interesse comum em grandes aglomerações urbanas, como mobilidade e saneamento.",
+                explanation: "O Estatuto da Metrópole estabelece a necessidade de uma governança compartilhada entre os diferentes níveis de governo para enfrentar os desafios urbanos complexos das regiões metropolitanas. A coordenação é fundamental para garantir que as políticas públicas sejam eficazes e atendam às necessidades da população."
+            },
+            {
+                question: "2. A Lei nº 6.766/1979, que trata do parcelamento do solo urbano, estabelece que o projeto de loteamento deve ser aprovado por qual órgão?",
+                options: [
+                    "Pelo governo federal.",
+                    "Exclusivamente pelo governo estadual.",
+                    "Pelo município onde o loteamento se localiza.",
+                    "Pelo governo federal e estadual em conjunto.",
+                    "Por uma comissão de moradores do local."
+                ],
+                correctAnswer: "Pelo município onde o loteamento se localiza.",
+                hint: "A aprovação do projeto de loteamento é uma competência municipal, pois está diretamente ligada ao ordenamento do uso e ocupação do solo local.",
+                explanation: "A Lei nº 6.766/1979 estabelece que o parcelamento do solo urbano deve ser aprovado pelo município, que é o ente federativo responsável pelo planejamento urbano e pela gestão do uso do solo. Essa aprovação é essencial para garantir que o loteamento atenda às normas urbanísticas e ambientais vigentes."
+            },
+            {
+                question: "3. Qual é o principal objetivo do Estatuto da Cidade (Lei nº 10.257/2001)?",
+                options: [
+                    "Apenas regularizar a propriedade de imóveis.",
+                    "Garantir a propriedade privada em detrimento do interesse social.",
+                    "Regular os instrumentos da política urbana para assegurar o pleno desenvolvimento das funções sociais da cidade e da propriedade urbana.",
+                    "Incentivar a especulação imobiliária.",
+                    "Proibir qualquer tipo de planejamento urbano."
+                ],
+                correctAnswer: "Regular os instrumentos da política urbana para assegurar o pleno desenvolvimento das funções sociais da cidade e da propriedade urbana.",
+                hint: "O Estatuto da Cidade é o principal marco legal para o planejamento e a gestão urbana no Brasil, com foco no interesse coletivo.",
+                explanation: "O Estatuto da Cidade estabelece diretrizes para o planejamento urbano, visando garantir que as cidades cumpram suas funções sociais e promovam o bem-estar da população. Ele regula instrumentos como o Plano Diretor, a regularização fundiária e a função social da propriedade, buscando um desenvolvimento urbano sustentável e inclusivo."
+            },
+            {
+                question: "4. Noções básicas de cartografia incluem o conceito de 'escala'. O que a escala de um mapa representa?",
+                options: [
+                    "A idade do mapa.",
+                    "A forma da projeção cartográfica utilizada.",
+                    "A quantidade de detalhes em uma área.",
+                    "A relação entre a distância representada no mapa e a distância real no terreno.",
+                    "O tipo de papel em que o mapa foi impresso."
+                ],
+                correctAnswer: "A relação entre a distância representada no mapa e a distância real no terreno.",
+                hint: "Uma escala de 1:100.000, por exemplo, significa que 1 cm no mapa equivale a 100.000 cm (ou 1 km) na realidade.",
+                explanation: "A escala de um mapa é uma representação da proporção entre as distâncias no mapa e as distâncias reais no terreno. Ela é fundamental para interpretar corretamente as dimensões e distâncias representadas, permitindo que o usuário compreenda a relação espacial entre os elementos do mapa e o mundo real."
+            },
+            {
+                question: "5. A Lei nº 13.465/2017, que trata da regularização fundiária, tem como uma de suas finalidades:",
+                options: [
+                    "Facilitar a ocupação de terras públicas de forma ilegal.",
+                    "Transformar áreas rurais em áreas urbanas de forma indiscriminada.",
+                    "Garantir o direito à moradia para a população de baixa renda e promover a integração social e a sustentabilidade ambiental.",
+                    "Aumentar o preço dos imóveis em áreas periféricas.",
+                    "Proibir a realização de obras de infraestrutura em áreas regularizadas."
+                ],
+                correctAnswer: "Garantir o direito à moradia para a população de baixa renda e promover a integração social e a sustentabilidade ambiental.",
+                hint: "A regularização fundiária busca dar segurança jurídica às pessoas que vivem em áreas informais, além de promover a melhoria da qualidade de vida.",
+                explanation: "A Lei nº 13.465/2017 estabelece diretrizes para a regularização fundiária urbana e rural, visando garantir o direito à moradia digna e promover a inclusão social. Ela permite a titulação de terras ocupadas por populações de baixa renda, contribuindo para a formalização da posse e a melhoria das condições de vida nessas áreas."
+            },
+            {
+                question: "6. Qual a função principal do Sistema Global de Posicionamento por Satélites Artificiais (GNSS)?",
+                options: [
+                    "Apenas prever o tempo.",
+                    "Fornecer coordenadas geográficas precisas para um receptor na superfície da Terra.",
+                    "Monitorar a poluição atmosférica.",
+                    "Medir a profundidade dos oceanos.",
+                    "Capturar imagens de alta resolução de satélite para mapeamento."
+                ],
+                correctAnswer: "Fornecer coordenadas geográficas precisas para um receptor na superfície da Terra.",
+                hint: "O GPS é o exemplo mais conhecido de um sistema GNSS, que utiliza uma constelação de satélites para determinar a posição.",
+                explanation: "O GNSS é um sistema que permite determinar a localização precisa de um ponto na superfície da Terra utilizando sinais de satélites. Ele é amplamente utilizado em diversas aplicações, como navegação, mapeamento, agricultura de precisão e monitoramento ambiental, fornecendo coordenadas geográficas com alta precisão."
+            },
+            {
+                question: "7. A Política Nacional de Gestão Territorial e Ambiental de Terras Indígenas (PNGATI), instituída pelo Decreto nº 7.747/2012, tem como objetivo:",
+                options: [
+                    "Apenas fiscalizar as terras indígenas.",
+                    "Promover a integração das terras indígenas ao agronegócio.",
+                    "Garantir e promover a proteção, a recuperação, a conservação e o uso sustentável dos recursos naturais e do patrimônio cultural nas terras indígenas.",
+                    "Mudar os limites das terras indígenas.",
+                    "Transferir as terras indígenas para o controle privado."
+                ],
+                correctAnswer: "Garantir e promover a proteção, a recuperação, a conservação e o uso sustentável dos recursos naturais e do patrimônio cultural nas terras indígenas.",
+                hint: "A PNGATI foca na gestão participativa e na preservação ambiental e cultural das áreas indígenas.",
+                explanation: "A PNGATI estabelece diretrizes para a gestão territorial e ambiental das terras indígenas, buscando garantir os direitos dos povos indígenas e promover a sustentabilidade ambiental. Ela envolve a participação das comunidades indígenas na gestão de seus territórios, respeitando suas tradições e modos de vida, ao mesmo tempo em que busca proteger os recursos naturais e o patrimônio cultural."
+            },
+            {
+                question: "8. Qual dos seguintes não é um princípio da política de gestão do patrimônio imobiliário e fundiário da União (Lei nº 9.636/1998)?",
+                options: [
+                    "Preservação do meio ambiente e do patrimônio histórico, cultural e paisagístico.",
+                    "Utilização do patrimônio da União de forma indiscriminada e sem planejamento.",
+                    "Uso racional e econômico dos bens públicos.",
+                    "Prioridade para o interesse público na destinação dos bens.",
+                    "Transparência e publicidade dos atos de gestão."
+                ],
+                correctAnswer: "Utilização do patrimônio da União de forma indiscriminada e sem planejamento.",
+                hint: "O princípio é exatamente o oposto: o uso racional e planejado dos bens da União para o benefício público.",
+                explanation: "A Lei nº 9.636/1998 estabelece diretrizes para a gestão do patrimônio imobiliário e fundiário da União, priorizando a preservação ambiental, o uso racional dos bens públicos e a transparência nas ações de gestão. A utilização indiscriminada e sem planejamento contraria esses princípios, que visam garantir a eficiência e a responsabilidade na administração dos bens públicos."
+            },
+            {
+                question: "9. O que é um 'sistema de coordenadas' em cartografia?",
+                options: [
+                    "Uma lista de países em um mapa.",
+                    "Um conjunto de linhas paralelas desenhadas em um mapa.",
+                    "Um sistema de referência usado para definir posições de pontos na superfície da Terra.",
+                    "O título de um mapa.",
+                    "O tipo de fonte utilizada em um mapa."
+                ],
+                correctAnswer: "Um sistema de referência usado para definir posições de pontos na superfície da Terra.",
+                hint: "Os sistemas de coordenadas mais comuns são a latitude e a longitude, mas existem outros, como o UTM.",
+                explanation: "Um sistema de coordenadas é um conjunto de regras que define como as posições na superfície da Terra são representadas em um mapa. Ele permite que pontos específicos sejam localizados com precisão, utilizando coordenadas geográficas (latitude e longitude) ou sistemas projetados, como o UTM (Universal Transverse Mercator)."
+            },
+            {
+                question: "10. De acordo com a Lei nº 12.587/2012 (Política Nacional de Mobilidade Urbana), qual é o principal foco do planejamento de mobilidade urbana?",
+                options: [
+                    "Priorizar o transporte individual motorizado.",
+                    "Construir mais rodovias para desafogar o trânsito.",
+                    "Priorizar o transporte coletivo e os modos não motorizados, como pedestres e ciclistas.",
+                    "Restringir o acesso de todas as pessoas a veículos.",
+                    "Manter a mobilidade como um problema exclusivamente dos municípios."
+                ],
+                correctAnswer: "Priorizar o transporte coletivo e os modos não motorizados, como pedestres e ciclistas.",
+                hint: "O objetivo é promover a sustentabilidade, a acessibilidade e a eficiência, reduzindo a dependência de automóveis particulares.",
+                explanation: "A Política Nacional de Mobilidade Urbana estabelece diretrizes para o planejamento e a gestão da mobilidade nas cidades, priorizando o transporte coletivo e os modos não motorizados. Isso visa promover uma mobilidade mais sustentável, acessível e eficiente, reduzindo os impactos ambientais e melhorando a qualidade de vida urbana."
+            }
+            ],
+            'Eixo Temático 3 - Planejamento e Projetos de Obras': [
+                 {
+                question: "1. No processo de elaboração de projetos, a etapa de 'Projetos Executivos' é caracterizada por:",
+                options: [
+                    "Uma primeira análise de viabilidade do terreno, sem detalhes.",
+                    "A definição do programa de necessidades do cliente.",
+                    "A especificação completa e detalhada de todos os elementos da obra, permitindo a execução imediata.",
+                    "A elaboração de um modelo 3D sem informações técnicas.",
+                    "O estudo preliminar do zoneamento das atividades."
+                ],
+                correctAnswer: "A especificação completa e detalhada de todos os elementos da obra, permitindo a execução imediata.",
+                hint: "O projeto executivo é a fase final do detalhamento, que contém todas as informações necessárias para a construção, como desenhos técnicos, memoriais e especificações de materiais.",
+                explanation: "Os Projetos Executivos são a fase final do processo de elaboração de projetos, onde todos os detalhes técnicos e construtivos são definidos. Eles incluem desenhos detalhados, especificações de materiais, cronogramas e orçamentos, permitindo que a obra seja executada com precisão e eficiência."
+            },
+            {
+                question: "2. De acordo com a ABNT NBR 9050:2022, qual é o objetivo principal das normas de acessibilidade?",
+                options: [
+                    "Apenas criar rampas de acesso em locais públicos.",
+                    "Garantir a autonomia e a segurança de todas as pessoas, incluindo aquelas com deficiência ou mobilidade reduzida, no uso de edificações e espaços urbanos.",
+                    "Aumentar o custo de construção de edifícios.",
+                    "Restringir o acesso de pessoas com deficiência a determinados locais.",
+                    "Prever a construção de edifícios com poucas janelas."
+                ],
+                correctAnswer: "Garantir a autonomia e a segurança de todas as pessoas, incluindo aquelas com deficiência ou mobilidade reduzida, no uso de edificações e espaços urbanos.",
+                hint: "A norma busca a inclusão e a igualdade de oportunidades, removendo as barreiras físicas para uma grande parte da população.",
+                explanation: "A ABNT NBR 9050:2022 estabelece diretrizes para garantir que edificações e espaços urbanos sejam acessíveis a todas as pessoas, independentemente de suas condições físicas. Isso inclui a criação de rampas, sinalização adequada, banheiros adaptados e outros elementos que promovam a inclusão e a autonomia."
+            },
+            {
+                question: "3. O que são 'sistemas estruturais' e por que seu dimensionamento é crucial para a segurança de uma edificação?",
+                options: [
+                    "São os sistemas de iluminação e ventilação, e seu dimensionamento afeta o conforto.",
+                    "São os sistemas de fundação, pilares, vigas e lajes, e seu dimensionamento é crucial para resistir às cargas e garantir a estabilidade e a segurança da edificação.",
+                    "São os sistemas de esgoto e água, e seu dimensionamento afeta a saúde pública.",
+                    "São as paredes e os revestimentos, e seu dimensionamento afeta apenas a estética.",
+                    "São os sistemas de paisagismo, e seu dimensionamento afeta a integração com o meio ambiente."
+                ],
+                correctAnswer: "São os sistemas de fundação, pilares, vigas e lajes, e seu dimensionamento é crucial para resistir às cargas e garantir a estabilidade e a segurança da edificação.",
+                hint: "A estrutura de um edifício é seu esqueleto, e um dimensionamento incorreto pode levar a colapsos e falhas graves.",
+                explanation: "Os sistemas estruturais são responsáveis por suportar as cargas aplicadas à edificação, como o peso próprio, cargas de uso, vento e sismos. O dimensionamento adequado desses sistemas é fundamental para garantir a segurança estrutural, evitando colapsos e garantindo a integridade física dos ocupantes e do patrimônio."
+            },
+            {
+                question: "4. A 'corrosão' em estruturas de concreto armado é uma patologia comum. Qual é a principal causa desse fenômeno?",
+                options: [
+                    "A alta umidade do ar, que deteriora o concreto diretamente.",
+                    "A falta de pintura nas paredes do edifício.",
+                    "A oxidação das armaduras de aço, causada pela entrada de agentes agressivos (como cloretos) que rompem a camada passivadora do aço.",
+                    "O uso de concreto de baixa qualidade, sem armadura.",
+                    "O uso de concreto com excesso de água."
+                ],
+                correctAnswer: "A oxidação das armaduras de aço, causada pela entrada de agentes agressivos (como cloretos) que rompem a camada passivadora do aço.",
+                hint: "A corrosão do aço dentro do concreto gera um aumento de volume, que causa o fissuramento e o desplacamento do concreto, expondo a armadura.",
+                explanation: "A corrosão é uma das patologias mais comuns em estruturas de concreto armado, ocorrendo quando agentes agressivos penetram no concreto e atingem as armaduras de aço. Isso pode levar ao enfraquecimento da estrutura, fissuras e desplacamento do concreto, comprometendo a segurança e a durabilidade da edificação."
+            },
+            {
+                question: "5. A metodologia BIM (Modelagem da Informação da Construção) se diferencia do CAD (Projeto Assistido por Computador) principalmente por:",
+                options: [
+                    "Utilizar apenas desenhos 2D.",
+                    "Ser uma ferramenta de desenho 3D, sem informações de projeto.",
+                    "Criar um modelo virtual que integra todas as informações de projeto (arquitetura, estrutura, instalações, etc.) de forma paramétrica e colaborativa.",
+                    "Ser um software de edição de texto.",
+                    "Ser um método de cálculo de orçamentos, sem representação gráfica."
+                ],
+                correctAnswer: "Criar um modelo virtual que integra todas as informações de projeto (arquitetura, estrutura, instalações, etc.) de forma paramétrica e colaborativa.",
+                hint: "O BIM é um processo holístico que gerencia informações, enquanto o CAD é uma ferramenta de desenho.",
+                explanation: "A metodologia BIM permite a criação de um modelo digital tridimensional que contém não apenas a geometria da edificação, mas também informações detalhadas sobre materiais, custos, cronogramas e manutenção. Isso facilita a colaboração entre diferentes disciplinas envolvidas no projeto, melhora a comunicação e reduz erros durante a construção."
+            },
+            {
+                question: "6. Qual a função de uma 'Anotação de Responsabilidade Técnica' (ART) no contexto de projetos e obras?",
+                options: [
+                    "É um documento opcional, sem validade legal.",
+                    "É um documento que isenta o profissional de qualquer responsabilidade.",
+                    "É um documento legal que define a responsabilidade técnica de um profissional habilitado pela execução de uma obra ou serviço de engenharia.",
+                    "Serve apenas para registro de horas trabalhadas.",
+                    "É um documento que o cliente preenche para aprovar o projeto."
+                ],
+                correctAnswer: "É um documento legal que define a responsabilidade técnica de um profissional habilitado pela execução de uma obra ou serviço de engenharia.",
+                hint: "A ART é emitida pelo CREA e garante que a obra ou serviço é executado por um profissional qualificado, assegurando a segurança e a qualidade.",
+                explanation: "A Anotação de Responsabilidade Técnica (ART) é um documento obrigatório que formaliza a responsabilidade de um profissional de engenharia ou arquitetura pela execução de uma obra ou serviço. Ela garante que o trabalho será realizado de acordo com as normas técnicas e legais, protegendo tanto o profissional quanto o cliente em caso de problemas futuros."
+            },
+            {
+                question: "7. No planejamento de projetos complementares, a 'compatibilização de projetos' é fundamental para:",
+                options: [
+                    "Definir a cor das paredes da edificação.",
+                    "Apenas otimizar o custo da obra, sem preocupação com a execução.",
+                    "Evitar interferências e conflitos entre os diferentes projetos (arquitetônico, estrutural, elétrico, etc.), garantindo uma execução eficiente e sem retrabalho.",
+                    "Garantir que os projetos sejam feitos de forma independente.",
+                    "Atribuir responsabilidades financeiras a cada projetista."
+                ],
+                correctAnswer: "Evitar interferências e conflitos entre os diferentes projetos (arquitetônico, estrutural, elétrico, etc.), garantindo uma execução eficiente e sem retrabalho.",
+                hint: "A falta de compatibilização pode levar a problemas graves no canteiro de obras, como a passagem de uma tubulação em um local onde há uma viga estrutural.",
+                explanation: "A compatibilização de projetos é um processo essencial no planejamento de obras, onde os diferentes projetos complementares são analisados e ajustados para evitar conflitos e garantir que todos os sistemas funcionem em harmonia. Isso reduz o risco de retrabalho, atrasos e custos adicionais durante a execução da obra."
+            },
+            {
+                question: "8. A NR-17 do Ministério do Trabalho e Emprego trata da 'ergonomia'. O que esse conceito busca nas edificações e nos ambientes de trabalho?",
+                options: [
+                    "Apenas a estética dos móveis.",
+                    "A economia de energia elétrica.",
+                    "A adaptação do ambiente de trabalho ao ser humano, buscando o máximo de conforto, segurança e eficiência.",
+                    "O uso de materiais de construção mais baratos.",
+                    "A aplicação de cores vibrantes nas paredes."
+                ],
+                correctAnswer: "A adaptação do ambiente de trabalho ao ser humano, buscando o máximo de conforto, segurança e eficiência.",
+                hint: "A ergonomia estuda a relação entre o homem e seu ambiente de trabalho, visando a prevenção de lesões e a melhoria da qualidade de vida.",
+                explanation: "A NR-17 estabelece diretrizes para a ergonomia no ambiente de trabalho, visando adaptar as condições laborais às características físicas e psicológicas dos trabalhadores. Isso inclui o design de mobiliário, ferramentas e equipamentos, bem como a organização do espaço de trabalho, para promover a saúde, segurança e eficiência dos profissionais."
+            },
+            {
+                question: "9. Qual é o principal objetivo da 'conservação e restauração' em imóveis tombados?",
+                options: [
+                    "Demolir o imóvel e reconstruí-lo com materiais modernos.",
+                    "Substituir completamente a estrutura e as fachadas por novas.",
+                    "Preservar a história e as características originais do imóvel, garantindo sua integridade física e o valor cultural para as futuras gerações.",
+                    "Pintar o imóvel com cores aleatórias.",
+                    "Aumentar o valor do imóvel para venda."
+                ],
+                correctAnswer: "Preservar a história e as características originais do imóvel, garantindo sua integridade física e o valor cultural para as futuras gerações.",
+                hint: "A restauração busca resgatar o estado original do bem, enquanto a conservação busca manter o estado atual e evitar a degradação.",
+                explanation: "A conservação e restauração de imóveis tombados são práticas essenciais para preservar o patrimônio cultural e histórico. Elas visam manter as características originais do imóvel, respeitando sua história e valor arquitetônico, ao mesmo tempo em que garantem a segurança estrutural e a funcionalidade do espaço."
+            },
+            {
+                question: "10. Os projetos complementares de 'instalações prediais' incluem quais tipos de sistemas?",
+                options: [
+                    "Apenas o projeto arquitetônico.",
+                    "Apenas a fundação e a estrutura do edifício.",
+                    "Sistemas elétricos, hidrossanitários, de ventilação mecânica e ar-condicionado, e de prevenção e combate a incêndio.",
+                    "Apenas os projetos de paisagismo.",
+                    "Somente o projeto de interiores."
+                ],
+                correctAnswer: "Sistemas elétricos, hidrossanitários, de ventilação mecânica e ar-condicionado, e de prevenção e combate a incêndio.",
+                hint: "Esses projetos são essenciais para o funcionamento, a segurança e o conforto da edificação.",
+                explanation: "Os projetos complementares de instalações prediais abrangem diversos sistemas essenciais para o funcionamento de uma edificação, incluindo a parte elétrica, hidráulica, de climatização e de segurança contra incêndios. Esses projetos garantem que a edificação atenda às normas técnicas e legais, proporcionando segurança, conforto e eficiência energética aos usuários."
+            }
+            ],
+            'Eixo Temático 4 - Agrário e Pesqueiro': [
+        {
+                question: "1. De acordo com a Política Agrícola (Lei nº 8.171/1991), qual é um dos objetivos principais para o desenvolvimento rural?",
+                options: [
+                    "Apenas a produção em larga escala com foco em monoculturas.",
+                    "Aumentar a exportação de produtos agrícolas sem regulamentação.",
+                    "Promover a modernização e a sustentabilidade da agricultura, garantindo o abastecimento alimentar e a segurança dos agricultores.",
+                    "Incentivar o uso de agrotóxicos sem qualquer controle.",
+                    "Desmatar áreas de preservação para expandir a área plantada."
+                ],
+                correctAnswer: "Promover a modernização e a sustentabilidade da agricultura, garantindo o abastecimento alimentar e a segurança dos agricultores.",
+                hint: "A política agrícola busca um equilíbrio entre a produtividade, a sustentabilidade e o bem-estar social no campo.",
+                explanation: "A Política Agrícola brasileira visa promover o desenvolvimento rural sustentável, garantindo a segurança alimentar e a proteção dos agricultores. Isso inclui a modernização das práticas agrícolas, o incentivo à diversificação de culturas e a preservação dos recursos naturais, buscando um modelo de produção que respeite o meio ambiente e as comunidades locais."
+            },
+            {
+                question: "2. O que é 'Agroecologia'?",
+                options: [
+                    "Uma técnica de cultivo que utiliza apenas sementes transgênicas.",
+                    "O uso de tratores e equipamentos modernos para maximizar a produção.",
+                    "Um modelo de produção que combina a agricultura com a preservação dos ecossistemas, valorizando o conhecimento tradicional e a sustentabilidade.",
+                    "Um modelo de produção que se concentra exclusivamente no uso de fertilizantes químicos.",
+                    "A produção de alimentos em ambientes totalmente controlados, sem interação com o ecossistema."
+                ],
+                correctAnswer: "Um modelo de produção que combina a agricultura com a preservação dos ecossistemas, valorizando o conhecimento tradicional e a sustentabilidade.",
+                hint: "A agroecologia busca a resiliência do sistema produtivo, a partir da diversidade de espécies e da interação com o ambiente local.",
+                explanation: "A agroecologia é um modelo de produção agrícola que integra práticas sustentáveis e respeita os ecossistemas locais. Ela valoriza o conhecimento tradicional dos agricultores, promove a biodiversidade e busca reduzir o uso de insumos químicos, contribuindo para a saúde do solo, da água e da biodiversidade, além de garantir a segurança alimentar das comunidades."
+            },
+            {
+                question: "3. Qual é o principal objetivo do 'Zoneamento Ecológico-Econômico' (ZEE)?",
+                options: [
+                    "Classificar as terras apenas com base em sua capacidade de produção.",
+                    "Ignorar as limitações ambientais na tomada de decisão sobre o uso do solo.",
+                    "Orientar o planejamento e o ordenamento territorial, identificando a vocação e as limitações de uso das terras, para promover o desenvolvimento sustentável.",
+                    "Proibir qualquer tipo de atividade econômica em áreas rurais.",
+                    "Incentivar a exploração descontrolada de recursos naturais."
+                ],
+                correctAnswer: "Orientar o planejamento e o ordenamento territorial, identificando a vocação e as limitações de uso das terras, para promover o desenvolvimento sustentável.",
+                hint: "O ZEE é uma ferramenta de gestão ambiental que ajuda a compatibilizar o desenvolvimento econômico com a conservação do meio ambiente.",
+                explanation: "O Zoneamento Ecológico-Econômico (ZEE) é uma metodologia que visa orientar o uso e a ocupação do território, considerando as características ambientais, sociais e econômicas de uma região. Ele busca promover um desenvolvimento sustentável, evitando conflitos de uso e garantindo a conservação dos recursos naturais, ao mesmo tempo em que atende às necessidades da população local."
+            },
+            {
+                question: "4. De acordo com a Lei nº 11.959/2009, qual é o principal objetivo da Política Nacional de Desenvolvimento Sustentável da Aquicultura e da Pesca?",
+                options: [
+                    "Apenas incentivar a pesca industrial em larga escala.",
+                    "Ignorar a pesca artesanal e focar na produção em cativeiro.",
+                    "Promover o desenvolvimento sustentável da pesca e da aquicultura, garantindo a conservação dos ecossistemas e a segurança alimentar.",
+                    "Proibir qualquer tipo de pesca e aquicultura.",
+                    "Regular a pesca apenas para fins comerciais, sem se preocupar com a subsistência."
+                ],
+                correctAnswer: "Promover o desenvolvimento sustentável da pesca e da aquicultura, garantindo a conservação dos ecossistemas e a segurança alimentar.",
+                hint: "A lei busca a gestão integrada e a exploração responsável dos recursos pesqueiros e aquícolas.",
+                explanation: "A Política Nacional de Desenvolvimento Sustentável da Aquicultura e da Pesca estabelece diretrizes para a gestão dos recursos pesqueiros e aquícolas, promovendo práticas sustentáveis que respeitem os ecossistemas aquáticos. Ela visa garantir a segurança alimentar, a geração de emprego e renda, e a conservação dos recursos naturais, integrando as comunidades pesqueiras e aquícolas no processo de gestão."
+            },
+            {
+                question: "5. A Fitopatologia é o estudo de quê?",
+                options: [
+                    "Doenças que afetam o gado bovino.",
+                    "Doenças que afetam as aves.",
+                    "Doenças que afetam as plantas, incluindo a sua causa, desenvolvimento e controle.",
+                    "As pragas que afetam os seres humanos.",
+                    "As doenças que afetam os peixes e outros organismos aquáticos."
+                ],
+                correctAnswer: "Doenças que afetam as plantas, incluindo a sua causa, desenvolvimento e controle.",
+                hint: "O conhecimento da fitopatologia é essencial para garantir a sanidade das lavouras e a segurança alimentar.",
+                explanation: "A Fitopatologia é a ciência que estuda as doenças das plantas, suas causas (como fungos, bactérias, vírus e nematoides), o desenvolvimento dessas doenças e as formas de controle. O conhecimento em fitopatologia é fundamental para a agricultura, pois ajuda a prevenir e tratar doenças que podem comprometer a produção agrícola e a qualidade dos alimentos."
+            },
+            {
+                question: "6. Qual é a finalidade do 'Registro Geral da Atividade Pesqueira' (RGP), de acordo com o Decreto nº 8.425/2015?",
+                options: [
+                    "Apenas registrar as embarcações pesqueiras.",
+                    "Controlar a quantidade de peixe que cada pescador pode pescar por dia.",
+                    "Identificar, cadastrar e habilitar os pescadores profissionais, as embarcações, os armadores de pesca e as empresas pesqueiras para o exercício da atividade.",
+                    "Limitar a pesca a apenas algumas espécies.",
+                    "Apenas registrar os peixes capturados para fins estatísticos."
+                ],
+                correctAnswer: "Identificar, cadastrar e habilitar os pescadores profissionais, as embarcações, os armadores de pesca e as empresas pesqueiras para o exercício da atividade.",
+                hint: "O RGP é uma ferramenta fundamental para o ordenamento e a gestão da pesca no Brasil.",
+                explanation: "O Registro Geral da Atividade Pesqueira (RGP) é um sistema de cadastro que visa organizar e regulamentar a atividade pesqueira no Brasil. Ele permite identificar e habilitar os pescadores, embarcações e empresas envolvidas na pesca, contribuindo para a gestão sustentável dos recursos pesqueiros e a formalização da atividade, garantindo direitos e deveres aos profissionais do setor."
+            },
+            {
+                question: "7. O que caracteriza a 'aquicultura sustentável'?",
+                options: [
+                    "Apenas o uso de tecnologias de ponta para aumentar a produtividade.",
+                    "A produção de organismos aquáticos sem qualquer controle ambiental.",
+                    "A produção de organismos aquáticos que respeita os limites ecológicos, sociais e econômicos, minimizando o impacto ambiental e garantindo a viabilidade a longo prazo.",
+                    "A produção de espécies exóticas sem considerar os impactos na fauna nativa.",
+                    "A criação de organismos aquáticos com o uso de grandes quantidades de antibióticos."
+                ],
+                correctAnswer: "A produção de organismos aquáticos que respeita os limites ecológicos, sociais e econômicos, minimizando o impacto ambiental e garantindo a viabilidade a longo prazo.",
+                hint: "A aquicultura sustentável busca a harmonia entre a produção e a conservação do meio ambiente, além de considerar os aspectos sociais.",
+                explanation: "A aquicultura sustentável é um modelo de produção que visa criar organismos aquáticos de forma responsável, respeitando os ecossistemas e as comunidades locais. Ela busca minimizar os impactos ambientais, como a poluição da água e a degradação dos habitats, ao mesmo tempo em que promove a segurança alimentar e o desenvolvimento econômico das comunidades envolvidas."
+            },
+            {
+                question: "8. No contexto da reforma agrária, o que é 'agricultura familiar e comunitária'?",
+                options: [
+                    "Um modelo de produção em larga escala, com foco em commodities agrícolas.",
+                    "A produção de alimentos para consumo próprio sem nenhum excedente.",
+                    "Um modelo de produção em que a gestão e a mão de obra são predominantemente familiares e/ou comunitárias, com uso de práticas sustentáveis e foco na diversificação da produção.",
+                    "A agricultura praticada apenas por grandes empresas do agronegócio.",
+                    "O cultivo de apenas uma espécie de planta em grandes áreas de terra."
+                ],
+                correctAnswer: "Um modelo de produção em que a gestão e a mão de obra são predominantemente familiares e/ou comunitárias, com uso de práticas sustentáveis e foco na diversificação da produção.",
+                hint: "A agricultura familiar é a base da segurança alimentar do país e tem um papel fundamental na preservação dos recursos naturais e no desenvolvimento rural.",
+                explanation: "A agricultura familiar e comunitária é um modelo de produção que envolve famílias ou comunidades na gestão das atividades agrícolas, priorizando práticas sustentáveis e a diversificação da produção. Esse modelo é essencial para a segurança alimentar, a preservação ambiental e o fortalecimento das economias locais, contribuindo para o desenvolvimento rural e a redução da pobreza."
+            },
+            {
+                question: "9. O que são os 'sistemas de certificação orgânica e agroecológica'?",
+                options: [
+                    "Um selo que garante que o produto é geneticamente modificado.",
+                    "Um documento que garante a qualidade de produtos industrializados.",
+                    "Mecanismos que garantem ao consumidor que o produto foi produzido de acordo com as normas da agricultura orgânica ou agroecológica, sem o uso de agrotóxicos e fertilizantes sintéticos.",
+                    "Sistemas que apenas atestam a origem geográfica de um produto.",
+                    "Certificados que atestam que um produto é livre de qualquer tipo de praga, mesmo que com o uso de agrotóxicos."
+                ],
+                correctAnswer: "Mecanismos que garantem ao consumidor que o produto foi produzido de acordo com as normas da agricultura orgânica ou agroecológica, sem o uso de agrotóxicos e fertilizantes sintéticos.",
+                hint: "A certificação é uma ferramenta de rastreabilidade e transparência, que ajuda a construir a confiança do consumidor.",
+                explanation: "Os sistemas de certificação orgânica e agroecológica são mecanismos que asseguram que os produtos agrícolas foram cultivados de acordo com práticas sustentáveis, sem o uso de agrotóxicos, fertilizantes sintéticos ou organismos geneticamente modificados. Essas certificações garantem a qualidade e a segurança alimentar, além de promover a conservação ambiental e o respeito às comunidades locais."
+            },
+            {
+                question: "10. Qual é a principal característica da 'pesca artesanal'?",
+                options: [
+                    "O uso de grandes embarcações e equipamentos de alta tecnologia.",
+                    "A pesca realizada apenas para o lazer.",
+                    "É praticada em pequena escala, com embarcações de pequeno porte, com foco no conhecimento tradicional e na subsistência das comunidades pesqueiras.",
+                    "A pesca que utiliza dinamite para capturar peixes.",
+                    "A pesca que captura apenas espécies de grande porte."
+                ],
+                correctAnswer: "É praticada em pequena escala, com embarcações de pequeno porte, com foco no conhecimento tradicional e na subsistência das comunidades pesqueiras.",
+                hint: "A pesca artesanal tem um papel social e econômico fundamental nas comunidades litorâneas e ribeirinhas.",
+                explanation: "A pesca artesanal é uma atividade tradicional que envolve a captura de peixes e outros organismos aquáticos em pequena escala, geralmente utilizando embarcações de pequeno porte e técnicas sustentáveis. Ela é essencial para a subsistência de muitas comunidades, preservando o conhecimento local e contribuindo para a segurança alimentar, além de ter um impacto social e econômico significativo nas regiões costeiras e ribeirinhas."
+            }
+],
+            'Eixo Temático 5 - Sustentabilidade e Patrimônio Cultural': [
+                   {
+                question: "1. A Política Nacional do Meio Ambiente (Lei nº 6.938/1981) tem como um de seus objetivos a 'preservação, melhoria e recuperação da qualidade ambiental'. Qual instrumento é fundamental para alcançar esse objetivo?",
+                options: [
+                    "Apenas a fiscalização de grandes indústrias.",
+                    "O licenciamento ambiental de atividades potencialmente poluidoras ou utilizadoras de recursos ambientais.",
+                    "A proibição de qualquer atividade econômica em áreas rurais.",
+                    "A criação de impostos sobre produtos de consumo.",
+                    "O incentivo à importação de produtos de países com regulamentação ambiental mais flexível."
+                ],
+                correctAnswer: "O licenciamento ambiental de atividades potencialmente poluidoras ou utilizadoras de recursos ambientais.",
+                hint: "O licenciamento ambiental é um procedimento administrativo que busca conciliar o desenvolvimento econômico com a proteção do meio ambiente.",
+                explanation: "O licenciamento ambiental é um instrumento essencial da Política Nacional do Meio Ambiente, que visa regular as atividades que possam causar impactos ambientais. Ele garante que essas atividades sejam realizadas de forma sustentável, minimizando os danos ao meio ambiente e promovendo a recuperação de áreas degradadas."
+            },
+            {
+                question: "2. O que é o 'desenvolvimento sustentável'?",
+                options: [
+                    "O crescimento econômico sem restrições, priorizando o lucro.",
+                    "A preservação total do meio ambiente, sem qualquer atividade econômica.",
+                    "O desenvolvimento que satisfaz as necessidades do presente sem comprometer a capacidade das futuras gerações de satisfazerem as suas próprias necessidades.",
+                    "O uso de fontes de energia não renovável para impulsionar a economia.",
+                    "Um modelo de desenvolvimento que ignora os impactos sociais."
+                ],
+                correctAnswer: "O desenvolvimento que satisfaz as necessidades do presente sem comprometer a capacidade das futuras gerações de satisfazerem as suas próprias necessidades.",
+                hint: "O conceito de desenvolvimento sustentável busca a integração entre os aspectos econômicos, sociais e ambientais.",
+                explanation: "O desenvolvimento sustentável é um conceito que busca equilibrar o crescimento econômico com a proteção ambiental e a justiça social. Ele envolve a utilização responsável dos recursos naturais, a promoção da inclusão social e o respeito às culturas locais, garantindo que as necessidades atuais sejam atendidas sem comprometer as gerações futuras."
+            },
+            {
+                question: "3. Qual é o principal objetivo da 'Política Nacional sobre Mudança do Clima' (Lei nº 12.187/2009)?",
+                options: [
+                    "Apenas incentivar o uso de combustíveis fósseis para acelerar o crescimento econômico.",
+                    "Ignorar o impacto das emissões de gases de efeito estufa.",
+                    "Promover o enfrentamento da mudança do clima através da redução de emissões de gases de efeito estufa e da adaptação aos seus efeitos.",
+                    "Proibir a produção de energia elétrica.",
+                    "Aumentar a temperatura média do planeta para melhorar a agricultura."
+                ],
+                correctAnswer: "Promover o enfrentamento da mudança do clima através da redução de emissões de gases de efeito estufa e da adaptação aos seus efeitos.",
+                hint: "A política nacional estabelece metas e instrumentos para que o Brasil contribua para o esforço global de combate ao aquecimento global.",
+                explanation: "A Política Nacional sobre Mudança do Clima tem como objetivo principal enfrentar os desafios impostos pelas mudanças climáticas, promovendo ações que reduzam as emissões de gases de efeito estufa e que preparem o país para se adaptar aos impactos já inevitáveis. Isso inclui a promoção de energias renováveis, a conservação de florestas e a implementação de tecnologias sustentáveis."
+            },
+            {
+                question: "4. A 'Carta de Veneza' é um documento internacional importante para a preservação do patrimônio cultural. Qual é seu foco principal?",
+                options: [
+                    "Promover a demolição de edifícios antigos para dar lugar a construções modernas.",
+                    "Incentivar a substituição de materiais originais por materiais mais baratos.",
+                    "Orientar a conservação e restauração de monumentos e sítios históricos, valorizando a autenticidade e a documentação das intervenções.",
+                    "Apenas a construção de novos museus para abrigar artefatos antigos.",
+                    "Ignorar a história e o valor cultural dos monumentos."
+                ],
+                correctAnswer: "Orientar a conservação e restauração de monumentos e sítios históricos, valorizando a autenticidade e a documentação das intervenções.",
+                hint: "A Carta de Veneza é um dos documentos mais importantes para a teoria e a prática da restauração de bens culturais.",
+                explanation: "A Carta de Veneza, adotada em 1964, é um documento fundamental para a preservação do patrimônio cultural, estabelecendo princípios para a conservação e restauração de monumentos e sítios históricos. Ela enfatiza a importância da autenticidade, da documentação das intervenções e do respeito às características originais dos bens culturais, promovendo uma abordagem ética e responsável na preservação do patrimônio."
+            },
+            {
+                question: "5. O 'EIA/RIMA' (Estudo e Relatório de Impacto Ambiental) é um instrumento de licenciamento ambiental. Quando ele é exigido?",
+                options: [
+                    "Para qualquer tipo de atividade, independentemente do seu potencial poluidor.",
+                    "Apenas para a construção de pequenas residências em áreas urbanas.",
+                    "Para a instalação de empreendimentos e atividades que possam causar significativa degradação do meio ambiente, conforme estabelecido em lei.",
+                    "Apenas para projetos de agricultura familiar.",
+                    "Somente para atividades de baixo impacto ambiental."
+                ],
+                correctAnswer: "Para a instalação de empreendimentos e atividades que possam causar significativa degradação do meio ambiente, conforme estabelecido em lei.",
+                hint: "O EIA/RIMA é um estudo técnico multidisciplinar que tem como objetivo avaliar as consequências ambientais de um projeto.",
+                explanation: "O Estudo e Relatório de Impacto Ambiental (EIA/RIMA) é um instrumento essencial do licenciamento ambiental, exigido para empreendimentos que possam causar impactos significativos ao meio ambiente. Ele envolve uma análise detalhada dos possíveis efeitos ambientais do projeto, propondo medidas mitigadoras e compensatórias para minimizar os danos, garantindo a transparência e a participação da sociedade no processo de tomada de decisão."
+            },
+            {
+                question: "6. A 'Política Nacional de Resíduos Sólidos' (Lei nº 12.305/2010) estabelece a ordem de prioridade na gestão de resíduos sólidos. Qual é essa ordem?",
+                options: [
+                    "Apenas a destinação final em aterros sanitários.",
+                    "Apenas a reciclagem e o reuso dos resíduos.",
+                    "Não geração, redução, reutilização, reciclagem, tratamento dos resíduos sólidos e, por último, a disposição final ambientalmente adequada dos rejeitos.",
+                    "A incineração de todos os resíduos sem qualquer tratamento prévio.",
+                    "O descarte de resíduos em qualquer local, sem controle."
+                ],
+                correctAnswer: "Não geração, redução, reutilização, reciclagem, tratamento dos resíduos sólidos e, por último, a disposição final ambientalmente adequada dos rejeitos.",
+                hint: "A lei prioriza ações que evitem a geração de lixo e, quando isso não for possível, buscam o máximo aproveitamento do que é gerado.",
+                explanation: "A Política Nacional de Resíduos Sólidos estabelece uma hierarquia de gestão de resíduos que prioriza a não geração e a redução dos resíduos, seguida pela reutilização, reciclagem e tratamento, antes da disposição final em aterros sanitários. Essa abordagem busca minimizar o impacto ambiental dos resíduos, promovendo a economia circular e a sustentabilidade."
+            },
+            {
+                question: "7. A Política Energética Nacional (Lei nº 9.478/1997) e a Lei do Gás (Lei nº 14.134/2021) buscam, entre outros objetivos, o quê?",
+                options: [
+                    "O uso exclusivo de fontes de energia não renováveis.",
+                    "Apenas o controle de preços dos combustíveis fósseis.",
+                    "A promoção do uso racional de energia e a diversificação da matriz energética, incentivando o uso de fontes renováveis.",
+                    "A proibição de qualquer tipo de geração de energia.",
+                    "A exportação de toda a energia produzida no país."
+                ],
+                correctAnswer: "A promoção do uso racional de energia e a diversificação da matriz energética, incentivando o uso de fontes renováveis.",
+                hint: "As políticas energéticas buscam a segurança energética e a sustentabilidade, incentivando o uso de fontes como eólica, solar e biomassa.",
+                explanation: "A Política Energética Nacional e a Lei do Gás visam promover o uso eficiente e sustentável da energia no Brasil, diversificando a matriz energética e incentivando fontes renováveis como solar, eólica e biomassa. Essas políticas buscam garantir a segurança energética do país, reduzir a dependência de combustíveis fósseis e contribuir para a mitigação das mudanças climáticas."
+            },
+            {
+                question: "8. A Política Nacional de Recursos Hídricos (Lei nº 9.433/1997) estabelece que a água é um bem de domínio público. Qual é um dos seus princípios fundamentais?",
+                options: [
+                    "A água deve ser tratada como um bem econômico, mas sem qualquer custo para o usuário.",
+                    "A gestão dos recursos hídricos deve ser centralizada e sem a participação da sociedade.",
+                    "A bacia hidrográfica é a unidade territorial para a gestão dos recursos hídricos.",
+                    "A água pode ser utilizada sem qualquer restrição por qualquer pessoa.",
+                    "O uso prioritário da água é o uso industrial, em detrimento do consumo humano."
+                ],
+                correctAnswer: "A bacia hidrográfica é a unidade territorial para a gestão dos recursos hídricos.",
+                hint: "A gestão por bacias hidrográficas é fundamental para a conservação e o uso sustentável da água, considerando as particularidades de cada região.",
+                explanation: "A Política Nacional de Recursos Hídricos estabelece que a água é um bem público e deve ser gerida de forma sustentável, priorizando o uso múltiplo e a conservação dos recursos hídricos. A bacia hidrográfica é a unidade territorial para essa gestão, permitindo uma abordagem integrada que considera as interações entre os diferentes usos da água e os ecossistemas locais."
+            },
+            {
+                question: "9. O que é 'Limnologia' e por que ela é importante para a aquicultura?",
+                options: [
+                    "É o estudo das florestas e sua importância para o ciclo da água.",
+                    "É o estudo da atmosfera e seu impacto no clima.",
+                    "É a ciência que estuda os ecossistemas de águas continentais (lagos, rios, represas, etc.), sendo crucial para o monitoramento e o manejo da qualidade da água em sistemas de aquicultura.",
+                    "O estudo da geologia do solo e sua relação com a agricultura.",
+                    "O estudo das águas subterrâneas e sua exploração."
+                ],
+                correctAnswer: "É a ciência que estuda os ecossistemas de águas continentais (lagos, rios, represas, etc.), sendo crucial para o monitoramento e o manejo da qualidade da água em sistemas de aquicultura.",
+                hint: "O controle da qualidade da água é um fator determinante para a saúde e o crescimento dos organismos aquáticos cultivados.",
+                explanation: "A Limnologia é a ciência que estuda os ecossistemas de águas continentais, como lagos, rios e represas. Ela é fundamental para a aquicultura, pois permite o monitoramento e o manejo da qualidade da água, garantindo condições adequadas para o cultivo de organismos aquáticos. O conhecimento em limnologia ajuda a prevenir doenças, otimizar a produção e preservar os ecossistemas aquáticos."
+            },
+            {
+                question: "10. No processo de licenciamento ambiental, o que é a 'compensação ambiental'?",
+                options: [
+                    "O pagamento de uma multa por um crime ambiental cometido.",
+                    "A demolição de uma obra ilegal.",
+                    "É uma medida compensatória imposta ao empreendedor que causa significativo impacto ambiental, consistindo em repassar recursos para a criação e manutenção de Unidades de Conservação.",
+                    "É a doação de uma área de terra para a agricultura.",
+                    "A obrigação de plantar árvores em um local diferente de onde a obra está sendo executada."
+                ],
+                correctAnswer: "É uma medida compensatória imposta ao empreendedor que causa significativo impacto ambiental, consistindo em repassar recursos para a criação e manutenção de Unidades de Conservação.",
+                hint: "A compensação ambiental busca equilibrar os impactos negativos de um empreendimento com a proteção de áreas naturais.",
+                explanation: "A compensação ambiental é uma medida prevista no licenciamento ambiental que visa mitigar os impactos negativos de um empreendimento sobre o meio ambiente. Quando um projeto causa danos significativos, o empreendedor deve contribuir para a criação ou manutenção de Unidades de Conservação, ajudando a preservar a biodiversidade e os ecossistemas locais."
+            }
+            ]
+        };
+
+        // Referências aos elementos da interface
+        const homeScreen = document.getElementById('home-screen');
+        const eixoContentScreen = document.getElementById('eixo-content-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        
+        const eixoContentTitle = document.getElementById('eixo-content-title');
+        const eixoContentText = document.getElementById('eixo-content-text');
+        const currentEixoTitle = document.getElementById('current-eixo-title');
+        const questionText = document.getElementById('question-text');
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const optionsContainer = document.getElementById('options-container');
+        const hintButton = document.getElementById('hint-button');
+        const hintText = document.getElementById('hint-text');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const nextButton = document.getElementById('next-button');
+        const finalScore = document.getElementById('final-score');
+
+        // Função para exibir a tela de conteúdo do eixo temático
+        function showEixoContent(eixo) {
+            quizState.currentEixo = eixo;
+            eixoContentTitle.textContent = ` ${eixo}`;
+            eixoContentText.innerHTML = eixoContent[eixo];
+            
+            homeScreen.classList.add('hidden');
+            eixoContentScreen.classList.remove('hidden');
+        }
+
+        // Função para iniciar o quiz após ver o conteúdo do eixo
+        function startQuiz() {
+            quizState.questions = quizData[quizState.currentEixo];
+            quizState.currentQuestionIndex = 0;
+            quizState.score = 0;
+
+            eixoContentScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            updateQuizUI();
+        }
+
+        // Função para voltar à tela inicial
+        function goToHome() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            eixoContentScreen.classList.add('hidden');
+            homeScreen.classList.remove('hidden');
+        }
+
+        // Função para atualizar a interface do quiz com a pergunta atual
+        function updateQuizUI() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            
+            currentEixoTitle.textContent = quizState.currentEixo;
+            questionText.textContent = currentQuestion.question;
+            questionCounter.textContent = `Pergunta ${quizState.currentQuestionIndex + 1} de ${quizState.questions.length}`;
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+            
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('w-full', 'bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white', 'text-gray-800', 'font-medium', 'py-3', 'px-4', 'rounded-lg', 'text-left', 'transition-colors', 'duration-200');
+                button.onclick = () => selectAnswer(button, option);
+                optionsContainer.appendChild(button);
+            });
+
+            // Resetar estados de dica e explicação
+            hintButton.classList.remove('hidden');
+            hintText.classList.add('hidden');
+            explanationContainer.classList.add('hidden');
+            nextButton.classList.add('hidden');
+        }
+        
+        // Função para mostrar a dica
+        function showHint() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            hintText.textContent = `Dica: ${currentQuestion.hint}`;
+            hintText.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+        }
+
+        // Função para selecionar uma resposta
+        function selectAnswer(selectedButton, selectedOption) {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correctAnswer;
+            
+            // Desabilitar todas as opções
+            Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+
+            // Destacar respostas
+            if (isCorrect) {
+                quizState.score++;
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-green-500', 'text-white');
+            } else {
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-red-500', 'text-white');
+                // Destacar a resposta correta também
+                Array.from(optionsContainer.children).find(btn => btn.textContent === currentQuestion.correctAnswer).classList.add('bg-green-500', 'text-white');
+            }
+            
+            // Mostrar a explicação e o botão de próxima pergunta
+            explanationText.textContent = currentQuestion.explanation;
+            explanationContainer.classList.remove('hidden');
+            nextButton.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+        }
+
+        // Função para avançar para a próxima pergunta
+        function nextQuestion() {
+            quizState.currentQuestionIndex++;
+            if (quizState.currentQuestionIndex < quizState.questions.length) {
+                updateQuizUI();
+            } else {
+                showResults();
+            }
+        }
+
+        // Função para exibir os resultados finais
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScore.textContent = `Você acertou ${quizState.score} de ${quizState.questions.length} perguntas do eixo '${quizState.currentEixo}'.`;
+        }
+    </script>
+
+</body>
+</html>

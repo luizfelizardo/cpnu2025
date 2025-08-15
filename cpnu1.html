@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz CPNU - Bloco 2</title>
+    <link rel="icon" type="image/png" href="brasil.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 48rem;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .themed-button {
+            transition: all 0.2s;
+        }
+        .themed-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .themed-button-active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .top-border {
+            width: 100%;
+            height: 1.5rem;
+            background-color: #1e3a8a;
+        }
+        .themed-footer {
+            width: 100%;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.5rem 1rem; /* Aumentado para 1.5rem no eixo vertical (topo/fundo) */
+        }
+        .footer-border-image {
+            width: 100%;
+            height: 18px;
+            display: block;
+        }
+        .footer-content {
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .contact-link {
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+        .contact-link:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-border"></div>
+
+    <div class="container">
+        
+        <div id="home-screen" class="text-center">
+
+           <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">Quiz Preparatório CPNU - Bloco 1</h1>
+            <p class="text-lg text-gray-600 mb-8">Selecione um eixo temático para estudar os conteúdos e começar o quiz.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Conhecimentos Gerais')">
+                    Conhecimentos Gerais
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 1 - Seguridade Social')">
+                    Eixo 1: Seguridade Social 
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 2 - Saúde')">
+                    Eixo 2: Saúde
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 3 - Assistência Social')">
+                    Eixo 3: Assistência Social
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 4 - Previdência Social')">
+                    Eixo 4: Previdência Social 
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 5 - Saúde e Segurança do Trabalho')">
+                    Eixo 5: Saúde e Segurança do Trabalho 
+                </button>
+            </div>
+            
+            <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center w-full mt-6 justify-center" onclick="goToPreviousPage()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    Voltar
+</button>
+        </div>
+
+        <div id="eixo-content-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4" id="eixo-content-title"></h2>
+            <div id="eixo-content-text" class="text-left bg-gray-50 p-6 rounded-xl shadow-inner overflow-y-auto max-h-96 text-gray-700">
+                </div>
+            <div class="mt-6 flex justify-between gap-4">
+                <button class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="startQuiz()">
+                    Iniciar Quiz
+                </button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <div class="mb-6 pb-4 border-b border-gray-300">
+                <p class="text-indigo-600 font-semibold text-lg" id="current-eixo-title"></p>
+                <h2 class="text-2xl font-bold mt-2 text-gray-800" id="question-text"></h2>
+                <div class="flex justify-between items-center text-sm mt-2">
+                    <p class="text-gray-500" id="question-counter"></p>
+                    <p class="text-green-600 font-bold" id="score-counter"></p>
+                </div>
+            </div>
+
+            <div id="options-container" class="space-y-4 mb-4">
+                </div>
+            
+            <button id="hint-button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-lg shadow-sm transition-colors duration-200 mt-4" onclick="showHint()">
+                Dica
+            </button>
+            <div id="hint-text" class="hidden mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-gray-700"></div>
+
+            <div id="explanation-container" class="hidden mt-6 p-6 rounded-lg border border-green-600 bg-green-50">
+                <p class="font-bold text-green-700 mb-2">Explicação:</p>
+                <p id="explanation-text" class="text-gray-700"></p>
+            </div>
+            
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="back-to-home-button" class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button id="next-button" class="w-1/2 hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="nextQuestion()">
+                    Próxima Pergunta
+                </button>
+            </div>
+        </div>
+
+        <div id="results-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4">Quiz Concluído!</h2>
+            <p id="final-score" class="text-xl mb-6 text-gray-800"></p>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                Voltar para o Início
+            </button>
+        </div>
+    </div>
+    
+    <footer class="w-full mt-auto">
+        <img src="7e4bab99-0869-4fec-bb88-19225341d17c (1).png" alt="Borda decorativa" class="footer-border-image">
+        <div class="themed-footer">
+    <div class="footer-content">
+        <div class="flex items-center space-x-4">
+            <a href="contato.html" class="text-sm text-gray-300 hover:text-white transition-colors duration-200">
+                Dúvidas? Entre em contato!
+            </a>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
+            <a href="mailto:contato@luizcodedev.tech" class="contact-link text-sm">Email</a>
+            <a href="https://wa.me/5511995432530" target="_blank" class="contact-link text-sm">WhatsApp</a>
+            <a href="https://www.linkedin.com/in/luiz-eduardo-82a942179/" target="_blank" class="contact-link text-sm">LinkedIn</a>
+        </div>
+    </div>
+    <div class="text-center text-gray-400 text-xs mt-2 md:mt-0">
+        &copy; 2025 LuizDev. Todos os direitos reservados.
+    </div>
+</div>
+    </footer>
+
+      
+
+     <script>
+        // Objeto global para armazenar o estado do quiz
+        let quizState = {
+            questions: [],
+            currentQuestionIndex: 0,
+            score: 0,
+            currentEixo: ''
+        };
+
+      
+
+function goToPreviousPage() {
+    // Isso fará o navegador voltar para a página anterior no histórico
+    window.history.back();
+}
+
+
+
+        // Conteúdo de estudo para cada eixo temático
+        const eixoContent = {
+            'Conhecimentos Gerais': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Desafios do estado de direito: democracia e cidadania.</li>
+                    <li>2. Políticas públicas: fundamentos, ciclos, federalismo e transformação digital.</li>
+                    <li>3. Ética e integridade: princípios, governança e transparência.</li>
+                    <li>4. Diversidade e inclusão na sociedade.</li>
+                    <li>5. Administração pública federal: princípios, reformas e finanças públicas.</li>
+                    <li>6. Trabalho e tecnologia: IA, automação e riscos no setor público.</li>
+                </ul>
+            `,
+            'Eixo Temático 1 - Seguridade Social': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Conceito de política social e seguridade social.</li>
+                    <li>2. Estado brasileiro e proteção social.</li>
+                    <li>3. Evolução legislativa da
+seguridade social no Brasil.</li>
+                    <li>4. Financiamento e orçamento da seguridade social.</li>
+                    
+                </ul>
+            `,
+            'Eixo Temático 2 - Saúde': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Aspectos históricos da política de saúde no Brasil.</li>
+                    <li>2. Legislações relativas à política pública
+de saúde.</li>
+                    <li>3. Ciência, Pesquisa e
+Tecnologia em saúde.</li>
+                    <li>4. A política de saúde e o Sistema Único de Saúde (SUS).</li>
+                    <li>5. Política Nacional de Vigilância em Saúde.</li>
+                </ul>
+            `,
+            'Eixo Temático 3 - Assistência Social': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Aspectos históricos da assistência social no Brasil.</li>
+                    <li>2. Legislações relativas à política pública de assistência social.</li>
+                    <li>3. Pobreza, desigualdades e
+vulnerabilidade social.</li>
+                    <li>4. A política de assistência social e o Sistema Único de Assistência Social (SUAS).</li>
+                    <li>5. Gestão do SUAS.</li>
+                    <li>6. Benefício de Prestação Continuada.</li>
+                </ul>
+            `,
+            'Eixo Temático 4 - Previdência Social': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Noções de direito previdenciário.</li>
+                    <li>2. Finalidades e princípios básicos da política de previdência social.</li>
+                    <li>3. Regimes Próprios de Previdência Social.</li>
+                    <li>4. Regime Geral de Previdência Social.</li>
+                    <li>5. Plano de Benefícios da Previdência Social.</li>
+                    <li>6. Avaliação biopsicossocial da deficiência.</li>
+                    <li>7. Doenças ocupacionais e Perfil Profissiográfico Previdenciário.</li>
+                </ul>
+            `,
+            'Eixo Temático 5 - Saúde e Segurança do Trabalho': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Legislações relativas à saúde e à segurança do trabalho.</li>
+                    <li>2. Subsistema Integrado de Atenção à Saúde do Servidor (SIASS).</li>
+                    <li>3. Noções conceituais de higiene do trabalho e suas relações com
+o ambiente de trabalho.</li>
+                    <li>4. Acidente do Trabalho.</li>
+                    <li>5. Riscos biológicos, químicos, físicos, mecânicos,
+ergonômicos e psicossociais no contexto do trabalho.</li>
+                    <li>6. Biossegurança, vigilância, prevenção e promoção da saúde do
+trabalhador.</li>
+                    <li>7. A psicopatologia do trabalho.</li>
+                </ul>
+            `
+        };
+
+        // Dados do quiz: perguntas, opções, respostas, dicas e explicações
+        const quizData = {
+             'Conhecimentos Gerais': [
+                {
+                    question: "Segundo a Constituição de 1988, qual a principal função dos direitos fundamentais, sociais e políticos?",
+                    options: ["Consolidar a democracia e a cidadania.", "Limitar o poder do Poder Executivo.", "Viabilizar a judicialização de políticas públicas.", "Aumentar a burocracia estatal."],
+                    correctAnswer: "Consolidar a democracia e a cidadania.",
+                    hint: "A Constituição de 88 é conhecida como a 'Constituição Cidadã'.",
+                    explanation: "A Constituição de 1988, conhecida como a 'Constituição Cidadã', tem como um de seus pilares a consolidação da democracia. Os direitos fundamentais, sociais e políticos servem para assegurar a participação ativa do cidadão e a proteção de suas liberdades, fortalecendo o Estado Democrático de Direito."
+                },
+                {
+                    question: "Na etapa de 'Formulação' do ciclo de políticas públicas, qual atividade é central?",
+                    options: ["Implementar planos e programas.", "Monitorar e avaliar os resultados.", "Elaborar alternativas e selecionar a melhor solução.", "Definir se o problema será tratado pelo governo."],
+                    correctAnswer: "Elaborar alternativas e selecionar a melhor solução.",
+                    hint: "Pense na fase que vem depois de identificar o problema, mas antes de agir.",
+                    explanation: "Após a fase de 'Agenda', onde o problema é reconhecido, a 'Formulação' é a etapa em que se criam as propostas de ação, avaliando as possíveis soluções e escolhendo a mais adequada para ser implementada."
+                },
+                {
+                    question: "A Lei de Acesso à Informação (LAI) e a transparência pública estão diretamente relacionadas a qual princípio constitucional da administração pública?",
+                    options: ["Legalidade.", "Impessoalidade.", "Moralidade.", "Publicidade."],
+                    correctAnswer: "Publicidade.",
+                    hint: "É o princípio que exige a divulgação dos atos da administração.",
+                    explanation: "A publicidade é o princípio constitucional que exige a transparência total dos atos da administração, salvo exceções legais. A Lei de Acesso à Informação (LAI) é o principal instrumento que concretiza este princípio, garantindo que o cidadão possa acessar as informações públicas."
+                },
+                {
+                    question: "Qual instrumento do planejamento-orçamento no Brasil define as diretrizes, metas e prioridades da administração pública federal para um período de quatro anos?",
+                    options: ["Plano Plurianual (PPA).", "Lei de Diretrizes Orçamentárias (LDO).", "Lei Orçamentária Anual (LOA).", "Plano Nacional de Desenvolvimento."],
+                    correctAnswer: "Plano Plurianual (PPA).",
+                    hint: "O nome do instrumento já indica sua abrangência de tempo.",
+                    explanation: "O PPA é o principal instrumento de planejamento de médio prazo do governo federal, definindo as diretrizes e os objetivos estratégicos para um período de quatro anos. A LDO e a LOA devem estar alinhadas com o que foi estabelecido no PPA."
+                },
+                {
+                    question: "Qual o princípio da Administração Pública que exige que a atuação dos agentes públicos seja voltada ao interesse público, não podendo beneficiar a si próprios ou a terceiros?",
+                    options: ["Moralidade.", "Impessoalidade.", "Eficiência.", "Legalidade."],
+                    correctAnswer: "Impessoalidade.",
+                    hint: "Pense na atuação 'sem rosto', sem distinção pessoal.",
+                    explanation: "O princípio da impessoalidade exige que a Administração Pública atue com o objetivo de alcançar o interesse público, sem favorecer ou prejudicar pessoas por razões pessoais. A conduta deve ser objetiva e voltada à finalidade da lei."
+                },
+                {
+                    question: "A governança pública, como conceito de gestão, tem como um de seus pilares a 'accountability'. O que esse termo significa?",
+                    options: ["A capacidade de inovar na gestão.", "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.", "A agilidade na execução de projetos.", "A gestão baseada em dados e evidências."],
+                    correctAnswer: "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.",
+                    hint: "É a junção de 'conta' e 'habilidade'.",
+                    explanation: "Accountability é o dever de prestar contas sobre as ações tomadas e de se responsabilizar pelas consequências delas. É um pilar fundamental da governança, promovendo a transparência e a responsabilidade na gestão pública."
+                },
+                {
+                    question: "A transformação digital na Administração Pública tem como principal objetivo:",
+                    options: ["Substituir servidores por robôs.", "Simplificar e desburocratizar os serviços para o cidadão.", "Aumentar a arrecadação de impostos.", "Centralizar todas as informações em um único sistema."],
+                    correctAnswer: "Simplificar e desburocratizar os serviços para o cidadão.",
+                    hint: "O foco é na melhoria da experiência do usuário, ou seja, do cidadão.",
+                    explanation: "A transformação digital na Administração Pública busca usar a tecnologia para simplificar processos, tornar os serviços mais acessíveis e eficientes, e melhorar a relação entre o governo e a população. O objetivo é facilitar a vida do cidadão."
+                },
+                {
+                    question: "De acordo com o edital, quais são os principais eixos da diversidade e inclusão na sociedade brasileira?",
+                    options: ["Gênero, raça, etnia e idade.", "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.", "Gênero e nacionalidade.", "Etnia, raça e classe social."],
+                    correctAnswer: "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.",
+                    hint: "Pense nos diversos grupos sociais que precisam de políticas de inclusão.",
+                    explanation: "O tema de diversidade e inclusão, conforme abordado em concursos públicos, engloba a garantia de direitos e a promoção da igualdade para grupos historicamente marginalizados, incluindo as dimensões de gênero, raça, etnia, orientação sexual, pessoas com deficiência (PCD) e a diversidade entre as gerações."
+                },
+                {
+                    question: "A Reforma Administrativa no Brasil, em diferentes momentos históricos, teve como uma de suas motivações a busca por:",
+                    options: ["Aumento da burocracia e do controle interno.", "Centralização do poder no governo federal.", "Maior eficiência e modernização da máquina pública.", "Redução do número de estados e municípios."],
+                    correctAnswer: "Maior eficiência e modernização da máquina pública.",
+                    hint: "Pense no objetivo de tornar o governo mais ágil e econômico.",
+                    explanation: "As reformas administrativas, desde a criação do DASP no período Vargas até as mais recentes, sempre buscaram melhorar a eficiência, a produtividade e a qualidade dos serviços públicos. O objetivo é modernizar o Estado para que ele responda melhor às demandas da sociedade."
+                },
+                {
+                    question: "Qual o principal risco ético associado ao uso de inteligência artificial (IA) e automação no setor público?",
+                    options: ["Aumento de produtividade.", "Redução de custos operacionais.", "A perda da transparência e a tomada de decisões não explicáveis.", "A simplificação de processos."],
+                    correctAnswer: "A perda da transparência e a tomada de decisões não explicáveis.",
+                    hint: "Pense na 'caixa preta' dos algoritmos.",
+                    explanation: "O uso de IA pode gerar um risco de 'caixa preta', onde o processo de tomada de decisão do algoritmo não é transparente ou facilmente compreendido. Isso pode minar a confiança do cidadão e dificultar a responsabilização por decisões que afetem direitos e serviços públicos, indo contra o princípio da publicidade e da transparência."
+                },
+                {
+                    question: "Qual é um dos principais desafios para a consolidação da democracia e do Estado de Direito no Brasil?",
+                    options: ["A centralização do poder no legislativo.", "A baixa participação popular em decisões políticas.", "A completa ausência de liberdade de expressão.", "A excessiva intervenção de organismos internacionais."],
+                    correctAnswer: "A baixa participação popular em decisões políticas.",
+                    hint: "Pense no papel do cidadão na vida política.",
+                    explanation: "A participação ativa da sociedade civil é crucial para a vitalidade democrática. A baixa participação pode levar à deslegitimação das instituições e à fragilização do controle social sobre o Estado."
+                },
+                {
+                    question: "No ciclo de políticas públicas, a etapa de 'Avaliação' é fundamental para qual propósito?",
+                    options: ["Apenas para punir os responsáveis por falhas.", "Para decidir se a política deve ser implementada ou não.", "Para medir a eficácia, eficiência e impacto da política.", "Para justificar novos gastos sem análise prévia."],
+                    correctAnswer: "Para medir a eficácia, eficiência e impacto da política.",
+                    hint: "Pense no que se faz depois que a política já foi implementada por um tempo.",
+                    explanation: "A avaliação busca verificar se a política pública alcançou os resultados esperados, se foi implementada de forma eficiente e qual foi seu impacto real na sociedade, fornecendo subsídios para ajustes ou para o planejamento de novas políticas."
+                },
+                {
+                    question: "Qual dos seguintes conceitos está mais associado à integridade pública?",
+                    options: ["A velocidade na tomada de decisões.", "A capacidade de gerar lucros.", "A adesão e defesa dos valores morais da organização.", "A centralização das informações."],
+                    correctAnswer: "A adesão e defesa dos valores morais da organização.",
+                    hint: "Pense na conduta do servidor público.",
+                    explanation: "A integridade pública refere-se ao alinhamento da conduta dos servidores e das instituições aos mais altos padrões éticos e morais, evitando conflitos de interesse e garantindo a confiança da população."
+                },
+                {
+                    question: "Políticas de ações afirmativas para a inclusão de grupos minoritários têm como objetivo principal:",
+                    options: ["Aumentar a desigualdade social.", "Apenas a inclusão de pessoas com deficiência.", "Corrigir desigualdades históricas e promover a igualdade de oportunidades.", "Excluir a maioria da sociedade."],
+                    correctAnswer: "Corrigir desigualdades históricas e promover a igualdade de oportunidades.",
+                    hint: "O objetivo é compensar injustiças do passado.",
+                    explanation: "Ações afirmativas são políticas temporárias que visam a compensar desigualdades históricas e estruturais, garantindo que grupos que foram marginalizados tenham acesso a oportunidades de forma equitativa."
+                },
+                {
+                    question: "A Lei de Responsabilidade Fiscal (LRF) tem como um de seus principais pilares o controle e a transparência na gestão de quais recursos?",
+                    options: ["Apenas os recursos da saúde.", "Apenas os recursos da educação.", "Os recursos financeiros e orçamentários dos entes federativos.", "Os recursos de empresas privadas."],
+                    correctAnswer: "Os recursos financeiros e orçamentários dos entes federativos.",
+                    hint: "Pense no controle dos gastos públicos em geral.",
+                    explanation: "A LRF estabelece normas de finanças públicas voltadas para a responsabilidade na gestão fiscal. Ela impõe limites para despesas com pessoal, dívidas e outras obrigações, promovendo a transparência e o equilíbrio das contas públicas."
+                },
+                {
+                    question: "O uso de Inteligência Artificial no setor público levanta preocupações sobre a 'exclusão digital', que se refere a:",
+                    options: ["Apenas a dificuldade de acesso à internet.", "O desemprego causado pela automação.", "A falta de capacitação de servidores para usar novas tecnologias.", "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados."],
+                    correctAnswer: "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados.",
+                    hint: "Pense nas pessoas que ficam de fora do mundo digital.",
+                    explanation: "A exclusão digital ocorre quando a digitalização dos serviços públicos não é acompanhada de políticas de inclusão, deixando de fora da acessibilidade e da cidadania digital aqueles que não possuem acesso, conhecimento ou habilidades para utilizar as novas tecnologias."
+                },
+                {
+                    question: "O conflito de interesses na Administração Pública ocorre quando:",
+                    options: ["O servidor público tem um cargo de liderança.", "O interesse privado do agente público se choca com o interesse público.", "O servidor trabalha em mais de um setor.", "O servidor utiliza a tecnologia no trabalho."],
+                    correctAnswer: "O interesse privado do agente público se choca com o interesse público.",
+                    hint: "Pense na dualidade entre o que é bom para o servidor e o que é bom para a sociedade.",
+                    explanation: "O conflito de interesses acontece quando o agente público utiliza sua posição para favorecer interesses particulares em detrimento do interesse coletivo. A Lei de Conflito de Interesses (Lei nº 12.813/2013) estabelece as regras para evitar essa situação."
+                },
+                {
+                    question: "No contexto do federalismo brasileiro, qual o principal desafio na implementação de políticas públicas sociais?",
+                    options: ["A ausência de recursos financeiros.", "A falta de leis federais.", "A coordenação entre os diferentes níveis de governo (União, estados e municípios).", "A dificuldade de acesso à internet."],
+                    correctAnswer: "A coordenação entre os diferentes níveis de governo (União, estados e municípios).",
+                    hint: "Pense nos desafios de fazer 3 esferas de governo trabalharem juntas.",
+                    explanation: "O federalismo impõe o desafio da coordenação entre os entes federativos para a oferta de serviços públicos. É fundamental que União, estados e municípios trabalhem em conjunto para garantir a efetividade das políticas, evitando duplicidade de ações e falhas na cobertura."
+                },
+                {
+                    question: "A 'interseccionalidade' é um conceito importante para a análise da diversidade, pois se refere a:",
+                    options: ["A união de diferentes grupos sociais em um único movimento.", "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.", "A separação de grupos sociais para uma análise individual.", "O estudo de apenas uma dimensão da identidade de uma pessoa."],
+                    correctAnswer: "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.",
+                    hint: "Pense no 'cruzamento' de diferentes dimensões da identidade de uma pessoa.",
+                    explanation: "A interseccionalidade reconhece que as identidades sociais não existem de forma isolada. A opressão e o privilégio são influenciados pela forma como gênero, raça, classe, orientação sexual, entre outros, se interligam e se manifestam nas experiências individuais."
+                },
+                {
+                    question: "Qual a principal vantagem da automação de processos na Administração Pública?",
+                    options: ["A eliminação de todos os servidores públicos.", "Aumento da burocracia.", "Maior agilidade e redução de erros em tarefas repetitivas.", "A substituição completa da tomada de decisão humana."],
+                    correctAnswer: "Maior agilidade e redução de erros em tarefas repetitivas.",
+                    hint: "Pense no que os robôs podem fazer melhor que os humanos, em termos de repetição.",
+                    explanation: "A automação permite que tarefas repetitivas e baseadas em regras sejam executadas de forma mais rápida e precisa por sistemas, liberando os servidores para se dedicarem a atividades mais complexas, estratégicas e que exigem interação humana."
+                }
+            ],
+            'Eixo Temático 1 - Seguridade Social': [
+                {
+                    question: "1. De acordo com a Constituição Federal de 1988, a Seguridade Social compreende um conjunto integrado de ações de iniciativa dos Poderes Públicos e da sociedade, destinadas a assegurar os direitos relativos à:",
+                options: ["Educação, saúde e moradia.", "Saúde, previdência e assistência social.", "Segurança pública, previdência e cultura.", "Previdência, educação e trabalho.", "Assistência social, moradia e transporte."],
+                correctAnswer: "Saúde, previdência e assistência social.",
+                hint: "Pense nos três pilares que formam o tripé da Seguridade Social brasileira, conforme a CF/88.",
+                explanation: "A Seguridade Social no Brasil é composta por três áreas principais: saúde, previdência social e assistência social. Esses três componentes trabalham juntos para garantir a proteção social dos cidadãos, assegurando acesso a serviços de saúde, benefícios previdenciários e assistência às pessoas em situação de vulnerabilidade."
+                },
+                {
+                    question: "2. A Seguridade Social no Brasil é regida por alguns princípios e diretrizes. Qual dos princípios abaixo se refere à universalidade da cobertura e do atendimento?",
+                options: ["Seletividade e distributividade na prestação dos benefícios e serviços.", "Irredutibilidade do valor dos benefícios.", "Equidade na forma de participação no custeio.", "Caráter democrático e descentralizado da administração.", "Universalidade da cobertura e do atendimento."],
+                correctAnswer: "Universalidade da cobertura e do atendimento.",
+                hint: "Este princípio garante que todos os cidadãos, sem exceção, devem ser protegidos pelo sistema de seguridade.",
+                explanation: "O princípio da universalidade da cobertura e do atendimento assegura que todos os cidadãos têm direito a acesso aos serviços de saúde, previdência e assistência social, independentemente de sua condição socioeconômica. Isso é fundamental para garantir a inclusão social e a proteção integral dos direitos sociais."
+                },
+                {
+                      question: "3. A Lei nº 8.212/1991, que dispõe sobre a organização da Seguridade Social e institui o Plano de Custeio, estabelece diversas fontes de financiamento. Entre as opções, qual NÃO é uma fonte de financiamento da Seguridade Social?",
+                options: ["Contribuição sobre a folha de salários.", "Contribuição sobre o faturamento das empresas.", "Contribuição do trabalhador e demais segurados.", "Receita de imposto de renda sobre ganhos de capital.", "Receita da Contribuição Social sobre o Lucro Líquido (CSLL)."],
+                correctAnswer: "Receita de imposto de renda sobre ganhos de capital.",
+                hint: "O financiamento da seguridade vem de contribuições sociais, e não de impostos sobre lucros de capital. ",
+                explanation: "A Seguridade Social é financiada por diversas contribuições sociais, como a contribuição sobre a folha de salários, o faturamento das empresas e as contribuições dos trabalhadores. A receita de imposto de renda sobre ganhos de capital não é uma fonte direta de financiamento da Seguridade Social, pois os impostos são destinados a outras finalidades fiscais."
+                },
+                {
+                    question: "4. No âmbito do financiamento da Seguridade Social, o art. 195 da Constituição Federal prevê que as contribuições sociais deverão ter uma base de cálculo específica. Qual das seguintes bases de cálculo é mencionada na CF/88?",
+                options: ["Receita do Governo Federal.", "Receita de exportações.", "Folha de salários e demais rendimentos do trabalho.", "Ganhos de capital na Bolsa de Valores.", "Patrimônio líquido das empresas."],
+                correctAnswer: "Folha de salários e demais rendimentos do trabalho.",
+                hint: "As contribuições sociais do empregador incidem sobre essa base, que inclui a remuneração de seus empregados.",
+                explanation: "O artigo 195 da Constituição Federal estabelece que as contribuições sociais para a Seguridade Social incidem sobre a folha de salários, o faturamento e o lucro das empresas, além de outras fontes. A folha de salários é uma das principais bases de cálculo, pois reflete os rendimentos do trabalho, que são essenciais para o financiamento da previdência social."
+                },
+                {
+                       question: "5. A política social no Brasil, em sua vertente histórica, teve como um de seus marcos iniciais a criação de caixas de aposentadoria e pensão (CAPs) no início do século XX. O modelo dessas caixas era conhecido como:",
+                options: ["Seguro social universal.", "Assistência social filantrópica.", "Modelo de Seguridade Social de Bismarck.", "Modelo de Seguridade Social de Beveridge.", "Previdência privada compulsória."],
+                correctAnswer: "Modelo de Seguridade Social de Bismarck.",
+                hint: "Esse modelo, de origem alemã, era baseado em contribuições obrigatórias dos trabalhadores e empregadores.",
+                explanation: "O modelo de Seguridade Social de Bismarck, criado na Alemanha no final do século XIX, é caracterizado por um sistema de seguridade social financiado por contribuições dos trabalhadores e empregadores, visando garantir benefícios como aposentadoria e pensões. Esse modelo influenciou a criação das primeiras caixas de aposentadoria e pensão no Brasil, que buscavam assegurar proteção social aos trabalhadores."
+                },
+                {
+                    question: "6. A Constituição Federal de 1988 é considerada um marco na história da proteção social no Brasil. Qual artigo da CF/88 estabelece o conceito de Seguridade Social, definindo-a como um conjunto integrado de ações?",
+                options: ["Artigo 5º.", "Artigo 6º.", "Artigo 194.", "Artigo 195.", "Artigo 203."],
+                correctAnswer: "Artigo 194.",
+                hint: "O capítulo da Seguridade Social na Constituição começa com esse artigo, que é sua introdução e definição.",
+                explanation: "O Artigo 194 da Constituição Federal de 1988 define a Seguridade Social como um conjunto integrado de ações de iniciativa dos Poderes Públicos e da sociedade, destinado a assegurar os direitos relativos à saúde, à previdência e à assistência social. Este artigo é fundamental para entender a estrutura e os objetivos da Seguridade Social no Brasil."
+                },
+                {
+                    question: "7. A Seguridade Social é composta por três áreas: Saúde, Previdência e Assistência Social. Qual delas é financiada por toda a sociedade, de forma direta e indireta, e não exige contribuição prévia para o acesso aos seus serviços?",
+                options: ["Previdência Social.", "Assistência Social.", "Saúde.", "Educação.", "Seguro-desemprego."],
+                correctAnswer: "Saúde.",
+                hint: "O direito à saúde é universal e um dever do Estado, garantido a todos os cidadãos, independentemente de contribuição.",
+                explanation: "A saúde é um direito social garantido pela Constituição Federal de 1988, e o acesso aos serviços de saúde é universal e gratuito, financiado por toda a sociedade através de impostos e contribuições sociais. Isso significa que todos têm direito a receber atendimento médico, independentemente de terem contribuído ou não para o sistema."
+                },
+                {
+                     question: "8. A Lei nº 8.212/1991 estabelece que a Seguridade Social deve ser financiada por toda a sociedade, de forma direta e indireta. Qual é um dos principais objetivos dessa lei em relação ao financiamento?",
+                options: ["Estabelecer que o financiamento deve ser apenas por meio de contribuições dos trabalhadores.", "Garantir que a Seguridade Social seja custeada exclusivamente pelo Governo Federal.", "Criar um sistema de financiamento que assegure a sustentabilidade do sistema, com fontes diversificadas.", "Permitir que apenas empresas com lucro contribuam para o sistema.", "Determinar que o financiamento seja de responsabilidade apenas do empregador."],
+                correctAnswer: "Criar um sistema de financiamento que assegure a sustentabilidade do sistema, com fontes diversificadas.",
+                hint: "O objetivo principal é garantir que o sistema não dependa de uma única fonte, buscando estabilidade financeira.",
+                explanation: "A Lei nº 8.212/1991 estabelece um sistema de financiamento da Seguridade Social que inclui diversas fontes, como contribuições sociais dos empregadores, trabalhadores e outras receitas, garantindo a sustentabilidade do sistema. Isso é essencial para assegurar que os direitos sociais sejam mantidos e ampliados ao longo do tempo."
+                },
+                {
+                    question: "9. O orçamento da Seguridade Social no Brasil é formado por recursos provenientes de diferentes fontes. Qual das alternativas abaixo apresenta uma fonte de receita orçamentária do sistema de Seguridade Social?",
+                options: ["Imposto sobre a Propriedade Predial e Territorial Urbana (IPTU).", "Imposto sobre a Renda e Proventos de Qualquer Natureza (IRPF).", "Contribuições sociais da União, dos Estados, do Distrito Federal e dos Municípios.", "Imposto sobre Produtos Industrializados (IPI).", "Imposto sobre Operações Financeiras (IOF)."],
+                correctAnswer: "Contribuições sociais da União, dos Estados, do Distrito Federal e dos Municípios.",
+                hint: "A Seguridade Social é um esforço conjunto, e os entes federativos contribuem para o seu orçamento.",
+                explanation: "O orçamento da Seguridade Social é composto por diversas fontes de receita, incluindo as contribuições sociais dos entes federativos. Essas contribuições são essenciais para garantir a sustentabilidade financeira do sistema, permitindo o financiamento das áreas de saúde, previdência e assistência social."
+                },
+                {
+                    question: "10. Os direitos sociais estão previstos na Constituição Federal de 1988, do art. 6º ao art. 11. O art. 6º, por sua vez, elenca uma série de direitos. Qual dos seguintes direitos é mencionado nesse artigo como um direito social?",
+                options: ["A propriedade.", "A herança.", "A inviolabilidade de correspondência.", "O lazer.", "A liberdade de reunião."],
+                correctAnswer: "O lazer.",
+                hint: "O Artigo 6º lista os direitos sociais básicos que garantem uma vida digna, como educação, saúde e, também, o direito ao descanso e diversão.",
+                explanation: "O Artigo 6º da Constituição Federal de 1988 estabelece os direitos sociais, que incluem educação, saúde, trabalho, moradia, transporte, lazer, segurança, previdência social, proteção à maternidade e infância, assistência aos desamparados e a proteção à velhice. O lazer é um desses direitos sociais fundamentais."
+                },
+                                
+                
+            ],
+            'Eixo Temático 2 - Saúde': [
+                {
+                     question: "1. A Reforma Sanitária, um dos movimentos mais importantes para a criação do SUS, tinha como uma de suas principais bandeiras a defesa de qual conceito?",
+                options: ["A privatização dos serviços de saúde.", "A centralização do poder na esfera federal.", "O 'Direito à Saúde' como um direito social universal.", "A exclusividade de atendimento para trabalhadores formais.", "O financiamento da saúde unicamente pela iniciativa privada."],
+                correctAnswer: "O 'Direito à Saúde' como um direito social universal.",
+                hint: "Este movimento lutava por um sistema de saúde público, acessível a todos e financiado pelo Estado, sem distinção de classe ou emprego.",
+                explanation: "A Reforma Sanitária brasileira, que culminou na criação do Sistema Único de Saúde (SUS) em 1988, defendia o 'Direito à Saúde' como um direito social universal. Isso significa que todos os cidadãos têm direito a acesso a serviços de saúde de qualidade, independentemente de sua condição socioeconômica."
+                },
+                
+                {
+                      question: "2. A Lei nº 8.080/1990, conhecida como Lei Orgânica da Saúde, estabelece as condições para a promoção, proteção e recuperação da saúde, a organização e o funcionamento dos serviços. Qual princípio do SUS está diretamente relacionado à ideia de que as ações e serviços de saúde devem ser dirigidos a todos os cidadãos, sem distinção?",
+                options: ["Descentralização.", "Integralidade.", "Equidade.", "Universalidade.", "Hierarquização."],
+                correctAnswer: "Universalidade.",
+                hint: "A 'Universalidade' é a garantia de que o acesso aos serviços de saúde é um direito de todos.",
+                explanation: "O princípio da 'Universalidade' no SUS assegura que todos os cidadãos têm direito ao acesso aos serviços de saúde, sem discriminação. Isso é fundamental para garantir que a saúde seja tratada como um direito social, promovendo a inclusão e a equidade no acesso aos cuidados de saúde."
+                },
+                
+                
+                {
+                    question: "3. A Lei nº 8.142/1990 regulamenta a participação da comunidade na gestão do SUS. Quais são as duas instâncias colegiadas que garantem essa participação, respectivamente, com caráter permanente e deliberativo, e com caráter eventual?",
+                options: ["Conselhos de Saúde e Conferências de Saúde.", "Comissão Intergestores Tripartite e Bipartite.", "Conselhos Fiscais e Juntas de Avaliação.", "Conselhos de Secretários de Saúde e Conselhos Populares.", "Conselhos de Acompanhamento e Fóruns de Discussão."],
+                correctAnswer: "Conselhos de Saúde e Conferências de Saúde.",
+                hint: "Uma dessas instâncias opera de forma contínua, enquanto a outra é realizada periodicamente para debater e avaliar a situação da saúde.",
+                explanation: "Os Conselhos de Saúde são instâncias permanentes e deliberativas que garantem a participação da comunidade na gestão do SUS, enquanto as Conferências de Saúde são eventos periódicos que reúnem representantes da sociedade civil e do governo para discutir e propor diretrizes para a política de saúde."
+                },
+                
+              
+                {
+                    question: "4. No âmbito da Política Nacional de Gestão da Tecnologia em Saúde, o conceito de 'Tecnologia em Saúde' pode ser definido como:",
+                options: ["Apenas os equipamentos de alta complexidade em hospitais.", "O conjunto de conhecimentos, equipamentos, materiais e recursos humanos que operam nos serviços de saúde.", "Somente os medicamentos e insumos farmacêuticos.", "Apenas os softwares de gestão e prontuários eletrônicos.", "O capital financeiro investido na área da saúde."],
+                correctAnswer: "O conjunto de conhecimentos, equipamentos, materiais e recursos humanos que operam nos serviços de saúde.",
+                hint: "A definição de tecnologia em saúde é bastante ampla, abrangendo não apenas objetos físicos, mas também saberes e processos de trabalho.",
+                explanation: "A Política Nacional de Gestão da Tecnologia em Saúde define 'Tecnologia em Saúde' como um conjunto abrangente que inclui conhecimentos, equipamentos, materiais e recursos humanos utilizados nos serviços de saúde. Isso reflete a complexidade e a diversidade das tecnologias aplicadas na promoção, proteção e recuperação da saúde."
+                },
+                
+                
+                {
+                      question: "5. A Política Nacional de Humanização (PNH) do SUS tem como um de seus objetivos a valorização da dimensão subjetiva e social em todas as práticas de atenção e gestão. Qual das ações abaixo é um exemplo da aplicação da PNH?",
+                options: ["Restrição de visitas a pacientes internados para evitar infecções.", "Aumento da burocracia para agendamentos de consultas.", "Implementação de acolhimento e escuta qualificada nos serviços de saúde.", "Diminuição do diálogo entre profissionais e usuários para otimizar o tempo.", "Padronização de todos os protocolos sem considerar as particularidades dos pacientes."],
+                correctAnswer: "Implementação de acolhimento e escuta qualificada nos serviços de saúde.",
+                hint: "A PNH busca colocar o paciente e suas necessidades no centro do cuidado, promovendo um tratamento mais humano e individualizado.",
+                explanation: "A Política Nacional de Humanização (PNH) visa promover uma atenção mais humanizada e acolhedora nos serviços de saúde, valorizando a escuta qualificada e o acolhimento dos usuários. Isso inclui práticas que respeitam a individualidade do paciente e buscam melhorar a relação entre profissionais de saúde e usuários, tornando o atendimento mais empático e centrado na pessoa."
+                },
+                {
+                     question: "6. A Vigilância em Saúde é uma das áreas essenciais do SUS. Qual das seguintes atividades NÃO faz parte do escopo da Vigilância em Saúde?",
+                options: ["Monitoramento de doenças e agravos.", "Análise da situação de saúde da população.", "Identificação de determinantes sociais do processo saúde-doença.", "Compra de equipamentos de alta complexidade para hospitais.", "Promoção da saúde e prevenção de doenças."],
+                correctAnswer: "Compra de equipamentos de alta complexidade para hospitais.",
+                hint: "As atividades da Vigilância em Saúde estão mais ligadas à coleta de dados, análise de riscos e ações preventivas e de controle, e não à aquisição de bens de capital.",
+                explanation: "A Vigilância em Saúde abrange atividades como monitoramento de doenças, análise da situação de saúde, identificação de determinantes sociais e promoção da saúde. A compra de equipamentos de alta complexidade é uma atividade mais relacionada à gestão hospitalar e não diretamente à vigilância."
+                },
+              
+                {
+                         question: "7. Os determinantes sociais da saúde são as condições sociais, econômicas, culturais, ambientais e políticas em que as pessoas vivem e trabalham, que impactam diretamente sua saúde. Um exemplo de determinante social da saúde é:",
+                options: ["A presença de uma doença genética rara.", "O uso de um novo medicamento com efeitos colaterais.", "O saneamento básico inadequado e a falta de acesso à água potável.", "A adesão individual a uma dieta saudável.", "A prática regular de exercícios físicos."],
+                correctAnswer: "O saneamento básico inadequado e a falta de acesso à água potável.",
+                hint: "Os determinantes sociais são fatores macro que influenciam a saúde coletiva, indo além das escolhas e condições individuais.",
+                explanation: "Os determinantes sociais da saúde incluem fatores como condições de vida, trabalho, educação e acesso a serviços básicos. O saneamento básico inadequado e a falta de água potável são exemplos claros de como as condições sociais e ambientais afetam a saúde da população, contribuindo para a ocorrência de doenças e agravos."
+                },
+                
+               
+                {
+                     question: "8. O Programa Nacional de Imunizações (PNI) é um dos maiores e mais bem-sucedidos programas de saúde pública do Brasil. Qual é o principal objetivo do PNI?",
+                options: ["Controlar o acesso a medicamentos de alto custo.", "Centralizar a gestão da saúde na esfera federal.", "Manter o controle e a erradicação de doenças infecciosas e parasitárias por meio da vacinação.", "Promover a pesquisa e desenvolvimento de novas tecnologias em saúde.", "Garantir a assistência hospitalar de urgência e emergência."],
+                correctAnswer: "Manter o controle e a erradicação de doenças infecciosas e parasitárias por meio da vacinação.",
+                hint: "O nome do programa já dá a pista: 'Imunizações' está diretamente ligado à prevenção de doenças por meio de vacinas.",
+                explanation: "O Programa Nacional de Imunizações (PNI) tem como principal objetivo a prevenção e controle de doenças infecciosas e parasitárias por meio da vacinação em massa da população. O PNI é responsável por coordenar campanhas de vacinação, garantir o fornecimento de vacinas e monitorar a cobertura vacinal no país, contribuindo significativamente para a saúde pública."
+                },
+                
+              
+                {
+                       question: "9. Nos estudos e pesquisas em saúde, os aspectos éticos e bioéticos são fundamentais. Qual das seguintes ações é uma exigência ética para a realização de pesquisas com seres humanos no Brasil?",
+                options: ["A exclusividade de financiamento público para as pesquisas.", "A aprovação da pesquisa pelo Conselho Nacional de Pesquisa.", "O consentimento livre e esclarecido dos participantes.", "A divulgação dos resultados apenas para a comunidade científica.", "A dispensa de revisão por comitês de ética em casos de emergência."],
+                correctAnswer: "O consentimento livre e esclarecido dos participantes.",
+                hint: "A bioética se baseia em princípios como a autonomia do indivíduo, que exige sua permissão consciente para participar de qualquer estudo.",
+                explanation: "A ética em pesquisa com seres humanos no Brasil é regida por diretrizes que garantem o respeito à autonomia dos participantes. O consentimento livre e esclarecido é um princípio fundamental, exigindo que os participantes sejam informados sobre os objetivos, riscos e benefícios da pesquisa antes de concordarem em participar."
+                },
+                
+              
+                {
+                    question: "10. A organização do SUS é hierarquizada e descentralizada, com diferentes níveis de assistência. A Atenção Primária à Saúde (APS) é considerada a porta de entrada preferencial e ordenadora do sistema. Qual das seguintes ações é uma atribuição típica da APS?",
+                options: ["Realização de cirurgias de alta complexidade.", "Atendimento de emergências cardiológicas em UTIs.", "Acompanhamento de pré-natal e vacinação em unidades de saúde da família.", "Transplantes de órgãos em hospitais de referência.", "Tratamento de câncer em centros de oncologia especializados."],
+                correctAnswer: "Acompanhamento de pré-natal e vacinação em unidades de saúde da família.",
+                hint: "A Atenção Primária lida com os cuidados de saúde mais comuns e básicos, como prevenção e acompanhamento de rotina, realizados em postos de saúde e unidades básicas.",
+                explanation: "A Atenção Primária à Saúde (APS) é a base do SUS, responsável por ações de promoção da saúde, prevenção de doenças e acompanhamento de condições de saúde comuns. Isso inclui serviços como pré-natal, vacinação, consultas de rotina e acompanhamento de doenças crônicas, realizados em unidades básicas de saúde e equipes de saúde da família."
+                },
+               
+            ],
+            'Eixo Temático 3 - Assistência Social': [
+    {
+         question: "1. A Lei Orgânica da Assistência Social (LOAS), Lei nº 8.742/1993, estabelece a assistência social como um direito do cidadão e dever do Estado. Qual dos seguintes princípios NÃO faz parte da LOAS?",
+                options: ["Supremacia do atendimento às necessidades sociais.", "Universalização dos direitos sociais.", "Descentralização político-administrativa.", "Privatização dos serviços sociais.", "Respeito à dignidade do cidadão."],
+                correctAnswer: "Privatização dos serviços sociais.",
+                hint: "A LOAS, assim como a Constituição de 1988, defende o caráter público e não-mercantil da assistência social.",
+                explanation: "A LOAS estabelece que a assistência social é um direito do cidadão e um dever do Estado, pautada por princípios como a universalização dos direitos sociais, a descentralização político-administrativa e o respeito à dignidade do cidadão. A privatização dos serviços sociais não é um princípio da LOAS, que busca garantir acesso público e gratuito aos serviços de assistência social."
+    },
+    {
+        question: "2. A Política Nacional de Assistência Social (PNAS) de 2004 define o Sistema Único de Assistência Social (SUAS). O SUAS é organizado em dois níveis de complexidade de proteção. Quais são eles?",
+                options: ["Proteção Social de Urgência e Proteção Social de Longa Duração.", "Proteção Social Federal e Proteção Social Estadual.", "Proteção Social Básica e Proteção Social Especial.", "Proteção Social Individual e Proteção Social Coletiva.", "Proteção Social Preventiva e Proteção Social Restaurativa."],
+                correctAnswer: "Proteção Social Básica e Proteção Social Especial.",
+                hint: "Esses dois níveis de proteção social do SUAS atendem a diferentes tipos de vulnerabilidade e risco social.",
+                explanation: "O Sistema Único de Assistência Social (SUAS) é organizado em dois níveis de complexidade: a Proteção Social Básica, que visa prevenir situações de vulnerabilidade e risco social, e a Proteção Social Especial, que atende pessoas em situação de risco pessoal e social mais grave, como vítimas de violência, abuso ou exploração."
+    },
+    {
+          question: "3. A Proteção Social Básica, no âmbito do SUAS, é o nível de atenção responsável por prevenir situações de vulnerabilidade e risco social por meio do fortalecimento de vínculos familiares e comunitários. Qual das seguintes unidades é a porta de entrada para a Proteção Social Básica?",
+                options: ["Centro de Referência de Assistência Social (CRAS).", "Centro de Referência Especializado de Assistência Social (CREAS).", "Unidade de Acolhimento Institucional.", "Conselho Tutelar.", "Ministério da Cidadania."],
+                correctAnswer: "Centro de Referência de Assistência Social (CRAS).",
+                hint: "O CRAS é a principal unidade da Proteção Social Básica e atua nos territórios de maior vulnerabilidade social.",
+                explanation: "O Centro de Referência de Assistência Social (CRAS) é a porta de entrada para a Proteção Social Básica no SUAS. Ele oferece serviços de convivência e fortalecimento de vínculos, além de orientar e encaminhar as famílias para outros serviços e benefícios da assistência social, visando prevenir situações de vulnerabilidade e risco social."
+    },
+    {
+         question: "4. O Benefício de Prestação Continuada (BPC), regulamentado pela LOAS, é um benefício assistencial que garante o pagamento de um salário mínimo mensal para quem?",
+                options: ["Idosos acima de 60 anos, independentemente da renda.", "Famílias em situação de pobreza extrema.", "Pessoas com deficiência e idosos com 65 anos ou mais que comprovem não possuir meios de prover sua manutenção.", "Todas as pessoas desempregadas.", "Famílias com crianças de até 6 anos."],
+                correctAnswer: "Pessoas com deficiência e idosos com 65 anos ou mais que comprovem não possuir meios de prover sua manutenção.",
+                hint: "O BPC é um benefício assistencial, não previdenciário, e é destinado a dois grupos específicos que atendem aos critérios de idade ou deficiência e de renda.",
+                explanation: "O Benefício de Prestação Continuada (BPC) é um benefício assistencial garantido pela LOAS, destinado a pessoas com deficiência e idosos com 65 anos ou mais que não possuem meios de prover sua própria manutenção. O BPC é concedido independentemente de contribuição prévia ao INSS e tem como objetivo garantir um mínimo de dignidade aos beneficiários."
+    },
+    {
+           question: "5. A Proteção Social Especial, no SUAS, é destinada a famílias e indivíduos em situação de risco pessoal e social, com vínculos familiares ou comunitários rompidos. Qual das situações abaixo é atendida pela Proteção Social Especial de Média Complexidade?",
+                options: ["Acompanhamento de famílias em situação de pobreza.", "Serviços de convivência e fortalecimento de vínculos.", "Atendimento de crianças e adolescentes vítimas de violência.", "Distribuição de cestas básicas em comunidades carentes.", "Atividades recreativas em centros comunitários."],
+                correctAnswer: "Atendimento de crianças e adolescentes vítimas de violência.",
+                hint: "A Proteção Social Especial atende situações que exigem maior cuidado e intervenção. O CREAS é a unidade que oferece esses serviços, incluindo o combate à violência.",
+                explanation: "A Proteção Social Especial de Média Complexidade, oferecida pelo Centro de Referência Especializado de Assistência Social (CREAS), atende a situações mais graves, como o acompanhamento de crianças e adolescentes vítimas de violência, abuso ou exploração. O CREAS oferece serviços especializados para proteger e reabilitar essas pessoas, promovendo sua reintegração social."
+    },
+    {
+         question: "6. O Estatuto da Pessoa com Deficiência (Lei nº 13.146/2015), também conhecido como Lei Brasileira de Inclusão, trouxe avanços significativos para a garantia de direitos. Qual das alternativas abaixo está alinhada com o Estatuto?",
+                options: ["A consideração da deficiência apenas como uma condição médica.", "A exclusão das pessoas com deficiência do mercado de trabalho.", "A promoção da inclusão e da autonomia da pessoa com deficiência em todos os aspectos da vida.", "A criação de cotas para pessoas com deficiência apenas no setor público.", "A restrição da participação de pessoas com deficiência em processos decisórios."],
+                correctAnswer: "A promoção da inclusão e da autonomia da pessoa com deficiência em todos os aspectos da vida.",
+                hint: "O Estatuto adota um modelo social de deficiência, que foca nas barreiras da sociedade e na necessidade de inclusão e acessibilidade, e não apenas na limitação individual.",
+                explanation: "O Estatuto da Pessoa com Deficiência promove a inclusão e a autonomia das pessoas com deficiência em todos os aspectos da vida, garantindo direitos fundamentais como acessibilidade, educação, saúde, trabalho e participação social. Ele adota um modelo social de deficiência, que busca eliminar barreiras e promover a igualdade de oportunidades."
+    },
+    {
+        question: "7. A Norma Operacional Básica do SUAS (NOB/SUAS/2012) reforça a centralidade da família e do território na organização dos serviços socioassistenciais. Qual dos instrumentos abaixo é utilizado para o diagnóstico territorial e a identificação de vulnerabilidades?",
+                options: ["Plano Plurianual (PPA).", "Cadastro Único para Programas Sociais do Governo Federal (CadÚnico).", "Lei de Responsabilidade Fiscal (LRF).", "Plano Nacional de Educação (PNE).", "Sistema Nacional de Avaliação da Educação Básica (Saeb)."],
+                correctAnswer: "Cadastro Único para Programas Sociais do Governo Federal (CadÚnico).",
+                hint: "O CadÚnico é uma ferramenta fundamental para identificar e caracterizar as famílias de baixa renda, o que permite o planejamento das políticas públicas em nível local.",
+                explanation: "O Cadastro Único para Programas Sociais do Governo Federal (CadÚnico) é um instrumento utilizado para o diagnóstico territorial e a identificação de vulnerabilidades sociais. Ele coleta informações sobre as famílias de baixa renda, permitindo que os gestores públicos planejem e implementem políticas sociais adequadas às necessidades da população."
+    },
+    {
+        question: "8. A gestão do SUAS é compartilhada entre as três esferas de governo (federal, estadual e municipal). Qual dos seguintes órgãos é responsável por deliberar sobre as diretrizes da Política de Assistência Social em nível federal?",
+                options: ["Câmara dos Deputados.", "Conselho Nacional de Assistência Social (CNAS).", "Ministério da Educação.", "Secretaria de Assistência Social do município.", "Conselho Tutelar."],
+                correctAnswer: "Conselho Nacional de Assistência Social (CNAS).",
+                hint: "O CNAS é o órgão máximo de deliberação da assistência social no Brasil e conta com a participação da sociedade civil e do governo.",
+                explanation: "O Conselho Nacional de Assistência Social (CNAS) é o órgão responsável por deliberar sobre as diretrizes da Política de Assistência Social em nível federal. Ele é composto por representantes do governo e da sociedade civil, garantindo a participação social na formulação e controle das políticas de assistência social."
+    },
+    {
+         question: "9. Os benefícios eventuais são provisões do SUAS para atender a necessidades que surgem de contingências sociais. Qual das situações abaixo pode ser coberta por um benefício eventual?",
+                options: ["O pagamento de pensão alimentícia.", "O aluguel social para famílias em situação de vulnerabilidade.", "A compra de um automóvel para uma família.", "O auxílio-funeral para famílias de baixa renda.", "A mensalidade de uma escola particular."],
+                correctAnswer: "O auxílio-funeral para famílias de baixa renda.",
+                hint: "Os benefícios eventuais são concedidos para situações específicas, como nascimento, morte, calamidade pública e vulnerabilidade temporária.",
+                explanation: "Os benefícios eventuais do SUAS são destinados a atender necessidades emergenciais e temporárias, como o auxílio-funeral para famílias de baixa renda. Esses benefícios visam garantir uma proteção social imediata em situações de vulnerabilidade, como morte de um familiar, calamidade pública ou outras emergências sociais."
+    },
+    {
+        question: "10. A Convenção sobre os Direitos das Pessoas com Deficiência da ONU, que o Brasil ratificou, tem como um de seus princípios a inclusão plena na sociedade. Qual das seguintes afirmações reflete o espírito dessa Convenção?",
+                options: ["A deficiência é uma doença que precisa ser curada.", "As pessoas com deficiência devem viver em instituições segregadas.", "É dever do Estado e da sociedade garantir acessibilidade e inclusão para todos, combatendo o capacitismo.", "As pessoas com deficiência não têm capacidade para tomar decisões sobre suas vidas.", "Os direitos das pessoas com deficiência são inferiores aos dos demais cidadãos."],
+                correctAnswer: "É dever do Estado e da sociedade garantir acessibilidade e inclusão para todos, combatendo o capacitismo.",
+                hint: "A Convenção adota uma perspectiva de direitos humanos, reconhecendo a pessoa com deficiência como um sujeito de direitos e a inclusão como um dever coletivo.",
+                explanation: "A Convenção sobre os Direitos das Pessoas com Deficiência da ONU enfatiza a importância da inclusão plena e da acessibilidade, reconhecendo que as pessoas com deficiência são sujeitos de direitos. O combate ao capacitismo e a promoção de condições que garantam a participação ativa dessas pessoas na sociedade são fundamentais para a realização dos direitos humanos."
+    },
+    
+],
+            'Eixo Temático 4 - Previdência Social': [
+    {
+         question: "1. Conforme a Constituição Federal de 1988, a previdência social é organizada sob a forma de regime geral, de caráter obrigatório, e de regime complementar, de caráter facultativo. Qual dos princípios abaixo é fundamental para o regime geral?",
+                options: ["Exclusividade de financiamento pelo Estado.", "Subordinação à iniciativa privada.", "Caráter contributivo e de filiação obrigatória.", "Acesso restrito apenas a trabalhadores com carteira assinada.", "Não-participação do setor público no financiamento."],
+                correctAnswer: "Caráter contributivo e de filiação obrigatória.",
+                hint: "A Previdência Social no Brasil se baseia na ideia de que os benefícios são financiados pelas contribuições dos segurados e empregadores.",
+                explanation: "A Previdência Social no Brasil é organizada de forma a garantir benefícios como aposentadorias, pensões e auxílios, sendo financiada por contribuições dos trabalhadores e empregadores. O caráter contributivo e de filiação obrigatória é um princípio fundamental que assegura a sustentabilidade do sistema e o direito dos segurados aos benefícios."
+    },
+    {
+        question: "2. A Lei nº 8.213/1991, que dispõe sobre os Planos de Benefícios da Previdência Social, define o Regime Geral de Previdência Social (RGPS). Qual o principal objetivo do RGPS?",
+                options: ["Apenas pagar pensões por morte.", "Cobrir eventos de invalidez, doença, idade avançada, tempo de contribuição, maternidade e reclusão.", "Oferecer benefícios assistenciais a toda a população.", "Promover apenas a reabilitação profissional.", "Conceder benefícios somente para funcionários públicos federais."],
+                correctAnswer: "Cobrir eventos de invalidez, doença, idade avançada, tempo de contribuição, maternidade e reclusão.",
+                hint: "O RGPS protege os trabalhadores e seus dependentes em diversas situações que geram a perda de renda, temporária ou permanentemente.",
+                explanation: "O Regime Geral de Previdência Social (RGPS) tem como objetivo principal garantir proteção social aos trabalhadores e seus dependentes em situações de perda de renda, como invalidez, doença, idade avançada, maternidade e reclusão. Ele assegura benefícios como aposentadorias, pensões e auxílios, promovendo a segurança financeira dos segurados."
+    },
+    {
+          question: "3. No Regime Geral de Previdência Social, os segurados obrigatórios são aqueles que exercem atividade remunerada. Qual das alternativas abaixo NÃO se encaixa na categoria de segurado obrigatório?",
+                options: ["Empregado.", "Contribuinte individual.", "Trabalhador avulso.", "Empregado doméstico.", "Estudante sem remuneração."],
+                correctAnswer: "Estudante sem remuneração.",
+                hint: "A filiação obrigatória à Previdência Social está diretamente ligada ao exercício de uma atividade remunerada.",
+                explanation: "No Regime Geral de Previdência Social, os segurados obrigatórios são aqueles que exercem atividades remuneradas, como empregados, contribuintes individuais, trabalhadores avulsos e empregados domésticos. Estudantes sem remuneração não se enquadram como segurados obrigatórios, pois não exercem atividade remunerada."
+    },
+    {
+          question: "4. A Lei nº 8.213/1991 também prevê a figura do segurado facultativo. Qual a principal característica que define essa categoria?",
+                options: ["Obrigação de contribuir para o RGPS.", "Exercício de atividade remunerada.", "Inscrição compulsória por determinação legal.", "Ausência de atividade remunerada que o enquadre como segurado obrigatório.", "Ser funcionário público estatutário."],
+                correctAnswer: "Ausência de atividade remunerada que o enquadre como segurado obrigatório.",
+                hint: "Essa categoria é para pessoas que não são obrigadas a contribuir, mas optam por fazê-lo para ter acesso aos benefícios previdenciários.",
+                explanation: "O segurado facultativo é aquele que não exerce atividade remunerada que o enquadre como segurado obrigatório, mas opta por contribuir para o Regime Geral de Previdência Social (RGPS) para ter direito aos benefícios previdenciários. Isso inclui, por exemplo, estudantes, donas de casa e desempregados que desejam garantir sua proteção social."
+    },
+    {
+          question: "5. A manutenção da qualidade de segurado é fundamental para o acesso aos benefícios da Previdência Social. Qual o período de graça para o segurado que deixa de exercer atividade remunerada, mas que possui mais de 120 contribuições mensais sem interrupção que acarrete a perda da qualidade de segurado?",
+                options: ["6 meses.", "12 meses.", "24 meses.", "36 meses.", "48 meses."],
+                correctAnswer: "24 meses.",
+                hint: "O período de graça é o tempo que o segurado mantém sua cobertura previdenciária mesmo sem contribuir. Ele pode ser estendido em algumas situações.",
+                explanation: "O período de graça é o tempo durante o qual o segurado mantém a qualidade de segurado mesmo após deixar de contribuir. Para aqueles que possuem mais de 120 contribuições mensais sem interrupção, esse período é de 24 meses, permitindo que ainda possam acessar benefícios como aposentadoria e pensão durante esse tempo."
+    },
+    {
+           question: "6. O Plano de Benefícios da Previdência Social, de acordo com a Lei nº 8.213/1991, abrange diversas prestações. Qual dos seguintes não é considerado um benefício previdenciário do RGPS?",
+                options: ["Aposentadoria por tempo de contribuição.", "Pensão por morte.", "Auxílio-acidente.", "Auxílio-reclusão.", "Benefício de Prestação Continuada (BPC)."],
+                correctAnswer: "Benefício de Prestação Continuada (BPC).",
+                hint: "O BPC é um benefício assistencial, regulamentado pela LOAS, não exigindo contribuições para ser concedido.",
+                explanation: "O Benefício de Prestação Continuada (BPC) é um benefício assistencial previsto na Lei Orgânica da Assistência Social (LOAS) e não faz parte do Regime Geral de Previdência Social (RGPS). Os benefícios previdenciários do RGPS incluem aposentadorias, pensões, auxílios e outros benefícios que exigem contribuições prévias."
+    },
+    {
+             question: "7. A avaliação biopsicossocial da deficiência, para fins de concessão da aposentadoria da pessoa com deficiência do RGPS, considera os modelos de avaliação da deficiência. Qual instrumento, baseado na Classificação Internacional de Funcionalidade (CIF), é utilizado para esta avaliação?",
+                options: ["Cadastro Único.", "Instrumento de Avaliação de Risco Social (IARS).", "Perfil Profissiográfico Previdenciário (PPP).", "Instrumento de Funcionalidade Brasileiro Modificado (IFBrM).", "Declaração de Pobreza."],
+                correctAnswer: "Instrumento de Funcionalidade Brasileiro Modificado (IFBrM).",
+                hint: "A avaliação vai além do diagnóstico médico e considera os impactos da deficiência na funcionalidade e participação social da pessoa.",
+                explanation: "O Instrumento de Funcionalidade Brasileiro Modificado (IFBrM) é utilizado para avaliar a deficiência no contexto da concessão de aposentadoria da pessoa com deficiência no RGPS. Ele se baseia na Classificação Internacional de Funcionalidade (CIF) e considera não apenas o diagnóstico médico, mas também como a deficiência afeta a funcionalidade e a participação social do indivíduo."
+    },
+    {
+          question: "8. A Lei Complementar nº 142/2013 regulamentou a aposentadoria da pessoa com deficiência segurada do Regime Geral de Previdência Social (RGPS). Quais são os critérios considerados para determinar o grau de gravidade da deficiência?",
+                options: ["Apenas a idade e o gênero do segurado.", "Somente a renda familiar e o tempo de trabalho.", "Os impedimentos nas funções e nas estruturas do corpo, a limitação no desempenho de atividades e a restrição de participação social.", "O número de dependentes do segurado.", "O histórico de emprego formal do segurado."],
+                correctAnswer: "Os impedimentos nas funções e nas estruturas do corpo, a limitação no desempenho de atividades e a restrição de participação social.",
+                hint: "A LC 142/2013 adota uma visão ampla da deficiência, que engloba as interações com o ambiente e a sociedade.",
+                explanation: "A Lei Complementar nº 142/2013 estabelece que o grau de gravidade da deficiência é determinado por meio da avaliação dos impedimentos nas funções e estruturas do corpo, as limitações no desempenho de atividades e as restrições de participação social. Essa abordagem biopsicossocial permite uma compreensão mais completa das necessidades e direitos das pessoas com deficiência."
+    },
+    {
+          question: "9. O Perfil Profissiográfico Previdenciário (PPP) é um documento histórico-laboral do trabalhador. Para qual finalidade principal ele é utilizado na Previdência Social?",
+                options: ["Para comprovar a escolaridade do trabalhador.", "Para solicitar aposentadoria por invalidez.", "Para comprovar condições especiais de trabalho para fins de aposentadoria especial.", "Para a concessão de auxílio-maternidade.", "Para o cálculo do salário-família."],
+                correctAnswer: "Para comprovar condições especiais de trabalho para fins de aposentadoria especial.",
+                hint: "O PPP detalha as atividades do trabalhador e a exposição a agentes nocivos, sendo essencial para quem busca se aposentar com regras diferenciadas devido à profissão.",
+                explanation: "O Perfil Profissiográfico Previdenciário (PPP) é um documento que reúne informações sobre as atividades exercidas pelo trabalhador, suas condições de trabalho e a exposição a agentes nocivos. Ele é fundamental para comprovar as condições especiais de trabalho necessárias para a concessão da aposentadoria especial, que permite uma aposentadoria antecipada para trabalhadores expostos a riscos à saúde."
+    },
+    {
+        question: "10. No contexto previdenciário, as doenças ocupacionais são aquelas causadas ou agravadas pelo exercício do trabalho. Qual das categorias abaixo NÃO é um exemplo de doença ocupacional reconhecida pela Previdência?",
+                options: ["LER (Lesão por Esforço Repetitivo).", "Dort (Distúrbio Osteomuscular Relacionado ao Trabalho).", "Silicose.", "AIDS (Síndrome da Imunodeficiência Adquirida).", "Perda auditiva induzida por ruído."],
+                correctAnswer: "AIDS (Síndrome da Imunodeficiência Adquirida).",
+                hint: "As doenças ocupacionais têm uma relação direta e comprovada com o trabalho exercido, enquanto a AIDS, na maioria dos casos, não tem essa causalidade.",
+                explanation: "As doenças ocupacionais são aquelas que surgem ou se agravam devido às condições de trabalho. Exemplos incluem LER, Dort, silicose e perda auditiva induzida por ruído. A AIDS, embora seja uma condição de saúde grave, não é considerada uma doença ocupacional no contexto da Previdência Social, pois não há uma relação direta e comprovada com o ambiente de trabalho na maioria dos casos."
+    },
+    
+],
+            'Eixo Temático 5 - Saúde e Segurança do Trabalho': [
+                {
+                    question: "1. Qual dos exames abaixo não faz parte do rol de exames médicos ocupacionais obrigatórios previstos para o acompanhamento da saúde dos trabalhadores?",
+                options: ["Exame Admissional", "Exame Periódico", "Exame Demissional", "Exame de Retorno ao Trabalho", "Exame de Aposentadoria"],
+                correctAnswer: "Exame de Aposentadoria",
+                hint: "Os exames obrigatórios estão diretamente ligados às fases do contrato de trabalho e às mudanças de risco na função.",
+                explanation: "Os exames médicos ocupacionais obrigatórios incluem o Exame Admissional, Exame Periódico, Exame Demissional e Exame de Retorno ao Trabalho. O Exame de Aposentadoria não é um exame obrigatório previsto na legislação trabalhista para o acompanhamento da saúde dos trabalhadores."
+                },
+                {
+                    question: "2. O nexo trabalho-doença é um conceito fundamental para o reconhecimento de doenças relacionadas ao trabalho. Qual das alternativas abaixo descreve corretamente o nexo técnico epidemiológico (NTEP)?",
+                options: ["É a comprovação feita por um médico perito.", "É a ligação entre a doença e o trabalho com base na observação clínica de um caso.", "É a presunção de que a doença é causada pelo trabalho com base em estatísticas e dados epidemiológicos.", "É a prova de que a doença é causada por negligência da empresa.", "É a avaliação feita apenas pelo próprio trabalhador."],
+                correctAnswer: "É a presunção de que a doença é causada pelo trabalho com base em estatísticas e dados epidemiológicos.",
+                hint: "O NTEP utiliza a epidemiologia para presumir a relação entre uma doença e o tipo de atividade profissional, simplificando o processo de reconhecimento.",
+                explanation: "O Nexo Técnico Epidemiológico (NTEP) é uma presunção legal que facilita o reconhecimento de doenças relacionadas ao trabalho. Ele se baseia em dados epidemiológicos que mostram a relação entre determinadas doenças e as atividades profissionais, permitindo que a doença seja presumida como ocupacional sem a necessidade de comprovação individual detalhada."
+                },
+                {
+                       question: "3. O Programa de Gestão de Riscos (PGR), previsto na legislação de saúde e segurança do trabalho, tem como principal objetivo:",
+                options: ["Apenas o controle de riscos ambientais.", "A promoção de palestras sobre segurança.", "O gerenciamento de riscos ocupacionais, buscando a prevenção e a redução de acidentes e doenças.", "A punição de trabalhadores que não cumprem as normas.", "O registro de acidentes após a sua ocorrência."],
+                correctAnswer: "O gerenciamento de riscos ocupacionais, buscando a prevenção e a redução de acidentes e doenças.",
+                hint: "O PGR substituiu o PPRA (Programa de Prevenção de Riscos Ambientais) e tem uma abordagem mais ampla e integrada.",
+                explanation: "O Programa de Gestão de Riscos (PGR) é uma ferramenta de gestão que visa identificar, avaliar e controlar os riscos ocupacionais no ambiente de trabalho. Seu objetivo é prevenir acidentes e doenças relacionadas ao trabalho, promovendo um ambiente de trabalho mais seguro e saudável."
+                },
+                {
+                     question: "4. A Comunicação de Acidente do Trabalho (CAT) é um documento essencial. Quem tem a obrigação legal de emiti-la em caso de acidente de trabalho?",
+                options: ["Apenas o trabalhador acidentado.", "Apenas o médico que atendeu o trabalhador.", "A empresa, em primeiro lugar.", "A família do trabalhador.", "O sindicato da categoria profissional."],
+                correctAnswer: "A empresa, em primeiro lugar.",
+                hint: "A legislação determina que a responsabilidade primária pela comunicação do acidente é da empresa, com prazos específicos para a emissão.",
+                explanation: "A Comunicação de Acidente do Trabalho (CAT) deve ser emitida pela empresa em até um dia útil após o acidente. Caso a empresa não o faça, o próprio trabalhador, seus dependentes ou o sindicato podem emitir a CAT. A emissão da CAT é fundamental para que o trabalhador tenha acesso aos benefícios previdenciários relacionados ao acidente."
+                },
+                {
+          question: "5. Na higiene do trabalho, os agentes nocivos são classificados em diferentes grupos. Qual alternativa representa apenas agentes de risco ergonômico?",
+                options: ["Ruído, vibração e calor.", "Levantamento de peso, postura inadequada e repetitividade.", "Fungos, bactérias e vírus.", "Poeiras, fumos e neblinas.", "Máquinas sem proteção e ferramentas inadequadas."],
+                correctAnswer: "Levantamento de peso, postura inadequada e repetitividade.",
+                hint: "Riscos ergonômicos estão relacionados às condições de trabalho que podem causar desconforto ou lesões ao trabalhador.",
+                explanation: "Os agentes de risco ergonômico incluem fatores como levantamento de peso, postura inadequada e movimentos repetitivos, que podem levar a lesões musculoesqueléticas. Outros agentes, como ruído e vibração, são classificados como riscos físicos, enquanto fungos e bactérias são riscos biológicos, e poeiras e fumos são riscos químicos."
+                },
+    
+    {
+         question: "6. A diferença entre reabilitação ocupacional e readaptação profissional é um ponto importante. Qual das alternativas melhor descreve o conceito de readaptação profissional?",
+                options: ["É o retorno do trabalhador à sua função anterior após um acidente.", "É o processo de capacitação para uma nova atividade, em função de uma limitação.", "É o tratamento médico para a recuperação da saúde do trabalhador.", "É a concessão de um benefício previdenciário.", "É o processo de adaptação do ambiente de trabalho ao trabalhador."],
+                correctAnswer: "É o processo de capacitação para uma nova atividade, em função de uma limitação.",
+                hint: "A readaptação acontece quando o trabalhador não pode mais exercer sua função original devido a uma limitação e precisa ser realocado para outra.",
+                explanation: "A readaptação profissional é o processo pelo qual um trabalhador que sofreu uma limitação física ou mental é capacitado para exercer uma nova função dentro da empresa, diferente daquela que exercia anteriormente. Já a reabilitação ocupacional é um conceito mais amplo, que inclui o retorno ao trabalho, seja na mesma função ou em outra."
+                },
+    
+    {
+           question: "7. Os adicionais ocupacionais são direitos do trabalhador que está exposto a condições de trabalho específicas. Quais são os dois principais adicionais ocupacionais previstos na legislação trabalhista brasileira?",
+                options: ["Adicional de horas extras e adicional noturno.", "Adicional de insalubridade e adicional de periculosidade.", "Adicional de férias e 13º salário.", "Adicional de produtividade e adicional de função.", "Adicional de transporte e adicional de alimentação."],
+                correctAnswer: "Adicional de insalubridade e adicional de periculosidade.",
+                hint: "Esses adicionais compensam a exposição do trabalhador a condições que podem prejudicar a sua saúde ou integridade física.",
+                explanation: "Os principais adicionais ocupacionais previstos na legislação trabalhista brasileira são o adicional de insalubridade, que é concedido a trabalhadores expostos a agentes nocivos à saúde, e o adicional de periculosidade, que é destinado a trabalhadores que exercem atividades perigosas, como manuseio de explosivos ou trabalho em altura."
+                },
+    
+    {
+         question: "8. A Política Nacional de Saúde do Trabalhador e da Trabalhadora (PNSTT) estabelece diretrizes para a atuação do SUS nessa área. Qual dos princípios abaixo está alinhado com a PNSTT?",
+                options: ["A saúde do trabalhador deve ser tratada como um assunto de responsabilidade exclusiva da empresa.", "A integralidade da atenção à saúde, que inclui a promoção, a vigilância e a assistência.", "A centralização das ações de saúde do trabalhador na esfera federal.", "A exclusão de trabalhadores informais das ações de saúde.", "O foco apenas na recuperação de doenças já instaladas."],
+                correctAnswer: "A integralidade da atenção à saúde, que inclui a promoção, a vigilância e a assistência.",
+                hint: "A PNSTT busca uma abordagem completa e integrada, desde a prevenção até o tratamento e a reabilitação.",
+                explanation: "A Política Nacional de Saúde do Trabalhador e da Trabalhadora (PNSTT) enfatiza a integralidade da atenção à saúde, abrangendo ações de promoção, vigilância e assistência. Ela reconhece que a saúde do trabalhador é um direito e uma responsabilidade compartilhada entre o SUS, empregadores e trabalhadores."
+                },
+    
+    {
+            question: "9. O assédio moral é uma das violências no ambiente de trabalho. Qual é a sua principal característica?",
+                options: ["Acontece apenas entre superiores e subordinados.", "É uma forma de violência física.", "É uma conduta abusiva, repetitiva e prolongada que expõe o trabalhador a situações humilhantes e constrangedoras.", "É uma crítica pontual e construtiva.", "Ocorre apenas em empresas privadas."],
+                correctAnswer: "É uma conduta abusiva, repetitiva e prolongada que expõe o trabalhador a situações humilhantes e constrangedoras.",
+                hint: "A repetição e a intenção de desqualificar e humilhar a vítima são elementos centrais do assédio moral.",
+                explanation: "O assédio moral no ambiente de trabalho é caracterizado por condutas abusivas, repetitivas e prolongadas que visam desqualificar, humilhar ou constranger o trabalhador. Essas ações podem ser praticadas por superiores, colegas ou subordinados e têm impactos negativos na saúde mental e física da vítima."
+                },
+    
+    {
+           question: "10. O Subsistema Integrado de Atenção à Saúde do Servidor (SIASS) é um sistema específico. Qual é o seu público-alvo?",
+                options: ["Todos os trabalhadores do setor privado.", "Apenas os funcionários do INSS.", "Servidores públicos federais.", "Apenas os servidores estaduais e municipais.", "Trabalhadores avulsos."],
+                correctAnswer: "Servidores públicos federais.",
+                hint: "O nome do sistema já sugere a quem ele é destinado.",
+                explanation: "O Subsistema Integrado de Atenção à Saúde do Servidor (SIASS) é destinado exclusivamente aos servidores públicos federais. Ele oferece serviços de promoção, prevenção, vigilância e assistência à saúde, visando garantir o bem-estar e a qualidade de vida desses trabalhadores."
+                },
+    
+   
+            ]
+        };
+
+        // Referências aos elementos da interface
+        const homeScreen = document.getElementById('home-screen');
+        const eixoContentScreen = document.getElementById('eixo-content-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        
+        const eixoContentTitle = document.getElementById('eixo-content-title');
+        const eixoContentText = document.getElementById('eixo-content-text');
+        const currentEixoTitle = document.getElementById('current-eixo-title');
+        const questionText = document.getElementById('question-text');
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const optionsContainer = document.getElementById('options-container');
+        const hintButton = document.getElementById('hint-button');
+        const hintText = document.getElementById('hint-text');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const nextButton = document.getElementById('next-button');
+        const finalScore = document.getElementById('final-score');
+
+        // Função para exibir a tela de conteúdo do eixo temático
+        function showEixoContent(eixo) {
+            quizState.currentEixo = eixo;
+            eixoContentTitle.textContent = ` ${eixo}`;
+            eixoContentText.innerHTML = eixoContent[eixo];
+            
+            homeScreen.classList.add('hidden');
+            eixoContentScreen.classList.remove('hidden');
+        }
+
+        // Função para iniciar o quiz após ver o conteúdo do eixo
+        function startQuiz() {
+            quizState.questions = quizData[quizState.currentEixo];
+            quizState.currentQuestionIndex = 0;
+            quizState.score = 0;
+
+            eixoContentScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            updateQuizUI();
+        }
+
+        // Função para voltar à tela inicial
+        function goToHome() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            eixoContentScreen.classList.add('hidden');
+            homeScreen.classList.remove('hidden');
+        }
+
+        // Função para atualizar a interface do quiz com a pergunta atual
+        function updateQuizUI() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            
+            currentEixoTitle.textContent = quizState.currentEixo;
+            questionText.textContent = currentQuestion.question;
+            questionCounter.textContent = `Pergunta ${quizState.currentQuestionIndex + 1} de ${quizState.questions.length}`;
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+            
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('w-full', 'bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white', 'text-gray-800', 'font-medium', 'py-3', 'px-4', 'rounded-lg', 'text-left', 'transition-colors', 'duration-200');
+                button.onclick = () => selectAnswer(button, option);
+                optionsContainer.appendChild(button);
+            });
+
+            // Resetar estados de dica e explicação
+            hintButton.classList.remove('hidden');
+            hintText.classList.add('hidden');
+            explanationContainer.classList.add('hidden');
+            nextButton.classList.add('hidden');
+        }
+        
+        // Função para mostrar a dica
+        function showHint() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            hintText.textContent = `Dica: ${currentQuestion.hint}`;
+            hintText.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+        }
+
+        // Função para selecionar uma resposta
+        function selectAnswer(selectedButton, selectedOption) {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correctAnswer;
+            
+            // Desabilitar todas as opções
+            Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+
+            // Destacar respostas
+            if (isCorrect) {
+                quizState.score++;
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-green-500', 'text-white');
+            } else {
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-red-500', 'text-white');
+                // Destacar a resposta correta também
+                Array.from(optionsContainer.children).find(btn => btn.textContent === currentQuestion.correctAnswer).classList.add('bg-green-500', 'text-white');
+            }
+            
+            // Mostrar a explicação e o botão de próxima pergunta
+            explanationText.textContent = currentQuestion.explanation;
+            explanationContainer.classList.remove('hidden');
+            nextButton.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+        }
+
+        // Função para avançar para a próxima pergunta
+        function nextQuestion() {
+            quizState.currentQuestionIndex++;
+            if (quizState.currentQuestionIndex < quizState.questions.length) {
+                updateQuizUI();
+            } else {
+                showResults();
+            }
+        }
+
+        // Função para exibir os resultados finais
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScore.textContent = `Você acertou ${quizState.score} de ${quizState.questions.length} perguntas do eixo '${quizState.currentEixo}'.`;
+        }
+    </script>
+
+</body>
+</html>

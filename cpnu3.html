@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz CPNU - Bloco 3</title>
+    <link rel="icon" type="image/png" href="brasil.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 48rem;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .themed-button {
+            transition: all 0.2s;
+        }
+        .themed-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .themed-button-active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .top-border {
+            width: 100%;
+            height: 1.5rem;
+            background-color: #1e3a8a;
+        }
+        .themed-footer {
+            width: 100%;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.5rem 1rem; /* Aumentado para 1.5rem no eixo vertical (topo/fundo) */
+        }
+        .footer-border-image {
+            width: 100%;
+            height: 18px;
+            display: block;
+        }
+        .footer-content {
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .contact-link {
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+        .contact-link:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-border"></div>
+
+    <div class="container">
+        
+        <div id="home-screen" class="text-center">
+
+            <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">Quiz Preparatório CPNU - Bloco 3</h1>
+            <p class="text-lg text-gray-600 mb-8">Selecione um eixo temático para estudar os conteúdos e começar o quiz.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Conhecimentos Gerais')">
+                    Conhecimentos Gerais
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 1 - CTS')">
+                    Eixo 1: CTS
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 2 - CT&I')">
+                    Eixo 2: CT&I
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 3 - Gestão de Projetos')">
+                    Eixo 3: Gestão de Projetos
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 4 - TICs & Ciência de Dados')">
+                    Eixo 4: TICs & Dados
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 5 - Metodologia da Pesquisa')">
+                    Eixo 5: Metodologia
+                </button>
+            </div>
+            
+            <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center w-full mt-6 justify-center" onclick="goToPreviousPage()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    Voltar
+</button>
+        </div>
+
+        <div id="eixo-content-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4" id="eixo-content-title"></h2>
+            <div id="eixo-content-text" class="text-left bg-gray-50 p-6 rounded-xl shadow-inner overflow-y-auto max-h-96 text-gray-700">
+                </div>
+            <div class="mt-6 flex justify-between gap-4">
+                <button class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="startQuiz()">
+                    Iniciar Quiz
+                </button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <div class="mb-6 pb-4 border-b border-gray-300">
+                <p class="text-indigo-600 font-semibold text-lg" id="current-eixo-title"></p>
+                <h2 class="text-2xl font-bold mt-2 text-gray-800" id="question-text"></h2>
+                <div class="flex justify-between items-center text-sm mt-2">
+                    <p class="text-gray-500" id="question-counter"></p>
+                    <p class="text-green-600 font-bold" id="score-counter"></p>
+                </div>
+            </div>
+
+            <div id="options-container" class="space-y-4 mb-4">
+                </div>
+            
+            <button id="hint-button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-lg shadow-sm transition-colors duration-200 mt-4" onclick="showHint()">
+                Dica
+            </button>
+            <div id="hint-text" class="hidden mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-gray-700"></div>
+
+            <div id="explanation-container" class="hidden mt-6 p-6 rounded-lg border border-green-600 bg-green-50">
+                <p class="font-bold text-green-700 mb-2">Explicação:</p>
+                <p id="explanation-text" class="text-gray-700"></p>
+            </div>
+            
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="back-to-home-button" class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button id="next-button" class="w-1/2 hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="nextQuestion()">
+                    Próxima Pergunta
+                </button>
+            </div>
+        </div>
+
+        <div id="results-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4">Quiz Concluído!</h2>
+            <p id="final-score" class="text-xl mb-6 text-gray-800"></p>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                Voltar para o Início
+            </button>
+        </div>
+    </div>
+    
+    <footer class="w-full mt-auto">
+        <img src="7e4bab99-0869-4fec-bb88-19225341d17c (1).png" alt="Borda decorativa" class="footer-border-image">
+        <div class="themed-footer">
+    <div class="footer-content">
+        <div class="flex items-center space-x-4">
+            <a href="contato.html" class="text-sm text-gray-300 hover:text-white transition-colors duration-200">
+                Dúvidas? Entre em contato!
+            </a>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
+            <a href="mailto:contato@luizcodedev.tech" class="contact-link text-sm">Email</a>
+            <a href="https://wa.me/5511995432530" target="_blank" class="contact-link text-sm">WhatsApp</a>
+            <a href="https://www.linkedin.com/in/luiz-eduardo-82a942179/" target="_blank" class="contact-link text-sm">LinkedIn</a>
+        </div>
+    </div>
+    <div class="text-center text-gray-400 text-xs mt-2 md:mt-0">
+        &copy; 2025 LuizDev. Todos os direitos reservados.
+    </div>
+</div>
+    </footer>
+
+      
+
+     <script>
+        // Objeto global para armazenar o estado do quiz
+        let quizState = {
+            questions: [],
+            currentQuestionIndex: 0,
+            score: 0,
+            currentEixo: ''
+        };
+
+        function goToPreviousPage() {
+    // Isso fará o navegador voltar para a página anterior no histórico
+    window.history.back();
+}
+
+        // Conteúdo de estudo para cada eixo temático
+        const eixoContent = {
+            'Conhecimentos Gerais': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Desafios do estado de direito: democracia e cidadania.</li>
+                    <li>2. Políticas públicas: fundamentos, ciclos, federalismo e transformação digital.</li>
+                    <li>3. Ética e integridade: princípios, governança e transparência.</li>
+                    <li>4. Diversidade e inclusão na sociedade.</li>
+                    <li>5. Administração pública federal: princípios, reformas e finanças públicas.</li>
+                    <li>6. Trabalho e tecnologia: IA, automação e riscos no setor público.</li>
+                </ul>
+            `,
+            'Eixo Temático 1 - CTS': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1.1. Paradigmas, conceitos, origens e evolução da abordagem CTS.</li>
+                    <li>1.2. Modelos e concepções de inovação tecnológica.</li>
+                    <li>1.3. Pensamento crítico sobre impactos e responsabilidades sociais da ciência e tecnologia.</li>
+                    <li>1.4. Interações entre ciência, tecnologia, cultura e valores sociais.</li>
+                    <li>1.5. A relação entre desenvolvimento tecnológico e desenvolvimento social.</li>
+                    <li>1.6. Ética em pesquisa científica: comitês, consentimento e integridade.</li>
+                    <li>1.7. Popularização da ciência e engajamento público.</li>
+                    <li>1.8. Desigualdades no acesso à ciência e tecnologia.</li>
+                    <li>1.9. Ciência aberta, acesso livre e reprodutibilidade.</li>
+                </ul>
+            `,
+            'Eixo Temático 2 - CT&I': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Estrutura, fundamentos e instrumentos da CT&I no Brasil (SNCTI, Marco Legal, Lei da Inovação).</li>
+                    <li>2. Planos, programas e instrumentos de fomento (CNPq, CAPES, FINEP, FNDCT, EMBRAPII).</li>
+                    <li>3. Modelos institucionais de inovação (Triângulo de Sábato, Hélice Tríplice).</li>
+                    <li>4. Indicadores de CT&I (PINTEC, Indicadores Nacionais).</li>
+                    <li>5. Objetivos de Desenvolvimento Sustentável (ODS) e CT&I (Agenda 2030).</li>
+                </ul>
+            `,
+            'Eixo Temático 3 - Gestão de Projetos': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Fundamentos e práticas de gestão de projetos (ciclo de vida).</li>
+                    <li>2. Noções de gestão de escopo, tempo, custo, qualidade, recursos, riscos, etc.</li>
+                    <li>2.1. Ferramentas e métodos de gestão (Gráficos de Gantt, PERT/CPM, Matriz RACI, Kanban, SCRUM).</li>
+                    <li>3. Gestão da Inovação e do Conhecimento em projetos de CT&I.</li>
+                </ul>
+            `,
+            'Eixo Temático 4 - TICs & Ciência de Dados': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Fundamentos e aplicações de TICs e ciência de dados.</li>
+                    <li>1.2. Transformação digital na administração pública e Estratégia Federal de Governo Digital.</li>
+                    <li>2. Conceitos e aplicações de ciência de dados, Big Data e IoT.</li>
+                    <li>2.1. Inteligência artificial, aprendizado de máquina e análise preditiva.</li>
+                    <li>2.2. Ética, vieses algorítmicos e impactos sociais da IA.</li>
+                    <li>3. Governança de dados e LGPD.</li>
+                    <li>4. Visualização e interpretação de dados.</li>
+                    <li>5. Uso de dados para formulação, monitoramento e avaliação de políticas públicas.</li>
+                    <li>6. Dados abertos e transparência.</li>
+                </ul>
+            `,
+            'Eixo Temático 5 - Metodologia da Pesquisa': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Fundamentos e práticas de pesquisa científica (Pesquisa básica, aplicada, exploratória, etc.).</li>
+                    <li>2. Classificação quanto à abordagem (Qualitativa, Quantitativa, Mista).</li>
+                    <li>2.4. Métodos científicos (Indutivo, Dedutivo, Hipotético-dedutivo).</li>
+                    <li>2.8. Tipos de pesquisa (Estudos de caso, Pesquisa-ação, Levantamento, etc.).</li>
+                    <li>3. Elementos do projeto de pesquisa (Tema, Problema, Justificativa, Objetivos, Hipóteses, Metodologia).</li>
+                    <li>3.7. Instrumentos de coleta de dados (Entrevistas, Questionários, Análise documental).</li>
+                    <li>4. Redação científica e normas (ABNT, APA, Vancouver).</li>
+                </ul>
+            `
+        };
+
+        // Dados do quiz: perguntas, opções, respostas, dicas e explicações
+        const quizData = {
+             'Conhecimentos Gerais': [
+                {
+                    question: "Segundo a Constituição de 1988, qual a principal função dos direitos fundamentais, sociais e políticos?",
+                    options: ["Consolidar a democracia e a cidadania.", "Limitar o poder do Poder Executivo.", "Viabilizar a judicialização de políticas públicas.", "Aumentar a burocracia estatal."],
+                    correctAnswer: "Consolidar a democracia e a cidadania.",
+                    hint: "A Constituição de 88 é conhecida como a 'Constituição Cidadã'.",
+                    explanation: "A Constituição de 1988, conhecida como a 'Constituição Cidadã', tem como um de seus pilares a consolidação da democracia. Os direitos fundamentais, sociais e políticos servem para assegurar a participação ativa do cidadão e a proteção de suas liberdades, fortalecendo o Estado Democrático de Direito."
+                },
+                {
+                    question: "Na etapa de 'Formulação' do ciclo de políticas públicas, qual atividade é central?",
+                    options: ["Implementar planos e programas.", "Monitorar e avaliar os resultados.", "Elaborar alternativas e selecionar a melhor solução.", "Definir se o problema será tratado pelo governo."],
+                    correctAnswer: "Elaborar alternativas e selecionar a melhor solução.",
+                    hint: "Pense na fase que vem depois de identificar o problema, mas antes de agir.",
+                    explanation: "Após a fase de 'Agenda', onde o problema é reconhecido, a 'Formulação' é a etapa em que se criam as propostas de ação, avaliando as possíveis soluções e escolhendo a mais adequada para ser implementada."
+                },
+                {
+                    question: "A Lei de Acesso à Informação (LAI) e a transparência pública estão diretamente relacionadas a qual princípio constitucional da administração pública?",
+                    options: ["Legalidade.", "Impessoalidade.", "Moralidade.", "Publicidade."],
+                    correctAnswer: "Publicidade.",
+                    hint: "É o princípio que exige a divulgação dos atos da administração.",
+                    explanation: "A publicidade é o princípio constitucional que exige a transparência total dos atos da administração, salvo exceções legais. A Lei de Acesso à Informação (LAI) é o principal instrumento que concretiza este princípio, garantindo que o cidadão possa acessar as informações públicas."
+                },
+                {
+                    question: "Qual instrumento do planejamento-orçamento no Brasil define as diretrizes, metas e prioridades da administração pública federal para um período de quatro anos?",
+                    options: ["Plano Plurianual (PPA).", "Lei de Diretrizes Orçamentárias (LDO).", "Lei Orçamentária Anual (LOA).", "Plano Nacional de Desenvolvimento."],
+                    correctAnswer: "Plano Plurianual (PPA).",
+                    hint: "O nome do instrumento já indica sua abrangência de tempo.",
+                    explanation: "O PPA é o principal instrumento de planejamento de médio prazo do governo federal, definindo as diretrizes e os objetivos estratégicos para um período de quatro anos. A LDO e a LOA devem estar alinhadas com o que foi estabelecido no PPA."
+                },
+                {
+                    question: "Qual o princípio da Administração Pública que exige que a atuação dos agentes públicos seja voltada ao interesse público, não podendo beneficiar a si próprios ou a terceiros?",
+                    options: ["Moralidade.", "Impessoalidade.", "Eficiência.", "Legalidade."],
+                    correctAnswer: "Impessoalidade.",
+                    hint: "Pense na atuação 'sem rosto', sem distinção pessoal.",
+                    explanation: "O princípio da impessoalidade exige que a Administração Pública atue com o objetivo de alcançar o interesse público, sem favorecer ou prejudicar pessoas por razões pessoais. A conduta deve ser objetiva e voltada à finalidade da lei."
+                },
+                {
+                    question: "A governança pública, como conceito de gestão, tem como um de seus pilares a 'accountability'. O que esse termo significa?",
+                    options: ["A capacidade de inovar na gestão.", "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.", "A agilidade na execução de projetos.", "A gestão baseada em dados e evidências."],
+                    correctAnswer: "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.",
+                    hint: "É a junção de 'conta' e 'habilidade'.",
+                    explanation: "Accountability é o dever de prestar contas sobre as ações tomadas e de se responsabilizar pelas consequências delas. É um pilar fundamental da governança, promovendo a transparência e a responsabilidade na gestão pública."
+                },
+                {
+                    question: "A transformação digital na Administração Pública tem como principal objetivo:",
+                    options: ["Substituir servidores por robôs.", "Simplificar e desburocratizar os serviços para o cidadão.", "Aumentar a arrecadação de impostos.", "Centralizar todas as informações em um único sistema."],
+                    correctAnswer: "Simplificar e desburocratizar os serviços para o cidadão.",
+                    hint: "O foco é na melhoria da experiência do usuário, ou seja, do cidadão.",
+                    explanation: "A transformação digital na Administração Pública busca usar a tecnologia para simplificar processos, tornar os serviços mais acessíveis e eficientes, e melhorar a relação entre o governo e a população. O objetivo é facilitar a vida do cidadão."
+                },
+                {
+                    question: "De acordo com o edital, quais são os principais eixos da diversidade e inclusão na sociedade brasileira?",
+                    options: ["Gênero, raça, etnia e idade.", "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.", "Gênero e nacionalidade.", "Etnia, raça e classe social."],
+                    correctAnswer: "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.",
+                    hint: "Pense nos diversos grupos sociais que precisam de políticas de inclusão.",
+                    explanation: "O tema de diversidade e inclusão, conforme abordado em concursos públicos, engloba a garantia de direitos e a promoção da igualdade para grupos historicamente marginalizados, incluindo as dimensões de gênero, raça, etnia, orientação sexual, pessoas com deficiência (PCD) e a diversidade entre as gerações."
+                },
+                {
+                    question: "A Reforma Administrativa no Brasil, em diferentes momentos históricos, teve como uma de suas motivações a busca por:",
+                    options: ["Aumento da burocracia e do controle interno.", "Centralização do poder no governo federal.", "Maior eficiência e modernização da máquina pública.", "Redução do número de estados e municípios."],
+                    correctAnswer: "Maior eficiência e modernização da máquina pública.",
+                    hint: "Pense no objetivo de tornar o governo mais ágil e econômico.",
+                    explanation: "As reformas administrativas, desde a criação do DASP no período Vargas até as mais recentes, sempre buscaram melhorar a eficiência, a produtividade e a qualidade dos serviços públicos. O objetivo é modernizar o Estado para que ele responda melhor às demandas da sociedade."
+                },
+                {
+                    question: "Qual o principal risco ético associado ao uso de inteligência artificial (IA) e automação no setor público?",
+                    options: ["Aumento de produtividade.", "Redução de custos operacionais.", "A perda da transparência e a tomada de decisões não explicáveis.", "A simplificação de processos."],
+                    correctAnswer: "A perda da transparência e a tomada de decisões não explicáveis.",
+                    hint: "Pense na 'caixa preta' dos algoritmos.",
+                    explanation: "O uso de IA pode gerar um risco de 'caixa preta', onde o processo de tomada de decisão do algoritmo não é transparente ou facilmente compreendido. Isso pode minar a confiança do cidadão e dificultar a responsabilização por decisões que afetem direitos e serviços públicos, indo contra o princípio da publicidade e da transparência."
+                },
+                {
+                    question: "Qual é um dos principais desafios para a consolidação da democracia e do Estado de Direito no Brasil?",
+                    options: ["A centralização do poder no legislativo.", "A baixa participação popular em decisões políticas.", "A completa ausência de liberdade de expressão.", "A excessiva intervenção de organismos internacionais."],
+                    correctAnswer: "A baixa participação popular em decisões políticas.",
+                    hint: "Pense no papel do cidadão na vida política.",
+                    explanation: "A participação ativa da sociedade civil é crucial para a vitalidade democrática. A baixa participação pode levar à deslegitimação das instituições e à fragilização do controle social sobre o Estado."
+                },
+                {
+                    question: "No ciclo de políticas públicas, a etapa de 'Avaliação' é fundamental para qual propósito?",
+                    options: ["Apenas para punir os responsáveis por falhas.", "Para decidir se a política deve ser implementada ou não.", "Para medir a eficácia, eficiência e impacto da política.", "Para justificar novos gastos sem análise prévia."],
+                    correctAnswer: "Para medir a eficácia, eficiência e impacto da política.",
+                    hint: "Pense no que se faz depois que a política já foi implementada por um tempo.",
+                    explanation: "A avaliação busca verificar se a política pública alcançou os resultados esperados, se foi implementada de forma eficiente e qual foi seu impacto real na sociedade, fornecendo subsídios para ajustes ou para o planejamento de novas políticas."
+                },
+                {
+                    question: "Qual dos seguintes conceitos está mais associado à integridade pública?",
+                    options: ["A velocidade na tomada de decisões.", "A capacidade de gerar lucros.", "A adesão e defesa dos valores morais da organização.", "A centralização das informações."],
+                    correctAnswer: "A adesão e defesa dos valores morais da organização.",
+                    hint: "Pense na conduta do servidor público.",
+                    explanation: "A integridade pública refere-se ao alinhamento da conduta dos servidores e das instituições aos mais altos padrões éticos e morais, evitando conflitos de interesse e garantindo a confiança da população."
+                },
+                {
+                    question: "Políticas de ações afirmativas para a inclusão de grupos minoritários têm como objetivo principal:",
+                    options: ["Aumentar a desigualdade social.", "Apenas a inclusão de pessoas com deficiência.", "Corrigir desigualdades históricas e promover a igualdade de oportunidades.", "Excluir a maioria da sociedade."],
+                    correctAnswer: "Corrigir desigualdades históricas e promover a igualdade de oportunidades.",
+                    hint: "O objetivo é compensar injustiças do passado.",
+                    explanation: "Ações afirmativas são políticas temporárias que visam a compensar desigualdades históricas e estruturais, garantindo que grupos que foram marginalizados tenham acesso a oportunidades de forma equitativa."
+                },
+                {
+                    question: "A Lei de Responsabilidade Fiscal (LRF) tem como um de seus principais pilares o controle e a transparência na gestão de quais recursos?",
+                    options: ["Apenas os recursos da saúde.", "Apenas os recursos da educação.", "Os recursos financeiros e orçamentários dos entes federativos.", "Os recursos de empresas privadas."],
+                    correctAnswer: "Os recursos financeiros e orçamentários dos entes federativos.",
+                    hint: "Pense no controle dos gastos públicos em geral.",
+                    explanation: "A LRF estabelece normas de finanças públicas voltadas para a responsabilidade na gestão fiscal. Ela impõe limites para despesas com pessoal, dívidas e outras obrigações, promovendo a transparência e o equilíbrio das contas públicas."
+                },
+                {
+                    question: "O uso de Inteligência Artificial no setor público levanta preocupações sobre a 'exclusão digital', que se refere a:",
+                    options: ["Apenas a dificuldade de acesso à internet.", "O desemprego causado pela automação.", "A falta de capacitação de servidores para usar novas tecnologias.", "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados."],
+                    correctAnswer: "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados.",
+                    hint: "Pense nas pessoas que ficam de fora do mundo digital.",
+                    explanation: "A exclusão digital ocorre quando a digitalização dos serviços públicos não é acompanhada de políticas de inclusão, deixando de fora da acessibilidade e da cidadania digital aqueles que não possuem acesso, conhecimento ou habilidades para utilizar as novas tecnologias."
+                },
+                {
+                    question: "O conflito de interesses na Administração Pública ocorre quando:",
+                    options: ["O servidor público tem um cargo de liderança.", "O interesse privado do agente público se choca com o interesse público.", "O servidor trabalha em mais de um setor.", "O servidor utiliza a tecnologia no trabalho."],
+                    correctAnswer: "O interesse privado do agente público se choca com o interesse público.",
+                    hint: "Pense na dualidade entre o que é bom para o servidor e o que é bom para a sociedade.",
+                    explanation: "O conflito de interesses acontece quando o agente público utiliza sua posição para favorecer interesses particulares em detrimento do interesse coletivo. A Lei de Conflito de Interesses (Lei nº 12.813/2013) estabelece as regras para evitar essa situação."
+                },
+                {
+                    question: "No contexto do federalismo brasileiro, qual o principal desafio na implementação de políticas públicas sociais?",
+                    options: ["A ausência de recursos financeiros.", "A falta de leis federais.", "A coordenação entre os diferentes níveis de governo (União, estados e municípios).", "A dificuldade de acesso à internet."],
+                    correctAnswer: "A coordenação entre os diferentes níveis de governo (União, estados e municípios).",
+                    hint: "Pense nos desafios de fazer 3 esferas de governo trabalharem juntas.",
+                    explanation: "O federalismo impõe o desafio da coordenação entre os entes federativos para a oferta de serviços públicos. É fundamental que União, estados e municípios trabalhem em conjunto para garantir a efetividade das políticas, evitando duplicidade de ações e falhas na cobertura."
+                },
+                {
+                    question: "A 'interseccionalidade' é um conceito importante para a análise da diversidade, pois se refere a:",
+                    options: ["A união de diferentes grupos sociais em um único movimento.", "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.", "A separação de grupos sociais para uma análise individual.", "O estudo de apenas uma dimensão da identidade de uma pessoa."],
+                    correctAnswer: "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.",
+                    hint: "Pense no 'cruzamento' de diferentes dimensões da identidade de uma pessoa.",
+                    explanation: "A interseccionalidade reconhece que as identidades sociais não existem de forma isolada. A opressão e o privilégio são influenciados pela forma como gênero, raça, classe, orientação sexual, entre outros, se interligam e se manifestam nas experiências individuais."
+                },
+                {
+                    question: "Qual a principal vantagem da automação de processos na Administração Pública?",
+                    options: ["A eliminação de todos os servidores públicos.", "Aumento da burocracia.", "Maior agilidade e redução de erros em tarefas repetitivas.", "A substituição completa da tomada de decisão humana."],
+                    correctAnswer: "Maior agilidade e redução de erros em tarefas repetitivas.",
+                    hint: "Pense no que os robôs podem fazer melhor que os humanos, em termos de repetição.",
+                    explanation: "A automação permite que tarefas repetitivas e baseadas em regras sejam executadas de forma mais rápida e precisa por sistemas, liberando os servidores para se dedicarem a atividades mais complexas, estratégicas e que exigem interação humana."
+                }
+            ],
+            'Eixo Temático 1 - CTS': [
+                {
+                    question: "Qual o foco central da abordagem Ciência, Tecnologia e Sociedade (CTS)?",
+                    options: ["O desenvolvimento de novas tecnologias.", "A análise crítica das interações entre ciência, tecnologia, cultura e valores sociais.", "A popularização da ciência.", "A ética na pesquisa científica."],
+                    correctAnswer: "A análise crítica das interações entre ciência, tecnologia, cultura e valores sociais.",
+                    hint: "Pense na interação entre a 'Ciência', a 'Tecnologia' e a 'Sociedade'.",
+                    explanation: "A abordagem CTS investiga as complexas interações entre o sistema social (cultura, valores, política) e o sistema técnico (ciência e tecnologia). Ela busca um pensamento crítico sobre os impactos sociais e as responsabilidades éticas da inovação."
+                },
+                {
+                    question: "A integridade na produção de dados e resultados é um tema central na ética em pesquisa científica. Qual é uma das suas principais finalidades?",
+                    options: ["Acelerar o processo de publicação.", "Garantir a reprodutibilidade e a confiabilidade dos resultados.", "Reduzir os custos da pesquisa.", "Promover a competição entre pesquisadores."],
+                    correctAnswer: "Garantir a reprodutibilidade e a confiabilidade dos resultados.",
+                    hint: "A credibilidade da pesquisa é fundamental para o avanço do conhecimento.",
+                    explanation: "A integridade científica é a base para a confiabilidade da pesquisa. Ao garantir que os dados e resultados sejam produzidos de forma honesta, sem manipulação, permite-se que outros pesquisadores possam reproduzir o estudo, validando ou refutando suas descobertas, o que é fundamental para o avanço do conhecimento."
+                },
+                {
+                    question: "A 'Ciência Aberta' promove qual dos seguintes princípios?",
+                    options: ["Restrição de acesso a artigos científicos.", "Centralização de dados em comitês de ética.", "Acesso livre a publicações e dados de pesquisa.", "Aumento do sigilo em projetos financiados pelo governo."],
+                    correctAnswer: "Acesso livre a publicações e dados de pesquisa.",
+                    hint: "O nome já diz, 'aberta'.",
+                    explanation: "A Ciência Aberta é um movimento que promove a transparência e a colaboração na pesquisa científica. Ela defende o acesso livre a publicações, dados e metodologias, permitindo que a sociedade e a comunidade científica se beneficiem mais rapidamente do conhecimento gerado."
+                },
+                {
+                    question: "As desigualdades no acesso à ciência e tecnologia se manifestam em questões de:",
+                    options: ["Nacionalidade e educação.", "Gênero, raça e território.", "Status social e profissão.", "Idade e preferências culturais."],
+                    correctAnswer: "Gênero, raça e território.",
+                    hint: "O item 1.8 do edital é bastante explícito sobre isso.",
+                    explanation: "O tema aborda como o acesso e a participação na ciência e tecnologia são desiguais, muitas vezes influenciados por fatores sociais como gênero, etnia (raça) e localização geográfica (território). A superação dessas desigualdades é um dos desafios da abordagem CTS."
+                },
+                {
+                    question: "O conceito de 'alfabetização científica e tecnológica' (ACT) busca:",
+                    "options": ["Apenas ensinar os nomes de cientistas famosos.", "Preparar os cidadãos para a participação em debates sobre questões sociocientíficas.", "Aumentar o número de estudantes em carreiras de exatas.", "Garantir que todos os alunos se tornem pesquisadores."],
+                    "correctAnswer": "Preparar os cidadãos para a participação em debates sobre questões sociocientíficas.",
+                    "hint": "Pense no papel do cidadão na sociedade e em seu entendimento sobre ciência e tecnologia.",
+                    "explanation": "A alfabetização científica e tecnológica é mais do que o mero acúmulo de conhecimento científico. Ela visa capacitar os cidadãos a compreender e a tomar decisões informadas sobre questões complexas que envolvem ciência e tecnologia, como mudanças climáticas e vacinação, permitindo sua participação ativa e crítica na sociedade."
+                },
+                {
+                    "question": "Na abordagem CTS, a 'tecnociência' se refere:",
+                    "options": ["À fusão da tecnologia com a ficção científica.", "Ao uso da ciência para resolver problemas tecnológicos.", "Ao complexo sistema de produção de conhecimento onde ciência e tecnologia são indistinguíveis e interdependentes.", "A um novo método de ensino de biologia."],
+                    "correctAnswer": "Ao complexo sistema de produção de conhecimento onde ciência e tecnologia são indistinguíveis e interdependentes.",
+                    "hint": "O termo 'tecnociência' sugere uma união inseparável.",
+                    "explanation": "A tecnociência é um termo que reconhece que, na ciência contemporânea, a distinção clássica entre a busca por conhecimento puro (ciência) e sua aplicação prática (tecnologia) é cada vez mais tênue. O conhecimento científico é frequentemente moldado pelos instrumentos tecnológicos, e novas tecnologias dependem de avanços científicos para sua existência."
+                },
+                {
+                    "question": "O 'princípio da precaução' em CTS é mais bem definido como a ação de:",
+                    "options": ["Agir somente após a comprovação de que uma tecnologia é totalmente segura.", "Prevenir danos ambientais e à saúde humana mesmo na ausência de certeza científica absoluta.", "Aumentar a velocidade do desenvolvimento de novas tecnologias.", "Ignorar riscos potenciais para acelerar o progresso."],
+                    "correctAnswer": "Prevenir danos ambientais e à saúde humana mesmo na ausência de certeza científica absoluta.",
+                    "hint": "Pense em 'precaução' como uma abordagem proativa, não reativa.",
+                    "explanation": "O princípio da precaução é uma diretriz ética e regulatória que orienta a tomada de decisões em contextos de incerteza científica. Ele sugere que, diante da possibilidade de danos graves ou irreversíveis, a ausência de certeza científica não deve ser usada como razão para postergar medidas preventivas, especialmente em relação ao meio ambiente e à saúde pública."
+                },
+                {
+                    "question": "A 'lacuna digital' (digital divide) é uma manifestação das desigualdades sociais e se refere à:",
+                    "options": ["Diferença na velocidade de conexão à internet entre países.", "Discrepância entre o conhecimento teórico e prático sobre tecnologia.", "Diferença no acesso e uso das tecnologias da informação e comunicação (TICs) entre grupos sociais.", "Preferência por tecnologias analógicas em detrimento das digitais."],
+                    "correctAnswer": "Diferença no acesso e uso das tecnologias da informação e comunicação (TICs) entre grupos sociais.",
+                    "hint": "Pense em quem tem e quem não tem acesso e como isso gera uma divisão.",
+                    "explanation": "A lacuna digital, ou digital divide, é a desigualdade no acesso, uso e habilidade com as tecnologias da informação e comunicação. Essa disparidade não se restringe apenas à disponibilidade de equipamentos e internet, mas também ao letramento digital, o que aprofunda as desigualdades econômicas, sociais e educacionais."
+                },
+                {
+                    "question": "Qual é a principal função de um comitê de ética em pesquisa?",
+                    "options": ["Aprovar o financiamento de projetos.", "Revisar a metodologia científica do estudo.", "Proteger os direitos e o bem-estar dos participantes de pesquisa.", "Garantir a publicação dos resultados em revistas de alto impacto."],
+                    "correctAnswer": "Proteger os direitos e o bem-estar dos participantes de pesquisa.",
+                    "hint": "O foco é na 'ética' e nos 'participantes'.",
+                    "explanation": "Os comitês de ética em pesquisa têm a responsabilidade crucial de avaliar e supervisionar projetos de pesquisa envolvendo seres humanos ou animais, para garantir que todos os procedimentos estejam em conformidade com as diretrizes éticas e que os direitos, a segurança e o bem-estar dos participantes sejam a prioridade máxima."
+                },
+                {
+                    "question": "O papel da mídia na divulgação científica, sob a perspectiva CTS, deve ser:",
+                    "options": ["Exclusivamente técnico e voltado para especialistas.", "Totalmente neutro, sem contextualizar os dados.", "Apenas noticiar as descobertas mais recentes, sem debate.", "Promover um debate crítico, contextualizando a ciência em seus aspectos sociais e políticos."],
+                    "correctAnswer": "Promover um debate crítico, contextualizando a ciência em seus aspectos sociais e políticos.",
+                    "hint": "A mídia pode ser uma ponte entre a ciência e o cidadão, mas com responsabilidade.",
+                    "explanation": "A abordagem CTS sugere que a divulgação científica não deve ser apenas uma transmissão unidirecional de informações. A mídia tem o papel fundamental de contextualizar as descobertas, destacar suas implicações sociais e éticas, e estimular o debate público sobre como a ciência e a tecnologia afetam a sociedade."
+                },
+                {
+                    "question": "A 'Ciência Cidadã' se destaca por:",
+                    "options": ["Ser financiada exclusivamente por fundos públicos.", "Envolver o público em geral em atividades de pesquisa científica.", "Ser realizada apenas por cientistas de grandes universidades.", "Ser um tipo de pesquisa que não precisa de revisões de pares."],
+                    "correctAnswer": "Envolver o público em geral em atividades de pesquisa científica.",
+                    "hint": "O termo 'cidadã' indica a participação de não-especialistas.",
+                    "explanation": "A Ciência Cidadã é uma prática em que membros da comunidade, que não são cientistas profissionais, colaboram ativamente em projetos de pesquisa, como a coleta de dados ambientais, a observação de aves ou a análise de imagens astronômicas. Isso não apenas amplia o alcance da pesquisa, mas também promove o engajamento cívico com a ciência."
+                },
+                {
+                    "question": "Qual dos seguintes temas é um foco da bioética na abordagem CTS?",
+                    "options": ["A velocidade do processamento de dados.", "As implicações sociais e morais das inovações em biologia e medicina.", "O custo de produção de equipamentos de laboratório.", "O uso de energia renovável na pesquisa."],
+                    "correctAnswer": "As implicações sociais e morais das inovações em biologia e medicina.",
+                    "hint": "A 'bioética' lida com a ética na 'biologia'.",
+                    "explanation": "A bioética é um campo de estudo que investiga as questões morais e éticas levantadas pelas ciências biológicas e pela medicina. Dentro do contexto CTS, ela analisa as implicações sociais de inovações como a edição genética (CRISPR), a reprodução assistida e o uso de células-tronco, buscando garantir que o progresso científico seja guiado por valores humanos."
+                },
+                {
+                    "question": "A 'visão linear' de ciência e tecnologia (S&T) é criticada pela abordagem CTS por assumir que:",
+                    "options": ["O desenvolvimento de S&T é um processo lento e gradual.", "A ciência é o motor da tecnologia, que por sua vez gera impactos sociais de forma previsível.", "A sociedade molda a direção da pesquisa científica.", "A ciência e a tecnologia são neutras em relação à sociedade."],
+                    "correctAnswer": "A ciência é o motor da tecnologia, que por sua vez gera impactos sociais de forma previsível.",
+                    "hint": "Pense em uma via de mão única, do laboratório para a sociedade.",
+                    "explanation": "A visão linear, ou modelo de 'déficit', pressupõe que a ciência gera tecnologia, que depois é simplesmente aplicada e tem impactos sociais. A abordagem CTS critica essa visão, argumentando que a relação é muito mais complexa e bidirecional: a sociedade, com seus valores e necessidades, também influencia e molda a direção da ciência e da tecnologia."
+                },
+                {
+                    "question": "A 'inovação responsável' (Responsible Research and Innovation - RRI) busca integrar quais valores no processo de pesquisa e inovação?",
+                    "options": ["Competição acirrada e resultados rápidos.", "Transparência, participação pública e sustentabilidade.", "Redução de custos e maximização de lucros.", "Sigilo de dados e priorização da eficiência."],
+                    "correctAnswer": "Transparência, participação pública e sustentabilidade.",
+                    "hint": "A 'responsabilidade' implica pensar além dos benefícios imediatos.",
+                    "explanation": "A RRI é uma abordagem que visa alinhar os processos e os resultados da pesquisa e da inovação com os valores e necessidades da sociedade. Seus pilares incluem a participação do público em todo o processo, a transparência, a sustentabilidade e a consideração dos impactos éticos e sociais desde as fases iniciais da pesquisa."
+                },
+                {
+                    question: "Na perspectiva CTS, qual o principal argumento contra a ideia de que a ciência é completamente neutra e objetiva?",
+                    options: ["A ciência é sempre influenciada por interesses políticos e econômicos.", "Apenas os cientistas com PhD podem ser objetivos.", "A neutralidade garante a confiabilidade dos resultados.", "O financiamento público da ciência elimina qualquer viés."],
+                    correctAnswer: "A ciência é sempre influenciada por interesses políticos e econômicos.",
+                    hint: "Pense em quem financia a pesquisa e por que.",
+                    explanation: "A abordagem CTS argumenta que a ciência não é um processo isolado da sociedade. Ela é realizada por seres humanos que possuem valores, em contextos institucionais e sociais que são influenciados por fatores políticos e econômicos. Portanto, a ideia de uma objetividade pura e desinteressada é questionada, pois a direção da pesquisa e a aplicação do conhecimento são moldadas por esses contextos."
+                },
+                {
+                    question: "O conceito de 'tecnodeterminismo' se refere à crença de que:",
+                    options: ["A tecnologia é uma escolha da sociedade.", "O desenvolvimento tecnológico é a principal força motriz da mudança social e histórica.", "A sociedade molda a tecnologia de acordo com suas necessidades.", "A tecnologia não tem impacto relevante na cultura."],
+                    correctAnswer: "O desenvolvimento tecnológico é a principal força motriz da mudança social e histórica.",
+                    hint: "Pense na tecnologia como a única causa das mudanças sociais.",
+                    explanation: "O tecnodeterminismo é a visão de que a tecnologia, por si só, determina o rumo da sociedade e da cultura. A abordagem CTS, por outro lado, defende uma visão mais complexa, onde a tecnologia e a sociedade se influenciam mutuamente, e o desenvolvimento tecnológico é moldado por fatores sociais, políticos e econômicos."
+                },
+                {
+                    question: "Qual das seguintes ações representa uma aplicação do princípio da 'ética em pesquisa'?",
+                    options: ["Realizar um estudo sem o consentimento dos participantes.", "Ocultar dados que contradizem a hipótese inicial.", "Obter o consentimento livre e esclarecido dos participantes antes de um estudo.", "Publicar resultados apenas em revistas de acesso restrito."],
+                    correctAnswer: "Obter o consentimento livre e esclarecido dos participantes antes de um estudo.",
+                    hint: "A ética protege a autonomia das pessoas.",
+                    explanation: "O consentimento livre e esclarecido é um dos pilares da ética em pesquisa. Ele garante que os participantes sejam plenamente informados sobre os objetivos, riscos e benefícios do estudo, permitindo que tomem uma decisão autônoma e voluntária de participar, sem qualquer coerção."
+                },
+                {
+                    question: "No contexto da relação entre ciência e sociedade, a 'popularização da ciência' visa:",
+                    options: ["Restringir o acesso a informações científicas complexas.", "Aumentar o fosso entre especialistas e o público.", "Tornar o conhecimento científico acessível ao público em geral e promover a cultura científica.", "Priorizar apenas a pesquisa de alto impacto econômico."],
+                    correctAnswer: "Tornar o conhecimento científico acessível ao público em geral e promover a cultura científica.",
+                    hint: "Popularização tem a ver com 'tornar popular'.",
+                    explanation: "A popularização da ciência busca comunicar os resultados, métodos e o processo da ciência para o público não especializado, utilizando linguagens e meios acessíveis. Seu objetivo é aumentar a cultura científica da população, estimulando o interesse e a participação nos debates sociocientíficos."
+                },
+                {
+                    question: "A 'responsabilidade social' da ciência, na perspectiva CTS, está relacionada a:",
+                    options: ["Apenas à inovação tecnológica com potencial de lucro.", "Aos cientistas que trabalham para o setor privado.", "Ao dever da comunidade científica de considerar as consequências éticas e sociais de suas pesquisas.", "Aos cientistas que se dedicam exclusivamente à pesquisa básica."],
+                    correctAnswer: "Ao dever da comunidade científica de considerar as consequências éticas e sociais de suas pesquisas.",
+                    hint: "Pense na responsabilidade para com a 'sociedade'.",
+                    explanation: "A responsabilidade social da ciência, um tema central do CTS, defende que a comunidade científica deve ir além da produção de conhecimento. Ela tem o dever ético de refletir sobre os possíveis impactos de suas descobertas, prevenir danos e orientar o desenvolvimento tecnológico para o bem-estar coletivo."
+                },
+                {
+                    question: "O conceito de 'inovação social' difere da inovação tecnológica porque seu foco principal é:",
+                    options: ["O desenvolvimento de novos equipamentos.", "A criação de soluções para problemas sociais e ambientais.", "O aumento da produtividade industrial.", "A criação de patentes para novas tecnologias."],
+                    correctAnswer: "A criação de soluções para problemas sociais e ambientais.",
+                    hint: "Pense no 'social' em vez de apenas 'tecnológico'.",
+                    explanation: "Enquanto a inovação tecnológica se concentra no desenvolvimento de novos produtos ou processos tecnológicos, a inovação social busca criar novas soluções para problemas sociais e ambientais, como a pobreza, a exclusão social ou a sustentabilidade, por meio de novas ideias, estratégias ou instituições."
+                },
+                {
+                    question: "Qual o principal objetivo dos modelos de inovação 'Hélice Tríplice' e 'Triângulo de Sábato'?",
+                    options: ["Reduzir a colaboração entre os setores.", "Analisar a inovação tecnológica no passado.", "Descrever a interação entre governo, academia e indústria para o desenvolvimento.", "Apenas financiar a pesquisa básica."],
+                    correctAnswer: "Descrever a interação entre governo, academia e indústria para o desenvolvimento.",
+                    hint: "Esses modelos visualizam a colaboração entre diferentes esferas da sociedade.",
+                    explanation: "Ambos os modelos buscam ilustrar a importância da colaboração e da interação entre o governo, a academia (universidades e centros de pesquisa) e a indústria (setor produtivo) como o motor do desenvolvimento científico, tecnológico e econômico de uma nação. A inovação não é vista como um processo isolado, mas como resultado dessa sinergia."
+                },
+                {
+                    question: "A prática de 'ciência aberta' é uma resposta à qual problema comum na pesquisa científica?",
+                    options: ["Falta de recursos financeiros.", "A dificuldade de publicação em revistas.", "A falta de transparência, a inacessibilidade dos dados e a baixa reprodutibilidade de estudos.", "A falta de interesse do público na ciência."],
+                    correctAnswer: "A falta de transparência, a inacessibilidade dos dados e a baixa reprodutibilidade de estudos.",
+                    hint: "Pense no oposto de 'aberta'.",
+                    explanation: "A ciência aberta surge como uma reação aos problemas de acesso restrito a publicações e dados, e à dificuldade de reproduzir estudos científicos por falta de informação. Ela promove a transparência e a colaboração como forma de tornar a ciência mais robusta e acessível a todos."
+                },
+                {
+                    question: "No contexto da abordagem CTS, qual é a principal preocupação sobre a influência de patentes e direitos de propriedade intelectual?",
+                    options: ["Eles aceleram o desenvolvimento tecnológico.", "Eles podem limitar o acesso ao conhecimento e o avanço da pesquisa.", "Eles aumentam a colaboração entre os setores.", "Eles não têm impacto na pesquisa científica."],
+                    correctAnswer: "Eles podem limitar o acesso ao conhecimento e o avanço da pesquisa.",
+                    hint: "Patentes protegem o conhecimento, mas isso pode ter um lado negativo para a pesquisa.",
+                    explanation: "Embora as patentes sejam importantes para incentivar a inovação, a perspectiva CTS destaca que elas podem criar barreiras ao livre acesso ao conhecimento. A exclusividade de patentes pode limitar a capacidade de outros pesquisadores de construir sobre o trabalho existente, potencialmente desacelerando o progresso científico e tecnológico, especialmente em áreas de interesse público, como a saúde."
+                },
+                {
+                    question: "A 'pesquisa engajada' (participatory research) na abordagem CTS enfatiza a importância de:",
+                    options: ["Pesquisas realizadas em laboratórios isolados.", "Separar o pesquisador da comunidade estudada.", "O envolvimento da comunidade na definição dos problemas e na realização da pesquisa.", "Apenas a publicação dos resultados em revistas científicas."],
+                    correctAnswer: "O envolvimento da comunidade na definição dos problemas e na realização da pesquisa.",
+                    hint: "Engajada significa que a pesquisa 'engaja' ou 'envolve' alguém.",
+                    explanation: "A pesquisa engajada (ou pesquisa participativa) é uma metodologia que vai além de estudar uma comunidade. Ela se baseia na colaboração entre pesquisadores e membros da comunidade, que se tornam parceiros ativos em todo o processo, desde a formulação das perguntas até a interpretação dos resultados. Isso garante que a pesquisa seja mais relevante e que as soluções sejam mais adequadas às necessidades locais."
+                }
+            ],
+            'Eixo Temático 2 - CT&I': [
+                {
+                    question: "Qual a principal função do Marco Legal da CT&I (Lei nº 13.243/2016)?",
+                    options: ["Criar novas universidades.", "Incentivar a inovação tecnológica no setor público e privado.", "Regulamentar a importação de tecnologias.", "Promover a pesquisa básica."],
+                    correctAnswer: "Incentivar a inovação tecnológica no setor público e privado.",
+                    hint: "A lei cria um ambiente legal mais favorável para a pesquisa, o desenvolvimento e a inovação.",
+                    explanation: "O Marco Legal da CT&I visa desburocratizar e incentivar a inovação, permitindo maior interação entre instituições de ciência e tecnologia (ICTs), empresas e o governo. Ele cria um ambiente mais favorável para a pesquisa e o desenvolvimento tecnológico no país."
+                },
+                {
+                    question: "O Modelo da Hélice Tríplice de inovação é composto por quais atores?",
+                    options: ["Sociedade, mídia e governo.", "Universidade, indústria e governo.", "Empresas, sindicatos e fundações.", "ONGs, setor privado e terceiro setor."],
+                    correctAnswer: "Universidade, indústria e governo.",
+                    hint: "O nome já diz, uma hélice com três pontas. Pense nas três instituições principais que interagem para inovar.",
+                    explanation: "O Modelo da Hélice Tríplice (Triple Helix) descreve uma interação sinérgica entre universidade (geração de conhecimento), indústria (produção de bens e serviços) e governo (regulamentação e fomento). Essa colaboração é vista como motor do desenvolvimento econômico e da inovação."
+                },
+                {
+                    question: "Qual dos órgãos a seguir tem como principal função o fomento à pesquisa científica e tecnológica no Brasil?",
+                    options: ["INSS.", "CNPq.", "IBAMA.", "Banco Central."],
+                    correctAnswer: "CNPq.",
+                    hint: "É um conselho nacional de pesquisa...",
+                    explanation: "O Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) é uma agência do Ministério da Ciência, Tecnologia e Inovação. Sua missão é fomentar a pesquisa científica e tecnológica no país, concedendo bolsas de estudo, auxílio a pesquisas e gerenciando o currículo Lattes."
+                },
+                {
+                    question: "A Pesquisa de Inovação Tecnológica (PINTEC) é um indicador de CT&I produzido por qual instituição?",
+                    options: ["CAPES.", "IBGE.", "FINEP.", "CNPq."],
+                    correctAnswer: "IBGE.",
+                    hint: "É o principal instituto de pesquisa e estatística do Brasil.",
+                    explanation: "A PINTEC é uma pesquisa realizada pelo Instituto Brasileiro de Geografia e Estatística (IBGE) que coleta e divulga dados sobre a inovação nas empresas brasileiras. Ela é uma das principais fontes de indicadores de CT&I no país."
+                },
+                {
+                    question: "O Sistema Nacional de Ciência, Tecnologia e Inovação (SNCTI) tem como principal objetivo:",
+                    options: ["Gerenciar todas as universidades federais.", "Articular políticas e ações de CT&I em todo o país.", "Desenvolver um único tipo de tecnologia.", "Controlar o uso da internet no Brasil."],
+                    correctAnswer: "Articular políticas e ações de CT&I em todo o país.",
+                    hint: "Pense na ideia de um sistema que 'une' e 'coordena'.",
+                    explanation: "O SNCTI é o conjunto de órgãos e instituições que atuam na área de CT&I no Brasil. Seu objetivo é articular as políticas e ações, promovendo a integração entre os diferentes atores e a coordenação de esforços para o desenvolvimento do setor."
+                },
+                {
+                    question: "O Fundo Nacional de Desenvolvimento Científico e Tecnológico (FNDCT) é um dos principais instrumentos de fomento e sua principal fonte de recursos é:",
+                    options: ["Doações de empresas privadas.", "Arrecadação de impostos sobre bens de consumo.", "O Orçamento Geral da União e receitas de royalties.", "Contribuições voluntárias da população."],
+                    correctAnswer: "O Orçamento Geral da União e receitas de royalties.",
+                    hint: "Pense de onde vêm a maior parte dos recursos para o fundo.",
+                    explanation: "O FNDCT é o principal fundo de fomento à CT&I no Brasil. Ele é alimentado principalmente por fontes vinculadas, como o Orçamento Geral da União e a arrecadação de royalties de petróleo e gás."
+                },
+                {
+                    question: "A Lei de Inovação (Lei nº 10.973/2004) tem como um de seus focos principais:",
+                    options: ["Limitar a atuação de startups.", "Incentivar a pesquisa científica em áreas de humanidades.", "Estimular a parceria entre Instituições de Ciência e Tecnologia (ICTs) e empresas.", "Apenas financiar projetos em biotecnologia."],
+                    correctAnswer: "Estimular a parceria entre Instituições de Ciência e Tecnologia (ICTs) e empresas.",
+                    hint: "A lei busca 'ligar' o mundo acadêmico ao mundo empresarial.",
+                    explanation: "A Lei de Inovação busca criar um ambiente legal mais favorável para a inovação, desburocratizando processos e incentivando a colaboração entre as ICTs (universidades e centros de pesquisa) e o setor produtivo. Isso inclui a permissão para que pesquisadores de ICTs possam participar de projetos em empresas."
+                },
+                {
+                    question: "O Modelo do 'Triângulo de Sábato' de inovação, amplamente utilizado na América Latina, destaca a interação entre:",
+                    options: ["Sociedade, governo e meio ambiente.", "Empresa, infraestrutura e mercado.", "Governo, setor produtivo e infraestrutura científico-tecnológica.", "Universidade, setor privado e sociedade civil."],
+                    correctAnswer: "Governo, setor produtivo e infraestrutura científico-tecnológica.",
+                    hint: "Pense nos três vértices do triângulo: quem fomenta, quem produz e quem gera o conhecimento.",
+                    explanation: "O modelo do Triângulo de Sábato, proposto por Jorge Sábato, descreve a relação entre o Governo (que define as políticas), a Infraestrutura científico-tecnológica (que gera o conhecimento, como universidades) e o Setor produtivo (que aplica o conhecimento). Essa interação é fundamental para o desenvolvimento autônomo e soberano."
+                },
+                {
+                    question: "Qual é o principal foco da Finep (Financiadora de Estudos e Projetos)?",
+                    options: ["Apenas financiar bolsas de mestrado e doutorado.", "Desenvolver pesquisas básicas e de baixo risco.", "Fomentar a CT&I por meio de financiamentos e investimentos em empresas e instituições.", "Coletar dados estatísticos sobre a inovação no Brasil."],
+                    correctAnswer: "Fomentar a CT&I por meio de financiamentos e investimentos em empresas e instituições.",
+                    hint: "A FINEP é conhecida por financiar projetos e estudos em CT&I.",
+                    explanation: "A FINEP é uma empresa pública vinculada ao MCTI que atua como uma das principais agências de fomento à inovação no país. Seu papel é apoiar financeiramente a pesquisa, o desenvolvimento e a inovação em empresas e instituições de CT&I, por meio de diversas modalidades de crédito e subvenção."
+                },
+                {
+                    question: "A CAPES (Coordenação de Aperfeiçoamento de Pessoal de Nível Superior) tem como principal missão:",
+                    options: ["Financiar a infraestrutura de laboratórios de pesquisa.", "Avaliar e expandir a pós-graduação stricto sensu no Brasil.", "Gerenciar o currículo Lattes.", "Fazer o mapeamento da inovação nas empresas."],
+                    correctAnswer: "Avaliar e expandir a pós-graduação stricto sensu no Brasil.",
+                    hint: "O nome já diz: 'Aperfeiçoamento de Pessoal de Nível Superior'.",
+                    explanation: "A CAPES é uma fundação vinculada ao Ministério da Educação. Sua principal função é a avaliação da pós-graduação stricto sensu (mestrado e doutorado), além de fomentar a formação de pessoal qualificado por meio de bolsas de estudo e apoio a programas de pesquisa."
+                },
+                {
+                    question: "A EMBRAPII (Empresa Brasileira de Pesquisa e Inovação Industrial) se destaca por qual modelo de fomento?",
+                    options: ["Financiamento de bolsas de pesquisa para cientistas seniores.", "Fomento a projetos de pesquisa básica em universidades.", "Apoio a projetos de inovação em parceria com empresas, compartilhando os custos e riscos.", "Gestão de fundos para a importação de tecnologias."],
+                    correctAnswer: "Apoio a projetos de inovação em parceria com empresas, compartilhando os custos e riscos.",
+                    hint: "O modelo da EMBRAPII é conhecido por ser um motor de 'inovação industrial'.",
+                    explanation: "A EMBRAPII atua em parceria com empresas, financiando projetos de inovação. Seu modelo se baseia no compartilhamento de custos e riscos: a EMBRAPII aporta uma parte do financiamento, a empresa entra com a outra parte, e a execução do projeto é feita em parceria com uma unidade credenciada da EMBRAPII."
+                },
+                {
+                    question: "A 'inovação radical' pode ser definida como a criação de:",
+                    options: ["Uma versão melhorada de um produto já existente.", "Uma solução que não altera o mercado.", "Um novo produto ou processo que cria um novo mercado e quebra com o modelo anterior.", "Uma pequena alteração em um processo produtivo."],
+                    correctAnswer: "Um novo produto ou processo que cria um novo mercado e quebra com o modelo anterior.",
+                    hint: "Pense em algo que é uma 'ruptura' com o que já existe.",
+                    explanation: "A inovação radical, ou disruptiva, é um tipo de inovação que cria um novo mercado ou altera drasticamente o mercado existente. Ela se diferencia da inovação incremental, que é a melhoria contínua de produtos ou processos já existentes."
+                },
+                {
+                    question: "O ODS (Objetivo de Desenvolvimento Sustentável) nº 9, 'Indústria, Inovação e Infraestrutura', tem como uma de suas metas:",
+                    options: ["Eliminar a pobreza em todas as suas formas.", "Promover a inclusão social nas cidades.", "Aumentar a cooperação internacional em CT&I e o acesso à tecnologia.", "Assegurar o acesso à energia limpa e acessível."],
+                    correctAnswer: "Aumentar a cooperação internacional em CT&I e o acesso à tecnologia.",
+                    hint: "O nome do ODS está ligado diretamente a 'Inovação'.",
+                    explanation: "O ODS 9 visa a construir infraestruturas resilientes, promover a industrialização inclusiva e sustentável, e fomentar a inovação. Uma de suas metas é fortalecer a pesquisa científica, aprimorar as capacidades tecnológicas e aumentar o acesso e o uso das tecnologias de informação e comunicação."
+                },
+                {
+                    question: "Qual é o principal objetivo dos Parques Tecnológicos no Brasil?",
+                    options: ["Apenas vender imóveis e terrenos.", "Criar um ambiente para a prática de esportes.", "Promover a cultura de inovação e o desenvolvimento de empresas de base tecnológica.", "Centralizar a gestão de políticas públicas de saúde."],
+                    correctAnswer: "Promover a cultura de inovação e o desenvolvimento de empresas de base tecnológica.",
+                    hint: "Pense nos parques como um ecossistema que conecta empresas, universidades e governo.",
+                    explanation: "Os parques tecnológicos são ambientes que atraem e abrigam empresas de base tecnológica, universidades e centros de pesquisa. O objetivo é promover a sinergia entre esses atores, gerar inovação e impulsionar o desenvolvimento econômico de uma região."
+                },
+                {
+                    question: "O termo 'ecossistema de inovação' refere-se:",
+                    options: ["À criação de inovações sustentáveis.", "Ao sistema de gestão ambiental em empresas.", "Ao conjunto de atores e instituições que interagem para gerar e disseminar inovação.", "Ao uso de tecnologias na agricultura."],
+                    correctAnswer: "Ao conjunto de atores e instituições que interagem para gerar e disseminar inovação.",
+                    hint: "Pense em um 'ecossistema' biológico, mas com empresas, universidades, etc.",
+                    explanation: "O ecossistema de inovação é um conceito que descreve a rede complexa de organizações e atores que trabalham em conjunto para gerar e disseminar inovação. Isso inclui empresas, startups, universidades, centros de pesquisa, governo, investidores e sociedade civil."
+                },
+                {
+                    question: "No contexto do Marco Legal da CT&I, o 'salário-pesquisador' é um mecanismo que permite:",
+                    options: ["Apenas que professores universitários sejam remunerados.", "Que o pesquisador de ICT receba uma bolsa de estudos.", "A contratação direta de pesquisadores por empresas privadas.", "Que servidores públicos e pesquisadores de ICTs possam receber bolsa de pesquisa em projetos de inovação."],
+                    correctAnswer: "Que servidores públicos e pesquisadores de ICTs possam receber bolsa de pesquisa em projetos de inovação.",
+                    hint: "O foco é na remuneração de pesquisadores de instituições públicas que participam de projetos inovadores.",
+                    explanation: "O salário-pesquisador é uma das inovações trazidas pelo Marco Legal. Ele permite que pesquisadores de ICTs públicas e servidores possam receber bolsas de pesquisa diretamente de agências de fomento, sem que isso configure acúmulo de cargos ou salários, incentivando a participação em projetos de inovação."
+                },
+                {
+                    question: "Qual o principal objetivo do ODS 4, 'Educação de Qualidade', no contexto de CT&I?",
+                    options: ["Construir novas escolas.", "Garantir o acesso à educação para todos, mas sem focar em tecnologia.", "Assegurar que todos os alunos tenham acesso a computadores de última geração.", "Garantir o acesso à educação e o desenvolvimento de habilidades relevantes, incluindo as digitais, para o mercado de trabalho."],
+                    correctAnswer: "Garantir o acesso à educação e o desenvolvimento de habilidades relevantes, incluindo as digitais, para o mercado de trabalho.",
+                    hint: "A educação moderna precisa incluir o preparo para a era digital.",
+                    explanation: "O ODS 4 busca garantir uma educação inclusiva, equitativa e de qualidade. No contexto de CT&I, isso significa que a educação deve preparar os indivíduos para o futuro, desenvolvendo habilidades digitais, pensamento crítico e o letramento científico e tecnológico, que são essenciais para o mercado de trabalho e a participação cidadã."
+                },
+                {
+                    question: "Qual dos seguintes não é um órgão de fomento à CT&I no Brasil?",
+                    options: ["CNPq.", "FAPESP.", "ABIN.", "FINEP."],
+                    correctAnswer: "ABIN.",
+                    hint: "Uma das opções não tem nada a ver com ciência e tecnologia.",
+                    explanation: "A ABIN (Agência Brasileira de Inteligência) é o órgão responsável pelas atividades de inteligência no Brasil. CNPq, FAPESP (Fundação de Amparo à Pesquisa do Estado de São Paulo) e FINEP são agências de fomento à pesquisa e à inovação."
+                },
+                {
+                    question: "A Lei de Propriedade Industrial (Lei nº 9.279/1996) é um instrumento de CT&I que visa:",
+                    options: ["Proteger a invenção e a inovação tecnológica através de patentes.", "Apenas regular o uso de tecnologia importada.", "Limitar o número de empresas de tecnologia no país.", "Incentivar a pirataria de software."],
+                    correctAnswer: "Proteger a invenção e a inovação tecnológica através de patentes.",
+                    hint: "A 'propriedade industrial' se refere à proteção de criações industriais, como patentes e marcas.",
+                    explanation: "A Lei de Propriedade Industrial é fundamental para o sistema de CT&I, pois ela protege os direitos dos inventores e inovadores através de patentes, marcas e desenhos industriais. Isso garante que a criação de novas tecnologias seja protegida, incentivando o investimento em P&D e a inovação."
+                }
+            ],
+            'Eixo Temático 3 - Gestão de Projetos': [
+    {
+        "question": "O que é o 'escopo' de um projeto?",
+        "options": [
+            "A quantidade de dinheiro que o projeto custará.",
+            "O tempo necessário para concluir o projeto.",
+            "O conjunto de todos os produtos, serviços e resultados a serem entregues.",
+            "As pessoas envolvidas na equipe do projeto."
+        ],
+        "correctAnswer": "O conjunto de todos os produtos, serviços e resultados a serem entregues.",
+        "hint": "Pense no que o projeto precisa 'entregar' no final.",
+        "explanation": "O escopo define os limites do projeto, especificando o que será e o que não será entregue. Ele é a base para o planejamento, a execução e o controle do projeto, garantindo que a equipe saiba exatamente o que precisa ser feito."
+    },
+    {
+        "question": "Qual metodologia de gestão de projetos é caracterizada por ciclos de desenvolvimento curtos e incrementais, conhecidos como 'sprints'?",
+        "options": [
+            "Cascata (Waterfall).",
+            "PMBOK.",
+            "SCRUM.",
+            "Gráfico de Gantt."
+        ],
+        "correctAnswer": "SCRUM.",
+        "hint": "É um método Ágil muito popular para desenvolvimento de software.",
+        "explanation": "SCRUM é uma estrutura ágil para gerenciar projetos, principalmente de desenvolvimento de produtos. Ele se baseia em ciclos de trabalho fixos (sprints), reuniões diárias (daily stand-ups) e papéis específicos como Scrum Master e Product Owner."
+    },
+    {
+        "question": "O que é um 'stakeholder' em um projeto?",
+        "options": [
+            "Um software de gestão de projetos.",
+            "Qualquer pessoa ou grupo que possa ser afetado pelo projeto ou afetar o projeto.",
+            "O líder da equipe do projeto.",
+            "O cliente que paga pelo projeto."
+        ],
+        "correctAnswer": "Qualquer pessoa ou grupo que possa ser afetado pelo projeto ou afetar o projeto.",
+        "hint": "Não se limita apenas a clientes ou patrocinadores. Pode ser qualquer parte interessada.",
+        "explanation": "Stakeholders são todas as partes interessadas em um projeto. Isso inclui clientes, membros da equipe, gerentes, fornecedores, a comunidade local e até mesmo o governo. A gestão de stakeholders é fundamental para o sucesso do projeto."
+    },
+    {
+        "question": "A Estrutura Analítica do Projeto (EAP) ou Work Breakdown Structure (WBS) é uma ferramenta utilizada para:",
+        "options": [
+            "Calcular o custo total do projeto.",
+            "Definir a hierarquia de responsabilidades.",
+            "Decompor o escopo do projeto em entregas menores e mais gerenciáveis.",
+            "Analisar os riscos do projeto."
+        ],
+        "correctAnswer": "Decompor o escopo do projeto em entregas menores e mais gerenciáveis.",
+        "hint": "Pense na ideia de 'dividir para conquistar'.",
+        "explanation": "A EAP/WBS é uma decomposição hierárquica do escopo total de um projeto em partes menores, o que facilita o planejamento, a estimativa de custos e o controle de todo o trabalho necessário para alcançar os objetivos do projeto."
+    },
+    {
+        "question": "Qual das seguintes opções é uma característica da metodologia 'Cascata' (Waterfall)?",
+        "options": [
+            "Flexibilidade para mudanças em qualquer fase.",
+            "Execução de fases em sequência, sem retorno para a anterior.",
+            "Foco na colaboração e feedback contínuo.",
+            "Entregas incrementais ao longo do projeto."
+        ],
+        "correctAnswer": "Execução de fases em sequência, sem retorno para a anterior.",
+        "hint": "O nome 'cascata' sugere um fluxo em uma única direção.",
+        "explanation": "O modelo Cascata é uma abordagem linear e sequencial. O projeto passa de uma fase para a próxima apenas quando a fase anterior está completamente concluída, o que torna difícil acomodar mudanças no escopo."
+    },
+    {
+        "question": "O que é um 'risco' em um projeto?",
+        "options": [
+            "Um problema que já ocorreu.",
+            "Um evento ou condição incerta que, se ocorrer, terá um efeito positivo ou negativo nos objetivos.",
+            "Um erro que a equipe cometeu.",
+            "Uma tarefa que foi concluída com sucesso."
+        ],
+        "correctAnswer": "Um evento ou condição incerta que, se ocorrer, terá um efeito positivo ou negativo nos objetivos.",
+        "hint": "Não é algo que já aconteceu, mas algo que 'pode' acontecer.",
+        "explanation": "A gestão de riscos é um processo de identificação, análise e planejamento de respostas a eventos incertos. Um risco pode ser tanto uma ameaça quanto uma oportunidade para o projeto."
+    },
+    {
+        "question": "O Gráfico de Gantt é uma ferramenta utilizada principalmente para:",
+        "options": [
+            "Gerenciar o orçamento do projeto.",
+            "Visualizar e planejar o cronograma do projeto.",
+            "Mapear a estrutura organizacional da equipe.",
+            "Identificar os stakeholders."
+        ],
+        "correctAnswer": "Visualizar e planejar o cronograma do projeto.",
+        "hint": "É um gráfico de barras que mostra as tarefas ao longo do tempo.",
+        "explanation": "O Gráfico de Gantt é uma ferramenta visual que representa o cronograma de um projeto. Ele exibe as tarefas, a duração de cada uma e as dependências entre elas, permitindo um acompanhamento claro do progresso."
+    },
+    {
+        "question": "Qual dos seguintes é o principal objetivo da fase de 'Encerramento' de um projeto?",
+        "options": [
+            "Definir os requisitos do projeto.",
+            "Entregar o produto final e liberar a equipe.",
+            "Elaborar o plano de comunicação.",
+            "Identificar os riscos."
+        ],
+        "correctAnswer": "Entregar o produto final e liberar a equipe.",
+        "hint": "É a fase final, quando o projeto chega ao fim.",
+        "explanation": "A fase de Encerramento formaliza a aceitação final do produto ou serviço pelo cliente, encerra todos os contratos, documenta as lições aprendidas e libera os recursos da equipe para novos projetos."
+    },
+    {
+        "question": "O 'Ciclo de Vida' de um projeto geralmente inclui quais fases, em ordem?",
+        "options": [
+            "Execução, Planejamento, Iniciação, Encerramento.",
+            "Iniciação, Planejamento, Execução, Encerramento.",
+            "Planejamento, Iniciação, Execução, Encerramento.",
+            "Execução, Iniciação, Planejamento, Encerramento."
+        ],
+        "correctAnswer": "Iniciação, Planejamento, Execução, Encerramento.",
+        "hint": "Começa-se com a ideia, depois se planeja, executa e, por fim, encerra-se.",
+        "explanation": "As quatro fases clássicas do ciclo de vida de um projeto são: Iniciação (onde a ideia é formalizada), Planejamento (onde o plano é criado), Execução (onde o trabalho é feito) e Encerramento (onde o projeto é finalizado)."
+    },
+    {
+        "question": "O que é 'escopo flutuante' ou 'scope creep'?",
+        "options": [
+            "A expansão não controlada do escopo de um projeto.",
+            "A conclusão do projeto antes do prazo.",
+            "A redução do escopo para economizar custos.",
+            "Uma ferramenta para gerenciar o escopo."
+        ],
+        "correctAnswer": "A expansão não controlada do escopo de um projeto.",
+        "hint": "Pense em 'escopo rastejando' ou crescendo aos poucos sem controle.",
+        "explanation": "O escopo flutuante ocorre quando novas funcionalidades ou requisitos são adicionados ao projeto sem a devida análise de impacto e aprovação. Isso pode levar a atrasos, aumento de custos e insatisfação do cliente."
+    },
+    {
+        "question": "Qual é a principal responsabilidade do 'Gerente de Projeto'?",
+        "options": [
+            "Executar todas as tarefas do projeto.",
+            "Ser o especialista técnico em todas as áreas do projeto.",
+            "Liderar a equipe e gerenciar os recursos para alcançar os objetivos do projeto.",
+            "Tomar decisões estratégicas para a empresa."
+        ],
+        "correctAnswer": "Liderar a equipe e gerenciar os recursos para alcançar os objetivos do projeto.",
+        "hint": "O foco é na gestão, não na execução de tarefas individuais.",
+        "explanation": "O Gerente de Projeto é responsável por planejar, executar e encerrar projetos. Ele lidera a equipe, gerencia o escopo, o cronograma, o orçamento e os riscos, garantindo que o projeto atinja seus objetivos."
+    },
+    {
+        "question": "Uma 'lição aprendida' (lessons learned) é um documento criado na fase de:",
+        "options": [
+            "Iniciação.",
+            "Planejamento.",
+            "Execução.",
+            "Encerramento."
+        ],
+        "correctAnswer": "Encerramento.",
+        "hint": "Você só pode aprender as lições completas depois que o projeto acaba.",
+        "explanation": "As lições aprendidas são documentadas na fase de encerramento. Elas registram os sucessos e fracassos do projeto, o que funcionou bem e o que pode ser melhorado em projetos futuros, contribuindo para a melhoria contínua da organização."
+    },
+    {
+        "question": "O que a sigla 'PMBOK' representa?",
+        "options": [
+            "Project Management Best Of Kanban.",
+            "Project Management Body of Knowledge.",
+            "Project Management Budgeting and Operations Key.",
+            "Professional Management Book of Kpis."
+        ],
+        "correctAnswer": "Project Management Body of Knowledge.",
+        "hint": "É o guia mais conhecido do PMI.",
+        "explanation": "PMBOK, que significa 'Project Management Body of Knowledge', é um guia que descreve o conjunto de conhecimentos em gestão de projetos, compilado pelo Project Management Institute (PMI). Não é uma metodologia, mas um padrão e um conjunto de boas práticas."
+    },
+    {
+        "question": "Qual das seguintes opções é uma métrica-chave (KPI) para medir o sucesso de um projeto?",
+        "options": [
+            "A quantidade de café consumida pela equipe.",
+            "Conclusão dentro do prazo, orçamento e escopo.",
+            "O número de e-mails enviados por dia.",
+            "O número de horas extras trabalhadas."
+        ],
+        "correctAnswer": "Conclusão dentro do prazo, orçamento e escopo.",
+        "hint": "Pense nos três pilares clássicos da gestão de projetos.",
+        "explanation": "O sucesso de um projeto é tradicionalmente medido pela sua capacidade de ser concluído dentro das restrições de tempo (prazo), custo (orçamento) e conteúdo (escopo). O cumprimento desses três pilares é um forte indicador de sucesso."
+    },
+    {
+        "question": "A técnica de 'Análise da Rede de Dependências' é utilizada para:",
+        "options": [
+            "Identificar os recursos necessários.",
+            "Estimar os custos do projeto.",
+            "Determinar a sequência de atividades e o 'caminho crítico'.",
+            "Analisar as expectativas dos stakeholders."
+        ],
+        "correctAnswer": "Determinar a sequência de atividades e o 'caminho crítico'.",
+        "hint": "Ajuda a entender quais tarefas precisam ser concluídas antes de outras começarem.",
+        "explanation": "A Análise da Rede de Dependências mapeia as relações entre as atividades do projeto. O 'caminho crítico' é a sequência mais longa de atividades que determina a duração total do projeto, e qualquer atraso em uma atividade nesse caminho afetará o prazo de conclusão do projeto."
+    }
+],
+            'Eixo Temático 4 - TICs & Ciência de Dados': [
+    {
+        "question": "O que é 'big data'?",
+        "options": [
+            "Um tipo de computador superpotente.",
+            "Uma tecnologia para criar sites.",
+            "Conjuntos de dados extremamente grandes e complexos que exigem ferramentas e técnicas especiais para análise.",
+            "Um software de planilhas avançado."
+        ],
+        "correctAnswer": "Conjuntos de dados extremamente grandes e complexos que exigem ferramentas e técnicas especiais para análise.",
+        "hint": "Pense nos '3 V's': Volume, Velocidade e Variedade.",
+        "explanation": "Big data refere-se a conjuntos de dados tão vastos e complexos que os métodos de processamento de dados tradicionais não são suficientes. Sua análise permite a descoberta de padrões, tendências e insights importantes, que podem ser usados para aprimorar a tomada de decisões na gestão pública."
+    },
+    {
+        "question": "Qual é a principal diferença entre Inteligência Artificial (IA) e Machine Learning (Aprendizado de Máquina)?",
+        "options": [
+            "IA é uma subárea do Machine Learning.",
+            "Machine Learning é uma subárea da IA.",
+            "São termos sinônimos.",
+            "IA lida apenas com dados numéricos, e Machine Learning, com dados textuais."
+        ],
+        "correctAnswer": "Machine Learning é uma subárea da IA.",
+        "hint": "O Machine Learning é um método para atingir a Inteligência Artificial.",
+        "explanation": "A Inteligência Artificial é o campo mais amplo de simular a inteligência humana em máquinas. Machine Learning é um método dentro da IA que permite que sistemas aprendam e melhorem com a experiência, sem serem explicitamente programados para isso."
+    },
+    {
+        "question": "O que é 'governança de dados'?",
+        "options": [
+            "O processo de apagar dados antigos.",
+            "O controle de quem tem acesso a dados confidenciais.",
+            "O sistema de regras, processos e responsabilidades para garantir a qualidade, segurança e usabilidade dos dados.",
+            "A criação de backups de todos os dados."
+        ],
+        "correctAnswer": "O sistema de regras, processos e responsabilidades para garantir a qualidade, segurança e usabilidade dos dados.",
+        "hint": "Pense em como as organizações gerenciam seus dados como um ativo estratégico.",
+        "explanation": "A governança de dados é a estrutura que garante que os dados de uma organização sejam gerenciados de forma eficaz, segura e ética. Isso inclui definir políticas, padrões e métricas para o uso de dados, garantindo que eles sejam confiáveis e de alta qualidade."
+    },
+    {
+        "question": "O que é um 'algoritmo' em Ciência de Dados?",
+        "options": [
+            "Um tipo de banco de dados.",
+            "Um conjunto de regras passo a passo para resolver um problema ou realizar uma tarefa.",
+            "Um gráfico para visualização de dados.",
+            "Um tipo de software de segurança."
+        ],
+        "correctAnswer": "Um conjunto de regras passo a passo para resolver um problema ou realizar uma tarefa.",
+        "hint": "É a 'receita' que o computador segue para processar a informação.",
+        "explanation": "Um algoritmo é uma sequência finita de instruções bem definidas e não ambíguas, usada para resolver problemas, processar dados ou executar cálculos. Em Ciência de Dados, eles são a base para modelos de Machine Learning, análise preditiva e outras técnicas."
+    },
+    {
+        "question": "Qual o objetivo de um 'modelo preditivo'?",
+        "options": [
+            "Descrever dados históricos.",
+            "Prever resultados futuros com base em dados passados.",
+            "Organizar dados em tabelas.",
+            "Visualizar dados em gráficos."
+        ],
+        "correctAnswer": "Prever resultados futuros com base em dados passados.",
+        "hint": "A palavra 'preditivo' já dá a dica.",
+        "explanation": "Modelos preditivos utilizam estatísticas, Machine Learning e mineração de dados para analisar dados históricos e fazer previsões sobre eventos futuros. Na gestão pública, podem ser usados para prever a demanda por serviços, identificar riscos sociais ou otimizar a alocação de recursos."
+    },
+    {
+        "question": "O que é a 'interoperabilidade' no contexto do Governo Digital?",
+        "options": [
+            "A capacidade de um sistema de funcionar offline.",
+            "A habilidade de diferentes sistemas e organizações se comunicarem e trocarem dados de forma eficiente.",
+            "O uso de redes sociais para comunicação com o público.",
+            "O desenvolvimento de aplicativos móveis para serviços públicos."
+        ],
+        "correctAnswer": "A habilidade de diferentes sistemas e organizações se comunicarem e trocarem dados de forma eficiente.",
+        "hint": "É a 'ponte' entre sistemas diferentes.",
+        "explanation": "A interoperabilidade é fundamental para o Governo Digital, pois permite que sistemas de diferentes órgãos públicos compartilhem informações de forma segura e padronizada. Isso evita a duplicidade de dados, simplifica processos e oferece uma experiência mais integrada ao cidadão."
+    },
+    {
+        "question": "Qual é a principal função de um 'data warehouse'?",
+        "options": [
+            "Armazenar dados temporariamente para uso diário.",
+            "Servir como um repositório central de dados de múltiplas fontes para fins de análise e relatórios.",
+            "Proteger dados contra ataques cibernéticos.",
+            "Gerenciar as senhas de usuários."
+        ],
+        "correctAnswer": "Servir como um repositório central de dados de múltiplas fontes para fins de análise e relatórios.",
+        "hint": "Pense em um 'grande armazém' de dados para análise.",
+        "explanation": "Um data warehouse é um grande banco de dados projetado para armazenamento e análise de dados históricos e atuais. Ele consolida informações de diversas fontes da organização, facilitando a geração de relatórios e o uso de Business Intelligence para a tomada de decisões."
+    },
+    {
+        "question": "O que a 'nuvem' (cloud computing) permite na gestão pública?",
+        "options": [
+            "Apenas a criação de sites e blogs.",
+            "O armazenamento de dados em servidores locais.",
+            "O acesso a recursos de computação (como servidores e bancos de dados) pela internet, de forma flexível e escalável.",
+            "A compra de software com licenças únicas."
+        ],
+        "correctAnswer": "O acesso a recursos de computação (como servidores e bancos de dados) pela internet, de forma flexível e escalável.",
+        "hint": "A nuvem elimina a necessidade de grandes infraestruturas físicas de TI nos órgãos públicos.",
+        "explanation": "A computação em nuvem oferece flexibilidade, escalabilidade e redução de custos para o setor público. Ela permite hospedar serviços, armazenar dados e usar softwares sem a necessidade de manter uma infraestrutura física de TI complexa e cara."
+    },
+    {
+        "question": "O que é 'mineração de dados' (data mining)?",
+        "options": [
+            "A coleta de dados de pesquisas.",
+            "A busca por padrões, relações e insights úteis em grandes conjuntos de dados.",
+            "A criação de bancos de dados do zero.",
+            "A exclusão de dados desnecessários."
+        ],
+        "correctAnswer": "A busca por padrões, relações e insights úteis em grandes conjuntos de dados.",
+        "hint": "É a 'mineração de ouro' no mundo dos dados.",
+        "explanation": "Mineração de dados é o processo de descobrir padrões, anomalias e correlações em grandes conjuntos de dados usando técnicas estatísticas e de IA. É uma ferramenta essencial na Ciência de Dados para encontrar informações valiosas que podem otimizar a gestão pública."
+    },
+    {
+        "question": "Qual o propósito de um 'painel de controle' (dashboard) em TICs?",
+        "options": [
+            "Escrever códigos de programação.",
+            "Ocultar informações sensíveis.",
+            "Visualizar indicadores-chave de desempenho (KPIs) de forma consolidada e interativa.",
+            "Apenas armazenar dados."
+        ],
+        "correctAnswer": "Visualizar indicadores-chave de desempenho (KPIs) de forma consolidada e interativa.",
+        "hint": "É uma representação visual para facilitar o acompanhamento do desempenho.",
+        "explanation": "Dashboards são ferramentas de Business Intelligence que compilam dados de diversas fontes em gráficos e tabelas, permitindo que gestores acompanhem o progresso de metas, identifiquem tendências e tomem decisões baseadas em dados de forma rápida e visualmente intuitiva."
+    },
+    {
+        "question": "O que é 'Inteligência de Negócios' (Business Intelligence - BI) na gestão pública?",
+        "options": [
+            "A venda de serviços públicos.",
+            "O uso de dados para prever a corrupção.",
+            "O uso de tecnologias e estratégias para analisar dados e fornecer insights que apoiem a tomada de decisões estratégicas.",
+            "A automação de processos internos."
+        ],
+        "correctAnswer": "O uso de tecnologias e estratégias para analisar dados e fornecer insights que apoiem a tomada de decisões estratégicas.",
+        "hint": "É a união entre dados e estratégia.",
+        "explanation": "BI na gestão pública envolve coletar, armazenar e analisar dados para obter insights valiosos sobre a eficiência de serviços, o impacto de políticas públicas e as necessidades da população, auxiliando na formulação de estratégias e na alocação de recursos de forma mais eficaz."
+    },
+    {
+        "question": "O que caracteriza a 'telemetria'?",
+        "options": [
+            "A transmissão de dados de voz pela internet.",
+            "A medição e transmissão remota de dados de sensores ou dispositivos.",
+            "A criação de modelos 3D.",
+            "O uso de satélites para navegação."
+        ],
+        "correctAnswer": "A medição e transmissão remota de dados de sensores ou dispositivos.",
+        "hint": "Pense nos dados enviados por carros, drones ou medidores de energia.",
+        "explanation": "A telemetria é o processo de coletar dados de dispositivos remotos (como sensores em equipamentos públicos ou veículos) e transmiti-los para análise. É fundamental para a 'cidade inteligente', permitindo o monitoramento de tráfego, qualidade do ar e uso de energia em tempo real."
+    },
+    {
+        "question": "Qual a finalidade de uma 'API' (Interface de Programação de Aplicativos) na integração de sistemas?",
+        "options": [
+            "Armazenar dados em nuvem.",
+            "Garantir a segurança de um sistema.",
+            "Fornecer um conjunto de regras e protocolos para que diferentes softwares possam se comunicar entre si.",
+            "Apenas para criar interfaces gráficas de usuário."
+        ],
+        "correctAnswer": "Fornecer um conjunto de regras e protocolos para que diferentes softwares possam se comunicar entre si.",
+        "hint": "Pense na API como um 'garçom' que recebe pedidos de um software e entrega para outro.",
+        "explanation": "APIs são essenciais para a interoperabilidade. Elas definem como um software deve interagir com outro, permitindo que sistemas de diferentes órgãos públicos troquem informações de forma programática, segura e padronizada, sem a necessidade de intervenção humana."
+    },
+    {
+        "question": "O que é 'análise preditiva'?",
+        "options": [
+            "A análise de dados em tempo real.",
+            "O uso de estatísticas, IA e machine learning para fazer previsões sobre eventos futuros.",
+            "A descrição do que aconteceu no passado.",
+            "O cálculo do orçamento do projeto."
+        ],
+        "correctAnswer": "O uso de estatísticas, IA e machine learning para fazer previsões sobre eventos futuros.",
+        "hint": "É a 'bola de cristal' da Ciência de Dados, baseada em evidências.",
+        "explanation": "A análise preditiva utiliza técnicas avançadas para identificar a probabilidade de resultados futuros. Na gestão pública, pode ser usada para prever a demanda por leitos hospitalares, o risco de evasão escolar ou a ocorrência de inundações."
+    },
+    {
+        "question": "O que é 'processamento de linguagem natural' (PLN)?",
+        "options": [
+            "A análise de imagens e vídeos.",
+            "A capacidade de um computador entender, interpretar e gerar linguagem humana.",
+            "O processamento de dados numéricos.",
+            "A tradução de idiomas de forma manual."
+        ],
+        "correctAnswer": "A capacidade de um computador entender, interpretar e gerar linguagem humana.",
+        "hint": "Pense nos chatbots e nos assistentes virtuais.",
+        "explanation": "PLN é uma área da IA que se concentra em como os computadores interagem com a linguagem humana. Na gestão pública, pode ser usado para analisar feedback de cidadãos, resumir documentos e automatizar o atendimento por meio de chatbots."
+    }
+],
+            'Eixo Temático 5 - Metodologia da Pesquisa': [
+                {
+                    question: "Uma pesquisa que busca investigar as causas de um fenômeno, buscando explicações para ele, é classificada como:",
+                    options: ["Pesquisa exploratória.", "Pesquisa explicativa.", "Pesquisa descritiva.", "Pesquisa aplicada."],
+                    correctAnswer: "Pesquisa explicativa.",
+                    hint: "A resposta está no próprio nome: 'explica' a causa.",
+                    explanation: "A pesquisa explicativa tem como objetivo identificar os fatores que determinam ou contribuem para a ocorrência de um fenômeno. Ela aprofunda-se na causalidade, indo além da simples descrição ou exploração, buscando o 'porquê' do evento."
+                },
+                {
+                    question: "Qual a principal característica da pesquisa qualitativa?",
+                    options: ["Uso exclusivo de dados numéricos.", "Foco na quantificação de resultados.", "Análise de dados não numéricos e interpretação de significados.", "Geração de gráficos e tabelas."],
+                    correctAnswer: "Análise de dados não numéricos e interpretação de significados.",
+                    hint: "O nome já diz: 'qualidade' em vez de 'quantidade'.",
+                    explanation: "A pesquisa qualitativa busca compreender e interpretar fenômenos complexos, focando na 'qualidade' da informação. Ela utiliza dados não numéricos, como entrevistas, observações e análise de documentos, para entender as motivações e os significados por trás das ações humanas."
+                },
+                {
+                    question: "Qual dos seguintes elementos de um projeto de pesquisa descreve o que se pretende alcançar com o estudo?",
+                    options: ["Justificativa.", "Problema.", "Objetivos.", "Hipóteses."],
+                    correctAnswer: "Objetivos.",
+                    hint: "O que você 'deseja fazer' com a pesquisa?",
+                    explanation: "Os objetivos de uma pesquisa definem o propósito do estudo e o que o pesquisador busca alcançar. Eles devem ser claros e concisos, divididos em objetivo geral (o que se pretende no todo) e objetivos específicos (as etapas para atingir o objetivo geral)."
+                },
+                {
+                    question: "A 'pesquisa-ação' é um tipo de pesquisa que:",
+                    options: ["Apenas coleta dados e analisa.", "Revisa a literatura e faz um levantamento bibliográfico.", "Combina pesquisa com intervenção social para resolver um problema.", "É realizada em um ambiente controlado, como um laboratório."],
+                    correctAnswer: "Combina pesquisa com intervenção social para resolver um problema.",
+                    hint: "Pense na união entre 'pesquisar' e 'agir'.",
+                    explanation: "A pesquisa-ação é uma metodologia participativa onde o pesquisador se envolve ativamente com a comunidade ou grupo estudado. O objetivo não é apenas gerar conhecimento, mas também usar esse conhecimento para resolver um problema prático e promover a mudança social."
+                },
+                {
+        "question": "A seção de um projeto de pesquisa que apresenta a relevância do estudo e sua contribuição para o conhecimento é chamada de:",
+        "options": [
+            "Introdução.",
+            "Problema.",
+            "Justificativa.",
+            "Metodologia."
+        ],
+        "correctAnswer": "Justificativa.",
+        "hint": "É a parte que 'justifica' a importância de realizar a pesquisa.",
+        "explanation": "A justificativa é o argumento que convence o leitor ou avaliador da importância do estudo. Ela demonstra a relevância teórica, prática e social da pesquisa, explicando por que ela deve ser feita e qual a sua contribuição esperada."
+    },
+    {
+        "question": "O que é 'revisão bibliográfica'?",
+        "options": [
+            "A criação de novos livros para a pesquisa.",
+            "A análise crítica e a síntese da literatura existente sobre o tema da pesquisa.",
+            "A leitura de um único livro para se informar.",
+            "A busca por dados em jornais e revistas."
+        ],
+    "correctAnswer": "A análise crítica e a síntese da literatura existente sobre o tema da pesquisa.",
+        "hint": "Pense no que os outros autores já escreveram sobre o assunto.",
+        "explanation": "A revisão bibliográfica é um passo fundamental na pesquisa. Ela consiste em levantar, ler, analisar e sintetizar o que já foi publicado sobre o tema, ajudando a situar a pesquisa no contexto do conhecimento existente e a identificar lacunas a serem preenchidas."
+    },
+    {
+        "question": "O que é um 'universo' e uma 'amostra' na pesquisa?",
+        "options": [
+            "Universo é o local físico da pesquisa; amostra é o grupo de pessoas que a realiza.",
+            "Universo é o conjunto de todos os elementos; amostra é um subconjunto representativo desse universo.",
+            "Universo é a teoria que guia a pesquisa; amostra é o resultado final.",
+            "Universo é a pergunta da pesquisa; amostra são as respostas."
+        ],
+        "correctAnswer": "Universo é o conjunto de todos os elementos; amostra é um subconjunto representativo desse universo.",
+        "hint": "A amostra é o 'pedaço' do universo que você vai analisar.",
+        "explanation": "O universo é a totalidade de elementos que poderiam ser estudados, como todos os alunos de uma escola. A amostra é um subgrupo selecionado desse universo, que deve ser representativo para que as conclusões da pesquisa possam ser generalizadas para o universo inteiro."
+    },
+    {
+        "question": "Qual a diferença entre dados 'primários' e 'secundários'?",
+        "options": [
+            "Dados primários são coletados em laboratório; dados secundários são coletados em campo.",
+            "Dados primários são inéditos, coletados pelo próprio pesquisador; dados secundários são aqueles que já existem e foram coletados por outros.",
+            "Dados primários são qualitativos; dados secundários são quantitativos.",
+            "Dados primários são sempre mais confiáveis que os secundários."
+        ],
+        "correctAnswer": "Dados primários são inéditos, coletados pelo próprio pesquisador; dados secundários são aqueles que já existem e foram coletados por outros.",
+        "hint": "Pense na fonte original de onde os dados vieram.",
+        "explanation": "Dados primários são informações coletadas diretamente pelo pesquisador para um propósito específico (ex: entrevistas, questionários). Dados secundários são informações já existentes, obtidas de fontes como livros, artigos, bancos de dados governamentais, etc."
+    },
+    {
+        "question": "O que é 'hipótese' em um projeto de pesquisa?",
+        "options": [
+            "Uma certeza comprovada.",
+            "Uma suposição provisória que se busca testar ou verificar.",
+            "O título da pesquisa.",
+            "O resumo do trabalho."
+        ],
+        "correctAnswer": "Uma suposição provisória que se busca testar ou verificar.",
+        "hint": "É uma resposta 'tentativa' para o problema da pesquisa.",
+        "explanation": "A hipótese é uma proposição que antecipa uma possível relação entre variáveis ou uma explicação para o problema. O propósito da pesquisa é coletar e analisar dados para comprovar ou refutar essa hipótese."
+    },
+    {
+        "question": "Em uma pesquisa, a 'variável independente' é aquela que:",
+        "options": [
+            "É medida para ver o resultado.",
+            "É manipulada pelo pesquisador para observar seu efeito.",
+            "Não tem relação com a pesquisa.",
+            "É o resultado final do estudo."
+        ],
+        "correctAnswer": "É manipulada pelo pesquisador para observar seu efeito.",
+        "hint": "Pense na causa e no efeito.",
+        "explanation": "A variável independente é a causa ou o fator que o pesquisador manipula ou controla para verificar como ela afeta a variável dependente. Por exemplo, em um estudo sobre um novo método de ensino, o método é a variável independente."
+    },
+    {
+        "question": "Qual a diferença entre 'pesquisa descritiva' e 'pesquisa exploratória'?",
+        "options": [
+            "Descritiva é para dados quantitativos, exploratória para dados qualitativos.",
+            "Descritiva foca em detalhar as características de um fenômeno; exploratória visa ter um primeiro contato com um tema pouco conhecido.",
+            "Descritiva usa experimentos; exploratória usa entrevistas.",
+            "São sinônimas."
+        ],
+        "correctAnswer": "Descritiva foca em detalhar as características de um fenômeno; exploratória visa ter um primeiro contato com um tema pouco conhecido.",
+        "hint": "Um 'explorador' vai a um lugar novo, um 'descritor' detalha o que já conhece.",
+        "explanation": "A pesquisa exploratória é o primeiro passo quando há pouco conhecimento sobre um tema, buscando familiarizar-se com ele. A pesquisa descritiva, por sua vez, visa detalhar e caracterizar um fenômeno, população ou evento, sem buscar as causas."
+    },
+    {
+        "question": "A 'metodologia' em um projeto de pesquisa descreve:",
+        "options": [
+            "O resumo da pesquisa.",
+            "As conclusões finais.",
+            "Os métodos, técnicas e procedimentos usados para coletar e analisar os dados.",
+            "As referências bibliográficas."
+        ],
+        "correctAnswer": "Os métodos, técnicas e procedimentos usados para coletar e analisar os dados.",
+        "hint": "É o 'como' a pesquisa será feita.",
+        "explanation": "A metodologia é uma das seções mais importantes de um projeto. Ela detalha o 'plano de ação' do pesquisador, explicando o tipo de pesquisa, a amostra, os instrumentos de coleta de dados (questionário, entrevista), e as técnicas de análise de dados que serão utilizados."
+    },
+    {
+        "question": "Qual a função do 'problema de pesquisa'?",
+        "options": [
+            "Apresentar a solução para a pesquisa.",
+            "Explicar a relevância do estudo.",
+            "Formular a questão central que a pesquisa busca responder.",
+            "Definir o título do trabalho."
+        ],
+        "correctAnswer": "Formular a questão central que a pesquisa busca responder.",
+        "hint": "É a 'pergunta' principal que guia todo o estudo.",
+        "explanation": "O problema de pesquisa é a questão que a pesquisa se propõe a responder. Ele deve ser claro, conciso e viável de ser investigado, servindo como o ponto de partida e o norte para toda a condução do trabalho científico."
+    },
+    {
+        "question": "Uma pesquisa que utiliza tanto dados quantitativos quanto qualitativos é chamada de:",
+        "options": [
+            "Pesquisa experimental.",
+            "Pesquisa bibliográfica.",
+            "Pesquisa-ação.",
+            "Pesquisa mista (ou multimétodo)."
+        ],
+        "correctAnswer": "Pesquisa mista (ou multimétodo).",
+        "hint": "O nome já indica que ela 'mistura' os dois tipos.",
+        "explanation": "A pesquisa mista combina abordagens qualitativas e quantitativas em um único estudo. O objetivo é aproveitar as vantagens de ambos os métodos para obter uma compreensão mais completa e aprofundada do fenômeno investigado."
+    },
+    {
+        "question": "O que é 'variável dependente' em uma pesquisa?",
+        "options": [
+            "A causa de um fenômeno.",
+            "O resultado que se busca medir e que é afetado pela variável independente.",
+            "Um fator que não pode ser medido.",
+            "O título da pesquisa."
+        ],
+        "correctAnswer": "O resultado que se busca medir e que é afetado pela variável independente.",
+        "hint": "É o 'efeito' que a variável independente provoca.",
+        "explanation": "A variável dependente é o fator que se espera que mude como resultado da manipulação da variável independente. No exemplo do novo método de ensino, o desempenho dos alunos é a variável dependente."
+    },
+    {
+        "question": "Qual a principal característica da pesquisa quantitativa?",
+        "options": [
+            "Análise de dados não numéricos e interpretação de significados.",
+            "Foco na quantificação de dados e uso de estatísticas para generalizar resultados.",
+            "Uso de entrevistas em profundidade.",
+            "Busca entender o 'porquê' dos fenômenos."
+        ],
+        "correctAnswer": "Foco na quantificação de dados e uso de estatísticas para generalizar resultados.",
+        "hint": "Pense no 'quanto' e não no 'qual'.",
+        "explanation": "A pesquisa quantitativa busca quantificar dados e generalizar resultados de uma amostra para a população. Ela utiliza métodos numéricos, como questionários com escalas, e análises estatísticas para testar hipóteses e identificar padrões."
+    },
+    {
+        "question": "A 'ética na pesquisa' envolve principalmente:",
+        "options": [
+            "Usar a metodologia mais avançada.",
+            "Garantir o anonimato e a confidencialidade dos participantes, além do consentimento livre e informado.",
+            "Publicar a pesquisa em revistas de alto impacto.",
+            "Apenas se preocupar com os resultados do estudo."
+        ],
+        "correctAnswer": "Garantir o anonimato e a confidencialidade dos participantes, além do consentimento livre e informado.",
+        "hint": "Pense nos direitos e no bem-estar dos participantes.",
+        "explanation": "A ética na pesquisa é um pilar fundamental, garantindo que os participantes sejam tratados com respeito e que seus direitos sejam protegidos. O consentimento livre e informado é crucial, assim como o cuidado com a privacidade e o anonimato dos dados coletados."
+    },
+    {
+        "question": "O que é um 'estudo de caso' como metodologia de pesquisa?",
+        "options": [
+            "Uma pesquisa que coleta dados apenas de um caso específico e não busca generalizar os resultados.",
+            "Uma pesquisa que analisa milhões de dados de forma estatística.",
+            "Uma pesquisa que faz experimentos em laboratório.",
+            "Uma pesquisa que revisa apenas a literatura existente."
+        ],
+        "correctAnswer": "Uma pesquisa que coleta dados apenas de um caso específico e não busca generalizar os resultados.",
+        "hint": "O foco é em um 'caso' particular, aprofundando o conhecimento sobre ele.",
+        "explanation": "O estudo de caso é uma abordagem que busca investigar um fenômeno contemporâneo em seu contexto real, de forma aprofundada. O foco é em uma única unidade de análise (uma pessoa, uma organização, um evento), e o objetivo não é generalizar, mas sim entender o 'como' e o 'porquê' do fenômeno naquele contexto específico."
+    },
+    {
+        "question": "Qual a diferença entre 'pesquisa básica' e 'pesquisa aplicada'?",
+        "options": [
+            "A pesquisa básica é mais fácil de fazer.",
+            "A pesquisa básica visa expandir o conhecimento teórico; a pesquisa aplicada busca resolver problemas práticos.",
+            "A pesquisa básica usa dados qualitativos; a aplicada, quantitativos.",
+            "São sinônimas."
+        ],
+        "correctAnswer": "A pesquisa básica visa expandir o conhecimento teórico; a pesquisa aplicada busca resolver problemas práticos.",
+        "hint": "A aplicada tem um 'aplicação' prática imediata.",
+        "explanation": "A pesquisa básica é motivada pela curiosidade, sem uma aplicação prática imediata. Já a pesquisa aplicada tem um objetivo prático e visa encontrar soluções para problemas específicos, como otimizar um processo ou criar uma nova tecnologia."
+    }
+
+            ]
+        };
+
+        // Referências aos elementos da interface
+        const homeScreen = document.getElementById('home-screen');
+        const eixoContentScreen = document.getElementById('eixo-content-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        
+        const eixoContentTitle = document.getElementById('eixo-content-title');
+        const eixoContentText = document.getElementById('eixo-content-text');
+        const currentEixoTitle = document.getElementById('current-eixo-title');
+        const questionText = document.getElementById('question-text');
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const optionsContainer = document.getElementById('options-container');
+        const hintButton = document.getElementById('hint-button');
+        const hintText = document.getElementById('hint-text');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const nextButton = document.getElementById('next-button');
+        const finalScore = document.getElementById('final-score');
+
+        // Função para exibir a tela de conteúdo do eixo temático
+        function showEixoContent(eixo) {
+            quizState.currentEixo = eixo;
+            eixoContentTitle.textContent = `Eixo: ${eixo}`;
+            eixoContentText.innerHTML = eixoContent[eixo];
+            
+            homeScreen.classList.add('hidden');
+            eixoContentScreen.classList.remove('hidden');
+        }
+
+        // Função para iniciar o quiz após ver o conteúdo do eixo
+        function startQuiz() {
+            quizState.questions = quizData[quizState.currentEixo];
+            quizState.currentQuestionIndex = 0;
+            quizState.score = 0;
+
+            eixoContentScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            updateQuizUI();
+        }
+
+        // Função para voltar à tela inicial
+        function goToHome() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            eixoContentScreen.classList.add('hidden');
+            homeScreen.classList.remove('hidden');
+        }
+
+        // Função para atualizar a interface do quiz com a pergunta atual
+        function updateQuizUI() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            
+            currentEixoTitle.textContent = quizState.currentEixo;
+            questionText.textContent = currentQuestion.question;
+            questionCounter.textContent = `Pergunta ${quizState.currentQuestionIndex + 1} de ${quizState.questions.length}`;
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+            
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('w-full', 'bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white', 'text-gray-800', 'font-medium', 'py-3', 'px-4', 'rounded-lg', 'text-left', 'transition-colors', 'duration-200');
+                button.onclick = () => selectAnswer(button, option);
+                optionsContainer.appendChild(button);
+            });
+
+            // Resetar estados de dica e explicação
+            hintButton.classList.remove('hidden');
+            hintText.classList.add('hidden');
+            explanationContainer.classList.add('hidden');
+            nextButton.classList.add('hidden');
+        }
+        
+        // Função para mostrar a dica
+        function showHint() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            hintText.textContent = `Dica: ${currentQuestion.hint}`;
+            hintText.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+        }
+
+        // Função para selecionar uma resposta
+        function selectAnswer(selectedButton, selectedOption) {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correctAnswer;
+            
+            // Desabilitar todas as opções
+            Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+
+            // Destacar respostas
+            if (isCorrect) {
+                quizState.score++;
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-green-500', 'text-white');
+            } else {
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-red-500', 'text-white');
+                // Destacar a resposta correta também
+                Array.from(optionsContainer.children).find(btn => btn.textContent === currentQuestion.correctAnswer).classList.add('bg-green-500', 'text-white');
+            }
+            
+            // Mostrar a explicação e o botão de próxima pergunta
+            explanationText.textContent = currentQuestion.explanation;
+            explanationContainer.classList.remove('hidden');
+            nextButton.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+        }
+
+        // Função para avançar para a próxima pergunta
+        function nextQuestion() {
+            quizState.currentQuestionIndex++;
+            if (quizState.currentQuestionIndex < quizState.questions.length) {
+                updateQuizUI();
+            } else {
+                showResults();
+            }
+        }
+
+        // Função para exibir os resultados finais
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScore.textContent = `Você acertou ${quizState.score} de ${quizState.questions.length} perguntas do eixo '${quizState.currentEixo}'.`;
+        }
+    </script>
+
+</body>
+</html>

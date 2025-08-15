@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz CPNU - Bloco 2</title>
+    <link rel="icon" type="image/png" href="brasil.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 48rem;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .themed-button {
+            transition: all 0.2s;
+        }
+        .themed-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .themed-button-active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .top-border {
+            width: 100%;
+            height: 1.5rem;
+            background-color: #1e3a8a;
+        }
+        .themed-footer {
+            width: 100%;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.5rem 1rem; /* Aumentado para 1.5rem no eixo vertical (topo/fundo) */
+        }
+        .footer-border-image {
+            width: 100%;
+            height: 18px;
+            display: block;
+        }
+        .footer-content {
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .contact-link {
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+        .contact-link:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-border"></div>
+
+    <div class="container">
+        
+        <div id="home-screen" class="text-center">
+
+            <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">Quiz Preparatório CPNU - Bloco 2</h1>
+            <p class="text-lg text-gray-600 mb-8">Selecione um eixo temático para estudar os conteúdos e começar o quiz.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Conhecimentos Gerais')">
+                    Conhecimentos Gerais
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 1 - Gestão do Conhecimento e Comunicação')">
+                    Eixo 1: Gestão do Conhecimento e Comunicação
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 2 - Políticas Públicas de Educação')">
+                    Eixo 2: Políticas Públicas de Educação
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 3 - Políticas Públicas de Cultura')">
+                    Eixo 3: Políticas Públicas de Cultura
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 4 - Pesquisa')">
+                    Eixo 4: Pesquisa
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 5 - Avaliação')">
+                    Eixo 5: Avaliação
+                </button>
+            </div>
+            
+            <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center w-full mt-6 justify-center" onclick="goToPreviousPage()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    Voltar
+</button>
+        </div>
+
+        <div id="eixo-content-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4" id="eixo-content-title"></h2>
+            <div id="eixo-content-text" class="text-left bg-gray-50 p-6 rounded-xl shadow-inner overflow-y-auto max-h-96 text-gray-700">
+                </div>
+            <div class="mt-6 flex justify-between gap-4">
+                <button class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="startQuiz()">
+                    Iniciar Quiz
+                </button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <div class="mb-6 pb-4 border-b border-gray-300">
+                <p class="text-indigo-600 font-semibold text-lg" id="current-eixo-title"></p>
+                <h2 class="text-2xl font-bold mt-2 text-gray-800" id="question-text"></h2>
+                <div class="flex justify-between items-center text-sm mt-2">
+                    <p class="text-gray-500" id="question-counter"></p>
+                    <p class="text-green-600 font-bold" id="score-counter"></p>
+                </div>
+            </div>
+
+            <div id="options-container" class="space-y-4 mb-4">
+                </div>
+            
+            <button id="hint-button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-lg shadow-sm transition-colors duration-200 mt-4" onclick="showHint()">
+                Dica
+            </button>
+            <div id="hint-text" class="hidden mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-gray-700"></div>
+
+            <div id="explanation-container" class="hidden mt-6 p-6 rounded-lg border border-green-600 bg-green-50">
+                <p class="font-bold text-green-700 mb-2">Explicação:</p>
+                <p id="explanation-text" class="text-gray-700"></p>
+            </div>
+            
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="back-to-home-button" class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button id="next-button" class="w-1/2 hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="nextQuestion()">
+                    Próxima Pergunta
+                </button>
+            </div>
+        </div>
+
+        <div id="results-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4">Quiz Concluído!</h2>
+            <p id="final-score" class="text-xl mb-6 text-gray-800"></p>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                Voltar para o Início
+            </button>
+        </div>
+    </div>
+    
+    <footer class="w-full mt-auto">
+        <img src="7e4bab99-0869-4fec-bb88-19225341d17c (1).png" alt="Borda decorativa" class="footer-border-image">
+        <div class="themed-footer">
+    <div class="footer-content">
+        <div class="flex items-center space-x-4">
+           <a href="contato.html" class="text-sm text-gray-300 hover:text-white transition-colors duration-200">
+                Dúvidas? Entre em contato!
+            </a>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
+            <a href="mailto:contato@luizcodedev.tech" class="contact-link text-sm">Email</a>
+            <a href="https://wa.me/5511995432530" target="_blank" class="contact-link text-sm">WhatsApp</a>
+            <a href="https://www.linkedin.com/in/luiz-eduardo-82a942179/" target="_blank" class="contact-link text-sm">LinkedIn</a>
+        </div>
+    </div>
+    <div class="text-center text-gray-400 text-xs mt-2 md:mt-0">
+        &copy; 2025 LuizDev. Todos os direitos reservados.
+    </div>
+</div>
+    </footer>
+
+      
+
+     <script>
+        // Objeto global para armazenar o estado do quiz
+        let quizState = {
+            questions: [],
+            currentQuestionIndex: 0,
+            score: 0,
+            currentEixo: ''
+        };
+
+        function goToPreviousPage() {
+    // Isso fará o navegador voltar para a página anterior no histórico
+    window.history.back();
+}
+
+        // Conteúdo de estudo para cada eixo temático
+        const eixoContent = {
+            'Conhecimentos Gerais': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Desafios do estado de direito: democracia e cidadania.</li>
+                    <li>2. Políticas públicas: fundamentos, ciclos, federalismo e transformação digital.</li>
+                    <li>3. Ética e integridade: princípios, governança e transparência.</li>
+                    <li>4. Diversidade e inclusão na sociedade.</li>
+                    <li>5. Administração pública federal: princípios, reformas e finanças públicas.</li>
+                    <li>6. Trabalho e tecnologia: IA, automação e riscos no setor público.</li>
+                </ul>
+            `,
+            'Eixo Temático 1 - Gestão do Conhecimento e Comunicação': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Lei Geral de Proteção de Dados Pessoais – LGPD (Lei nº 13.709/2018).</li>
+                    <li>2. Lei de Acesso à Informação – LAI (Lei nº
+12.527/2011).</li>
+                    <li>3. Gestão do conhecimento e comunicação.</li>
+                    <li>4. Comunicação governamental e Comunicação Pública: Lei nº 14.129/2021, Decreto nº 3.296/1999 (Dispõe
+sobre a comunicação social do Poder Executivo Federal); Marco Civil da Internet (Lei nº 12.965/2014).</li>
+                    <li>5. Políticas de
+comunicação.</li>
+                   
+                </ul>
+            `,
+            'Eixo Temático 2 - Políticas Públicas de Educação': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1.Legislação educacional e normas: LDB (Lei nº 9.394/1996), Constituição Federal de 1988, art. 205-208, Lei n° 13.005/2014 e suas alterações.</li>
+                    <li>2. Educação à distância e tecnologias educacionais: Lei nº
+9.394/1996 (LDB) + Decreto nº 12.456/2025, que regulamenta a Nova Política de Educação a Distância (EaD).</li>
+                    <li>3. Ensino superior, pesquisa e extensão: Lei nº 9.394/1996; Constituição Federal de 1988.</li>
+                    <li>4. Educação para sustentabilidade: Lei nº 9.795/ 1999. Dispõe sobre a educação ambiental, institui a Política Nacional de
+Educação Ambiental.</li>
+                    <li>5. ODS relacionados à educação, cultura e igualdade, Agenda 2030 e integração com políticas
+públicas.</li>
+                </ul>
+            `,
+            'Eixo Temático 3 - Políticas Públicas de Cultura': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Sistema e Plano Nacional de Cultura: Lei nº 12.343/2010; Lei nº 14.835/ 2024.</li>
+                    <li>2. Política e educação patrimoniais.</li>
+                    <li>3. Gestão cultural: Inovação, economia da cultura e sustentabilidade cultural, Política de editais e de descentralização.</li>
+                    <li>4. Direitos culturais: Cultura como direito fundamental, Direitos autorais: Lei de Direitos Autorais – LDA (Lei nº 9.610/1998).</li>
+                    <li>5. Saberes
+tradicionais e culturas sustentáveis: Programa Cultura Viva: Lei Cultura Viva (Lei nº 13.018/2014).</li>
+                </ul>
+            `,
+            'Eixo Temático 4 - Pesquisa': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Fundamentos metodológicos da pesquisa.</li>
+                    <li>2. Pesquisa aplicada para
+políticas públicas.</li>
+                    <li>3. Ciclo da pesquisa e
+suas etapas, Planejamento, execução, comunicação e gestão de projetos de pesquisa.</li>
+                    <li>4. Ética em pesquisa.</li>
+                    
+                </ul>
+            `,
+            'Eixo Temático 5 - Avaliação': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Análise de indicadores, Tipos de indicadores: resultado, impacto, processo, Construção, validação e
+interpretação de indicadores.</li>
+                    <li>2.Métodos
+quantitativos e análise de dados, Tratamento de bases de dados, Ferramentas de Big Data e bases de dados.</li>
+                    
+                </ul>
+            `
+        };
+
+        // Dados do quiz: perguntas, opções, respostas, dicas e explicações
+        const quizData = {
+             'Conhecimentos Gerais': [
+                {
+                    question: "Segundo a Constituição de 1988, qual a principal função dos direitos fundamentais, sociais e políticos?",
+                    options: ["Consolidar a democracia e a cidadania.", "Limitar o poder do Poder Executivo.", "Viabilizar a judicialização de políticas públicas.", "Aumentar a burocracia estatal."],
+                    correctAnswer: "Consolidar a democracia e a cidadania.",
+                    hint: "A Constituição de 88 é conhecida como a 'Constituição Cidadã'.",
+                    explanation: "A Constituição de 1988, conhecida como a 'Constituição Cidadã', tem como um de seus pilares a consolidação da democracia. Os direitos fundamentais, sociais e políticos servem para assegurar a participação ativa do cidadão e a proteção de suas liberdades, fortalecendo o Estado Democrático de Direito."
+                },
+                {
+                    question: "Na etapa de 'Formulação' do ciclo de políticas públicas, qual atividade é central?",
+                    options: ["Implementar planos e programas.", "Monitorar e avaliar os resultados.", "Elaborar alternativas e selecionar a melhor solução.", "Definir se o problema será tratado pelo governo."],
+                    correctAnswer: "Elaborar alternativas e selecionar a melhor solução.",
+                    hint: "Pense na fase que vem depois de identificar o problema, mas antes de agir.",
+                    explanation: "Após a fase de 'Agenda', onde o problema é reconhecido, a 'Formulação' é a etapa em que se criam as propostas de ação, avaliando as possíveis soluções e escolhendo a mais adequada para ser implementada."
+                },
+                {
+                    question: "A Lei de Acesso à Informação (LAI) e a transparência pública estão diretamente relacionadas a qual princípio constitucional da administração pública?",
+                    options: ["Legalidade.", "Impessoalidade.", "Moralidade.", "Publicidade."],
+                    correctAnswer: "Publicidade.",
+                    hint: "É o princípio que exige a divulgação dos atos da administração.",
+                    explanation: "A publicidade é o princípio constitucional que exige a transparência total dos atos da administração, salvo exceções legais. A Lei de Acesso à Informação (LAI) é o principal instrumento que concretiza este princípio, garantindo que o cidadão possa acessar as informações públicas."
+                },
+                {
+                    question: "Qual instrumento do planejamento-orçamento no Brasil define as diretrizes, metas e prioridades da administração pública federal para um período de quatro anos?",
+                    options: ["Plano Plurianual (PPA).", "Lei de Diretrizes Orçamentárias (LDO).", "Lei Orçamentária Anual (LOA).", "Plano Nacional de Desenvolvimento."],
+                    correctAnswer: "Plano Plurianual (PPA).",
+                    hint: "O nome do instrumento já indica sua abrangência de tempo.",
+                    explanation: "O PPA é o principal instrumento de planejamento de médio prazo do governo federal, definindo as diretrizes e os objetivos estratégicos para um período de quatro anos. A LDO e a LOA devem estar alinhadas com o que foi estabelecido no PPA."
+                },
+                {
+                    question: "Qual o princípio da Administração Pública que exige que a atuação dos agentes públicos seja voltada ao interesse público, não podendo beneficiar a si próprios ou a terceiros?",
+                    options: ["Moralidade.", "Impessoalidade.", "Eficiência.", "Legalidade."],
+                    correctAnswer: "Impessoalidade.",
+                    hint: "Pense na atuação 'sem rosto', sem distinção pessoal.",
+                    explanation: "O princípio da impessoalidade exige que a Administração Pública atue com o objetivo de alcançar o interesse público, sem favorecer ou prejudicar pessoas por razões pessoais. A conduta deve ser objetiva e voltada à finalidade da lei."
+                },
+                {
+                    question: "A governança pública, como conceito de gestão, tem como um de seus pilares a 'accountability'. O que esse termo significa?",
+                    options: ["A capacidade de inovar na gestão.", "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.", "A agilidade na execução de projetos.", "A gestão baseada em dados e evidências."],
+                    correctAnswer: "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.",
+                    hint: "É a junção de 'conta' e 'habilidade'.",
+                    explanation: "Accountability é o dever de prestar contas sobre as ações tomadas e de se responsabilizar pelas consequências delas. É um pilar fundamental da governança, promovendo a transparência e a responsabilidade na gestão pública."
+                },
+                {
+                    question: "A transformação digital na Administração Pública tem como principal objetivo:",
+                    options: ["Substituir servidores por robôs.", "Simplificar e desburocratizar os serviços para o cidadão.", "Aumentar a arrecadação de impostos.", "Centralizar todas as informações em um único sistema."],
+                    correctAnswer: "Simplificar e desburocratizar os serviços para o cidadão.",
+                    hint: "O foco é na melhoria da experiência do usuário, ou seja, do cidadão.",
+                    explanation: "A transformação digital na Administração Pública busca usar a tecnologia para simplificar processos, tornar os serviços mais acessíveis e eficientes, e melhorar a relação entre o governo e a população. O objetivo é facilitar a vida do cidadão."
+                },
+                {
+                    question: "De acordo com o edital, quais são os principais eixos da diversidade e inclusão na sociedade brasileira?",
+                    options: ["Gênero, raça, etnia e idade.", "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.", "Gênero e nacionalidade.", "Etnia, raça e classe social."],
+                    correctAnswer: "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.",
+                    hint: "Pense nos diversos grupos sociais que precisam de políticas de inclusão.",
+                    explanation: "O tema de diversidade e inclusão, conforme abordado em concursos públicos, engloba a garantia de direitos e a promoção da igualdade para grupos historicamente marginalizados, incluindo as dimensões de gênero, raça, etnia, orientação sexual, pessoas com deficiência (PCD) e a diversidade entre as gerações."
+                },
+                {
+                    question: "A Reforma Administrativa no Brasil, em diferentes momentos históricos, teve como uma de suas motivações a busca por:",
+                    options: ["Aumento da burocracia e do controle interno.", "Centralização do poder no governo federal.", "Maior eficiência e modernização da máquina pública.", "Redução do número de estados e municípios."],
+                    correctAnswer: "Maior eficiência e modernização da máquina pública.",
+                    hint: "Pense no objetivo de tornar o governo mais ágil e econômico.",
+                    explanation: "As reformas administrativas, desde a criação do DASP no período Vargas até as mais recentes, sempre buscaram melhorar a eficiência, a produtividade e a qualidade dos serviços públicos. O objetivo é modernizar o Estado para que ele responda melhor às demandas da sociedade."
+                },
+                {
+                    question: "Qual o principal risco ético associado ao uso de inteligência artificial (IA) e automação no setor público?",
+                    options: ["Aumento de produtividade.", "Redução de custos operacionais.", "A perda da transparência e a tomada de decisões não explicáveis.", "A simplificação de processos."],
+                    correctAnswer: "A perda da transparência e a tomada de decisões não explicáveis.",
+                    hint: "Pense na 'caixa preta' dos algoritmos.",
+                    explanation: "O uso de IA pode gerar um risco de 'caixa preta', onde o processo de tomada de decisão do algoritmo não é transparente ou facilmente compreendido. Isso pode minar a confiança do cidadão e dificultar a responsabilização por decisões que afetem direitos e serviços públicos, indo contra o princípio da publicidade e da transparência."
+                },
+                {
+                    question: "Qual é um dos principais desafios para a consolidação da democracia e do Estado de Direito no Brasil?",
+                    options: ["A centralização do poder no legislativo.", "A baixa participação popular em decisões políticas.", "A completa ausência de liberdade de expressão.", "A excessiva intervenção de organismos internacionais."],
+                    correctAnswer: "A baixa participação popular em decisões políticas.",
+                    hint: "Pense no papel do cidadão na vida política.",
+                    explanation: "A participação ativa da sociedade civil é crucial para a vitalidade democrática. A baixa participação pode levar à deslegitimação das instituições e à fragilização do controle social sobre o Estado."
+                },
+                {
+                    question: "No ciclo de políticas públicas, a etapa de 'Avaliação' é fundamental para qual propósito?",
+                    options: ["Apenas para punir os responsáveis por falhas.", "Para decidir se a política deve ser implementada ou não.", "Para medir a eficácia, eficiência e impacto da política.", "Para justificar novos gastos sem análise prévia."],
+                    correctAnswer: "Para medir a eficácia, eficiência e impacto da política.",
+                    hint: "Pense no que se faz depois que a política já foi implementada por um tempo.",
+                    explanation: "A avaliação busca verificar se a política pública alcançou os resultados esperados, se foi implementada de forma eficiente e qual foi seu impacto real na sociedade, fornecendo subsídios para ajustes ou para o planejamento de novas políticas."
+                },
+                {
+                    question: "Qual dos seguintes conceitos está mais associado à integridade pública?",
+                    options: ["A velocidade na tomada de decisões.", "A capacidade de gerar lucros.", "A adesão e defesa dos valores morais da organização.", "A centralização das informações."],
+                    correctAnswer: "A adesão e defesa dos valores morais da organização.",
+                    hint: "Pense na conduta do servidor público.",
+                    explanation: "A integridade pública refere-se ao alinhamento da conduta dos servidores e das instituições aos mais altos padrões éticos e morais, evitando conflitos de interesse e garantindo a confiança da população."
+                },
+                {
+                    question: "Políticas de ações afirmativas para a inclusão de grupos minoritários têm como objetivo principal:",
+                    options: ["Aumentar a desigualdade social.", "Apenas a inclusão de pessoas com deficiência.", "Corrigir desigualdades históricas e promover a igualdade de oportunidades.", "Excluir a maioria da sociedade."],
+                    correctAnswer: "Corrigir desigualdades históricas e promover a igualdade de oportunidades.",
+                    hint: "O objetivo é compensar injustiças do passado.",
+                    explanation: "Ações afirmativas são políticas temporárias que visam a compensar desigualdades históricas e estruturais, garantindo que grupos que foram marginalizados tenham acesso a oportunidades de forma equitativa."
+                },
+                {
+                    question: "A Lei de Responsabilidade Fiscal (LRF) tem como um de seus principais pilares o controle e a transparência na gestão de quais recursos?",
+                    options: ["Apenas os recursos da saúde.", "Apenas os recursos da educação.", "Os recursos financeiros e orçamentários dos entes federativos.", "Os recursos de empresas privadas."],
+                    correctAnswer: "Os recursos financeiros e orçamentários dos entes federativos.",
+                    hint: "Pense no controle dos gastos públicos em geral.",
+                    explanation: "A LRF estabelece normas de finanças públicas voltadas para a responsabilidade na gestão fiscal. Ela impõe limites para despesas com pessoal, dívidas e outras obrigações, promovendo a transparência e o equilíbrio das contas públicas."
+                },
+                {
+                    question: "O uso de Inteligência Artificial no setor público levanta preocupações sobre a 'exclusão digital', que se refere a:",
+                    options: ["Apenas a dificuldade de acesso à internet.", "O desemprego causado pela automação.", "A falta de capacitação de servidores para usar novas tecnologias.", "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados."],
+                    correctAnswer: "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados.",
+                    hint: "Pense nas pessoas que ficam de fora do mundo digital.",
+                    explanation: "A exclusão digital ocorre quando a digitalização dos serviços públicos não é acompanhada de políticas de inclusão, deixando de fora da acessibilidade e da cidadania digital aqueles que não possuem acesso, conhecimento ou habilidades para utilizar as novas tecnologias."
+                },
+                {
+                    question: "O conflito de interesses na Administração Pública ocorre quando:",
+                    options: ["O servidor público tem um cargo de liderança.", "O interesse privado do agente público se choca com o interesse público.", "O servidor trabalha em mais de um setor.", "O servidor utiliza a tecnologia no trabalho."],
+                    correctAnswer: "O interesse privado do agente público se choca com o interesse público.",
+                    hint: "Pense na dualidade entre o que é bom para o servidor e o que é bom para a sociedade.",
+                    explanation: "O conflito de interesses acontece quando o agente público utiliza sua posição para favorecer interesses particulares em detrimento do interesse coletivo. A Lei de Conflito de Interesses (Lei nº 12.813/2013) estabelece as regras para evitar essa situação."
+                },
+                {
+                    question: "No contexto do federalismo brasileiro, qual o principal desafio na implementação de políticas públicas sociais?",
+                    options: ["A ausência de recursos financeiros.", "A falta de leis federais.", "A coordenação entre os diferentes níveis de governo (União, estados e municípios).", "A dificuldade de acesso à internet."],
+                    correctAnswer: "A coordenação entre os diferentes níveis de governo (União, estados e municípios).",
+                    hint: "Pense nos desafios de fazer 3 esferas de governo trabalharem juntas.",
+                    explanation: "O federalismo impõe o desafio da coordenação entre os entes federativos para a oferta de serviços públicos. É fundamental que União, estados e municípios trabalhem em conjunto para garantir a efetividade das políticas, evitando duplicidade de ações e falhas na cobertura."
+                },
+                {
+                    question: "A 'interseccionalidade' é um conceito importante para a análise da diversidade, pois se refere a:",
+                    options: ["A união de diferentes grupos sociais em um único movimento.", "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.", "A separação de grupos sociais para uma análise individual.", "O estudo de apenas uma dimensão da identidade de uma pessoa."],
+                    correctAnswer: "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.",
+                    hint: "Pense no 'cruzamento' de diferentes dimensões da identidade de uma pessoa.",
+                    explanation: "A interseccionalidade reconhece que as identidades sociais não existem de forma isolada. A opressão e o privilégio são influenciados pela forma como gênero, raça, classe, orientação sexual, entre outros, se interligam e se manifestam nas experiências individuais."
+                },
+                {
+                    question: "Qual a principal vantagem da automação de processos na Administração Pública?",
+                    options: ["A eliminação de todos os servidores públicos.", "Aumento da burocracia.", "Maior agilidade e redução de erros em tarefas repetitivas.", "A substituição completa da tomada de decisão humana."],
+                    correctAnswer: "Maior agilidade e redução de erros em tarefas repetitivas.",
+                    hint: "Pense no que os robôs podem fazer melhor que os humanos, em termos de repetição.",
+                    explanation: "A automação permite que tarefas repetitivas e baseadas em regras sejam executadas de forma mais rápida e precisa por sistemas, liberando os servidores para se dedicarem a atividades mais complexas, estratégicas e que exigem interação humana."
+                }
+            ],
+            'Eixo Temático 1 - Gestão do Conhecimento e Comunicação': [
+                 {
+                question: "1. De acordo com a Lei Geral de Proteção de Dados Pessoais (LGPD), qual o principal objetivo dessa legislação?",
+                options: ["Garantir a coleta ilimitada de dados por empresas.", "Regulamentar a utilização de dados pessoais, garantindo direitos aos titulares.", "Autorizar o compartilhamento de dados sem consentimento.", "Restringir o uso de dados para fins de segurança pública.", "Apenas proteger dados de empresas estatais."],
+                correctAnswer: "Regulamentar a utilização de dados pessoais, garantindo direitos aos titulares.",
+                hint: "A LGPD foi criada para estabelecer regras claras sobre a coleta, tratamento e armazenamento de dados, dando ao cidadão o controle sobre suas informações.",
+                explanation: "A LGPD visa proteger os direitos fundamentais de liberdade e privacidade, estabelecendo diretrizes para o tratamento de dados pessoais, garantindo que os titulares tenham controle sobre suas informações e que as empresas sigam normas claras para evitar abusos."
+            },
+            {
+                question: "2. A Lei de Acesso à Informação (LAI) estabelece a transparência como princípio fundamental. Qual das alternativas representa um dos principais pilares dessa lei?",
+                options: ["O sigilo como regra e a informação como exceção.", "A necessidade de justificar o pedido de informação.", "A restrição do acesso à informação apenas a jornalistas.", "A publicidade da informação como regra e o sigilo como exceção.", "O foco na proteção de dados privados acima da informação pública."],
+                correctAnswer: "A publicidade da informação como regra e o sigilo como exceção.",
+                hint: "A LAI inverte a lógica do sigilo, tornando a informação pública o padrão e exigindo justificativas e prazos para a sua restrição.",
+                explanation: "A LAI estabelece que a transparência é a regra geral na administração pública, permitindo que qualquer cidadão solicite informações sobre atos e decisões governamentais, com o sigilo sendo a exceção e devidamente justificado."
+            },
+            {
+                question: "3. Na Gestão do Conhecimento, qual é a principal diferença entre dado e informação?",
+                options: ["Não há diferença, são sinônimos.", "Dado é um conjunto de informações organizadas, enquanto informação é a matéria-prima.", "Informação é um conjunto de dados brutos e sem contexto, enquanto dado é contextualizado e com significado.", "Dado é a matéria-prima bruta e sem significado imediato; informação é o dado contextualizado e processado.", "Dado e informação se referem a fatos estatísticos."],
+                correctAnswer: "Dado é a matéria-prima bruta e sem significado imediato; informação é o dado contextualizado e processado.",
+                hint: "Pense em um número: 25. Isso é um dado. Agora, 'a temperatura hoje é 25 graus' é uma informação.",
+                explanation: "Na Gestão do Conhecimento, os dados são elementos brutos, sem contexto ou significado, enquanto a informação é o resultado do processamento e organização desses dados, tornando-os úteis e compreensíveis para a tomada de decisões."
+            },
+            {
+                question: "4. O Marco Civil da Internet (Lei nº 12.965/2014) estabelece princípios, garantias, direitos e deveres para o uso da Internet no Brasil. Qual é um dos seus principais pilares?",
+                options: ["A obrigatoriedade de todas as empresas estatais terem um site.", "A censura prévia de conteúdos na Internet.", "A neutralidade da rede, que proíbe o tratamento desigual de dados.", "O controle total do governo sobre a navegação dos cidadãos.", "Apenas a regulamentação do comércio eletrônico."],
+                correctAnswer: "A neutralidade da rede, que proíbe o tratamento desigual de dados.",
+                hint: "A neutralidade da rede garante que todo o tráfego de dados na internet seja tratado de forma igualitária, sem distinção de conteúdo, origem ou destino.",
+                explanation: "O Marco Civil da Internet estabelece a neutralidade da rede como um princípio fundamental, garantindo que todos os dados sejam tratados de forma igualitária, sem discriminação ou cobrança diferenciada, promovendo um ambiente aberto e democrático na internet."
+            },
+            {
+                question: "5. A Comunicação Pública é um tipo específico de comunicação governamental. Qual é a sua principal característica?",
+                options: ["Ter como objetivo principal a publicidade dos feitos do governo.", "Ser focada apenas na divulgação de propaganda oficial.", "Ter como foco a interação e o diálogo com o cidadão para promover a participação social.", "Ser destinada apenas a veículos de imprensa.", "Ser restrita a momentos de crise e emergência."],
+                correctAnswer: "Ter como foco a interação e o diálogo com o cidadão para promover a participação social.",
+                hint: "A Comunicação Pública vai além da publicidade; ela busca construir uma relação de confiança e engajamento com a sociedade.",
+                explanation: "A Comunicação Pública visa estabelecer um canal de diálogo entre o governo e a sociedade, promovendo a transparência, a participação cidadã e a construção de políticas públicas mais inclusivas e democráticas."
+            },
+            {
+                question: "6. A Inteligência Artificial Generativa, como a utilizada em chatbots e criação de conteúdo, traz desafios éticos para a comunicação no serviço público. Qual a principal preocupação relacionada ao seu uso?",
+                options: ["O aumento da velocidade na produção de conteúdo.", "A capacidade de gerar textos e imagens de forma autônoma.", "A possibilidade de disseminação de informações falsas ou enviesadas.", "A otimização de tarefas repetitivas.", "A redução de custos com mão de obra."],
+                correctAnswer: "A possibilidade de disseminação de informações falsas ou enviesadas.",
+                hint: "As IAs generativas aprendem com dados existentes e podem replicar ou até amplificar vieses, além de poderem ser usadas para criar desinformação (deepfakes).",
+                explanation: "O uso de Inteligência Artificial Generativa no serviço público levanta preocupações éticas, especialmente no que diz respeito à veracidade e imparcialidade das informações geradas. É crucial garantir que essas tecnologias sejam usadas de forma responsável, evitando a propagação de desinformação e respeitando os direitos dos cidadãos."
+            },
+            {
+                question: "7. O conceito de 'dados pessoais sensíveis' na LGPD se refere a informações que, se vazadas ou usadas de forma indevida, podem gerar discriminação. Qual dos dados abaixo é considerado 'sensível' pela LGPD?",
+                options: ["Nome completo e data de nascimento.", "Endereço de e-mail e telefone.", "Dados referentes à saúde ou à vida sexual.", "Número do CPF e RG.", "Profissão e local de trabalho."],
+                correctAnswer: "Dados referentes à saúde ou à vida sexual.",
+                hint: "A LGPD lista explicitamente quais dados são considerados sensíveis, e eles geralmente se referem a questões de origem racial ou étnica, convicções religiosas, políticas, genéticas ou biométricas, e saúde.",
+                explanation: "Dados pessoais sensíveis são aqueles que, se tratados de forma inadequada, podem levar a discriminação ou violação de direitos. A LGPD exige um tratamento mais rigoroso para esses dados, incluindo a necessidade de consentimento explícito do titular para seu uso."
+            },
+            {
+                question: "8. No contexto de gestão do conhecimento, qual a principal função de uma política nacional de informação e comunicação pública?",
+                options: ["Padronizar a cor dos logos do governo.", "Organizar a divulgação de notícias em mídias sociais.", "Estabelecer diretrizes e normas para a produção, organização e disseminação de informações e conhecimentos no setor público.", "Apenas gerenciar a comunicação de crises.", "Determinar o orçamento para publicidade governamental."],
+                correctAnswer: "Estabelecer diretrizes e normas para a produção, organização e disseminação de informações e conhecimentos no setor público.",
+                hint: "Essa política busca uma abordagem estratégica para o conhecimento e a informação, garantindo que sejam ativos valiosos e bem gerenciados pelo Estado.",
+                explanation: "Uma política nacional de informação e comunicação pública visa garantir que o conhecimento e as informações sejam geridos de forma eficiente, promovendo a transparência, a acessibilidade e a participação cidadã. Ela estabelece normas para a produção e disseminação de informações, assegurando que sejam úteis e relevantes para a sociedade."
+            },
+            {
+                question: "9. O Decreto nº 3.296/1999 dispõe sobre a comunicação social do Poder Executivo Federal. Qual é uma das suas principais determinações?",
+                options: ["Proibir qualquer tipo de publicidade governamental.", "Restringir a comunicação apenas a canais impressos.", "Regular o uso da publicidade e da propaganda para orientar, informar e educar os cidadãos, respeitando os princípios da administração pública.", "Obrigar todos os órgãos a contratar a mesma agência de publicidade.", "Dispensar a necessidade de licitação para contratação de serviços de comunicação."],
+                correctAnswer: "Regular o uso da publicidade e da propaganda para orientar, informar e educar os cidadãos, respeitando os princípios da administração pública.",
+                hint: "O decreto busca garantir que a comunicação social seja usada de forma ética e eficiente, servindo ao interesse público e não a interesses de governo.",
+                explanation: "O Decreto nº 3.296/1999 estabelece diretrizes para a comunicação social do Poder Executivo Federal, visando garantir que a publicidade e a propaganda sejam utilizadas de forma responsável, transparente e voltada ao interesse público, respeitando os princípios da administração pública."
+            },
+            {
+                question: "10. Plataformas digitais e a mediação tecnológica têm se tornado essenciais no serviço público. Qual é um dos principais benefícios dessa mediação?",
+                options: ["Diminuir a participação dos cidadãos nos processos.", "Aumentar a burocracia e a lentidão no atendimento.", "Ampliar o acesso aos serviços públicos e otimizar a interação entre governo e sociedade.", "Restringir o acesso a serviços apenas para quem tem internet.", "Aumentar a desigualdade no acesso à informação."],
+                correctAnswer: "Ampliar o acesso aos serviços públicos e otimizar a interação entre governo e sociedade.",
+                hint: "A tecnologia, quando bem utilizada, pode derrubar barreiras geográficas e de tempo, tornando o serviço público mais acessível e eficiente.",
+                explanation: "A mediação tecnológica permite que os serviços públicos sejam mais acessíveis, facilitando o acesso à informação e à participação cidadã. Plataformas digitais podem melhorar a eficiência do atendimento, reduzir filas e democratizar o acesso aos serviços, promovendo uma gestão pública mais transparente e inclusiva."
+            }
+            ],
+            'Eixo Temático 2 - Políticas Públicas de Educação': [
+                {
+                question: "1. Qual dos seguintes princípios NÃO é um dos pilares da Lei de Diretrizes e Bases da Educação Nacional (LDB)?",
+                options: [
+                    "Igualdade de condições para o acesso e permanência na escola.",
+                    "Liberdade de aprender, ensinar, pesquisar e divulgar a cultura, o pensamento, a arte e o saber.",
+                    "Gratuidade do ensino público em estabelecimentos oficiais.",
+                    "Gestão democrática do ensino público, na forma da lei.",
+                    "Privatização total da gestão escolar para aumentar a eficiência."
+                ],
+                correctAnswer: "Privatização total da gestão escolar para aumentar a eficiência.",
+                hint: "A LDB reforça o papel do Estado e a participação da comunidade escolar na gestão, e não a privatização.",
+                explanation: "A LDB (Lei nº 9.394/1996) estabelece os princípios e diretrizes para a educação nacional, enfatizando a igualdade de acesso, a liberdade acadêmica, a gratuidade do ensino público e a gestão democrática. A privatização total da gestão escolar não é um princípio previsto na LDB."
+            },
+            {
+                question: "2. Conforme o Art. 205 da Constituição Federal de 1988, a educação é direito de todos e dever do Estado e da família. Qual é a sua finalidade principal, segundo este artigo?",
+                options: [
+                    "Apenas a preparação para o mercado de trabalho.",
+                    "O pleno desenvolvimento da pessoa, seu preparo para o exercício da cidadania e sua qualificação para o trabalho.",
+                    "O fomento exclusivo do ensino superior.",
+                    "A formação de um corpo de profissionais para o serviço público.",
+                    "A instrução básica para a leitura e escrita."
+                ],
+                correctAnswer: "O pleno desenvolvimento da pessoa, seu preparo para o exercício da cidadania e sua qualificação para o trabalho.",
+                hint: "O artigo 205 da CF/88 apresenta uma visão holística e abrangente da educação, indo além da simples formação profissional.",
+                explanation: "A educação, conforme a Constituição Federal, deve promover o desenvolvimento integral do indivíduo, preparando-o para ser um cidadão ativo e qualificado no mercado de trabalho. Isso inclui aspectos sociais, culturais e éticos, além da formação técnica."
+            },
+            {
+                question: "3. O Plano Nacional de Educação (PNE) tem como objetivo estabelecer as diretrizes, metas e estratégias para a política educacional brasileira. Qual é o período de vigência estabelecido pela Lei nº 13.005/2014?",
+                options: [
+                    "5 anos.",
+                    "8 anos.",
+                    "10 anos.",
+                    "15 anos.",
+                    "20 anos."
+                ],
+                correctAnswer: "10 anos.",
+                hint: "O próprio nome da lei (e o período de 2014 a 2024) já indica a duração.",
+                explanation: "O PNE, instituído pela Lei nº 13.005/2014, estabelece um período de vigência de 10 anos, com o objetivo de orientar as políticas educacionais no Brasil, definindo metas e estratégias para melhorar a qualidade da educação em todos os níveis."
+            },
+            {
+                question: "4. A nova política de Educação a Distância (EaD), regulamentada pelo Decreto nº 12.456/2025, menciona diferentes modelos e modalidades. Qual das seguintes opções descreve corretamente a modalidade híbrida ou semipresencial?",
+                options: [
+                    "É um modelo que foca na interação constante entre alunos e professores em tempo real.",
+                    "Combina atividades presenciais com atividades a distância.",
+                    "Não requer interação em tempo real.",
+                    "Exige a presença física de todos os alunos durante todo o curso.",
+                    "Baseia-se na entrega de conteúdo de forma unidirecional."
+                ],
+                correctAnswer: "Combina atividades presenciais com atividades a distância.",
+                hint: "A modalidade híbrida é a que mais se aproxima da combinação de presencial e a distância.",
+                explanation: "A modalidade híbrida ou semipresencial combina momentos de ensino presencial com atividades realizadas a distância, permitindo maior flexibilidade e personalização do aprendizado. Essa abordagem busca integrar o melhor dos dois mundos, aproveitando as vantagens da tecnologia sem perder o contato humano."
+            },
+            {
+                question: "5. Qual é o principal papel das plataformas digitais e recursos interativos na educação contemporânea?",
+                options: [
+                    "Substituir completamente a figura do professor.",
+                    "Limitar o acesso a informações e conteúdos.",
+                    "Apoiar e potencializar o processo de ensino-aprendizagem, tornando-o mais dinâmico e personalizado.",
+                    "Apenas servir como repositório de documentos.",
+                    "Restringir a comunicação entre alunos."
+                ],
+                correctAnswer: "Apoiar e potencializar o processo de ensino-aprendizagem, tornando-o mais dinâmico e personalizado.",
+                hint: "Essas ferramentas são complementares e visam melhorar a experiência educacional, e não substituí-la.",
+                explanation: "As plataformas digitais e recursos interativos são fundamentais na educação moderna, pois permitem uma abordagem mais dinâmica e personalizada do aprendizado. Elas facilitam o acesso a conteúdos variados, promovem a interação entre alunos e professores e possibilitam o uso de metodologias ativas, como a aprendizagem baseada em projetos."
+            },
+            {
+                question: "6. A Lei nº 9.394/1996 (LDB) estabelece que a educação superior tem por finalidade, entre outras, incentivar o trabalho de pesquisa e a extensão. Qual o objetivo principal da extensão universitária?",
+                options: [
+                    "Apenas a publicação de artigos científicos.",
+                    "A produção de conhecimento teórico sem aplicação prática.",
+                    "A interação transformadora entre a universidade e a sociedade, com a aplicação de conhecimentos na comunidade.",
+                    "O foco exclusivo na graduação.",
+                    "O desenvolvimento de tecnologias para o mercado."
+                ],
+                correctAnswer: "A interação transformadora entre a universidade e a sociedade, com a aplicação de conhecimentos na comunidade.",
+                hint: "A extensão é o 'braço' da universidade que se conecta diretamente com a comunidade, levando o conhecimento para além dos muros acadêmicos.",
+                explanation: "A extensão universitária é uma das funções da educação superior, conforme a LDB, e busca promover a interação entre a universidade e a sociedade, aplicando o conhecimento acadêmico para resolver problemas reais e contribuir para o desenvolvimento social. Ela é essencial para a formação integral do estudante e para o fortalecimento da cidadania."
+            },
+            {
+                question: "7. O Plano Nacional de Pós-Graduação (PNPG) 2025-2029 visa orientar a política de pós-graduação. Qual é uma das suas principais metas?",
+                options: [
+                    "A extinção de todos os programas de pós-graduação.",
+                    "O aumento da internacionalização e da qualidade dos programas de pós-graduação brasileiros.",
+                    "A restrição do acesso à pós-graduação apenas para alunos de instituições privadas.",
+                    "O fim do financiamento público para a pesquisa.",
+                    "Apenas a avaliação anual de desempenho."
+                ],
+                correctAnswer: "O aumento da internacionalização e da qualidade dos programas de pós-graduação brasileiros.",
+                hint: "Planos estratégicos como o PNPG buscam sempre aprimorar e expandir a excelência acadêmica.",
+                explanation: "O PNPG 2025-2029 estabelece diretrizes para fortalecer a pós-graduação no Brasil, com foco na qualidade, na internacionalização e na formação de recursos humanos qualificados. Ele busca promover a pesquisa de excelência e a inovação, contribuindo para o desenvolvimento científico e tecnológico do país."
+            },
+            {
+                question: "8. De acordo com a Lei nº 9.795/1999, que institui a Política Nacional de Educação Ambiental, o que se entende por Educação Ambiental?",
+                options: [
+                    "Apenas o ensino de ciências naturais nas escolas.",
+                    "O conjunto de atividades voltadas a conscientizar a população sobre a reciclagem.",
+                    "Os processos por meio dos quais o indivíduo e a coletividade constroem valores sociais, conhecimentos, habilidades, atitudes e competências voltadas para a conservação do meio ambiente.",
+                    "O estudo exclusivo da fauna e flora.",
+                    "A realização de palestras em empresas sobre sustentabilidade."
+                ],
+                correctAnswer: "Os processos por meio dos quais o indivíduo e a coletividade constroem valores sociais, conhecimentos, habilidades, atitudes e competências voltadas para a conservação do meio ambiente.",
+                hint: "A lei define a Educação Ambiental de forma bastante abrangente, como um processo contínuo e que vai além do ambiente escolar.",
+                explanation: "A Política Nacional de Educação Ambiental busca promover uma consciência crítica e reflexiva sobre as questões ambientais, integrando a educação ambiental em todos os níveis de ensino e na formação de cidadãos conscientes e responsáveis pelo meio ambiente. Ela visa formar indivíduos capazes de atuar na preservação e conservação dos recursos naturais."
+            },
+            {
+                question: "9. A Agenda 2030 da ONU estabeleceu os Objetivos de Desenvolvimento Sustentável (ODS). Qual é o objetivo principal do ODS 4, que está diretamente relacionado à educação?",
+                options: [
+                    "Erradicar a pobreza extrema.",
+                    "Assegurar a educação inclusiva e equitativa e de qualidade, e promover oportunidades de aprendizagem ao longo da vida para todos.",
+                    "Atingir a igualdade de gênero.",
+                    "Promover o crescimento econômico sustentado.",
+                    "Proteger a vida marinha."
+                ],
+                correctAnswer: "Assegurar a educação inclusiva e equitativa e de qualidade, e promover oportunidades de aprendizagem ao longo da vida para todos.",
+                hint: "O ODS 4 é o objetivo que trata especificamente da educação.",
+                explanation: "O ODS 4 busca garantir que todos tenham acesso a uma educação de qualidade, inclusiva e equitativa, promovendo oportunidades de aprendizagem ao longo da vida. Ele reconhece a educação como um direito fundamental e essencial para o desenvolvimento sustentável e a redução das desigualdades sociais."
+            },
+            {
+                question: "10. A integração da Agenda 2030 e dos ODS com as políticas públicas no Brasil é um desafio. Qual das ações a seguir demonstra essa integração de forma mais eficaz?",
+                options: [
+                    "Ignorar os ODS em novos projetos de lei.",
+                    "Criar um plano de desenvolvimento que não faça referência aos ODS.",
+                    "Incorporar as metas dos ODS nos planos plurianuais (PPA) e demais instrumentos de planejamento governamental.",
+                    "Limitar a discussão sobre os ODS apenas à esfera internacional.",
+                    "Reduzir a participação da sociedade civil na formulação de políticas."
+                ],
+                correctAnswer: "Incorporar as metas dos ODS nos planos plurianuais (PPA) e demais instrumentos de planejamento governamental.",
+                hint: "A integração efetiva acontece quando os objetivos globais são internalizados e refletidos no planejamento estratégico e orçamentário do país.",
+                explanation: "A incorporação dos ODS nos planos de governo, como o PPA, é fundamental para garantir que as políticas públicas estejam alinhadas com os objetivos globais de desenvolvimento sustentável. Isso permite que o Brasil contribua para a agenda internacional enquanto promove avanços sociais, econômicos e ambientais internamente."
+            }
+            ],
+            'Eixo Temático 3 - Políticas Públicas de Cultura': [
+      {
+                question: "1. O Sistema Nacional de Cultura (SNC) foi criado com qual principal objetivo?",
+                options: [
+                    "Apenas centralizar o controle cultural no governo federal.",
+                    "Estabelecer o Plano Nacional de Cultura com duração de 5 anos.",
+                    "Articular e coordenar políticas públicas de cultura em cooperação com os entes federados (União, estados, DF e municípios).",
+                    "Criar um único fundo financeiro para todos os projetos culturais.",
+                    "Gerenciar exclusivamente as atividades de museus e arquivos públicos."
+                ],
+                correctAnswer: "Articular e coordenar políticas públicas de cultura em cooperação com os entes federados (União, estados, DF e municípios).",
+                hint: "O SNC busca uma gestão compartilhada e descentralizada da cultura no Brasil.",
+                explanation: "O Sistema Nacional de Cultura (SNC) foi criado para promover a articulação entre os diferentes níveis de governo e a sociedade civil, visando uma gestão integrada e descentralizada das políticas culturais. Ele busca fortalecer a diversidade cultural e garantir o acesso da população às manifestações culturais em todo o país."
+            },
+            {
+                question: "2. O que se entende por 'educação patrimonial' no contexto de museus, arquivos e sítios históricos?",
+                options: [
+                    "Apenas a restauração de obras de arte.",
+                    "O processo de aprendizagem que permite ao cidadão reconhecer e se apropriar de seu patrimônio cultural.",
+                    "A catalogação de todos os bens culturais do país.",
+                    "A proibição do acesso público a locais históricos para preservação.",
+                    "A criação de novos museus em todas as cidades."
+                ],
+                correctAnswer: "O processo de aprendizagem que permite ao cidadão reconhecer e se apropriar de seu patrimônio cultural.",
+                hint: "Não se trata apenas de preservar o patrimônio, mas de torná-lo significativo para as pessoas, conectando-o com suas vidas.",
+                explanation: "A educação patrimonial é um processo educativo que visa sensibilizar e conscientizar a população sobre a importância do patrimônio cultural, promovendo o reconhecimento, a valorização e a apropriação dos bens culturais. Ela busca integrar o patrimônio à identidade cultural das comunidades, estimulando o respeito e a preservação."
+            },
+            {
+                question: "3. A Lei nº 14.835/2024, que altera a Lei nº 12.343/2010, estabelece um novo prazo de vigência para o Plano Nacional de Cultura (PNC). Qual é este prazo?",
+                options: [
+                    "10 anos.",
+                    "5 anos.",
+                    "20 anos.",
+                    "Indeterminado, pois é permanente.",
+                    "Depende da aprovação anual do Congresso."
+                ],
+                correctAnswer: "10 anos.",
+                hint: "O plano agora tem um prazo similar ao do PNE (Plano Nacional de Educação).",
+                explanation: "A Lei nº 14.835/2024 estabelece que o Plano Nacional de Cultura terá uma vigência de 10 anos, com o objetivo de orientar as políticas culturais no Brasil, promovendo a diversidade cultural e o acesso à cultura para todos os cidadãos."
+            },
+            {
+                question: "4. A Lei Paulo Gustavo (Lei Complementar nº 195/2022) foi uma medida de fomento emergencial. Qual foi sua principal motivação?",
+                options: [
+                    "Criar novas formas de captação de recursos para a cultura.",
+                    "Estabelecer um fundo cultural permanente.",
+                    "Combater a desigualdade regional no acesso a recursos culturais.",
+                    "Auxiliar o setor cultural, um dos mais impactados pela pandemia de COVID-19.",
+                    "Fortalecer apenas a produção audiovisual no país."
+                ],
+                correctAnswer: "Auxiliar o setor cultural, um dos mais impactados pela pandemia de COVID-19.",
+                hint: "O nome da lei é uma homenagem a um ator falecido por complicações da doença.",
+                explanation: "A Lei Paulo Gustavo foi criada para apoiar o setor cultural brasileiro durante a crise provocada pela pandemia de COVID-19, destinando recursos para a manutenção e fomento de atividades culturais em todo o país. Ela busca minimizar os impactos econômicos e sociais enfrentados por artistas e profissionais da cultura."
+            },
+            {
+                question: "5. A Lei de Direitos Autorais (LDA) protege as criações do espírito, expressas por qualquer meio ou fixadas em qualquer suporte. Qual das opções abaixo é um exemplo de obra protegida?",
+                options: [
+                    "Uma ideia abstrata para um filme.",
+                    "Um sistema de organização de um banco de dados.",
+                    "Uma norma jurídica do governo.",
+                    "Um livro, uma música ou uma fotografia.",
+                    "Uma receita culinária sem autoria."
+                ],
+                correctAnswer: "Um livro, uma música ou uma fotografia.",
+                hint: "A LDA protege a forma de expressão, e não a ideia em si. Obras literárias, artísticas e científicas são os exemplos clássicos.",
+                explanation: "A Lei de Direitos Autorais (Lei nº 9.610/1998) protege as obras literárias, artísticas e científicas, garantindo aos autores direitos sobre suas criações. Isso inclui livros, músicas, fotografias, filmes e outras formas de expressão criativa. A proteção se estende à forma como a obra é expressa, não às ideias ou conceitos subjacentes."
+            },
+            {
+                question: "6. Qual é a principal característica dos 'Pontos de Cultura', conceito central da Lei Cultura Viva?",
+                options: [
+                    "São apenas espaços públicos de exposição de arte.",
+                    "São iniciativas geridas e propostas pela sociedade civil para a difusão cultural.",
+                    "São instituições privadas que recebem financiamento exclusivo do governo.",
+                    "São apenas centros de pesquisa acadêmica em cultura.",
+                    "São grandes eventos culturais organizados por empresas."
+                ],
+                correctAnswer: "São iniciativas geridas e propostas pela sociedade civil para a difusão cultural.",
+                hint: "O programa busca apoiar e reconhecer a diversidade e a autonomia de iniciativas culturais de base comunitária.",
+                explanation: "Os Pontos de Cultura são espaços e iniciativas culturais criados e geridos pela sociedade civil, com o objetivo de promover a diversidade cultural e fortalecer a identidade local. Eles são apoiados pelo programa Cultura Viva, que busca valorizar as manifestações culturais populares e comunitárias, garantindo acesso e participação na vida cultural."
+            },
+            {
+                question: "7. A Política Nacional de Educação Ambiental, instituída pela Lei nº 9.795/1999, tem como um de seus objetivos a sustentabilidade. O que se pode inferir sobre a relação entre cultura e sustentabilidade?",
+                options: [
+                    "São áreas completamente separadas e sem relação.",
+                    "A sustentabilidade se refere apenas ao meio ambiente natural, e não à cultura.",
+                    "A cultura pode ser um veículo para promover a sustentabilidade, por meio de saberes tradicionais e práticas sociais.",
+                    "A sustentabilidade é um conceito da economia, não da cultura.",
+                    "A cultura deve se restringir a temas ambientais para ser sustentável."
+                ],
+                correctAnswer: "A cultura pode ser um veículo para promover a sustentabilidade, por meio de saberes tradicionais e práticas sociais.",
+                hint: "A cultura, em seus saberes e tradições, muitas vezes carrega conhecimentos sobre a relação harmoniosa entre o ser humano e o meio ambiente.",
+                explanation: "A Política Nacional de Educação Ambiental reconhece que a cultura desempenha um papel fundamental na promoção da sustentabilidade, pois as práticas culturais muitas vezes incorporam saberes e tradições que contribuem para a conservação ambiental e o desenvolvimento sustentável. A educação ambiental busca integrar esses conhecimentos culturais para formar cidadãos conscientes e responsáveis."
+            },
+            {
+                question: "8. A Lei Rouanet (Pronac) é um dos principais mecanismos de fomento à cultura. Qual é a sua principal característica?",
+                options: [
+                    "É um fundo diretamente gerido pelo Ministério da Cultura.",
+                    "Consiste em um mecanismo de incentivo fiscal, permitindo que empresas e pessoas físicas destinem parte de seus impostos para projetos culturais.",
+                    "Financia exclusivamente grandes produções audiovisuais.",
+                    "É um sistema de distribuição direta de verbas para artistas.",
+                    "Substituiu a necessidade de editais públicos."
+                ],
+                correctAnswer: "Consiste em um mecanismo de incentivo fiscal, permitindo que empresas e pessoas físicas destinem parte de seus impostos para projetos culturais.",
+                hint: "O fomento vem da iniciativa privada, que utiliza um benefício fiscal para investir em cultura.",
+                explanation: "A Lei Rouanet (Lei nº 8.313/1991) institui o Programa Nacional de Apoio à Cultura (Pronac), que permite que pessoas físicas e jurídicas destinem parte do imposto de renda devido para financiar projetos culturais aprovados pelo Ministério da Cultura. Esse mecanismo visa estimular o investimento privado na cultura, democratizando o acesso a recursos para diversas iniciativas culturais."
+            },
+            {
+                question: "9. Qual das seguintes leis é considerada uma das principais para o fomento da produção cinematográfica e audiovisual no Brasil?",
+                options: [
+                    "Lei de Acesso à Informação.",
+                    "Lei Paulo Gustavo.",
+                    "Lei de Direitos Autorais.",
+                    "Lei do Audiovisual.",
+                    "Lei Cultura Viva."
+                ],
+                correctAnswer: "Lei do Audiovisual.",
+                hint: "Esta lei, de 1993, foi fundamental para o renascimento do cinema brasileiro e para a criação de um mercado audiovisual mais robusto.",
+                explanation: "A Lei do Audiovisual (Lei nº 8.685/1993) é uma das principais legislações que regulamentam o setor audiovisual no Brasil, estabelecendo mecanismos de fomento e incentivo à produção cinematográfica e televisiva. Ela criou o Fundo Setorial do Audiovisual (FSA) e instituiu políticas para apoiar a produção, distribuição e exibição de obras audiovisuais brasileiras."
+            },
+            {
+                question: "10. Qual é a principal diferença entre os instrumentos de fomento como a Lei Paulo Gustavo (LPG) e o Programa Nacional Aldir Blanc de Fomento à Cultura (PNAB)?",
+                options: [
+                    "A LPG é uma lei de fomento de médio prazo, enquanto o PNAB é um programa permanente.",
+                    "Ambos são programas de editais, sem diferenças significativas.",
+                    "A LPG é uma lei complementar de fomento emergencial e a PNAB, uma lei ordinária de fomento permanente.",
+                    "A LPG é um fundo do governo, enquanto o PNAB é um programa de doações.",
+                    "O PNAB financia apenas o teatro, e a LPG, apenas a música."
+                ],
+                correctAnswer: "A LPG é uma lei complementar de fomento emergencial e a PNAB, uma lei ordinária de fomento permanente.",
+                hint: "A principal distinção está na natureza e na duração de cada programa: um foi criado para uma situação emergencial, o outro para ser uma política de estado de fomento contínuo.",
+                explanation: "A Lei Paulo Gustavo (LPG) é uma lei complementar que estabelece um fomento emergencial para o setor cultural, enquanto o Programa Nacional Aldir Blanc (PNAB) é uma lei ordinária que institui um programa permanente de fomento à cultura. A LPG foi criada em resposta aos impactos da pandemia de COVID-19, enquanto o PNAB visa apoiar a cultura de forma contínua e estruturada."
+            }
+],
+            'Eixo Temático 4 - Pesquisa': [
+      {
+                question: "1. Qual abordagem de pesquisa é mais adequada para investigar a eficácia de uma política pública, utilizando dados estatísticos e testes de hipóteses?",
+                options: [
+                    "Qualitativa.",
+                    "Exploratória.",
+                    "Descritiva.",
+                    "Quantitativa.",
+                    "Mista."
+                ],
+                correctAnswer: "Quantitativa.",
+                hint: "Essa abordagem lida com números e busca quantificar o problema para generalizar os resultados.",
+                explanation: "A pesquisa quantitativa é aquela que utiliza métodos estatísticos e matemáticos para coletar e analisar dados, permitindo a generalização dos resultados. É ideal para testar hipóteses e medir a eficácia de políticas públicas de forma objetiva e mensurável."
+            },
+            {
+                question: "2. Na fase de definição do problema de pesquisa, qual é a principal tarefa do pesquisador?",
+                options: [
+                    "Coletar os dados antes de qualquer outra etapa.",
+                    "Analisar os resultados da pesquisa.",
+                    "Elaborar uma pergunta clara e específica a ser investigada.",
+                    "Apenas revisar a literatura existente sobre o tema.",
+                    "Decidir a metodologia que será utilizada."
+                ],
+                correctAnswer: "Elaborar uma pergunta clara e específica a ser investigada.",
+                hint: "Uma boa pesquisa começa com uma pergunta bem formulada que orienta todo o processo.",
+                explanation: "A definição do problema de pesquisa é uma etapa crucial, pois estabelece o foco do estudo. O pesquisador deve formular uma pergunta clara e específica que guiará todo o processo de investigação, desde a coleta de dados até a análise dos resultados."
+            },
+            {
+                question: "3. A pesquisa aplicada no setor público se diferencia da pesquisa básica por qual motivo?",
+                options: [
+                    "Apenas por utilizar métodos qualitativos.",
+                    "Por não se preocupar com a ética em pesquisa.",
+                    "Por ser conduzida exclusivamente por universidades.",
+                    "Por ter como objetivo principal resolver um problema prático e gerar conhecimento para aplicação direta na gestão pública.",
+                    "Por não precisar de um desenho de pesquisa."
+                ],
+                correctAnswer: "Por ter como objetivo principal resolver um problema prático e gerar conhecimento para aplicação direta na gestão pública.",
+                hint: "O foco da pesquisa aplicada é a solução de problemas práticos, ao contrário da pesquisa básica, que busca o conhecimento por si mesmo.", 
+                explanation: "A pesquisa aplicada é aquela que busca resolver problemas práticos e gerar conhecimento que possa ser utilizado diretamente na gestão pública. Ela se concentra em questões específicas e relevantes para a sociedade, enquanto a pesquisa básica visa ampliar o conhecimento teórico sem necessariamente ter uma aplicação imediata."
+            },
+            {
+                question: "4. Qual das opções a seguir é um exemplo de técnica de coleta de dados utilizada em uma pesquisa qualitativa?",
+                options: [
+                    "Aplicação de questionários com escalas numéricas.",
+                    "Entrevistas em profundidade com os participantes.",
+                    "Análise estatística de bancos de dados.",
+                    "Experimentos controlados em laboratório.",
+                    "Cálculo de médias e desvios-padrão."
+                ],
+                correctAnswer: "Entrevistas em profundidade com os participantes.",
+                hint: "A pesquisa qualitativa busca aprofundar-se nos fenômenos, e as entrevistas são uma ferramenta essencial para isso.",
+                explanation: "As técnicas de coleta de dados qualitativas, como entrevistas em profundidade, observações e grupos focais, são utilizadas para explorar percepções, experiências e significados atribuídos pelos participantes. Elas permitem uma compreensão mais rica e detalhada dos fenômenos estudados, ao contrário das técnicas quantitativas, que se concentram em medir e quantificar dados."
+            },
+            {
+                question: "5. A articulação entre universidade, sociedade civil e Estado é fundamental para qual tipo de pesquisa?",
+                options: [
+                    "Pesquisa teórica sem aplicação prática.",
+                    "Pesquisa de natureza puramente acadêmica.",
+                    "Pesquisa que visa a aplicação de políticas públicas e a solução de problemas sociais.",
+                    "Pesquisa experimental com animais.",
+                    "Pesquisa histórica sem conexão com o presente."
+                ],
+                correctAnswer: "Pesquisa que visa a aplicação de políticas públicas e a solução de problemas sociais.",
+                hint: "Essa parceria é crucial para que a pesquisa aplicada seja relevante e útil para a sociedade.",
+                explanation: "A articulação entre universidade, sociedade civil e Estado é essencial para a pesquisa aplicada, pois permite que o conhecimento gerado seja relevante e aplicável às necessidades sociais. Essa colaboração fortalece a capacidade de resposta às demandas da sociedade e contribui para o desenvolvimento de políticas públicas eficazes."
+            },
+            {
+                question: "6. Qual das seguintes etapas NÃO faz parte do ciclo da pesquisa?",
+                options: [
+                    "Planejamento.",
+                    "Execução.",
+                    "Comunicação dos resultados.",
+                    "Financiamento.",
+                    "Gestão de projetos."
+                ],
+                correctAnswer: "Financiamento.",
+                hint: "Embora o financiamento seja vital para a realização de uma pesquisa, ele não é considerado uma etapa metodológica do ciclo em si, que se concentra em planejamento, execução e comunicação.",
+                explanation: "O ciclo da pesquisa envolve etapas como planejamento, execução, coleta e análise de dados, e comunicação dos resultados. O financiamento é um aspecto importante, mas não é uma etapa do processo metodológico em si. A gestão de projetos também é uma parte crucial para garantir que a pesquisa seja realizada de forma eficiente e dentro dos prazos estabelecidos."
+            },
+            {
+                question: "7. O que caracteriza uma abordagem de pesquisa 'mista'?",
+                options: [
+                    "O uso de técnicas de coleta de dados diferentes, mas da mesma natureza.",
+                    "A combinação de pesquisa qualitativa e quantitativa em um único estudo.",
+                    "A mistura de resultados de pesquisas anteriores.",
+                    "A utilização de dados de diferentes áreas do conhecimento.",
+                    "A ausência de uma metodologia clara."
+                ],
+                correctAnswer: "A combinação de pesquisa qualitativa e quantitativa em um único estudo.",
+                hint: "O nome já sugere a união de duas abordagens distintas para obter uma compreensão mais completa do fenômeno.",
+                explanation: "A pesquisa mista combina elementos de pesquisa qualitativa e quantitativa, permitindo que o pesquisador aproveite as vantagens de ambas as abordagens. Isso possibilita uma análise mais abrangente e rica dos dados, integrando a profundidade das percepções qualitativas com a objetividade e generalização dos dados quantitativos."
+            },
+            {
+                question: "8. No contexto da ética em pesquisa, qual é a principal responsabilidade do pesquisador em relação aos participantes do estudo?",
+                options: [
+                    "Garantir a total anonimização e confidencialidade dos dados dos participantes.",
+                    "Não informar os participantes sobre os objetivos da pesquisa.",
+                    "Divulgar a identidade dos participantes para validar a pesquisa.",
+                    "Obter a aprovação de qualquer pessoa para conduzir o estudo.",
+                    "Modificar os resultados para atender às expectativas do financiador."
+                ],
+                correctAnswer: "Garantir a total anonimização e confidencialidade dos dados dos participantes.",
+                hint: "A privacidade e a proteção dos dados dos participantes são pilares da ética em pesquisa.",
+                explanation: "A ética em pesquisa exige que os pesquisadores garantam a anonimização e a confidencialidade dos dados dos participantes, respeitando sua privacidade e direitos. Isso inclui obter consentimento informado, explicar claramente os objetivos do estudo e assegurar que os dados coletados não possam ser rastreados de volta aos indivíduos."
+            },
+            {
+                question: "9. Em projetos de pesquisa, a 'gestão' se refere a qual atividade?",
+                options: [
+                    "Apenas à escrita do relatório final.",
+                    "O controle e a organização de recursos, cronogramas e equipes.",
+                    "A revisão bibliográfica inicial.",
+                    "A definição do problema de pesquisa.",
+                    "A tabulação de dados."
+                ],
+                correctAnswer: "O controle e a organização de recursos, cronogramas e equipes.",
+                hint: "A gestão de projetos é a parte administrativa e operacional que garante que a pesquisa seja concluída dentro do planejado.",
+                explanation: "A gestão de projetos de pesquisa envolve o planejamento, organização e controle dos recursos necessários para a execução do estudo. Isso inclui a definição de cronogramas, alocação de recursos financeiros e humanos, monitoramento do progresso e garantia de que os objetivos da pesquisa sejam alcançados de forma eficiente e eficaz."
+            },
+            {
+                question: "10. Qual é a principal função da comunicação dos resultados de uma pesquisa?",
+                options: [
+                    "Apenas cumprir um requisito burocrático.",
+                    "Manter o conhecimento restrito à comunidade acadêmica.",
+                    "Tornar o conhecimento gerado acessível e permitir que ele seja utilizado para informar políticas, práticas ou futuras pesquisas.",
+                    "Garantir a aprovação para novos financiamentos.",
+                    "Realizar a análise estatística dos dados."
+                ],
+                correctAnswer: "Tornar o conhecimento gerado acessível e permitir que ele seja utilizado para informar políticas, práticas ou futuras pesquisas.",
+                hint: "A comunicação eficaz dos resultados é o que torna a pesquisa relevante e impacta a sociedade.",
+                explanation: "A comunicação dos resultados de uma pesquisa é fundamental para disseminar o conhecimento gerado, permitindo que ele seja utilizado por outros pesquisadores, formuladores de políticas e a sociedade em geral. Isso inclui a publicação de artigos científicos, relatórios, apresentações e outras formas de divulgação que garantam que os achados da pesquisa sejam acessíveis e aplicáveis."
+            }
+],
+            'Eixo Temático 5 - Avaliação': [
+                 {
+                question: "1. Qual tipo de indicador mede a quantidade de produtos ou serviços entregues por uma política pública?",
+                options: [
+                    "Indicador de Impacto.",
+                    "Indicador de Resultado.",
+                    "Indicador de Processo.",
+                    "Indicador de Qualidade.",
+                    "Indicador de Eficiência."
+                ],
+                correctAnswer: "Indicador de Processo.",
+                hint: "Este tipo de indicador foca nas atividades e no que está sendo realizado, ou seja, no 'processo' de execução.",
+                explanation: "Indicadores de Processo são utilizados para monitorar as atividades realizadas durante a implementação de uma política pública. Eles medem a quantidade de produtos ou serviços entregues, como o número de atendimentos realizados, aulas ministradas ou vacinas aplicadas. Esses indicadores ajudam a avaliar se as ações planejadas estão sendo executadas conforme o previsto."
+            },
+            {
+                question: "2. Um sistema de monitoramento de políticas públicas tem como principal objetivo:",
+                options: [
+                    "Apenas avaliar o impacto a longo prazo de uma política.",
+                    "Coletar dados para justificar a extinção de uma política.",
+                    "Acompanhar a execução das ações em tempo real para fazer ajustes e corrigir rotas.",
+                    "Substituir a necessidade de uma avaliação final.",
+                    "Medir o custo-benefício de todas as ações governamentais."
+                ],
+                correctAnswer: "Acompanhar a execução das ações em tempo real para fazer ajustes e corrigir rotas.",
+                hint: "O monitoramento é um processo contínuo que visa à gestão e ao aprimoramento da política, não apenas à sua avaliação final.",
+                explanation: "O monitoramento de políticas públicas é um processo contínuo que visa acompanhar a execução das ações planejadas, permitindo identificar problemas e fazer ajustes em tempo real. Ele é fundamental para garantir que a política esteja no caminho certo para alcançar seus objetivos e para melhorar a eficiência e a eficácia das intervenções governamentais."
+            },
+            {
+                question: "3. Qual a principal distinção entre um indicador de 'resultado' e um indicador de 'impacto'?",
+                options: [
+                    "Não há diferença, são sinônimos.",
+                    "O resultado mede os efeitos imediatos, enquanto o impacto mede as mudanças mais amplas e de longo prazo na sociedade.",
+                    "O resultado é sempre quantitativo, e o impacto é sempre qualitativo.",
+                    "O impacto é medido durante a execução da política, e o resultado, no final.",
+                    "O resultado mede a quantidade de serviços, e o impacto, a qualidade."
+                ],
+                correctAnswer: "O resultado mede os efeitos imediatos, enquanto o impacto mede as mudanças mais amplas e de longo prazo na sociedade.",
+                hint: "Pense em 'resultado' como o que foi alcançado diretamente e 'impacto' como as consequências mais duradouras dessas conquistas.",
+                explanation: "Indicadores de Resultado medem os efeitos imediatos e diretos de uma política pública, como o número de pessoas atendidas ou a melhoria em um serviço. Já os Indicadores de Impacto avaliam as mudanças mais amplas e de longo prazo na sociedade, como a redução da pobreza ou o aumento da qualidade de vida. Ambos são essenciais para uma avaliação completa da eficácia de uma política."
+            },
+            {
+                question: "4. A análise exploratória de dados (AED) tem como principal função:",
+                options: [
+                    "Confirmar hipóteses previamente estabelecidas.",
+                    "Gerar um relatório final de uma política pública.",
+                    "Descobrir padrões, anomalias e relações nos dados antes de aplicar modelos estatísticos complexos.",
+                    "Apenas limpar e organizar bases de dados.",
+                    "Validar o modelo econométrico utilizado."
+                ],
+                correctAnswer: "Descobrir padrões, anomalias e relações nos dados antes de aplicar modelos estatísticos complexos.",
+                hint: "A AED é a primeira etapa na análise de dados, onde o pesquisador 'conversa' com os dados para entender sua natureza.",
+                explanation: "A Análise Exploratória de Dados (AED) é uma etapa inicial na análise de dados que visa explorar e entender a estrutura dos dados, identificar padrões, detectar anomalias e formular hipóteses. Ela utiliza técnicas gráficas e estatísticas descritivas para resumir as principais características dos dados, preparando o terreno para análises mais complexas."
+            },
+            {
+                question: "5. A 'validação' de um indicador se refere a quê?",
+                options: [
+                    "Ao processo de coletar os dados para o indicador.",
+                    "À verificação de que o indicador realmente mede o que se propõe a medir (sua validade).",
+                    "À interpretação dos resultados do indicador.",
+                    "Apenas à sua divulgação para a população.",
+                    "Ao cálculo de sua média e desvio-padrão."
+                ],
+                correctAnswer: "À verificação de que o indicador realmente mede o que se propõe a medir (sua validade).",
+                hint: "Um indicador pode ser confiável (medir sempre da mesma forma), mas não válido (não medir o que deveria).",
+                explanation: "A validação de um indicador é o processo de verificar se ele realmente mede o que se propõe a medir, ou seja, sua validade. Isso é crucial para garantir que as decisões baseadas nesses indicadores sejam fundamentadas em dados precisos e relevantes. A validade pode ser avaliada por meio de diferentes métodos, como comparação com outros indicadores ou análise de conteúdo."
+            },
+            {
+                question: "6. Qual das seguintes atividades é a principal no 'tratamento de bases de dados'?",
+                options: [
+                    "Apenas a criação de gráficos e tabelas.",
+                    "A limpeza, organização e padronização dos dados para garantir sua qualidade e integridade.",
+                    "A aplicação de modelos multivariados.",
+                    "A interpretação dos resultados finais da pesquisa.",
+                    "A escrita do relatório de avaliação."
+                ],
+                correctAnswer: "A limpeza, organização e padronização dos dados para garantir sua qualidade e integridade.",
+                hint: "É a etapa inicial e fundamental para que qualquer análise posterior seja confiável. Dados 'sujos' geram resultados errados.",
+                explanation: "O tratamento de bases de dados envolve a limpeza, organização e padronização dos dados coletados, garantindo que estejam em um formato adequado para análise. Isso inclui a remoção de duplicatas, correção de erros, preenchimento de valores ausentes e transformação dos dados conforme necessário. Um bom tratamento é essencial para assegurar a qualidade e a integridade dos dados, permitindo análises precisas e confiáveis."
+            },
+            {
+                question: "7. A 'análise inferencial de dados' tem como objetivo:",
+                options: [
+                    "Apenas descrever os dados de uma amostra.",
+                    "Fazer previsões sobre uma população maior com base nos dados de uma amostra.",
+                    "Criar gráficos para visualização.",
+                    "Organizar a base de dados em tabelas.",
+                    "Identificar erros nos dados coletados."
+                ],
+                correctAnswer: "Fazer previsões sobre uma população maior com base nos dados de uma amostra.",
+                hint: "A palavra 'inferencial' sugere 'inferir' ou 'generalizar' os resultados da amostra para o universo estudado.",
+                explanation: "A análise inferencial de dados utiliza técnicas estatísticas para fazer generalizações ou previsões sobre uma população maior com base nos dados coletados de uma amostra. Isso inclui a realização de testes de hipóteses, construção de intervalos de confiança e aplicação de modelos estatísticos para entender relações entre variáveis e prever comportamentos futuros."
+            },
+            {
+                question: "8. Em que contexto a análise de 'Big Data' é especialmente relevante para a avaliação de políticas públicas?",
+                options: [
+                    "Em pesquisas com amostras muito pequenas e controladas.",
+                    "No uso de modelos estatísticos simples.",
+                    "Na análise de grandes volumes de dados de diversas fontes (redes sociais, sensores, etc.) para identificar tendências e padrões complexos.",
+                    "Apenas para a análise de dados qualitativos.",
+                    "Na coleta de dados por meio de questionários impressos."
+                ],
+                correctAnswer: "Na análise de grandes volumes de dados de diversas fontes (redes sociais, sensores, etc.) para identificar tendências e padrões complexos.",
+                hint: "O 'Big Data' permite processar informações que seriam inviáveis para análises tradicionais, revelando insights profundos sobre o comportamento social.",
+                explanation: "A análise de Big Data é relevante para a avaliação de políticas públicas porque permite o processamento e a análise de grandes volumes de dados provenientes de diversas fontes, como redes sociais, sensores e registros administrativos. Isso possibilita a identificação de tendências, padrões e correlações complexas que podem informar a formulação e a avaliação de políticas públicas de maneira mais eficaz e precisa."
+            },
+            {
+                question: "9. O que são 'modelos multivariados'?",
+                options: [
+                    "Modelos que utilizam apenas uma única variável.",
+                    "Modelos estatísticos que analisam a relação entre três ou mais variáveis simultaneamente.",
+                    "Modelos utilizados apenas para a análise de dados qualitativos.",
+                    "Modelos para calcular a média e a moda de um conjunto de dados.",
+                    "Modelos que servem apenas para descrever dados."
+                ],
+                correctAnswer: "Modelos estatísticos que analisam a relação entre três ou mais variáveis simultaneamente.",
+                hint: "O prefixo 'multi-' indica a presença de múltiplas variáveis na análise.",
+                explanation: "Modelos multivariados são técnicas estatísticas que permitem analisar a relação entre três ou mais variáveis ao mesmo tempo. Eles são úteis para entender como diferentes fatores interagem entre si e influenciam um determinado resultado, sendo amplamente utilizados em avaliações de políticas públicas para identificar determinantes complexos e multifacetados."
+            },
+            {
+                question: "10. Qual a principal utilidade da interpretação de indicadores em um processo de avaliação?",
+                options: [
+                    "Transformar os dados brutos em números.",
+                    "Garantir que os dados foram coletados corretamente.",
+                    "Traduzir os resultados numéricos ou qualitativos em informações claras e úteis para a tomada de decisões.",
+                    "Definir a metodologia da pesquisa.",
+                    "Publicar o relatório final em revistas acadêmicas."
+                ],
+                correctAnswer: "Traduzir os resultados numéricos ou qualitativos em informações claras e úteis para a tomada de decisões.",
+                hint: "Um indicador por si só não diz muito. É a interpretação que o torna uma ferramenta de gestão e avaliação.",
+                explanation: "A interpretação de indicadores é crucial para transformar dados brutos em informações significativas que possam orientar a tomada de decisões. Isso envolve analisar os resultados numéricos ou qualitativos, contextualizá-los e extrair insights que ajudem a entender o desempenho de uma política pública, identificar áreas de melhoria e informar futuras ações."
+            }
+            ]
+        };
+
+        // Referências aos elementos da interface
+        const homeScreen = document.getElementById('home-screen');
+        const eixoContentScreen = document.getElementById('eixo-content-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        
+        const eixoContentTitle = document.getElementById('eixo-content-title');
+        const eixoContentText = document.getElementById('eixo-content-text');
+        const currentEixoTitle = document.getElementById('current-eixo-title');
+        const questionText = document.getElementById('question-text');
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const optionsContainer = document.getElementById('options-container');
+        const hintButton = document.getElementById('hint-button');
+        const hintText = document.getElementById('hint-text');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const nextButton = document.getElementById('next-button');
+        const finalScore = document.getElementById('final-score');
+
+        // Função para exibir a tela de conteúdo do eixo temático
+        function showEixoContent(eixo) {
+            quizState.currentEixo = eixo;
+            eixoContentTitle.textContent = `Eixo: ${eixo}`;
+            eixoContentText.innerHTML = eixoContent[eixo];
+            
+            homeScreen.classList.add('hidden');
+            eixoContentScreen.classList.remove('hidden');
+        }
+
+        // Função para iniciar o quiz após ver o conteúdo do eixo
+        function startQuiz() {
+            quizState.questions = quizData[quizState.currentEixo];
+            quizState.currentQuestionIndex = 0;
+            quizState.score = 0;
+
+            eixoContentScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            updateQuizUI();
+        }
+
+        // Função para voltar à tela inicial
+        function goToHome() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            eixoContentScreen.classList.add('hidden');
+            homeScreen.classList.remove('hidden');
+        }
+
+        // Função para atualizar a interface do quiz com a pergunta atual
+        function updateQuizUI() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            
+            currentEixoTitle.textContent = quizState.currentEixo;
+            questionText.textContent = currentQuestion.question;
+            questionCounter.textContent = `Pergunta ${quizState.currentQuestionIndex + 1} de ${quizState.questions.length}`;
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+            
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('w-full', 'bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white', 'text-gray-800', 'font-medium', 'py-3', 'px-4', 'rounded-lg', 'text-left', 'transition-colors', 'duration-200');
+                button.onclick = () => selectAnswer(button, option);
+                optionsContainer.appendChild(button);
+            });
+
+            // Resetar estados de dica e explicação
+            hintButton.classList.remove('hidden');
+            hintText.classList.add('hidden');
+            explanationContainer.classList.add('hidden');
+            nextButton.classList.add('hidden');
+        }
+        
+        // Função para mostrar a dica
+        function showHint() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            hintText.textContent = `Dica: ${currentQuestion.hint}`;
+            hintText.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+        }
+
+        // Função para selecionar uma resposta
+        function selectAnswer(selectedButton, selectedOption) {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correctAnswer;
+            
+            // Desabilitar todas as opções
+            Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+
+            // Destacar respostas
+            if (isCorrect) {
+                quizState.score++;
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-green-500', 'text-white');
+            } else {
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-red-500', 'text-white');
+                // Destacar a resposta correta também
+                Array.from(optionsContainer.children).find(btn => btn.textContent === currentQuestion.correctAnswer).classList.add('bg-green-500', 'text-white');
+            }
+            
+            // Mostrar a explicação e o botão de próxima pergunta
+            explanationText.textContent = currentQuestion.explanation;
+            explanationContainer.classList.remove('hidden');
+            nextButton.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+        }
+
+        // Função para avançar para a próxima pergunta
+        function nextQuestion() {
+            quizState.currentQuestionIndex++;
+            if (quizState.currentQuestionIndex < quizState.questions.length) {
+                updateQuizUI();
+            } else {
+                showResults();
+            }
+        }
+
+        // Função para exibir os resultados finais
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScore.textContent = `Você acertou ${quizState.score} de ${quizState.questions.length} perguntas do eixo '${quizState.currentEixo}'.`;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz CPNU - Bloco 9</title>
+    <link rel="icon" type="image/png" href="brasil.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 48rem;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .themed-button {
+            transition: all 0.2s;
+        }
+        .themed-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .themed-button-active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .top-border {
+            width: 100%;
+            height: 1.5rem;
+            background-color: #1e3a8a;
+        }
+        .themed-footer {
+            width: 100%;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.5rem 1rem; /* Aumentado para 1.5rem no eixo vertical (topo/fundo) */
+        }
+        .footer-border-image {
+            width: 100%;
+            height: 18px;
+            display: block;
+        }
+        .footer-content {
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .contact-link {
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+        .contact-link:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-border"></div>
+
+    <div class="container">
+        
+        <div id="home-screen" class="text-center">
+
+            <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">Quiz Preparatório CPNU - Bloco 9</h1>
+            <p class="text-lg text-gray-600 mb-8">Selecione um eixo temático para estudar os conteúdos e começar o quiz.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Língua Portuguesa')">
+                    Língua Portuguesa
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Matemática')">
+                    Matemática
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Noções de Direito')">
+                    Noções de Direito
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Realidade Brasileira')">
+                    Realidade Brasileira
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Regulação e Agências Reguladoras')">
+                  Regulação e Agências Reguladoras
+                </button>
+               
+            </div>
+            
+            <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center w-full mt-6 justify-center" onclick="goToPreviousPage()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    Voltar
+</button>
+        </div>
+
+        <div id="eixo-content-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4" id="eixo-content-title"></h2>
+            <div id="eixo-content-text" class="text-left bg-gray-50 p-6 rounded-xl shadow-inner overflow-y-auto max-h-96 text-gray-700">
+                </div>
+            <div class="mt-6 flex justify-between gap-4">
+                <button class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="startQuiz()">
+                    Iniciar Quiz
+                </button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <div class="mb-6 pb-4 border-b border-gray-300">
+                <p class="text-indigo-600 font-semibold text-lg" id="current-eixo-title"></p>
+                <h2 class="text-2xl font-bold mt-2 text-gray-800" id="question-text"></h2>
+                <div class="flex justify-between items-center text-sm mt-2">
+                    <p class="text-gray-500" id="question-counter"></p>
+                    <p class="text-green-600 font-bold" id="score-counter"></p>
+                </div>
+            </div>
+
+            <div id="options-container" class="space-y-4 mb-4">
+                </div>
+            
+            <button id="hint-button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-lg shadow-sm transition-colors duration-200 mt-4" onclick="showHint()">
+                Dica
+            </button>
+            <div id="hint-text" class="hidden mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-gray-700"></div>
+
+            <div id="explanation-container" class="hidden mt-6 p-6 rounded-lg border border-green-600 bg-green-50">
+                <p class="font-bold text-green-700 mb-2">Explicação:</p>
+                <p id="explanation-text" class="text-gray-700"></p>
+            </div>
+            
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="back-to-home-button" class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button id="next-button" class="w-1/2 hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="nextQuestion()">
+                    Próxima Pergunta
+                </button>
+            </div>
+        </div>
+
+        <div id="results-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4">Quiz Concluído!</h2>
+            <p id="final-score" class="text-xl mb-6 text-gray-800"></p>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                Voltar para o Início
+            </button>
+        </div>
+    </div>
+    
+    <footer class="w-full mt-auto">
+        <img src="7e4bab99-0869-4fec-bb88-19225341d17c (1).png" alt="Borda decorativa" class="footer-border-image">
+        <div class="themed-footer">
+    <div class="footer-content">
+        <div class="flex items-center space-x-4">
+           <a href="contato.html" class="text-sm text-gray-300 hover:text-white transition-colors duration-200">
+                Dúvidas? Entre em contato!
+            </a>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
+            <a href="mailto:contato@luizcodedev.tech" class="contact-link text-sm">Email</a>
+            <a href="https://wa.me/5511995432530" target="_blank" class="contact-link text-sm">WhatsApp</a>
+            <a href="https://www.linkedin.com/in/luiz-eduardo-82a942179/" target="_blank" class="contact-link text-sm">LinkedIn</a>
+        </div>
+    </div>
+    <div class="text-center text-gray-400 text-xs mt-2 md:mt-0">
+        &copy; 2025 LuizDev. Todos os direitos reservados.
+    </div>
+</div>
+    </footer>
+
+      
+
+     <script>
+        // Objeto global para armazenar o estado do quiz
+        let quizState = {
+            questions: [],
+            currentQuestionIndex: 0,
+            score: 0,
+            currentEixo: ''
+        };
+
+        function goToPreviousPage() {
+    // Isso fará o navegador voltar para a página anterior no histórico
+    window.history.back();
+}
+
+        // Conteúdo de estudo para cada eixo temático
+        const eixoContent = {
+            'Língua Portuguesa': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Compreensão de textos;</li>
+  <li>2. A organização textual dos vários modos de organização discursiva; 2.1. Coerência e coesão;</li>
+  <li>3. Ortografia e acentuação gráfica;</li>
+  <li>4. Classe, estrutura, formação e significação de vocábulos;</li>
+  <li>5. Derivação e composição;</li>
+  <li>6. A oração e seus termos;</li>
+  <li>7. A estruturação do período;</li>
+  <li>8. As classes de palavras: aspectos morfológicos, sintáticos e estilísticos;</li>
+  <li>9. Linguagem figurada;</li>
+  <li>10. Norma padrão: concordância verbal e nominal; regência verbal e nominal; emprego do pronome relativo; emprego do acento grave; colocação pronominal; pontuação.</li>
+                </ul>
+            `,
+            'Matemática': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Conjuntos numéricos: naturais, inteiros, racionais e reais; múltiplos, divisores, números primos; potências e raízes;</li>
+  <li>2. Sistemas de Unidades de Medidas: comprimento, área, volume, massa e tempo;</li>
+  <li>3. Razão e proporção: regra de três simples e composta; porcentagem, juros simples e compostos;</li>
+  <li>4. Probabilidade;</li>
+  <li>5. Estatística básica: leitura e interpretação de dados representados em tabelas e gráficos; medidas de tendência central (média, mediana, moda).</li>
+                   
+                </ul>
+            `,
+            'Noções de Direito': `
+                <ul class="list-disc list-inside space-y-2">
+                  <li>1. Direito e garantias fundamentais. 1.1. Direitos e deveres individuais e coletivos. 1.2. Direito à vida, à liberdade, à igualdade, à segurança e à propriedade. 1.3. Direitos sociais. 1.4 Nacionalidade. 1.5. Cidadania. 1.6. Garantias constitucionais individuais. 1.7. Garantias dos direitos coletivos, sociais e políticos.</li>
+  <li>2. A Organização do Estado. 2.1. Administração pública (artigos de 37 a 41, da Constituição Federal de 1988).</li>
+  <li>3. Direito administrativo. 3.1. Conceito, fontes e princípios. 3.2. Organização administrativa da União; administração direta, indireta, centralizada e descentralizada. 3.3. Agentes públicos: poderes, deveres e prerrogativas; cargo, emprego e função públicos. Regime Jurídico Único (Lei nº 8.112/1990 e suas alterações): provimento, vacância, remoção, redistribuição e substituição; direitos e vantagens; regime disciplinar; responsabilidade civil, criminal e administrativa. 3.4. Poderes administrativos: poder hierárquico; poder disciplinar; poder regulamentar; poder de polícia; uso e abuso do poder. 3.5. Ato administrativo: validade, eficácia; atributos; extinção, desfazimento e sanatória; classificação, espécies e exteriorização; vinculação e discricionariedade. 3.6. Serviços públicos: conceito, classificação, regulamentação e controle; delegação: concessão, permissão, autorização. 3.7. Controle e responsabilização da administração: controle administrativo; controle judicial; controle legislativo; responsabilidade civil do Estado; sanções aplicáveis aos atos de improbidade administrativa (Lei nº 8.429/1992, Lei nº 14.230/2021 e suas alterações). 3.8. Lei do Processo Administrativo (Lei nº 9.784/1999 e suas alterações).</li>
+  <li>4. Acesso à informação no âmbito da Administração Pública (Lei nº 12.527/2011).</li>
+  <li>5. Lei Geral de Proteção de Dados - Lei nº 13.709/2018.</li>
+  <li>6. Noções de Direito do Consumidor (Lei nº 8.076, de 1990).</li>
+  <li>7. Noções de Defesa da Concorrência. (Lei nº 12.529/2011).</li>
+                </ul>
+            `,
+            'Realidade Brasileira': `
+                <ul class="list-disc list-inside space-y-2">
+                  <li>1. Dinâmica social no Brasil: estratificação, desigualdade e exclusão social. 1.1. Desafios sociopolíticos da inclusão de grupos vulnerabilizados: crianças e adolescentes; idosos; LGBTQIA+; pessoas com deficiências; pessoas em situação de rua, povos indígenas, comunidades quilombolas e demais minorias sociais.</li>
+  <li>2. Desenvolvimento econômico, concentração da renda e riqueza.</li>
+  <li>3. Desenvolvimento sustentável e meio ambiente.</li>
+  <li>4. Matriz energética: fontes renováveis e não renováveis; mudança climática; transição energética.</li>
+  <li>5. Desenvolvimento urbano brasileiro: redes urbanas; metropolização; crescimento das cidades e problemas urbanos.</li>
+  <li>6. Desenvolvimento nacional e infraestrutura.</li>
+  <li>7. Desigualdades regionais.</li>
+                </ul>
+            `,
+            'Regulação e Agências Reguladoras': `
+                <ul class="list-disc list-inside space-y-2">
+                   <li>1. O papel regulador do Estado: pressupostos, objetivos e instrumentos; conceitos básicos: regulação econômica e social; externalidades, bens públicos e bens comuns, assimetria de informação; falhas de mercado (barreiras de entrada); Estado e regulação; falhas de governo; conceitos de regulação, autorregulação, desregulação e regulação.</li>
+  <li>2. Agências Reguladoras: histórico, conceito, estrutura jurídica, funções e controle. Autonomia administrativa e poder normativo.</li>
+  <li>3. Reforma do Estado e o papel das Agências Reguladoras.</li>
+  <li>4. Boas práticas regulatórias: 4.1. Análise de Impacto Regulatório (AIR). 4.2. Avaliação de Resultado Regulatório (ARR). 4.3. Agenda Regulatória e o processo de participação e controle social.</li>
+  <li>5. Boas práticas de fiscalização.</li>
+  <li>6. Noções de gerenciamento, controle e garantia da qualidade. Auditoria da qualidade.</li>
+  <li>7. Noções de análise e gerenciamento de risco.</li>
+  <li>8. Fiscalização responsiva.</li>
+  <li>9. Processo administrativo sancionador.</li>
+                    
+                </ul>
+            `,
+           
+        };
+
+        // Dados do quiz: perguntas, opções, respostas, dicas e explicações
+        const quizData = {
+             'Língua Portuguesa': [
+                {
+                question: "1. Leia o trecho: 'A tecnologia transformou a comunicação, mas o ser humano ainda busca a conexão real.' Qual a ideia central do texto?",
+                options: [
+                    "A tecnologia substituiu completamente a comunicação humana.",
+                    "A tecnologia é prejudicial para as relações pessoais.",
+                    "Apesar da tecnologia, a necessidade de interação humana genuína persiste.",
+                    "A comunicação real é impossível na era digital."
+                ],
+                correctAnswer: "Apesar da tecnologia, a necessidade de interação humana genuína persiste.",
+                hint: "O texto apresenta uma ideia de contraste ou ressalva ('mas'), indicando que a segunda parte é a mais importante.",
+                explanation: "O trecho sugere que, mesmo com os avanços tecnológicos, as pessoas ainda valorizam a conexão humana verdadeira, o que é uma crítica à superficialidade das interações digitais."
+            },
+            {
+                question: "2. Em 'Estudei muito, **porém** não consegui a nota máxima.' A palavra em destaque é um conectivo que estabelece uma relação de:",
+                options: [
+                    "Adição.",
+                    "Conclusão.",
+                    "Alternância.",
+                    "Oposição."
+                ],
+                correctAnswer: "Oposição.",
+                hint: "Pense no sentido da palavra 'porém' e o que ela expressa em relação à primeira parte da frase.",
+                explanation: "A palavra 'porém' é um conectivo que expressa oposição, indicando que, apesar de ter estudado muito, o resultado não foi o esperado."
+            },
+            {
+                question: "3. Qual das palavras abaixo está incorretamente acentuada?",
+                options: [
+                    "Amável",
+                    "Caráter",
+                    "Rubrica",
+                    "Ímã"
+                ],
+                correctAnswer: "Rubrica",
+                hint: "Atenção à posição da sílaba tônica. A palavra 'rubrica' é paroxítona, com a sílaba tônica em 'bri'.",
+                explanation: "A palavra 'rubrica' é uma paroxítona terminada em 'a', portanto não leva acento. As outras palavras estão acentuadas corretamente."
+            },
+            {
+                question: "4. Na frase 'O aluno **inteligente** resolveu o problema **rapidamente**.', as palavras em destaque são, respectivamente:",
+                options: [
+                    "Advérbio e Adjetivo.",
+                    "Adjetivo e Adjetivo.",
+                    "Adjetivo e Advérbio.",
+                    "Advérbio e Advérbio."
+                ],
+                correctAnswer: "Adjetivo e Advérbio.",
+                hint: "Lembre-se que o adjetivo qualifica um substantivo, e o advérbio modifica um verbo, adjetivo ou outro advérbio.",
+                explanation: "A palavra 'inteligente' é um adjetivo que qualifica o substantivo 'aluno', enquanto 'rapidamente' é um advérbio que modifica o verbo 'resolveu'."
+            },
+            {
+                question: "5. A palavra 'embelezar' é formada pelo processo de:",
+                options: [
+                    "Composição.",
+                    "Derivação prefixal e sufixal.",
+                    "Derivação parassintética.",
+                    "Derivação regressiva."
+                ],
+                correctAnswer: "Derivação parassintética.",
+                hint: "Neste caso, a palavra-base ('belo') recebe um prefixo ('em-') e um sufixo ('-eza-r') simultaneamente. A palavra não existe se apenas um deles for retirado.",
+                explanation: "A palavra 'embelezar' é formada pela adição do prefixo 'em-' e do sufixo '-eza' à raiz 'belo', caracterizando a derivação parassintética, pois ambos os afixos são necessários para a formação da nova palavra."
+            },
+            {
+                question: "6. Na oração 'O técnico pediu a substituição do jogador.', o termo 'do jogador' exerce a função de:",
+                options: [
+                    "Sujeito.",
+                    "Objeto direto.",
+                    "Objeto indireto.",
+                    "Complemento nominal."
+                ],
+                correctAnswer: "Objeto indireto.",
+                hint: "O verbo 'pediu' pede um complemento com preposição ('a substituição **do** jogador').",
+                explanation: "O termo 'do jogador' é um complemento do substantivo 'substituição', indicando a quem se refere a substituição, caracterizando-o como objeto indireto."
+            },
+            {
+                question: "7. O período 'O sol brilhou e as flores se abriram.' é classificado como:",
+                options: [
+                    "Simples.",
+                    "Composto por coordenação.",
+                    "Composto por subordinação.",
+                    "Composto por justa posição."
+                ],
+                correctAnswer: "Composto por coordenação.",
+                hint: "O período tem duas orações independentes, unidas por uma conjunção.",
+                explanation: "O período é composto por duas orações independentes ('O sol brilhou' e 'as flores se abriram'), ligadas pela conjunção 'e', caracterizando uma coordenação."
+            },
+            {
+                question: "8. Na frase 'O café estava **muito** quente.', o termo em destaque, que modifica o adjetivo 'quente', é um advérbio de:",
+                options: [
+                    "Tempo.",
+                    "Modo.",
+                    "Intensidade.",
+                    "Lugar."
+                ],
+                correctAnswer: "Intensidade.",
+                hint: "Pense na função da palavra 'muito' nesta frase: ela intensifica a característica 'quente'.",
+                explanation: "O advérbio 'muito' indica intensidade, ou seja, o grau elevado da qualidade expressa pelo adjetivo 'quente'."
+            },
+            {
+                question: "9. Em 'A vida é uma caixinha de surpresas.', a figura de linguagem utilizada é:",
+                options: [
+                    "Metonímia.",
+                    "Hipérbole.",
+                    "Metáfora.",
+                    "Ironia."
+                ],
+                correctAnswer: "Metáfora.",
+                hint: "Há uma comparação implícita, sem o uso de conectivos como 'como' ou 'tal qual'.",
+                explanation: "A metáfora é uma figura de linguagem que estabelece uma relação de semelhança entre dois termos, sem o uso de conectivos comparativos. Na frase, 'caixinha de surpresas' representa a vida de forma figurada, sugerindo que ela é cheia de imprevistos."
+            },
+            {
+                question: "10. Qual a alternativa em que a concordância verbal está correta?",
+                options: [
+                    "Fazem dez anos que não nos vemos.",
+                    "Haviam muitos candidatos na prova.",
+                    "Eram duas horas quando o relógio bateu.",
+                    "Bateu duas horas o relógio."
+                ],
+                correctAnswer: "Eram duas horas quando o relógio bateu.",
+                hint: "Verbos que indicam tempo cronológico concordam com o número de horas.",
+                explanation: "A concordância verbal correta é 'Eram duas horas', pois o verbo 'ser' concorda com o sujeito composto 'duas horas'. As outras opções apresentam erros de concordância verbal."
+            },
+            {
+                question: "11. Qual a frase que apresenta o uso correto da regência verbal?",
+                options: [
+                    "Assisti ao filme ontem.",
+                    "Assisti o filme ontem.",
+                    "O médico assistiu o paciente.",
+                    "Assistimos para o show."
+                ],
+                correctAnswer: "Assisti ao filme ontem.",
+                hint: "O verbo 'assistir', no sentido de ver, exige a preposição 'a'.",
+                explanation: "O verbo 'assistir' no sentido de ver exige a preposição 'a'. A frase correta é 'Assisti ao filme ontem'. As outras opções apresentam erros de regência verbal."
+            },
+            {
+                question: "12. Qual pronome relativo completa a frase 'O aluno _____ notas foram excelentes, foi premiado.'?",
+                options: [
+                    "cujo",
+                    "que",
+                    "o qual",
+                    "onde"
+                ],
+                correctAnswer: "cujo",
+                hint: "Use 'cujo' para indicar posse entre um termo antecedente ('aluno') e um subsequente ('notas').",
+                explanation: "O pronome 'cujo' indica posse e concorda com o antecedente em gênero e número. Na frase, 'cujo' refere-se às 'notas' do 'aluno'."
+            },
+            {
+                question: "13. Assinale a alternativa em que a crase está empregada corretamente.",
+                options: [
+                    "Amanhã iremos à praia.",
+                    "Fomos à pé até a escola.",
+                    "À partir de agora, tudo será diferente.",
+                    "Referiu-se à ela com carinho."
+                ],
+                correctAnswer: "Amanhã iremos à praia.",
+                hint: "O verbo 'ir' e o substantivo 'praia' exigem a preposição 'a' e o artigo 'a', resultando na crase.",
+                explanation: "A crase é a fusão da preposição 'a' com o artigo definido feminino 'a'. Na frase, 'ir à praia' exige crase porque o verbo 'ir' pede preposição e 'praia' é feminino singular."
+            },
+            {
+                question: "14. Na frase 'Em se tratando de política, prefiro não opinar.', a colocação pronominal é:",
+                "options": [
+                    "Ênclise.",
+                    "Mesóclise.",
+                    "Próclise.",
+                    "Não há colocação pronominal."
+                ],
+                "correctAnswer": "Próclise.",
+                hint: "A próclise é obrigatória quando a oração é iniciada por conjunção subordinativa ou palavra de sentido negativo.",
+                explanation: "A próclise ocorre quando o pronome oblíquo átono é colocado antes do verbo, especialmente quando há palavras atrativas como 'em', 'se' ou palavras negativas. A frase inicia com 'Em se tratando', o que exige a próclise."
+            },
+            {
+                question: "15. Em 'O livro, que comprei na feira, é muito bom.', o uso da vírgula é obrigatório porque a oração em destaque é:",
+                options: [
+                    "Adverbial.",
+                    "Subordinada substantiva.",
+                    "Subordinada adjetiva explicativa.",
+                    "Subordinada adjetiva restritiva."
+                ],
+                correctAnswer: "Subordinada adjetiva explicativa.",
+                hint: "A oração 'que comprei na feira' está entre vírgulas, adicionando uma informação extra sobre o livro, não sendo essencial para o sentido.",
+                explanation: "A oração subordinada adjetiva explicativa fornece uma informação adicional sobre o substantivo 'livro', sem alterar o sentido principal da frase. As vírgulas são usadas para isolar essa informação."
+            }
+            ],
+            'Matemática': [
+             {
+                question: "1. Qual o menor número primo que é também um número par?",
+                options: [
+                    "0",
+                    "1",
+                    "2",
+                    "4"
+                ],
+                correctAnswer: "2",
+                hint: "Números primos são divisíveis apenas por 1 e por si mesmos. O '2' é o único primo que se encaixa nessa condição.",
+                explanation: "O número 2 é o menor número primo e o único número primo par, pois os outros números pares são divisíveis por 2, o que os torna não primos."
+            },
+            {
+                question: "2. Qual dos seguintes números é um número primo?",
+                options: [
+                    "27",
+                    "39",
+                    "51",
+                    "41"
+                ],
+                correctAnswer: "41",
+                hint: "Um número primo é um número natural maior que 1 que só pode ser dividido por 1 e por ele mesmo. Verifique a divisibilidade de cada opção.",
+                explanation: "O número 41 é primo porque não pode ser dividido por nenhum outro número além de 1 e 41. Os outros números têm divisores além de 1 e eles mesmos."
+            },
+            {
+                question: "3. Se a potenciação de um número é igual a 81, qual é o número que elevado a 4 resulta em 81?",
+                options: [
+                    "2",
+                    "3",
+                    "9",
+                    "27"
+                ],
+                correctAnswer: "3",
+                hint: "Para encontrar a resposta, você precisa descobrir qual número, quando multiplicado por si mesmo quatro vezes, resulta em 81.",
+                explanation: "A equação 3^4 = 81 confirma que o número é 3, pois 3 multiplicado por si mesmo quatro vezes (3 x 3 x 3 x 3) resulta em 81."
+            },
+            {
+                question: "4. Uma caixa de água tem a forma de um cubo com 2 metros de aresta. Qual é o volume dessa caixa em litros?",
+                options: [
+                    "8 litros",
+                    "200 litros",
+                    "8.000 litros",
+                    "2.000 litros"
+                ],
+                correctAnswer: "8.000 litros",
+                hint: "O volume de um cubo é 'aresta x aresta x aresta'. Lembre-se que 1 metro cúbico equivale a 1.000 litros.",
+                explanation: "O volume de um cubo é calculado pela fórmula V = a³, onde 'a' é a aresta. Assim, V = 2 x 2 x 2 = 8 metros cúbicos. Convertendo para litros, temos 8 m³ x 1.000 = 8.000 litros."
+            },
+            {
+                question: "5. Se 5 máquinas produzem 1.000 peças em 2 horas, quantas peças 10 máquinas produzem em 4 horas, mantendo a mesma proporção?",
+                options: [
+                    "2.000 peças",
+                    "4.000 peças",
+                    "6.000 peças",
+                    "8.000 peças"
+                ],
+                correctAnswer: "4.000 peças",
+                hint: "Esta é uma regra de três composta. Lembre-se de analisar a relação (direta ou inversa) entre as grandezas 'máquinas', 'tempo' e 'peças'.",
+                explanation: "Se 5 máquinas produzem 1.000 peças em 2 horas, então 10 máquinas (o dobro) produzirão o dobro de peças em 4 horas (o dobro do tempo). Portanto, 1.000 x 2 = 2.000 peças em 2 horas, e em 4 horas serão 2.000 x 2 = 4.000 peças."
+            },
+            {
+                question: "6. Uma loja oferece um desconto de 20% em um produto que custa 150 reais. Qual é o valor final do produto com o desconto?",
+                options: [
+                    "130 reais",
+                    "120 reais",
+                    "30 reais",
+                    "100 reais"
+                ],
+                correctAnswer: "120 reais",
+                hint: "Calcule o valor do desconto (20% de 150) e subtraia esse valor do preço original.",
+                explanation: "O desconto de 20% sobre 150 reais é 30 reais (20/100 * 150 = 30). Portanto, o valor final do produto com o desconto é 150 - 30 = 120 reais."
+            },
+            {
+                question: "7. Uma aplicação financeira rende juros simples de 1% ao mês. Se você investir 10.000 reais, qual será o montante (capital mais juros) após 3 meses?",
+                options: [
+                    "10.100 reais",
+                    "10.300 reais",
+                    "10.030 reais",
+                    "10.303 reais"
+                ],
+                correctAnswer: "10.300 reais",
+                hint: "Em juros simples, o valor dos juros é sempre calculado sobre o capital inicial. Calcule os juros de 1% sobre 10.000 por três meses.",
+                explanation: "Os juros simples são calculados como J = C * i * t, onde C é o capital (10.000), i é a taxa de juros (1% ou 0,01) e t é o tempo (3 meses). Assim, J = 10.000 * 0,01 * 3 = 300 reais. O montante final é C + J = 10.000 + 300 = 10.300 reais."
+            },
+            {
+                question: "8. Em um saco, há 5 bolas azuis, 3 vermelhas e 2 verdes. Se você tirar uma bola ao acaso, qual é a probabilidade de ela ser vermelha?",
+                options: [
+                    "3/5",
+                    "3/10",
+                    "2/10",
+                    "5/10"
+                ],
+                correctAnswer: "3/10",
+                hint: "A probabilidade é calculada como 'número de resultados favoráveis' dividido pelo 'número total de resultados possíveis'.",
+                explanation: "A probabilidade de tirar uma bola vermelha é o número de bolas vermelhas (3) dividido pelo total de bolas (5 + 3 + 2 = 10), resultando em 3/10."
+            },
+            {
+                question: "9. Os salários dos funcionários de uma empresa são 2.000, 2.500, 3.000, 4.000 e 5.500 reais. Qual é o salário médio desses funcionários?",
+                options: [
+                    "3.000 reais",
+                    "3.400 reais",
+                    "2.500 reais",
+                    "3.600 reais"
+                ],
+                correctAnswer: "3.400 reais",
+                hint: "A média aritmética é a soma de todos os valores dividida pela quantidade de valores.",
+                explanation: "Para calcular a média, some todos os salários (2.000 + 2.500 + 3.000 + 4.000 + 5.500 = 17.000) e divida pelo número de funcionários (5). Assim, 17.000 / 5 = 3.400 reais."
+            },
+            {
+                question: "10. Em um gráfico de barras que representa o número de alunos em cada turma de uma escola, a barra mais alta indica a turma com:",
+                options: [
+                    "O maior número de meninas.",
+                    "A maior média de idade.",
+                    "A maior quantidade de alunos.",
+                    "A menor quantidade de alunos."
+                ],
+                correctAnswer: "A maior quantidade de alunos.",
+                hint: "Gráficos de barras são usados para comparar quantidades. A altura da barra é diretamente proporcional ao valor que ela representa.",
+                explanation: "Em um gráfico de barras, a altura da barra representa a quantidade de alunos em cada turma. A barra mais alta indica a turma com o maior número de alunos."
+            },
+            {
+                question: "11. Qual a área de um terreno retangular com 10 metros de largura e 25 metros de comprimento?",
+                options: [
+                    "35 metros quadrados",
+                    "100 metros quadrados",
+                    "250 metros quadrados",
+                    "350 metros quadrados"
+                ],
+                correctAnswer: "250 metros quadrados",
+                hint: "A área de um retângulo é calculada multiplicando a base pela altura. Lembre-se da unidade de medida correta para área.",
+                explanation: "A área de um retângulo é calculada pela fórmula A = base x altura. Neste caso, A = 10 m x 25 m = 250 m²."
+            }
+            ],
+            'Noções de Direito': [
+             {
+                question: "1. De acordo com a Constituição Federal de 1988, é correto afirmar que a pena de morte é:",
+                options: [
+                    "Admitida em caso de guerra declarada.",
+                    "Admitida em crimes hediondos.",
+                    "Admitida em crimes contra a segurança nacional.",
+                    "Expressamente proibida em qualquer hipótese."
+                ],
+                correctAnswer: "Admitida em caso de guerra declarada.",
+                hint: "A CF/88 proíbe a pena de morte, salvo em uma situação específica, conforme o art. 5º, inciso XLVII, alínea 'a'.",
+                explanation: "A Constituição Federal de 1988 proíbe a pena de morte, exceto em caso de guerra declarada, conforme o art. 5º, inciso XLVII, alínea 'a'. Isso reflete o compromisso do Brasil com os direitos humanos e a dignidade da pessoa humana."
+            },
+            {
+                question: "2. O princípio da legalidade, aplicável à Administração Pública, estabelece que a atuação do administrador público deve ser:",
+                options: [
+                    "Subordinada à vontade do povo.",
+                    "Limitada pela lei, só podendo fazer o que a lei autoriza.",
+                    "Pautada na conveniência e oportunidade do gestor.",
+                    "Sempre orientada para a eficiência, mesmo que contrarie a lei."
+                ],
+                correctAnswer: "Limitada pela lei, só podendo fazer o que a lei autoriza.",
+                hint: "O princípio da legalidade na Administração Pública é mais restritivo que para o particular. O particular pode fazer tudo que a lei não proíbe, enquanto o administrador só pode fazer o que a lei expressamente permite.",
+                explanation: "O princípio da legalidade, previsto no art. 37 da CF/88, estabelece que a Administração Pública só pode agir conforme a lei, ou seja, não pode fazer nada que não esteja autorizado por ela. Isso garante segurança jurídica e previsibilidade nas ações do Estado."
+            },
+            {
+                question: "3. O ato de nomeação de um candidato aprovado em concurso público para um cargo efetivo é um exemplo de:",
+                options: [
+                    "Vacância.",
+                    "Remoção.",
+                    "Provimento originário.",
+                    "Substituição."
+                ],
+                correctAnswer: "Provimento originário.",
+                hint: "O provimento é o ato de preencher um cargo público. Quando ocorre o primeiro vínculo entre o servidor e o Estado, é chamado de provimento originário.",
+                explanation: "O provimento originário é o ato administrativo que cria o vínculo inicial entre o servidor público e a Administração, como a nomeação de um candidato aprovado em concurso para um cargo efetivo. É o primeiro passo para a ocupação do cargo."
+            },
+            {
+                question: "4. O poder administrativo que permite à Administração Pública fiscalizar, limitar e regulamentar o exercício de atividades particulares, em prol do interesse coletivo, é o:",
+                options: [
+                    "Poder Hierárquico.",
+                    "Poder Disciplinar.",
+                    "Poder de Polícia.",
+                    "Poder Regulamentar."
+                ],
+                correctAnswer: "Poder de Polícia.",
+                hint: "Este poder está relacionado à capacidade do Estado de intervir na esfera privada para proteger o bem-estar social, como na fiscalização de estabelecimentos comerciais.",
+                explanation: "O poder de polícia é a prerrogativa da Administração Pública de restringir ou condicionar o exercício de atividades privadas em prol do interesse público, garantindo a ordem, a segurança e a saúde da coletividade."
+            },
+            {
+                question: "5. A responsabilidade civil do Estado por danos causados a terceiros é, em regra, de natureza:",
+                options: [
+                    "Subjetiva, exigindo dolo ou culpa.",
+                    "Objetiva, independentemente de dolo ou culpa.",
+                    "Subsidiária, somente se o agente público não puder pagar.",
+                    "Inexistente, pois o Estado é soberano e irresponsável."
+                ],
+                correctAnswer: "Objetiva, independentemente de dolo ou culpa.",
+                hint: "A teoria da responsabilidade objetiva do Estado está prevista no art. 37, § 6º, da CF/88. O dano causado pelo agente público no exercício da função gera o dever de indenizar, independentemente de comprovação de dolo ou culpa do agente.",
+                explanation: "A responsabilidade civil do Estado é objetiva, ou seja, o Estado deve indenizar por danos causados a terceiros independentemente de culpa ou dolo do agente público. Isso está previsto na Constituição Federal, garantindo a proteção dos direitos dos cidadãos."
+            },
+            {
+                question: "6. A Lei de Acesso à Informação (Lei nº 12.527/2011) garante ao cidadão o direito de:",
+                options: [
+                    "Acessar apenas informações sobre sua própria pessoa.",
+                    "Acessar apenas informações sigilosas com autorização judicial.",
+                    "Acessar informações públicas, ressalvadas as legalmente sigilosas.",
+                    "Acessar qualquer tipo de informação, sem exceção."
+                ],
+                correctAnswer: "Acessar informações públicas, ressalvadas as legalmente sigilosas.",
+                hint: "A LAI estabelece a regra da publicidade e a exceção do sigilo, garantindo o acesso a informações de interesse público ou coletivo, exceto aquelas protegidas por lei.",
+                explanation: "A Lei de Acesso à Informação assegura que qualquer pessoa pode solicitar e receber informações públicas, exceto aquelas que estejam legalmente classificadas como sigilosas, garantindo a transparência na administração pública."
+            },
+            {
+                question: "7. Segundo a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018), o tratamento de dados pessoais pode ser realizado sem o consentimento do titular em algumas hipóteses. Uma dessas hipóteses é:",
+                options: [
+                    "Para uso exclusivo do controlador, sem repasse a terceiros.",
+                    "Para o exercício regular de direitos em processo judicial, administrativo ou arbitral.",
+                    "Para fins de marketing e publicidade.",
+                    "Para fins de pesquisa, sem garantia de anonimização."
+                ],
+                correctAnswer: "Para o exercício regular de direitos em processo judicial, administrativo ou arbitral.",
+                hint: "A LGPD prevê bases legais para o tratamento de dados, e o exercício de direitos em processos é uma delas, conforme o art. 7º.",
+                explanation: "A LGPD permite o tratamento de dados pessoais sem consentimento do titular quando necessário para o exercício regular de direitos em processos judiciais, administrativos ou arbitrais, garantindo a proteção dos dados pessoais enquanto permite a atuação legal do controlador."
+            },
+            {
+                question: "8. Conforme o Código de Defesa do Consumidor (CDC), a publicidade que se aproveita da deficiência de julgamento e experiência da criança é considerada:",
+                options: [
+                    "Abusiva.",
+                    "Enganosa.",
+                    "Informativa.",
+                    "Verdadeira, mas imprudente."
+                ],
+                correctAnswer: "Abusiva.",
+                hint: "O CDC (art. 37, § 2º) considera abusiva a publicidade que se aproveita da fragilidade e inexperiência do consumidor, especialmente de crianças.",
+                explanation: "A publicidade abusiva é aquela que explora a vulnerabilidade do consumidor, como no caso de crianças, que não possuem capacidade crítica para discernir a intenção comercial da mensagem publicitária."
+            },
+            {
+                question: "9. O princípio da impessoalidade na Administração Pública significa que:",
+                options: [
+                    "Os atos administrativos devem ser praticados de forma anônima.",
+                    "O agente público não deve ter preferências pessoais ao atuar.",
+                    "A atuação deve ser pautada na vontade do povo.",
+                    "Os atos devem ser registrados em um processo formal."
+                ],
+            "correctAnswer": "O agente público não deve ter preferências pessoais ao atuar.",
+            "hint": "Este princípio proíbe que o administrador público beneficie ou prejudique pessoas com base em simpatias, antipatias ou razões pessoais. Ele deve agir sempre em busca do interesse público.",
+            "explanation": "O princípio da impessoalidade estabelece que a atuação do agente público deve ser neutra, sem favorecimento ou discriminação, visando sempre o interesse coletivo. Isso garante que os atos administrativos sejam realizados de forma justa e equitativa."
+            },
+            {
+                question: "10. Qual das alternativas abaixo NÃO se refere a um dos atributos do ato administrativo?",
+                options: [
+                    "Presunção de legitimidade.",
+                    "Autoexecutoriedade.",
+                    "Tipicidade.",
+                    "Discricionariedade."
+                ],
+                correctAnswer: "Discricionariedade.",
+                hint: "Presunção de legitimidade, autoexecutoriedade e tipicidade são atributos dos atos administrativos. A discricionariedade é uma característica de alguns atos, mas não é considerada um atributo em si, e sim uma faculdade do administrador.",
+                explanation: "Os atos administrativos possuem atributos como presunção de legitimidade (são considerados válidos até prova em contrário), autoexecutoriedade (podem ser executados sem necessidade de ordem judicial) e tipicidade (devem seguir uma forma prevista em lei). A discricionariedade, por outro lado, refere-se à liberdade do administrador em decidir sobre a conveniência e oportunidade de um ato, mas não é um atributo do ato administrativo."
+            }
+            ],
+            'Realidade Brasileira': [
+     {
+                question: "1. A desigualdade social no Brasil é um tema central na 'Dinâmica Social'. Qual das seguintes alternativas descreve melhor a situação de vulnerabilidade social?",
+                options: [
+                    "Falta de acesso a bens e serviços essenciais.",
+                    "Rápido crescimento econômico sem distribuição de renda.",
+                    "Concentração de riqueza em poucas regiões do país.",
+                    "Desenvolvimento de cidades com infraestrutura precária."
+                ],
+                correctAnswer: "Falta de acesso a bens e serviços essenciais.",
+                hint: "A vulnerabilidade social está diretamente relacionada à precariedade das condições de vida e à falta de acesso a direitos básicos, afetando a capacidade de um indivíduo ou grupo de superar dificuldades.",
+                explanation: "A vulnerabilidade social no Brasil é caracterizada pela falta de acesso a bens e serviços essenciais, como saúde, educação, moradia e emprego. Isso perpetua ciclos de pobreza e exclusão social, afetando milhões de brasileiros, especialmente nas regiões mais carentes."
+            },
+            {
+                question: "2. O desenvolvimento econômico brasileiro, historicamente, resultou em uma alta concentração de renda e riqueza. Um dos principais indicadores que mede essa desigualdade é o Índice de Gini. Um valor de Gini próximo de 1 indica:",
+                options: [
+                    "Uma distribuição de renda mais igualitária.",
+                    "Uma distribuição de renda mais desigual.",
+                    "Estabilidade econômica.",
+                    "Alta inflação."
+                ],
+                correctAnswer: "Uma distribuição de renda mais desigual.",
+                hint: "O Índice de Gini varia de 0 a 1. Quanto mais próximo de zero, maior a igualdade. Quanto mais próximo de 1, maior a desigualdade.",
+                explanation: "O Índice de Gini é uma medida de desigualdade de renda. Um valor próximo de 1 indica que a renda está concentrada em poucas pessoas, refletindo uma alta desigualdade social. No Brasil, esse índice tem mostrado uma concentração significativa de riqueza ao longo dos anos."
+            },
+            {
+                question: "3. Na matriz energética brasileira, qual é a principal fonte de energia renovável utilizada para a geração de eletricidade?",
+                options: [
+                    "Energia eólica.",
+                    "Energia solar.",
+                    "Energia hidrelétrica.",
+                    "Biomassa."
+                ],
+                correctAnswer: "Energia hidrelétrica.",
+                hint: "O Brasil tem uma vasta rede hidrográfica, e a construção de grandes usinas hidrelétricas, como Itaipu e Belo Monte, historicamente dominou a produção de energia elétrica no país.",
+                explanation: "A energia hidrelétrica é a principal fonte de energia renovável no Brasil, respondendo por cerca de 60% da matriz elétrica do país. Isso se deve à abundância de rios e ao investimento em grandes usinas hidrelétricas ao longo das últimas décadas."
+            },
+            {
+                question: "4. O processo de metropolização no Brasil se caracteriza pelo crescimento e interligação de grandes cidades, formando regiões metropolitanas. Qual dos seguintes fenômenos é uma consequência direta desse processo?",
+                options: [
+                    "Diminuição dos fluxos migratórios.",
+                    "Descentralização total da produção industrial.",
+                    "Formação de cidades-dormitório e expansão da periferia.",
+                    "Aumento da qualidade de vida em todas as áreas urbanas."
+                ],
+                correctAnswer: "Formação de cidades-dormitório e expansão da periferia.",
+                hint: "A metropolização muitas vezes leva à expansão das áreas periféricas, com a população mais pobre se deslocando para moradias mais baratas, enquanto se desloca diariamente para o centro para trabalhar, criando as cidades-dormitório.",
+                explanation: "A metropolização no Brasil resultou na formação de cidades-dormitório, onde muitas pessoas vivem em áreas periféricas e se deslocam diariamente para o centro urbano em busca de trabalho. Isso gera desafios como transporte público precário, falta de infraestrutura e serviços básicos nas periferias."
+            },
+            {
+                question: "5. A infraestrutura é fundamental para o desenvolvimento nacional. No Brasil, um dos maiores desafios nesse setor é o modal de transporte, que é predominantemente:",
+                options: [
+                    "Ferroviário.",
+                    "Hidroviário.",
+                    "Rodoviário.",
+                    "Aeroviário."
+                ],
+                correctAnswer: "Rodoviário.",
+                hint: "A forte dependência do transporte por rodovias causa problemas como alto custo de frete, congestionamentos e maior poluição, impactando a competitividade e a sustentabilidade.",
+                explanation: "O Brasil possui uma infraestrutura de transporte predominantemente rodoviária, com mais de 60% das cargas sendo transportadas por caminhões. Isso gera desafios como altos custos logísticos, congestionamentos e impactos ambientais, além de limitar o desenvolvimento de outros modais, como o ferroviário e o hidroviário."
+            },
+            {
+                question: "6. A grande desigualdade regional no Brasil é um problema histórico. Qual dos fatores abaixo é considerado um dos principais responsáveis por essa disparidade?",
+                options: [
+                    "Diferenças culturais e linguísticas entre as regiões.",
+                    "Concentração de investimentos e industrialização na região Sudeste.",
+                    "Uniformidade dos recursos naturais em todo o território.",
+                    "Política de descentralização total do poder federal."
+                ],
+                correctAnswer: "Concentração de investimentos e industrialização na região Sudeste.",
+                hint: "O processo de industrialização no Brasil se concentrou principalmente no Sudeste, gerando um polo de desenvolvimento que atraiu mão de obra e investimentos, deixando outras regiões com menor crescimento econômico.",
+                explanation: "A concentração de investimentos e a industrialização na região Sudeste do Brasil resultaram em um desenvolvimento econômico desigual, com outras regiões, como o Norte e o Nordeste, enfrentando desafios maiores em termos de infraestrutura, educação e saúde, perpetuando a desigualdade regional."
+            },
+            {
+                question: "7. A mudança climática impacta o desenvolvimento sustentável. Nas cidades brasileiras, um dos fenômenos relacionados a esse problema é o aumento da frequência de:",
+                options: [
+                    "Ventos fortes e tsunamis.",
+                    "Secas extremas e inundações.",
+                    "Terremotos e erupções vulcânicas.",
+                    "Nevascas e geadas intensas."
+                ],
+                correctAnswer: "Secas extremas e inundações.",
+                hint: "A mudança no padrão de chuvas tem provocado eventos climáticos extremos, como longos períodos de seca em algumas regiões e chuvas intensas que causam inundações e deslizamentos em outras.",
+                explanation: "As mudanças climáticas têm causado um aumento na frequência e intensidade de eventos climáticos extremos, como secas severas em algumas regiões e inundações em outras, afetando a agricultura, a infraestrutura urbana e a qualidade de vida."
+            },
+            {
+                question: "8. Os povos indígenas e as comunidades quilombolas enfrentam desafios para a inclusão social. Um dos direitos fundamentais garantidos a esses grupos pela Constituição Federal é:",
+                options: [
+                    "O direito à propriedade privada de suas terras, com título individual.",
+                    "O direito a um regime jurídico único, igual ao dos demais cidadãos.",
+                    "O direito às suas terras tradicionais, com reconhecimento da organização social e costumes.",
+                    "O direito a serem representados por um único órgão federal."
+                ],
+                correctAnswer: "O direito às suas terras tradicionais, com reconhecimento da organização social e costumes.",
+                hint: "A Constituição reconhece a organização social, costumes, línguas, crenças e tradições dos povos indígenas, e a esses grupos são garantidos os direitos originários sobre as terras que tradicionalmente ocupam. O mesmo se aplica às comunidades quilombolas em relação às terras que ocupam.",
+                explanation: "A Constituição Federal de 1988 garante aos povos indígenas e às comunidades quilombolas o direito às suas terras tradicionais, reconhecendo sua organização social, costumes e modos de vida. Isso é fundamental para a preservação cultural e a autonomia desses grupos."
+            },
+            {
+                question: "9. A transição energética no Brasil busca reduzir a dependência de fontes não renováveis. Qual dos seguintes biocombustíveis é um exemplo de fonte renovável largamente utilizada no país?",
+                options: [
+                    "Gás natural.",
+                    "Carvão mineral.",
+                    "Etanol.",
+                    "Petróleo."
+                ],
+                correctAnswer: "Etanol.",
+                hint: "O Etanol é produzido a partir da cana-de-açúcar, uma fonte renovável, e é amplamente utilizado como combustível em veículos no Brasil, um dos maiores produtores mundiais.",
+                explanation: "O etanol é um biocombustível produzido a partir da cana-de-açúcar e é amplamente utilizado no Brasil, tanto como combustível para veículos quanto como componente da matriz energética, contribuindo para a redução das emissões de gases de efeito estufa."
+            },
+            {
+                question: "10. O rápido e desordenado crescimento das cidades brasileiras gerou diversos problemas urbanos. Qual das alternativas abaixo é uma consequência direta desse crescimento?",
+                options: [
+                    "Distribuição igualitária de serviços de saneamento básico.",
+                    "Planejamento urbano eficiente e de longo prazo.",
+                    "Aumento das áreas verdes e de lazer nas periferias.",
+                    "Ocupação irregular do solo e proliferação de favelas."
+                ],
+                correctAnswer: "Ocupação irregular do solo e proliferação de favelas.",
+                hint: "A falta de planejamento e a dificuldade de acesso à moradia digna levam a populações a ocuparem áreas inadequadas e sem infraestrutura, como encostas e áreas de risco.",
+                explanation: "O crescimento desordenado das cidades brasileiras resultou em ocupações irregulares do solo, onde muitas pessoas vivem em favelas ou áreas sem infraestrutura adequada, refletindo a falta de políticas públicas eficazes para habitação e urbanização."
+            }
+            ],
+            'Regulação e Agências Reguladoras': [
+       {
+                question: "1. Qual dos seguintes conceitos é considerado uma justificativa para a intervenção regulatória do Estado na economia?",
+                options: [
+                    "A busca pela máxima lucratividade das empresas.",
+                    "As falhas de mercado, como as externalidades e a assimetria de informação.",
+                    "O estímulo à livre concorrência sem qualquer intervenção.",
+                    "O controle total sobre a produção e o consumo."
+                ],
+                correctAnswer: "As falhas de mercado, como as externalidades e a assimetria de informação.",
+                hint: "O papel do Estado como regulador é, em grande parte, para corrigir as ineficiências do mercado que a livre concorrência não resolve por si só.",
+                explanation: "O Estado intervém na economia para corrigir falhas de mercado, como externalidades (efeitos colaterais de uma atividade econômica que afetam terceiros) e assimetria de informação (quando uma parte tem mais informações do que a outra), garantindo um ambiente econômico mais justo e eficiente."
+            },
+            {
+                question: "2. A assimetria de informação é uma falha de mercado em que:",
+                options: [
+                    "Um agente possui informações privilegiadas sobre o mercado, enquanto outro não.",
+                    "O preço dos produtos não reflete o custo de produção.",
+                    "Há excesso de informações disponíveis para todos os agentes econômicos.",
+                    "Os custos de transação são inexistentes."
+                ],
+                correctAnswer: "Um agente possui informações privilegiadas sobre o mercado, enquanto outro não.",
+                hint: "É a situação em que o poder de barganha de uma das partes é maior devido ao seu acesso a mais informações relevantes.",
+                explanation: "A assimetria de informação ocorre quando uma das partes em uma transação possui mais ou melhores informações do que a outra, o que pode levar a decisões ineficientes e injustas no mercado. Por exemplo, em um mercado de seguros, a seguradora pode ter mais informações sobre os riscos do que o segurado."
+            },
+            {
+                question: "3. Uma Agência Reguladora se distingue da Administração Pública direta, principalmente, pela sua:",
+                options: [
+                    "Hierarquia direta com o Presidente da República.",
+                    "Maior poder de fiscalização sobre todas as empresas.",
+                    "Autonomia administrativa e financeira, com poder normativo específico.",
+                    "Total ausência de controle por parte dos Poderes da República."
+                ],
+                correctAnswer: "Autonomia administrativa e financeira, com poder normativo específico.",
+                hint: "A autonomia é a característica central das agências reguladoras, permitindo que atuem de forma técnica e independente de pressões políticas.",
+                explanation: "As agências reguladoras possuem autonomia administrativa e financeira, o que lhes permite criar normas e regulamentos específicos para setores econômicos, além de fiscalizar e aplicar sanções, sem estarem subordinadas diretamente ao Poder Executivo."
+            },
+            {
+                question: "4. A Análise de Impacto Regulatório (AIR) é uma boa prática regulatória que tem como objetivo:",
+                options: [
+                    "Avaliar os resultados de uma regulação já em vigor.",
+                    "Determinar a viabilidade financeira de uma agência reguladora.",
+                    "Avaliar a necessidade, os objetivos, as alternativas e os impactos de uma nova norma.",
+                    "Apenas fiscalizar o cumprimento das normas existentes."
+                ],
+                correctAnswer: "Avaliar a necessidade, os objetivos, as alternativas e os impactos de uma nova norma.",
+                hint: "A AIR é uma ferramenta de gestão pública que precede a criação de uma regulação, buscando maior racionalidade na tomada de decisão.",
+                explanation: "A Análise de Impacto Regulatório (AIR) é um processo que visa avaliar se uma nova regulação é necessária, quais são seus objetivos, quais alternativas existem e quais serão os impactos esperados. Isso ajuda a garantir que as normas sejam eficazes e proporcionais aos problemas que buscam resolver."
+            },
+            {
+                question: "5. O conceito de desregulação refere-se a um processo de:",
+                options: [
+                    "Criação de novas normas para regular um setor.",
+                    "Aumento da fiscalização estatal sobre a iniciativa privada.",
+                    "Redução ou eliminação de normas e regras de um setor econômico.",
+                    "Centralização do poder regulatório no governo federal."
+                ],
+                correctAnswer: "Redução ou eliminação de normas e regras de um setor econômico.",
+                hint: "A desregulação é frequentemente utilizada para estimular a concorrência e a inovação em setores que já se tornaram maduros.",
+                explanation: "Desregulação é o processo de reduzir ou eliminar normas e regras que regulam um setor econômico, com o objetivo de aumentar a eficiência, estimular a concorrência e promover a inovação. Isso pode ocorrer em setores como telecomunicações, energia e transporte."
+            },
+            {
+                question: "6. A Avaliação de Resultado Regulatório (ARR) é a ferramenta que serve para:",
+                options: [
+                    "Analisar o impacto de uma regulação antes de sua implementação.",
+                    "Garantir a autonomia financeira de uma agência.",
+                    "Verificar a efetividade, a eficiência e o alcance dos objetivos de uma norma já existente.",
+                    "Estabelecer a agenda de fiscalização da agência."
+                ],
+                correctAnswer: "Verificar a efetividade, a eficiência e o alcance dos objetivos de uma norma já existente.",
+                hint: "A ARR é um processo posterior à regulação, que busca medir se os resultados esperados foram realmente alcançados.",
+                explanation: "A Avaliação de Resultado Regulatório (ARR) é uma prática que permite às agências reguladoras verificar se as normas criadas estão atingindo seus objetivos, se são eficientes e se os impactos esperados estão sendo alcançados. Isso ajuda a ajustar e melhorar as políticas públicas."
+            },
+            {
+                question: "7. O Poder Normativo de uma agência reguladora se manifesta na sua capacidade de:",
+                options: [
+                    "Punir empresas sem processo administrativo.",
+                    "Criar leis sem aprovação do Poder Legislativo.",
+                    "Emitir normas, resoluções e instruções que detalham o que é previsto em lei.",
+                    "Controlar todas as contas bancárias de empresas do setor."
+                ],
+                correctAnswer: "Emitir normas, resoluções e instruções que detalham o que é previsto em lei.",
+                hint: "O poder normativo é o que dá à agência a capacidade de 'traduzir' a lei em regras técnicas e operacionais para um setor.",
+                explanation: "O poder normativo das agências reguladoras permite que elas criem normas e regulamentos específicos para setores econômicos, detalhando como as leis devem ser aplicadas na prática. Isso é essencial para garantir a clareza e a efetividade da regulação."
+            },
+            {
+                question: "8. A Agenda Regulatória é uma boa prática que visa:",
+                options: [
+                    "Definir a lista de empresas que serão fiscalizadas no ano.",
+                    "Dar transparência e previsibilidade ao processo de elaboração de normas.",
+                    "Apenas divulgar os resultados das auditorias da agência.",
+                    "Estabelecer a política de preços para um determinado setor."
+                ],
+                correctAnswer: "Dar transparência e previsibilidade ao processo de elaboração de normas.",
+                hint: "A agenda regulatória informa aos agentes econômicos e à sociedade quais temas serão regulamentados e em qual período, permitindo a participação social.",
+                explanation: "A Agenda Regulatória é um instrumento que organiza e prioriza as atividades de regulação de uma agência, permitindo que a sociedade e os regulados saibam quais normas serão elaboradas e quando, promovendo transparência e participação social no processo regulatório."
+            },
+            {
+                question: "9. O Processo Administrativo Sancionador (PAS) é um instrumento legal que assegura ao regulado:",
+                options: [
+                    "A isenção automática de multas.",
+                    "O direito a um julgamento sumário.",
+                    "O devido processo legal, com direito à ampla defesa e ao contraditório.",
+                    "A interrupção imediata das atividades da empresa."
+                ],
+                correctAnswer: "O devido processo legal, com direito à ampla defesa e ao contraditório.",
+                hint: "O PAS é regido pela Lei nº 9.784/1999 e garante que nenhuma sanção será imposta sem que o regulado tenha a chance de se defender.",
+                explanation: "O Processo Administrativo Sancionador é um procedimento que garante ao regulado o direito ao devido processo legal, assegurando a ampla defesa e o contraditório antes da imposição de qualquer sanção, como multas ou outras penalidades. Isso é fundamental para garantir a justiça e a transparência nas ações das agências reguladoras."
+            },
+            {
+                question: "10. A fiscalização responsiva é uma abordagem que sugere que a agência reguladora deve adaptar sua atuação à:",
+                options: [
+                    "Vontade do Poder Executivo.",
+                    "Hierarquia dos agentes públicos.",
+                    "História de conformidade e ao nível de risco do regulado.",
+                    "Capacidade de arrecadação de multas."
+                ],
+                correctAnswer: "História de conformidade e ao nível de risco do regulado.",
+                hint: "Essa abordagem propõe que a agência deve aplicar sanções mais brandas a quem coopera e mais severas a quem desrespeita a lei de forma recorrente.",
+                explanation: "A fiscalização responsiva é uma abordagem que adapta a atuação da agência reguladora ao histórico de conformidade do regulado e ao nível de risco que ele representa. Isso significa que empresas com bom histórico de cumprimento das normas podem ser tratadas com mais flexibilidade, enquanto aquelas com histórico de infrações graves podem enfrentar sanções mais severas."
+            },
+            {
+                question: "11. Em relação à Reforma do Estado, o surgimento das agências reguladoras no Brasil está ligado à:",
+                options: [
+                    "Centralização total do poder nas mãos do Presidente da República.",
+                    "Privatização e liberalização de setores que antes eram monopólios estatais.",
+                    "Criação de novos ministérios para cada área econômica.",
+                    "Completa extinção da intervenção estatal na economia."
+                ],
+                correctAnswer: "Privatização e liberalização de setores que antes eram monopólios estatais.",
+                hint: "As agências foram criadas para regular os setores de infraestrutura privatizados na década de 1990, como telecomunicações, energia e transportes.",
+                explanation: "As agências reguladoras surgiram no Brasil na década de 1990, como parte da Reforma do Estado, para regular setores que foram privatizados e liberalizados, garantindo a concorrência e a proteção dos consumidores. Elas atuam em áreas como telecomunicações, energia elétrica, transporte e saúde."
+            },
+            {
+                question: "12. Qual dos seguintes não é considerado um dos atributos do ato administrativo, que são aplicáveis aos atos das agências reguladoras?",
+                options: [
+                    "Presunção de Legitimidade.",
+                    "Autoexecutoriedade.",
+                    "Especificidade.",
+                    "Imperatividade."
+                ],
+                correctAnswer: "Especificidade.",
+                hint: "Os principais atributos são: Presunção de Legitimidade (ou veracidade), Imperatividade e Autoexecutoriedade. O atributo de Tipicidade também pode ser considerado.",
+                explanation: "Os atos administrativos das agências reguladoras possuem atributos como presunção de legitimidade (são considerados válidos até prova em contrário), autoexecutoriedade (podem ser executados sem necessidade de ordem judicial) e imperatividade (imposição de obrigações). A especificidade não é um atributo, mas sim uma característica que pode ser observada nos atos administrativos, que devem ser claros e determinados."
+            },
+            {
+                question: "13. O controle sobre as Agências Reguladoras pode ser exercido pelos três Poderes. O controle judicial se manifesta através da:",
+                options: [
+                    "Criação de leis para as agências.",
+                    "Análise da legalidade e constitucionalidade dos atos regulatórios.",
+                    "Aprovação do orçamento da agência.",
+                    "Nomeação dos diretores da agência."
+                ],
+                correctAnswer: "Análise da legalidade e constitucionalidade dos atos regulatórios.",
+                hint: "O Poder Judiciário não entra no mérito da decisão regulatória, mas verifica se o ato da agência está de acordo com a lei e a Constituição.",
+                explanation: "O controle judicial sobre as agências reguladoras é exercido pelo Poder Judiciário, que analisa a legalidade e a constitucionalidade dos atos normativos e administrativos das agências, garantindo que suas ações estejam em conformidade com a legislação vigente e os princípios constitucionais."
+            },
+            {
+                question: "14. A autorregulação é um conceito em que a regulação é exercida por:",
+                options: [
+                    "Um órgão do governo federal.",
+                    "Uma agência reguladora autônoma.",
+                    "As próprias empresas do setor, por meio de associações.",
+                    "O Poder Judiciário."
+                ],
+                correctAnswer: "As próprias empresas do setor, por meio de associações.",
+                hint: "A autorregulação é a capacidade que um setor tem de criar e fazer cumprir suas próprias regras, como é o caso de algumas associações de jornalismo e publicidade.",
+                explanation: "A autorregulação é um mecanismo onde as próprias empresas de um setor, geralmente organizadas em associações, criam e aplicam normas e padrões éticos para suas atividades, buscando garantir a qualidade dos serviços e a proteção dos consumidores sem a intervenção direta do Estado."
+            },
+            {
+                question: "15. A atuação de uma agência reguladora para coibir a prática de um monopólio natural em um setor se enquadra no conceito de:",
+                options: [
+                    "Regulação social.",
+                    "Regulação econômica.",
+                    "Regulação ambiental.",
+                    "Autorregulação."
+                ],
+                correctAnswer: "Regulação econômica.",
+                hint: "A regulação econômica trata das falhas de mercado e da concorrência, enquanto a regulação social foca na proteção de bens difusos como saúde e meio ambiente.",
+                explanation: "A regulação econômica é a atuação das agências reguladoras para garantir a concorrência justa e evitar abusos de poder econômico, como no caso de monopólios naturais, onde uma única empresa domina o mercado devido às características do setor."
+            },
+            {
+                question: "16. Qual dos seguintes itens é uma das etapas da Análise de Risco no processo de fiscalização?",
+                options: [
+                    "Identificação dos agentes políticos do setor.",
+                    "Aprovação do orçamento da agência.",
+                    "Priorização das fiscalizações com base na probabilidade e no impacto das infrações.",
+                    "Eliminação de todas as normas do setor."
+                ],
+                correctAnswer: "Priorização das fiscalizações com base na probabilidade e no impacto das infrações.",
+                hint: "A gestão de risco permite que a agência aloque seus recursos de forma mais eficiente, focando nos pontos de maior vulnerabilidade e risco para o interesse público.",
+                explanation: "A Análise de Risco é uma etapa fundamental no processo de fiscalização das agências reguladoras, onde se prioriza as ações de fiscalização com base na probabilidade de ocorrência de infrações e no impacto que elas podem ter sobre o interesse público. Isso permite uma atuação mais eficiente e direcionada."
+            },
+            {
+                question: "17. A auditoria da qualidade em serviços regulados tem como principal função:",
+                options: [
+                    "Medir a satisfação dos clientes em relação aos preços.",
+                    "Verificar a conformidade do serviço prestado com as normas e padrões estabelecidos.",
+                    "Apenas avaliar a saúde financeira das empresas do setor.",
+                    "Definir a agenda regulatória do próximo ano."
+                ],
+                correctAnswer: "Verificar a conformidade do serviço prestado com as normas e padrões estabelecidos.",
+                hint: "A auditoria é um processo de checagem para garantir que a qualidade e a segurança dos serviços regulados estão de acordo com o que a agência exige.",
+                explanation: "A auditoria da qualidade é uma ferramenta utilizada pelas agências reguladoras para garantir que os serviços prestados pelas empresas reguladas atendam aos padrões de qualidade e segurança estabelecidos, assegurando a proteção dos consumidores e a eficiência do setor regulado."
+            },
+            {
+                question: "18. A criação das Agências Reguladoras no Brasil buscou superar as falhas de governo, que se referem a:",
+                options: [
+                    "Problemas causados pela burocracia excessiva e pela politização das decisões.",
+                    "Incapacidade de o mercado se regular sozinho.",
+                    "Apenas à corrupção dentro da administração pública.",
+                    "Falta de recursos financeiros para o Estado atuar."
+                ],
+                correctAnswer: "Problemas causados pela burocracia excessiva e pela politização das decisões.",
+                hint: "As agências foram pensadas como uma forma de desburocratizar e despolitizar a gestão de setores complexos, trazendo maior tecnicidade e eficiência.",
+                explanation: "As Agências Reguladoras foram criadas para superar as falhas de governo, que incluem a burocracia excessiva e a politização das decisões, permitindo uma regulação mais técnica e independente, focada na eficiência e na proteção do interesse público."
+            },
+            {
+                question: "19. Em um Processo Administrativo Sancionador, a fase em que o regulado tem a oportunidade de apresentar sua defesa é chamada de:",
+                options: [
+                    "Instrução.",
+                    "Julgamento.",
+                    "Decisão de primeira instância.",
+                    "Fase de recurso."
+                ],
+                correctAnswer: "Instrução.",
+                hint: "A fase de instrução é o momento em que se coletam as provas e se dão as oportunidades para as partes se manifestarem, antes da decisão final.",
+                explanation: "A fase de instrução do Processo Administrativo Sancionador é crucial, pois é quando o regulado pode apresentar sua defesa e contestar as acusações feitas contra ele. Isso garante o direito ao contraditório e à ampla defesa, princípios fundamentais do devido processo legal."
+            },
+            {
+                question: "20. O poder de polícia em sua função regulatória permite à agência:",
+                options: [
+                    "Regular os preços de todos os produtos do mercado.",
+                    "Aprovar novas leis e regulamentos sem o Congresso.",
+                    "Fiscalizar, limitar ou condicionar o exercício de atividades particulares em prol do interesse público.",
+                    "Gerenciar os serviços públicos diretamente."
+                ],
+                correctAnswer: "Fiscalizar, limitar ou condicionar o exercício de atividades particulares em prol do interesse público.",
+                hint: "O poder de polícia é a capacidade do Estado de intervir na esfera privada, mas dentro dos limites da lei, para proteger o bem-estar coletivo.",
+                explanation: "O poder de polícia é a prerrogativa do Estado de restringir ou condicionar atividades privadas para proteger o interesse público, garantindo que as normas e regulamentos sejam cumpridos, especialmente em setores regulados."
+            }
+            ],
+            
+            
+        };
+
+        // Referências aos elementos da interface
+        const homeScreen = document.getElementById('home-screen');
+        const eixoContentScreen = document.getElementById('eixo-content-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        
+        const eixoContentTitle = document.getElementById('eixo-content-title');
+        const eixoContentText = document.getElementById('eixo-content-text');
+        const currentEixoTitle = document.getElementById('current-eixo-title');
+        const questionText = document.getElementById('question-text');
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const optionsContainer = document.getElementById('options-container');
+        const hintButton = document.getElementById('hint-button');
+        const hintText = document.getElementById('hint-text');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const nextButton = document.getElementById('next-button');
+        const finalScore = document.getElementById('final-score');
+
+        // Função para exibir a tela de conteúdo do eixo temático
+        function showEixoContent(eixo) {
+            quizState.currentEixo = eixo;
+            eixoContentTitle.textContent = ` ${eixo}`;
+            eixoContentText.innerHTML = eixoContent[eixo];
+            
+            homeScreen.classList.add('hidden');
+            eixoContentScreen.classList.remove('hidden');
+        }
+
+        // Função para iniciar o quiz após ver o conteúdo do eixo
+        function startQuiz() {
+            quizState.questions = quizData[quizState.currentEixo];
+            quizState.currentQuestionIndex = 0;
+            quizState.score = 0;
+
+            eixoContentScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            updateQuizUI();
+        }
+
+        // Função para voltar à tela inicial
+        function goToHome() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            eixoContentScreen.classList.add('hidden');
+            homeScreen.classList.remove('hidden');
+        }
+
+        // Função para atualizar a interface do quiz com a pergunta atual
+        function updateQuizUI() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            
+            currentEixoTitle.textContent = quizState.currentEixo;
+            questionText.textContent = currentQuestion.question;
+            questionCounter.textContent = `Pergunta ${quizState.currentQuestionIndex + 1} de ${quizState.questions.length}`;
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+            
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('w-full', 'bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white', 'text-gray-800', 'font-medium', 'py-3', 'px-4', 'rounded-lg', 'text-left', 'transition-colors', 'duration-200');
+                button.onclick = () => selectAnswer(button, option);
+                optionsContainer.appendChild(button);
+            });
+
+            // Resetar estados de dica e explicação
+            hintButton.classList.remove('hidden');
+            hintText.classList.add('hidden');
+            explanationContainer.classList.add('hidden');
+            nextButton.classList.add('hidden');
+        }
+        
+        // Função para mostrar a dica
+        function showHint() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            hintText.textContent = `Dica: ${currentQuestion.hint}`;
+            hintText.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+        }
+
+        // Função para selecionar uma resposta
+        function selectAnswer(selectedButton, selectedOption) {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correctAnswer;
+            
+            // Desabilitar todas as opções
+            Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+
+            // Destacar respostas
+            if (isCorrect) {
+                quizState.score++;
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-green-500', 'text-white');
+            } else {
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-red-500', 'text-white');
+                // Destacar a resposta correta também
+                Array.from(optionsContainer.children).find(btn => btn.textContent === currentQuestion.correctAnswer).classList.add('bg-green-500', 'text-white');
+            }
+            
+            // Mostrar a explicação e o botão de próxima pergunta
+            explanationText.textContent = currentQuestion.explanation;
+            explanationContainer.classList.remove('hidden');
+            nextButton.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+        }
+
+        // Função para avançar para a próxima pergunta
+        function nextQuestion() {
+            quizState.currentQuestionIndex++;
+            if (quizState.currentQuestionIndex < quizState.questions.length) {
+                updateQuizUI();
+            } else {
+                showResults();
+            }
+        }
+
+        // Função para exibir os resultados finais
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScore.textContent = `Você acertou ${quizState.score} de ${quizState.questions.length} perguntas do eixo '${quizState.currentEixo}'.`;
+        }
+    </script>
+
+</body>
+</html>

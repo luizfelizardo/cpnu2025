@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz CPNU - Bloco 5</title>
+    <link rel="icon" type="image/png" href="brasil.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 48rem;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .themed-button {
+            transition: all 0.2s;
+        }
+        .themed-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .themed-button-active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .top-border {
+            width: 100%;
+            height: 1.5rem;
+            background-color: #1e3a8a;
+        }
+        .themed-footer {
+            width: 100%;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.5rem 1rem; /* Aumentado para 1.5rem no eixo vertical (topo/fundo) */
+        }
+        .footer-border-image {
+            width: 100%;
+            height: 18px;
+            display: block;
+        }
+        .footer-content {
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .contact-link {
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+        .contact-link:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-border"></div>
+
+    <div class="container">
+        
+        <div id="home-screen" class="text-center">
+
+            <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">Quiz Preparatório CPNU - Bloco 5</h1>
+            <p class="text-lg text-gray-600 mb-8">Selecione um eixo temático para estudar os conteúdos e começar o quiz.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Conhecimentos Gerais')">
+                    Conhecimentos Gerais
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 1 - Governança Pública: Estratégia, Projetos e Processos')">
+                    Eixo 1: Governança Pública: Estratégia, Projetos e Processos
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 2 - Governança Pública: Riscos, Inovação e Participação')">
+                    Eixo 2: Governança Pública: Riscos, Inovação e Participação
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 3 - Políticas Públicas')">
+                    Eixo 3: Políticas Públicas
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 4 - AFO: Contabilidade e Compras na Adm Pública')">
+                    Eixo 4: AFO: Contabilidade e Compras na Adm Pública
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 5 - Transparência, Proteção de Dados, Comunicação')">
+                    Eixo 5: Transparência, Proteção de Dados, Comunicação
+                </button>
+            </div>
+            
+            <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center w-full mt-6 justify-center" onclick="goToPreviousPage()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    Voltar
+</button>
+        </div>
+
+        <div id="eixo-content-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4" id="eixo-content-title"></h2>
+            <div id="eixo-content-text" class="text-left bg-gray-50 p-6 rounded-xl shadow-inner overflow-y-auto max-h-96 text-gray-700">
+                </div>
+            <div class="mt-6 flex justify-between gap-4">
+                <button class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="startQuiz()">
+                    Iniciar Quiz
+                </button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <div class="mb-6 pb-4 border-b border-gray-300">
+                <p class="text-indigo-600 font-semibold text-lg" id="current-eixo-title"></p>
+                <h2 class="text-2xl font-bold mt-2 text-gray-800" id="question-text"></h2>
+                <div class="flex justify-between items-center text-sm mt-2">
+                    <p class="text-gray-500" id="question-counter"></p>
+                    <p class="text-green-600 font-bold" id="score-counter"></p>
+                </div>
+            </div>
+
+            <div id="options-container" class="space-y-4 mb-4">
+                </div>
+            
+            <button id="hint-button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-lg shadow-sm transition-colors duration-200 mt-4" onclick="showHint()">
+                Dica
+            </button>
+            <div id="hint-text" class="hidden mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-gray-700"></div>
+
+            <div id="explanation-container" class="hidden mt-6 p-6 rounded-lg border border-green-600 bg-green-50">
+                <p class="font-bold text-green-700 mb-2">Explicação:</p>
+                <p id="explanation-text" class="text-gray-700"></p>
+            </div>
+            
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="back-to-home-button" class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button id="next-button" class="w-1/2 hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="nextQuestion()">
+                    Próxima Pergunta
+                </button>
+            </div>
+        </div>
+
+        <div id="results-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4">Quiz Concluído!</h2>
+            <p id="final-score" class="text-xl mb-6 text-gray-800"></p>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                Voltar para o Início
+            </button>
+        </div>
+    </div>
+    
+    <footer class="w-full mt-auto">
+        <img src="7e4bab99-0869-4fec-bb88-19225341d17c (1).png" alt="Borda decorativa" class="footer-border-image">
+        <div class="themed-footer">
+    <div class="footer-content">
+        <div class="flex items-center space-x-4">
+           <a href="contato.html" class="text-sm text-gray-300 hover:text-white transition-colors duration-200">
+                Dúvidas? Entre em contato!
+            </a>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
+            <a href="mailto:contato@luizcodedev.tech" class="contact-link text-sm">Email</a>
+            <a href="https://wa.me/5511995432530" target="_blank" class="contact-link text-sm">WhatsApp</a>
+            <a href="https://www.linkedin.com/in/luiz-eduardo-82a942179/" target="_blank" class="contact-link text-sm">LinkedIn</a>
+        </div>
+    </div>
+    <div class="text-center text-gray-400 text-xs mt-2 md:mt-0">
+        &copy; 2025 LuizDev. Todos os direitos reservados.
+    </div>
+</div>
+    </footer>
+
+      
+
+     <script>
+        // Objeto global para armazenar o estado do quiz
+        let quizState = {
+            questions: [],
+            currentQuestionIndex: 0,
+            score: 0,
+            currentEixo: ''
+        };
+
+        function goToPreviousPage() {
+    // Isso fará o navegador voltar para a página anterior no histórico
+    window.history.back();
+}
+
+        // Conteúdo de estudo para cada eixo temático
+        const eixoContent = {
+            'Conhecimentos Gerais': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Desafios do estado de direito: democracia e cidadania.</li>
+                    <li>2. Políticas públicas: fundamentos, ciclos, federalismo e transformação digital.</li>
+                    <li>3. Ética e integridade: princípios, governança e transparência.</li>
+                    <li>4. Diversidade e inclusão na sociedade.</li>
+                    <li>5. Administração pública federal: princípios, reformas e finanças públicas.</li>
+                    <li>6. Trabalho e tecnologia: IA, automação e riscos no setor público.</li>
+                </ul>
+            `,
+            'Eixo Temático 1 - Governança Pública: Estratégia, Projetos e Processos': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Planejamento e gestão estratégica: conceitos, princípios, etapas, níveis, métodos e ferramentas.</li>
+                    <li>2. Gestão de
+pessoas.</li>
+                    <li>3. Gestão de projetos, Conceitos básicos, Gerenciamento da integração, do escopo, do tempo, de custos, da qualidade, de recursos humanos, de
+comunicações, de riscos, de aquisições, de partes interessadas.</li>
+                    <li>4. Gestão de processos, Conceitos da abordagem por processos, .</li>
+                                       
+                </ul>
+            `,
+            'Eixo Temático 2 - Governança Pública: Riscos, Inovação e Participação': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1.Gestão de riscos: princípios, objetivos, técnicas, integração ao planejamento.</li>
+                    <li>2. Inovação na gestão pública, Transformação digital do Estado.</li>
+                    <li>3. Participação social
+nos processos de gestão das políticas públicas: conselhos, conferências, audiências públicas, consultas públicas, PPA
+participativo, orçamento participativo e outros mecanismos.</li>
+                    <li>4. Parcerias entre governo e
+sociedade. 4.1 Marco Regulatório das Organizações da Sociedade Civil.</li>
+                    <li>5. Articulação versus a fragmentação de ações governamentais.</li>
+                    <li>6. Administração de Recursos Materiais e Patrimoniais, Conceituação de Material e Patrimônio.</li>
+                </ul>
+            `,
+            'Eixo Temático 3 - Políticas Públicas': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. As diferentes conceituações de políticas públicas.</li>
+                    <li>2. Implementação de políticas públicas: problemas, dilemas e desafios, Arranjos institucionais
+para implementação de políticas públicas.</li>
+                    <li>3. Monitoramento e avaliação de políticas públicas, Sistemas de monitoramento.</li>
+                    <li>4. Políticas públicas informadas por evidência, conceito e tipos de evidência.</li>
+                    
+                </ul>
+            `,
+            'Eixo Temático 4 - AFO: Contabilidade e Compras na Adm Pública': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. O papel do Estado e a atuação do governo nas finanças públicas, Orçamento público, Conceito e Funções, Técnicas orçamentárias, Princípios orçamentários.</li>
+                    <li>2. Contabilidade Pública: Princípios fundamentais.</li>
+                    <li>3. Receita pública, Conceito e classificações.</li>
+                    <li>4. Despesa pública, Conceito e classificações.</li>
+                    <li>5. Licitação, Conceito, natureza jurídica, objeto e finalidade, Princípios básicos e
+correlatos.</li>
+                    <li>6.  Contrato administrativo para compras na administração pública, Conceito, principais
+características e espécies.</li>
+                    
+                </ul>
+            `,
+            'Eixo Temático 5 - Transparência, Proteção de Dados, Comunicação': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Transparência pública, Lei de Acesso à Informação: direito de acesso à informação no Brasil, negativas de acesso,
+informações classificadas e dados abertos.</li>
+                    <li>2.Lei Geral de
+Proteção de Dados Pessoais (LGPD): fundamentos e campo de aplicação, princípios e direitos do titular,
+responsabilidades dos agentes, aspectos internacionais, segurança e a Autoridade Nacional de Proteção de Dados.</li>
+                    <li>3. Comunicação contemporânea e a internet,  Finalidades da comunicação pública.</li>
+                    <li>4. Atendimento ao cidadão, qualidade de
+serviços públicos, acessibilidade e uso de linguagem simples..</li>
+                    <li>5. Estatística, Noções de Amostragem: Amostragem
+Probabilística e Não probabilística.</li>
+                    
+                </ul>
+            `
+        };
+
+        // Dados do quiz: perguntas, opções, respostas, dicas e explicações
+        const quizData = {
+             'Conhecimentos Gerais': [
+               {
+                question: "1. Qual é a principal característica da Constituição Federal de 1988 em relação aos direitos fundamentais?",
+                options: [
+                    "Restringiu o acesso à informação pública.",
+                    "Consolidou a democracia, garantindo amplos direitos sociais e políticos.",
+                    "Eliminou a participação cidadã na política.",
+                    "Focou exclusivamente nos direitos individuais.",
+                    "Fortaleceu o poder do Executivo em detrimento dos outros poderes."
+                ],
+                correctAnswer: "Consolidou a democracia, garantindo amplos direitos sociais e políticos.",
+                hint: "A CF/88 é conhecida como a 'Constituição Cidadã' por seu papel na redemocratização do país.",
+                explanation: "A Constituição Federal de 1988 é um marco na história do Brasil, pois consolidou a democracia após um período de ditadura militar. Ela ampliou significativamente os direitos fundamentais, incluindo direitos sociais, econômicos e culturais, além de garantir a participação cidadã na política e o acesso à informação pública."
+            },
+            {
+                question: "2. No ciclo de políticas públicas, o que se entende por 'monitoramento e avaliação'?",
+                options: [
+                    "A fase inicial de identificação de um problema.",
+                    "A aprovação da política pelo Congresso Nacional.",
+                    "A coleta de dados e a análise de resultados para verificar se a política está alcançando seus objetivos.",
+                    "A implementação da política sem verificar seus efeitos.",
+                    "Apenas a comunicação da política ao público."
+                ],
+                correctAnswer: "A coleta de dados e a análise de resultados para verificar se a política está alcançando seus objetivos.",
+                hint: "Essa fase é essencial para aprimorar, corrigir ou descontinuar uma política pública.",
+                explanation: "O monitoramento e a avaliação são etapas cruciais no ciclo de políticas públicas. O monitoramento envolve a coleta contínua de dados sobre a implementação da política, enquanto a avaliação analisa esses dados para determinar se os objetivos da política estão sendo alcançados. Isso permite ajustes e melhorias na política, garantindo sua eficácia e eficiência."
+            },
+            {
+                question: "3. De acordo com a ética no serviço público, o que significa o princípio da 'transparência'?",
+                options: [
+                    "A publicação de informações apenas quando solicitadas por um juiz.",
+                    "O sigilo de informações sobre gastos públicos.",
+                    "A obrigatoriedade de divulgar informações sobre as ações e gastos da administração pública, permitindo o controle social.",
+                    "A restrição do acesso aos dados da gestão pública.",
+                    "A divulgação de informações apenas para os funcionários públicos."
+                ],
+                correctAnswer: "A obrigatoriedade de divulgar informações sobre as ações e gastos da administração pública, permitindo o controle social.",
+                hint: "A transparência é um pilar da boa governança e da integridade, combatendo a corrupção e fortalecendo a democracia.",
+                explanation: "O princípio da transparência na ética do serviço público implica que a administração pública deve divulgar de forma clara e acessível informações sobre suas ações, decisões e gastos. Isso permite que a sociedade exerça o controle social, fiscalize a gestão pública e participe ativamente da vida democrática, promovendo a confiança entre o governo e os cidadãos."
+            },
+            {
+                question: "4. A 'interseccionalidade' é um conceito importante para a discussão sobre diversidade e inclusão. O que ela aborda?",
+                options: [
+                    "A análise de uma única forma de discriminação, como o racismo.",
+                    "A ideia de que todas as pessoas são iguais e não existem diferenças.",
+                    "A forma como diferentes formas de discriminação (como raça, gênero, classe social, etc.) interagem e criam experiências únicas de opressão e privilégios.",
+                    "A separação de grupos sociais para evitar conflitos.",
+                    "A negação de que existam desigualdades sociais."
+                ],
+                correctAnswer: "A forma como diferentes formas de discriminação (como raça, gênero, classe social, etc.) interagem e criam experiências únicas de opressão e privilégios.",
+                hint: "A interseccionalidade nos ajuda a entender que as experiências de vida de uma pessoa são moldadas pela combinação de suas múltiplas identidades.",
+                explanation: "A interseccionalidade é um conceito que reconhece que as pessoas podem enfrentar múltiplas formas de discriminação simultaneamente, como racismo, sexismo, classismo, entre outros. Essas diferentes formas de opressão não atuam isoladamente, mas se interconectam, criando experiências únicas para cada indivíduo. Compreender a interseccionalidade é fundamental para promover políticas públicas e práticas inclusivas que atendam às necessidades diversas da população."
+            },
+            {
+                question: "5. Na administração pública federal, qual é a função principal do 'Plano Plurianual' (PPA)?",
+                options: [
+                    "Definir os gastos anuais do governo.",
+                    "Estabelecer metas e prioridades de médio prazo (4 anos) para a gestão pública.",
+                    "Apenas aprovar o orçamento da União.",
+                    "Controlar os gastos diários do governo.",
+                    "Gerenciar a dívida pública."
+                ],
+                correctAnswer: "Estabelecer metas e prioridades de médio prazo (4 anos) para a gestão pública.",
+                hint: "O PPA é a principal ferramenta de planejamento governamental, definindo onde o governo pretende chegar e como fará para atingir seus objetivos.",
+                explanation: "O Plano Plurianual (PPA) é um instrumento de planejamento governamental que estabelece as diretrizes, objetivos e metas da administração pública para um período de quatro anos. Ele orienta a elaboração dos orçamentos anuais e garante a continuidade das políticas públicas, mesmo com mudanças de governo. O PPA é fundamental para a gestão eficiente dos recursos públicos e para o desenvolvimento sustentável do país."
+            },
+            {
+                question: "6. Qual é um dos principais desafios da 'judicialização de políticas públicas'?",
+                options: [
+                    "Aumentar a autonomia do Poder Executivo na formulação de políticas.",
+                    "Permitir que o Poder Legislativo crie novas leis sem a intervenção de outros poderes.",
+                    "O risco de o Poder Judiciário invadir a esfera de competência dos Poderes Executivo e Legislativo, tomando decisões que deveriam ser de natureza política.",
+                    "A eliminação total de conflitos entre os poderes.",
+                    "A aceleração na implementação de políticas públicas complexas."
+                ],
+                correctAnswer: "O risco de o Poder Judiciário invadir a esfera de competência dos Poderes Executivo e Legislativo, tomando decisões que deveriam ser de natureza política.",
+                hint: "A judicialização pode levar a uma reconfiguração do equilíbrio entre os poderes, com o Judiciário assumindo um papel mais ativo na definição de políticas.",
+                explanation: "A judicialização de políticas públicas refere-se ao fenômeno em que questões que deveriam ser decididas pelos Poderes Executivo e Legislativo acabam sendo resolvidas pelo Poder Judiciário. Isso pode ocorrer quando cidadãos ou grupos recorrem à Justiça para garantir direitos ou contestar políticas públicas. Um dos principais desafios dessa judicialização é o risco de o Judiciário invadir a esfera de competência dos outros poderes, tomando decisões que envolvem escolhas políticas complexas, o que pode comprometer o equilíbrio entre os poderes e a legitimidade das decisões governamentais."
+            },
+            {
+                question: "7. A Lei de Diretrizes Orçamentárias (LDO) tem como uma de suas funções principais:",
+                options: [
+                    "Detalhamento de todos os gastos da União.",
+                    "Estabelecer o valor máximo de impostos a serem cobrados no ano.",
+                    "Definir as metas e prioridades da administração pública para o ano seguinte, orientando a elaboração da Lei Orçamentária Anual (LOA).",
+                    "Aprovar o Plano Plurianual (PPA).",
+                    "Criar novas políticas públicas."
+                ],
+                correctAnswer: "Definir as metas e prioridades da administração pública para o ano seguinte, orientando a elaboração da Lei Orçamentária Anual (LOA).",
+                hint: "A LDO é a ponte entre o planejamento de longo prazo (PPA) e o orçamento anual (LOA).",
+                explanation: "A Lei de Diretrizes Orçamentárias (LDO) é um instrumento fundamental no processo orçamentário brasileiro. Ela estabelece as metas e prioridades da administração pública para o exercício financeiro seguinte, servindo como um guia para a elaboração da Lei Orçamentária Anual (LOA). A LDO também define regras para a gestão fiscal, como limites para despesas e metas de resultado primário, garantindo que o orçamento esteja alinhado com os objetivos estratégicos do governo."
+            },
+            {
+                question: "8. A automação e o uso de Inteligência Artificial (IA) no setor público podem trazer qual benefício?",
+                options: [
+                    "O aumento da burocracia e da lentidão nos processos.",
+                    "A redução da transparência nos dados governamentais.",
+                    "Aumento da produtividade, otimização de processos e personalização de serviços públicos, liberando servidores para tarefas mais estratégicas.",
+                    "A eliminação de qualquer interação entre o cidadão e o Estado.",
+                    "O aumento de erros e imprecisões nas decisões."
+                ],
+                correctAnswer: "Aumento da produtividade, otimização de processos e personalização de serviços públicos, liberando servidores para tarefas mais estratégicas.",
+                hint: "A tecnologia pode ser uma grande aliada para tornar a gestão pública mais eficiente e focada nas necessidades do cidadão.",
+                explanation: "A automação e o uso de Inteligência Artificial (IA) no setor público têm o potencial de transformar a gestão pública, aumentando a produtividade e otimizando processos burocráticos. Essas tecnologias podem personalizar serviços públicos, tornando-os mais acessíveis e eficientes para os cidadãos. Além disso, ao automatizar tarefas repetitivas, os servidores públicos podem se concentrar em atividades mais estratégicas e de maior valor, melhorando a qualidade do serviço oferecido à população."
+            },
+            {
+                question: "9. O que a Política Nacional de Desenvolvimento Sustentável da Aquicultura e da Pesca (Lei nº 11.959/2009) busca?",
+                options: [
+                    "Apenas incentivar a pesca industrial em larga escala.",
+                    "Ignorar a pesca artesanal e focar na produção em cativeiro.",
+                    "Promover o desenvolvimento sustentável da pesca e da aquicultura, garantindo a conservação dos ecossistemas e a segurança alimentar.",
+                    "Proibir qualquer tipo de pesca e aquicultura.",
+                    "Regular a pesca apenas para fins comerciais, sem se preocupar com a subsistência."
+                ],
+                correctAnswer: "Promover o desenvolvimento sustentável da pesca e da aquicultura, garantindo a conservação dos ecossistemas e a segurança alimentar.",
+                hint: "A lei busca a gestão integrada e a exploração responsável dos recursos pesqueiros e aquícolas.",
+                explanation: "A Política Nacional de Desenvolvimento Sustentável da Aquicultura e da Pesca, estabelecida pela Lei nº 11.959/2009, tem como objetivo promover o desenvolvimento sustentável dessas atividades no Brasil. Isso inclui a conservação dos ecossistemas aquáticos, a garantia da segurança alimentar e a valorização das comunidades pesqueiras, especialmente as artesanais. A lei busca equilibrar a exploração dos recursos pesqueiros com a necessidade de preservação ambiental, promovendo práticas responsáveis e sustentáveis."
+            },
+            {
+                question: "10. Qual é o principal desafio da inclusão de pessoas com deficiência na sociedade?",
+                options: [
+                    "Apenas a falta de políticas públicas específicas.",
+                    "A ausência de legislação sobre o tema.",
+                    "A superação de barreiras atitudinais, arquitetônicas e comunicacionais que limitam a participação plena e efetiva desses indivíduos na sociedade.",
+                    "O foco exclusivo na tecnologia assistiva.",
+                    "A falta de interesse da sociedade na discussão."
+                ],
+                correctAnswer: "A superação de barreiras atitudinais, arquitetônicas e comunicacionais que limitam a participação plena e efetiva desses indivíduos na sociedade.",
+                hint: "A inclusão efetiva exige uma mudança de mentalidade e a eliminação de obstáculos em todos os âmbitos sociais.",
+                explanation: "A inclusão de pessoas com deficiência na sociedade enfrenta diversos desafios, sendo um dos principais a superação de barreiras atitudinais, arquitetônicas e comunicacionais. Essas barreiras impedem que indivíduos com deficiência participem plenamente da vida social, econômica e cultural. A inclusão efetiva requer não apenas a implementação de políticas públicas, mas também uma mudança de mentalidade na sociedade, promovendo a acessibilidade e o respeito à diversidade."
+            }
+            ],
+            'Eixo Temático 1 - Governança Pública: Estratégia, Projetos e Processos': [
+                  {
+                question: "1. No planejamento estratégico, qual ferramenta é utilizada para analisar os ambientes interno e externo de uma organização?",
+                options: [
+                    "Diagrama de Gantt",
+                    "Matriz BCG",
+                    "Matriz SWOT",
+                    "Fluxograma",
+                    "Ciclo PDCA"
+                ],
+                correctAnswer: "Matriz SWOT",
+                hint: "A sigla SWOT representa Forças (Strengths), Fraquezas (Weaknesses), Oportunidades (Opportunities) e Ameaças (Threats).",
+                explanation: "A Matriz SWOT é uma ferramenta de planejamento estratégico que ajuda a identificar as Forças, Fraquezas, Oportunidades e Ameaças de uma organização. Ela permite uma análise abrangente do ambiente interno e externo, facilitando a formulação de estratégias que aproveitem as oportunidades e minimizem as ameaças."
+            },
+            {
+                question: "2. Na gestão de pessoas, qual conceito se refere ao processo de identificar, atrair e selecionar candidatos qualificados para preencher vagas na organização?",
+                options: [
+                    "Gestão de desempenho",
+                    "Recrutamento e seleção",
+                    "Avaliação 360 graus",
+                    "Gestão por competências",
+                    "Clima organizacional"
+                ],
+                correctAnswer: "Recrutamento e seleção",
+                hint: "Este processo é a porta de entrada para novos talentos na instituição, buscando alinhamento entre as necessidades da vaga e as qualificações dos candidatos.",
+                explanation: "O recrutamento e seleção é o processo de identificar, atrair e escolher candidatos qualificados para preencher vagas na organização. Esse processo envolve diversas etapas, como a definição do perfil da vaga, a divulgação da oportunidade, a triagem de currículos, entrevistas e testes, até a escolha final do candidato. É fundamental para garantir que a organização conte com profissionais competentes e alinhados aos seus objetivos."
+            },
+            {
+                question: "3. Qual das teorias da motivação se baseia na hierarquia das necessidades humanas, divididas em fisiológicas, de segurança, sociais, de estima e de autorrealização?",
+                options: [
+                    "Teoria da Equidade",
+                    "Teoria da Expectância",
+                    "Teoria dos Dois Fatores de Herzberg",
+                    "Teoria da Hierarquia das Necessidades de Maslow",
+                    "Teoria da Fixação de Objetivos"
+                ],
+                correctAnswer: "Teoria da Hierarquia das Necessidades de Maslow",
+                hint: "Segundo essa teoria, as pessoas são motivadas a satisfazer necessidades em uma ordem progressiva, partindo das mais básicas.",
+                explanation: "A Teoria da Hierarquia das Necessidades de Maslow propõe que as necessidades humanas são organizadas em uma hierarquia, começando pelas necessidades fisiológicas básicas (como alimentação e abrigo) e progredindo até as necessidades de autorrealização. Essa teoria sugere que, para que uma pessoa se sinta motivada, é necessário que suas necessidades mais básicas sejam atendidas antes que ela busque satisfazer necessidades mais elevadas, como a busca por reconhecimento e realização pessoal."
+            },
+            {
+                question: "4. Em gestão de projetos, qual das metodologias ágeis é caracterizada por ciclos curtos e iterativos, conhecidos como 'sprints', e por uma maior colaboração e flexibilidade?",
+                options: [
+                    "PMBOK",
+                    "Waterfall",
+                    "Scrum",
+                    "PERT",
+                    "CPM"
+                ],
+                correctAnswer: "Scrum",
+                hint: "O Scrum se destaca pela sua capacidade de se adaptar rapidamente a mudanças, com entregas de valor contínuas em curtos períodos de tempo.",
+                explanation: "O Scrum é uma metodologia ágil de gestão de projetos que se caracteriza por ciclos curtos e iterativos, chamados de 'sprints'. Durante cada sprint, a equipe trabalha em um conjunto específico de tarefas, promovendo uma colaboração intensa e flexível. O Scrum permite que as equipes se adaptem rapidamente a mudanças nos requisitos do projeto, entregando valor contínuo ao cliente e melhorando a eficiência do processo de desenvolvimento."
+            },
+            {
+                question: "5. A automação de processos no serviço público, especialmente com o uso de Inteligência Artificial, oferece como potencialidade principal:",
+                options: [
+                    "Aumento da burocracia e da papelada.",
+                    "Substituição completa de todos os servidores públicos.",
+                    "Aumento da produtividade, redução de erros e liberação de servidores para tarefas mais complexas e estratégicas.",
+                    "Diminuição da transparência dos dados.",
+                    "A perda de autonomia e poder de decisão dos gestores."
+                ],
+                correctAnswer: "Aumento da produtividade, redução de erros e liberação de servidores para tarefas mais complexas e estratégicas.",
+                hint: "A tecnologia pode otimizar tarefas repetitivas, permitindo que os profissionais foquem em atividades que exigem julgamento humano e criatividade.",
+                explanation: "A automação de processos no serviço público, especialmente com o uso de Inteligência Artificial, tem o potencial de aumentar significativamente a produtividade e a eficiência. Ao automatizar tarefas repetitivas e burocráticas, os servidores públicos podem se concentrar em atividades mais complexas e estratégicas, melhorando a qualidade do serviço prestado. Além disso, a automação reduz a margem de erro humano, aumentando a precisão e a confiabilidade dos processos administrativos."
+            },
+            {
+                question: "6. O 'Mapa Estratégico' é uma ferramenta visual que representa as relações de causa e efeito entre os objetivos de uma organização. Qual é o seu principal benefício?",
+                options: [
+                    "Ocultar a estratégia dos funcionários.",
+                    "Criar uma lista de todas as tarefas diárias.",
+                    "Comunicar a estratégia de forma clara e alinhada a todos os níveis da organização.",
+                    "Controlar o fluxo de caixa da empresa.",
+                    "Apenas analisar o desempenho financeiro."
+                ],
+                correctAnswer: "Comunicar a estratégia de forma clara e alinhada a todos os níveis da organização.",
+                hint: "Essa ferramenta é parte do Balanced Scorecard (BSC) e ajuda a traduzir a visão da organização em objetivos concretos.",
+                explanation: "O Mapa Estratégico é uma ferramenta visual utilizada no planejamento estratégico que ajuda a comunicar a estratégia da organização de forma clara e alinhada a todos os níveis. Ele representa as relações de causa e efeito entre os objetivos estratégicos, facilitando a compreensão de como cada área contribui para o alcance dos objetivos gerais. O Mapa Estratégico é uma parte fundamental do Balanced Scorecard (BSC) e serve como um guia para a implementação e monitoramento da estratégia organizacional."
+            },
+            {
+                question: "7. Em gestão por competências, o que se entende por 'competência'?",
+                options: [
+                    "Apenas a quantidade de tempo de serviço de um funcionário.",
+                    "O conjunto de conhecimentos, habilidades e atitudes (CHA) que uma pessoa precisa para desempenhar suas funções com excelência.",
+                    "Somente a experiência profissional anterior.",
+                    "O número de cursos de capacitação que a pessoa fez.",
+                    "O salário recebido pelo funcionário."
+                ],
+                correctAnswer: "O conjunto de conhecimentos, habilidades e atitudes (CHA) que uma pessoa precisa para desempenhar suas funções com excelência.",
+                hint: "A gestão por competências foca em desenvolver e utilizar essas características para alcançar os objetivos da organização.",
+                explanation: "Em gestão por competências, uma 'competência' é definida como o conjunto de conhecimentos, habilidades e atitudes (CHA) que uma pessoa precisa para desempenhar suas funções com excelência. Essa abordagem busca identificar as competências necessárias para cada cargo e desenvolver essas características nos funcionários, alinhando-as aos objetivos estratégicos da organização. A gestão por competências é fundamental para melhorar o desempenho individual e coletivo, promovendo uma cultura de aprendizado e desenvolvimento contínuo."
+            },
+            {
+                question: "8. A 'gestão por processos' tem como principal objetivo:",
+                options: [
+                    "Aumentar a burocracia e a lentidão nas atividades.",
+                    "Isolar os departamentos para que trabalhem de forma independente.",
+                    "Identificar, mapear e otimizar os fluxos de trabalho para aumentar a eficiência e a qualidade dos serviços prestados.",
+                    "Focar apenas nos resultados finais, sem se preocupar com o método.",
+                    "Eliminar a necessidade de monitoramento e avaliação."
+                ],
+                correctAnswer: "Identificar, mapear e otimizar os fluxos de trabalho para aumentar a eficiência e a qualidade dos serviços prestados.",
+                hint: "Essa abordagem enxerga a organização como um conjunto de processos inter-relacionados, visando a melhoria contínua.",
+                explanation: "A gestão por processos é uma abordagem que busca identificar, mapear e otimizar os fluxos de trabalho dentro de uma organização. Seu principal objetivo é aumentar a eficiência e a qualidade dos serviços prestados, eliminando desperdícios e melhorando a comunicação entre as áreas. Ao enxergar a organização como um conjunto de processos inter-relacionados, a gestão por processos promove a melhoria contínua e a inovação, garantindo que os objetivos estratégicos sejam alcançados de forma eficaz."
+            },
+            {
+                question: "9. Na gestão de conflitos, a abordagem 'colaborativa' é a mais indicada para qual situação?",
+                options: [
+                    "Quando o tempo é escasso e a decisão precisa ser imediata.",
+                    "Quando o assunto é trivial e a relação entre as partes não é importante.",
+                    "Quando o conflito é complexo e as partes precisam encontrar uma solução que satisfaça a todos, preservando o relacionamento.",
+                    "Quando uma das partes tem mais poder e impõe sua vontade.",
+                    "Quando é melhor evitar o confronto a qualquer custo."
+                ],
+                correctAnswer: "Quando o conflito é complexo e as partes precisam encontrar uma solução que satisfaça a todos, preservando o relacionamento.",
+                hint: "A abordagem colaborativa busca o 'ganha-ganha', onde ambas as partes trabalham juntas para encontrar uma solução criativa e benéfica.",
+                explanation: "A abordagem colaborativa na gestão de conflitos é indicada para situações complexas, onde as partes envolvidas precisam encontrar uma solução que atenda aos interesses de todos, preservando o relacionamento. Essa abordagem busca o 'ganha-ganha', incentivando a comunicação aberta, a empatia e a criatividade na busca por soluções. Ao contrário de abordagens competitivas ou evitativas, a colaboração promove um ambiente de confiança e respeito mútuo, essencial para resolver conflitos de forma eficaz."
+            },
+            {
+                question: "10. Qual é o propósito de um 'indicador de desempenho' (KPI)?",
+                options: [
+                    "Apenas medir a satisfação dos funcionários.",
+                    "Medir o progresso de uma organização em direção aos seus objetivos e metas estratégicas, fornecendo dados para a tomada de decisão.",
+                    "Determinar o salário dos gestores.",
+                    "Monitorar o número de horas extras trabalhadas.",
+                    "Apenas registrar os gastos de um projeto."
+                ],
+                correctAnswer: "Medir o progresso de uma organização em direção aos seus objetivos e metas estratégicas, fornecendo dados para a tomada de decisão.",
+                hint: "Um bom indicador deve ser relevante, mensurável e alinhado aos objetivos da organização.",
+                explanation: "Os indicadores de desempenho, ou KPIs (Key Performance Indicators), são métricas utilizadas para medir o progresso de uma organização em direção aos seus objetivos e metas estratégicas. Eles fornecem dados quantitativos e qualitativos que ajudam na tomada de decisão, permitindo que os gestores avaliem a eficácia das ações implementadas e façam ajustes quando necessário. Um bom indicador deve ser relevante, mensurável e alinhado aos objetivos da organização, facilitando o monitoramento do desempenho ao longo do tempo."
+            }
+            ],
+            'Eixo Temático 2 - Governança Pública: Riscos, Inovação e Participação': [
+                {
+                question: "1. Qual é o principal objetivo da gestão de riscos na administração pública?",
+                options: [
+                    "Aumentar o número de burocracias e formulários.",
+                    "Identificar, avaliar, tratar e monitorar riscos que possam impactar o alcance dos objetivos da organização.",
+                    "Transferir toda a responsabilidade dos riscos para terceiros.",
+                    "Ignorar os riscos e focar apenas nas oportunidades.",
+                    "Focar exclusivamente em riscos financeiros."
+                ],
+                correctAnswer: "Identificar, avaliar, tratar e monitorar riscos que possam impactar o alcance dos objetivos da organização.",
+                hint: "A gestão de riscos é um processo sistemático que busca garantir a realização dos objetivos estratégicos.",
+                explanation: "A gestão de riscos na administração pública tem como principal objetivo identificar, avaliar, tratar e monitorar riscos que possam impactar o alcance dos objetivos da organização. Isso envolve a criação de um ambiente de controle que permita antecipar problemas, minimizar impactos negativos e maximizar oportunidades. A gestão de riscos é essencial para garantir a eficácia e a eficiência das ações governamentais, promovendo uma administração pública mais transparente e responsável."
+            },
+            {
+                question: "2. No contexto de inovação na gestão pública, o que a 'transformação digital do Estado' busca essencialmente?",
+                options: [
+                    "Apenas substituir o papel por arquivos digitais.",
+                    "Modernizar processos e serviços por meio da tecnologia para torná-los mais eficientes, acessíveis e centrados no cidadão.",
+                    "Aumentar a distância entre o governo e a população.",
+                    "Eliminar a necessidade de interação humana no serviço público.",
+                    "Criar uma nova forma de burocracia digital."
+                ],
+                correctAnswer: "Modernizar processos e serviços por meio da tecnologia para torná-los mais eficientes, acessíveis e centrados no cidadão.",
+                hint: "O objetivo é ir além da simples digitalização, repensando a forma como o governo interage e presta serviços.",
+                explanation: "A transformação digital do Estado é um processo que visa modernizar os processos e serviços públicos por meio da tecnologia, tornando-os mais eficientes, acessíveis e centrados no cidadão. Isso envolve a adoção de novas tecnologias, como Inteligência Artificial, big data e automação, para melhorar a prestação de serviços, aumentar a transparência e facilitar o acesso à informação. A transformação digital busca não apenas digitalizar processos existentes, mas também repensar a forma como o governo interage com a sociedade, promovendo uma administração pública mais ágil e responsiva."
+            },
+            {
+                question: "3. Qual mecanismo é um exemplo de participação social que permite à sociedade civil influenciar diretamente a elaboração do orçamento público?",
+                options: [
+                    "Audiências públicas sobre legislação.",
+                    "Conselhos de gestão de políticas.",
+                    "O orçamento participativo.",
+                    "Consultas públicas sobre regulamentação.",
+                    "Conferências de políticas públicas."
+                ],
+                correctAnswer: "O orçamento participativo.",
+                hint: "Este mecanismo permite que os cidadãos participem da alocação de recursos públicos, definindo prioridades de investimento.",
+                explanation: "O orçamento participativo é um mecanismo de participação social que permite à sociedade civil influenciar diretamente a elaboração do orçamento público. Nesse processo, os cidadãos podem discutir e decidir sobre a alocação de recursos para diferentes áreas, como saúde, educação e infraestrutura. O orçamento participativo promove a transparência, a accountability e o engajamento cívico, fortalecendo a democracia e garantindo que as necessidades da população sejam atendidas de forma mais eficaz."
+            },
+            {
+                question: "4. A 'logística reversa' na administração de recursos materiais e patrimoniais se refere a qual processo?",
+                options: [
+                    "Apenas à aquisição de novos materiais.",
+                    "O retorno de produtos e materiais pós-consumo ou pós-venda ao ciclo produtivo ou para destinação final ambientalmente adequada.",
+                    "A distribuição de produtos da empresa para os consumidores.",
+                    "O transporte de produtos de um armazém para outro.",
+                    "O descarte de materiais sem qualquer preocupação ambiental."
+                ],
+                correctAnswer: "O retorno de produtos e materiais pós-consumo ou pós-venda ao ciclo produtivo ou para destinação final ambientalmente adequada.",
+                hint: "Este processo é fundamental para a sustentabilidade e a responsabilidade ambiental.",
+                explanation: "A logística reversa é um processo que envolve o retorno de produtos e materiais pós-consumo ou pós-venda ao ciclo produtivo ou para destinação final ambientalmente adequada. Esse conceito é fundamental para promover a sustentabilidade, permitindo que materiais sejam reutilizados, reciclados ou descartados de forma responsável. A logística reversa contribui para a redução de resíduos e o uso eficiente de recursos, alinhando-se às práticas de economia circular."
+            },
+            {
+                question: "5. A coordenação 'intergovernamental' é a articulação entre quais esferas de governo?",
+                options: [
+                    "Entre diferentes secretarias de um mesmo ministério.",
+                    "Entre o governo e a sociedade civil.",
+                    "Entre os poderes Executivo, Legislativo e Judiciário.",
+                    "Entre a União, os estados e os municípios.",
+                    "Apenas entre diferentes ministérios do governo federal."
+                ],
+                correctAnswer: "Entre a União, os estados e os municípios.",
+                hint: "Essa coordenação é essencial para a efetivação de políticas públicas em um sistema federativo como o brasileiro.",
+                explanation: "A coordenação intergovernamental refere-se à articulação entre as diferentes esferas de governo, ou seja, entre a União, os estados e os municípios. Essa coordenação é essencial para a efetivação de políticas públicas em um sistema federativo como o brasileiro, garantindo que as ações governamentais sejam integradas e alinhadas às necessidades locais. A cooperação entre os diferentes níveis de governo é fundamental para a implementação eficaz de programas e serviços públicos, promovendo uma gestão mais eficiente e responsiva."
+            },
+            {
+                question: "6. Qual é a principal função do 'controle social' na gestão pública?",
+                options: [
+                    "Permitir que apenas o governo monitore suas próprias ações.",
+                    "Garantir que a sociedade civil organizada monitore, fiscalize e participe das ações e gastos do governo.",
+                    "Aumentar o poder do Poder Executivo sobre os demais poderes.",
+                    "Proibir que os cidadãos tenham acesso a informações públicas.",
+                    "Delegar a fiscalização apenas a órgãos externos, como o Tribunal de Contas."
+                ],
+                correctAnswer: "Garantir que a sociedade civil organizada monitore, fiscalize e participe das ações e gastos do governo.",
+                hint: "É um pilar da democracia e da transparência, onde o cidadão atua ativamente na gestão pública.",
+                explanation: "O controle social é um mecanismo que permite à sociedade civil organizada monitorar, fiscalizar e participar das ações e gastos do governo. Ele é fundamental para garantir a transparência, a accountability e a eficiência na gestão pública, promovendo uma administração mais democrática e responsiva às necessidades da população. O controle social pode ser exercido por meio de conselhos, audiências públicas, ouvidorias e outras formas de participação cidadã."
+            },
+            {
+                question: "7. A principal diferença entre 'controle interno' e 'controle externo' na gestão pública está:",
+                options: [
+                    "Na quantidade de documentos analisados.",
+                    "Na periodicidade das auditorias.",
+                    "O controle interno é realizado por órgãos do próprio Poder Executivo, enquanto o externo é feito pelo Poder Legislativo, com auxílio dos Tribunais de Contas.",
+                    "No foco exclusivo em gastos ou em receitas.",
+                    "Na forma como os relatórios são publicados."
+                ],
+                correctAnswer: "O controle interno é realizado por órgãos do próprio Poder Executivo, enquanto o externo é feito pelo Poder Legislativo, com auxílio dos Tribunais de Contas.",
+                hint: "Ambos são essenciais para a fiscalização da administração pública, mas atuam em esferas diferentes.",
+                explanation: "A principal diferença entre controle interno e controle externo na gestão pública está na sua origem e função. O controle interno é realizado por órgãos do próprio Poder Executivo, como as Controladorias, e tem como objetivo garantir a legalidade, eficiência e eficácia dos atos administrativos. Já o controle externo é exercido pelo Poder Legislativo, com o auxílio dos Tribunais de Contas, e visa fiscalizar a aplicação dos recursos públicos, assegurando que sejam utilizados de forma transparente e responsável."
+            },
+            {
+                question: "8. O 'Marco Regulatório das Organizações da Sociedade Civil' (MROSC) estabelece novas regras para:",
+                options: [
+                    "Apenas a fiscalização do trabalho voluntário.",
+                    "As relações de emprego no setor público.",
+                    "A colaboração entre o governo e as organizações da sociedade civil, por meio de instrumentos como termos de fomento e colaboração.",
+                    "A criação de novas empresas estatais.",
+                    "A regulamentação de parcerias internacionais."
+                ],
+                correctAnswer: "A colaboração entre o governo e as organizações da sociedade civil, por meio de instrumentos como termos de fomento e colaboração.",
+                hint: "A Lei 13.019/2014 busca formalizar e tornar mais transparentes as parcerias entre o governo e as OSCs.",
+                explanation: "O Marco Regulatório das Organizações da Sociedade Civil (MROSC), estabelecido pela Lei 13.019/2014, define novas regras para a colaboração entre o governo e as organizações da sociedade civil (OSCs). Ele introduz instrumentos como termos de fomento e colaboração, que visam formalizar e tornar mais transparentes as parcerias entre o setor público e as OSCs. O MROSC busca fortalecer a participação da sociedade civil na formulação e execução de políticas públicas, promovendo uma gestão mais democrática e inclusiva."
+            },
+            {
+                question: "9. Qual é um risco associado ao uso de Inteligência Artificial (IA) no setor público?",
+                options: [
+                    "Aumento da transparência e da equidade nos serviços.",
+                    "Melhora na eficiência e na qualidade dos serviços.",
+                    "O risco de o algoritmo reproduzir e amplificar preconceitos e vieses existentes nos dados, levando a decisões discriminatórias.",
+                    "A redução do custo operacional do governo.",
+                    "A automação de todas as tarefas de um servidor público."
+                ],
+                correctAnswer: "O risco de o algoritmo reproduzir e amplificar preconceitos e vieses existentes nos dados, levando a decisões discriminatórias.",
+                hint: "É fundamental que a implementação de IA seja acompanhada de uma análise ética e de governança.",
+                explanation: "O uso de Inteligência Artificial (IA) no setor público pode trazer muitos benefícios, como aumento da eficiência e qualidade dos serviços. No entanto, um dos riscos mais significativos é que os algoritmos possam reproduzir e amplificar preconceitos e vieses existentes nos dados utilizados para treiná-los. Isso pode levar a decisões discriminatórias e injustas, afetando negativamente grupos vulneráveis. Portanto, é essencial que a implementação de IA seja acompanhada de uma análise ética rigorosa e de práticas de governança adequadas para mitigar esses riscos."
+            },
+            {
+                question: "10. A 'gestão de cadeia de suprimentos' na administração de recursos materiais e patrimoniais tem como foco principal:",
+                options: [
+                    "Apenas a compra de novos equipamentos.",
+                    "Controlar o fluxo de dinheiro da organização.",
+                    "Gerenciar e otimizar todo o fluxo de materiais, informações e recursos, desde o fornecedor inicial até a entrega ao usuário final.",
+                    "A venda de bens públicos.",
+                    "O descarte de resíduos de forma incorreta."
+                ],
+                correctAnswer: "Gerenciar e otimizar todo o fluxo de materiais, informações e recursos, desde o fornecedor inicial até a entrega ao usuário final.",
+                hint: "Essa gestão é crucial para garantir que a organização tenha os recursos certos, no lugar certo e no momento certo.",
+                explanation: "A gestão de cadeia de suprimentos na administração de recursos materiais e patrimoniais envolve o gerenciamento e otimização de todo o fluxo de materiais, informações e recursos, desde o fornecedor inicial até a entrega ao usuário final. Essa abordagem é crucial para garantir que a organização tenha os recursos certos, no lugar certo e no momento certo, minimizando desperdícios e melhorando a eficiência operacional. A gestão eficaz da cadeia de suprimentos contribui para a sustentabilidade e a responsabilidade na utilização dos recursos públicos."
+            }
+            ],
+            'Eixo Temático 3 - Políticas Públicas': [
+          {
+                question: "1. Qual é a etapa do processo de políticas públicas em que se identificam os problemas sociais, se definem as prioridades e se inserem na agenda governamental?",
+                options: [
+                    "Implementação",
+                    "Avaliação",
+                    "Formulação",
+                    "Monitoramento",
+                    "Decisão"
+                ],
+                correctAnswer: "Formulação",
+                hint: "Esta etapa envolve a análise do problema, a definição de objetivos e a escolha entre diferentes alternativas para resolvê-lo.",
+                explanation: "A etapa de formulação no processo de políticas públicas é onde se identificam os problemas sociais, se definem as prioridades e se inserem na agenda governamental. Nessa fase, são analisados os dados disponíveis, discutidas as alternativas de ação e formuladas propostas que serão levadas à decisão política. A formulação é crucial para garantir que as políticas públicas sejam relevantes e eficazes na resolução dos problemas identificados."
+            },
+            {
+                question: "2. A discricionariedade do burocrata na implementação de políticas públicas, também conhecida como 'policy making', refere-se a:",
+                options: [
+                    "A proibição total de tomar decisões sem a autorização de um superior.",
+                    "A capacidade de aplicar a lei de forma cega, sem considerar o contexto.",
+                    "O poder de interpretação e adaptação das normas e diretrizes da política para atender às realidades locais ou a casos específicos.",
+                    "A necessidade de criar novas leis a todo momento.",
+                    "A exclusividade de atuação apenas em tarefas administrativas de baixo nível."
+                ],
+                correctAnswer: "O poder de interpretação e adaptação das normas e diretrizes da política para atender às realidades locais ou a casos específicos.",
+                hint: "A discricionariedade é uma característica do trabalho do 'burocrata de linha de frente', que lida diretamente com o público e as singularidades de cada caso.",
+                explanation: "A discricionariedade do burocrata na implementação de políticas públicas, também conhecida como 'policy making', refere-se ao poder que os servidores públicos têm de interpretar e adaptar as normas e diretrizes da política para atender às realidades locais ou a casos específicos. Isso é especialmente importante em situações onde as regras gerais não se aplicam perfeitamente, permitindo que o burocrata tome decisões informadas e contextuais para melhor atender às necessidades da população. Essa capacidade é fundamental para a eficácia das políticas públicas, pois reconhece a complexidade e a diversidade dos problemas sociais enfrentados no dia a dia."
+            },
+            {
+                question: "3. Os 'arranjos institucionais' para a implementação de políticas públicas referem-se a:",
+                options: [
+                    "Apenas à estrutura hierárquica de um ministério.",
+                    "Apenas à contratação de consultorias externas.",
+                    "O conjunto de organizações, regras, normas e relações que moldam o processo de implementação de uma política, como fundos, consórcios e agências.",
+                    "A centralização total do poder em um único órgão.",
+                    "A exclusão da participação da sociedade civil."
+                ],
+                correctAnswer: "O conjunto de organizações, regras, normas e relações que moldam o processo de implementação de uma política, como fundos, consórcios e agências.",
+                hint: "Estes arranjos definem 'quem faz o quê' e 'como' as políticas são executadas na prática.",
+                explanation: "Os arranjos institucionais para a implementação de políticas públicas referem-se ao conjunto de organizações, regras, normas e relações que moldam o processo de implementação de uma política. Isso inclui estruturas como fundos, consórcios, agências e outros mecanismos que definem 'quem faz o quê' e 'como' as políticas são executadas na prática. Esses arranjos são essenciais para garantir que as políticas sejam implementadas de forma eficaz e eficiente, alinhando os recursos disponíveis às necessidades da população."
+            },
+            {
+                question: "4. Qual é a principal diferença entre 'monitoramento' e 'avaliação' de políticas públicas?",
+                options: [
+                    "O monitoramento é feito apenas no final da política, enquanto a avaliação é contínua.",
+                    "O monitoramento é o processo de acompanhamento contínuo da execução da política, enquanto a avaliação busca julgar o mérito ou o valor da política, analisando seus resultados e impactos.",
+                    "A avaliação é o processo de acompanhamento contínuo, e o monitoramento é um julgamento final.",
+                    "O monitoramento é qualitativo e a avaliação é quantitativa.",
+                    "Ambos são a mesma coisa e não possuem distinção."
+                ],
+                correctAnswer: "O monitoramento é o processo de acompanhamento contínuo da execução da política, enquanto a avaliação busca julgar o mérito ou o valor da política, analisando seus resultados e impactos.",
+                hint: "Pense no monitoramento como uma 'fotografia' em tempo real e na avaliação como um 'diagnóstico' mais aprofundado e completo.",
+                explanation: "A principal diferença entre monitoramento e avaliação de políticas públicas é que o monitoramento é o processo de acompanhamento contínuo da execução da política, enquanto a avaliação busca julgar o mérito ou o valor da política, analisando seus resultados e impactos. O monitoramento permite identificar problemas e desvios em tempo real, enquanto a avaliação fornece uma análise mais abrangente sobre a eficácia e eficiência da política ao longo do tempo."
+            },
+            {
+                question: "5. A avaliação de políticas públicas que mede a relação entre os custos de uma intervenção e os benefícios sociais gerados, expressos em uma mesma unidade monetária, é conhecida como:",
+                options: [
+                    "Avaliação de efetividade",
+                    "Avaliação de impacto",
+                    "Avaliação de equidade",
+                    "Análise de custo-benefício",
+                    "Avaliação de processo"
+                ],
+                correctAnswer: "Análise de custo-benefício",
+                hint: "Essa modalidade de avaliação é particularmente útil para decidir se os benefícios de uma política justificam o investimento realizado.",
+                explanation: "A análise de custo-benefício é uma modalidade de avaliação de políticas públicas que mede a relação entre os custos de uma intervenção e os benefícios sociais gerados, expressos em uma mesma unidade monetária. Essa análise é fundamental para decidir se o investimento público é justificado do ponto de vista social e econômico, ajudando a priorizar recursos e a formular políticas mais eficazes."
+            },
+            {
+                question: "6. As 'políticas públicas informadas por evidência' baseiam-se em qual princípio?",
+                options: [
+                    "A intuição e o senso comum dos gestores.",
+                    "As evidências científicas e os dados empíricos devem ser os principais insumos para a formulação, implementação e avaliação de políticas públicas.",
+                    "O uso exclusivo de evidências políticas e ideológicas.",
+                    "A preferência por evidências anedóticas em detrimento de dados rigorosos.",
+                    "A decisão deve ser sempre baseada em interesses de grupos de pressão."
+                ],
+                correctAnswer: "As evidências científicas e os dados empíricos devem ser os principais insumos para a formulação, implementação e avaliação de políticas públicas.",
+                hint: "O objetivo é maximizar a probabilidade de que as políticas alcancem os resultados desejados, utilizando conhecimento sólido.",
+                explanation: "As políticas públicas informadas por evidência baseiam-se no princípio de que as evidências científicas e os dados empíricos devem ser os principais insumos para a formulação, implementação e avaliação de políticas públicas. Isso significa que as decisões devem ser fundamentadas em pesquisas rigorosas e análises de dados, visando maximizar a probabilidade de que as políticas alcancem os resultados desejados. Essa abordagem promove uma gestão pública mais transparente, responsável e eficaz."
+            },
+            {
+                question: "7. O 'custo-benefício' de uma política pública está diretamente relacionado a:",
+                options: [
+                    "A quantidade de funcionários envolvidos.",
+                    "Apenas aos resultados imediatos obtidos.",
+                    "A análise que compara o valor econômico dos custos da política com o valor econômico dos benefícios que ela gera para a sociedade.",
+                    "O número de reuniões realizadas para discutir a política.",
+                    "A satisfação individual de um único grupo de interesse."
+                ],
+                correctAnswer: "A análise que compara o valor econômico dos custos da política com o valor econômico dos benefícios que ela gera para a sociedade.",
+                hint: "Essa análise ajuda a decidir se o investimento público é justificado do ponto de vista social e econômico.",
+                explanation: "O custo-benefício de uma política pública está diretamente relacionado à análise que compara o valor econômico dos custos da política com o valor econômico dos benefícios que ela gera para a sociedade. Essa análise é fundamental para avaliar a viabilidade e a eficácia das políticas públicas, ajudando a priorizar recursos e a formular intervenções que tragam o maior retorno social possível. O custo-benefício é uma ferramenta essencial para a tomada de decisões informadas na gestão pública."
+            },
+            {
+                question: "8. No processo de políticas públicas, o papel do 'Estado' pode ser visto como:",
+                options: [
+                    "Apenas um espectador passivo dos problemas sociais.",
+                    "O único formulador e implementador de todas as políticas públicas, sem a participação de outros atores.",
+                    "Um ator que, por meio de sua estrutura e burocracia, tem o poder de arbitrar conflitos, tomar decisões e mobilizar recursos para atender às demandas sociais.",
+                    "Um agente que impede a resolução dos problemas sociais.",
+                    "Um simples financiador de projetos privados."
+                ],
+                correctAnswer: "Um ator que, por meio de sua estrutura e burocracia, tem o poder de arbitrar conflitos, tomar decisões e mobilizar recursos para atender às demandas sociais.",
+                hint: "O Estado é o principal agente no processo de políticas públicas, com a capacidade de transformar demandas em ações concretas.",
+                explanation: "No processo de políticas públicas, o papel do Estado é visto como um ator que, por meio de sua estrutura e burocracia, tem o poder de arbitrar conflitos, tomar decisões e mobilizar recursos para atender às demandas sociais. O Estado é responsável por identificar problemas, formular políticas, implementar ações e avaliar resultados, atuando como o principal agente na transformação das demandas sociais em intervenções concretas. Essa função é essencial para garantir que as políticas públicas sejam eficazes e atendam às necessidades da população."
+            },
+            {
+                question: "9. O que a 'equidade' busca garantir em uma política pública?",
+                options: [
+                    "Que todos recebam o mesmo tratamento, independentemente de suas necessidades.",
+                    "A exclusão de grupos vulneráveis das políticas públicas.",
+                    "A distribuição justa de recursos e oportunidades, levando em conta as necessidades e desigualdades existentes, para que todos tenham condições de acesso e sucesso.",
+                    "Apenas o alcance dos objetivos com o menor custo possível.",
+                    "A aplicação de regras rígidas e inflexíveis para todos."
+                ],
+                correctAnswer: "A distribuição justa de recursos e oportunidades, levando em conta as necessidades e desigualdades existentes, para que todos tenham condições de acesso e sucesso.",
+                hint: "Equidade não significa dar o mesmo para todos (igualdade), mas sim dar a cada um o que é necessário para que a 'corrida' seja justa.",
+                explanation: "A equidade em políticas públicas busca garantir a distribuição justa de recursos e oportunidades, levando em conta as necessidades e desigualdades existentes. Isso significa que as políticas devem ser desenhadas para atender às especificidades de diferentes grupos, especialmente aqueles em situação de vulnerabilidade, para que todos tenham condições de acesso e sucesso. A equidade é um princípio fundamental para promover justiça social e inclusão, assegurando que as intervenções públicas sejam sensíveis às realidades diversas da população."
+            },
+            {
+                question: "10. 'Institutionalização e governança do uso de evidências' refere-se, principalmente, a:",
+                options: [
+                    "A criação de um órgão único e centralizado para tomar todas as decisões.",
+                    "A burocratização excessiva do processo decisório.",
+                    "A incorporação formal e sistemática de mecanismos, estruturas e processos na gestão pública para que as evidências sejam usadas de forma rotineira e eficaz na tomada de decisões.",
+                    "A proibição do uso de qualquer tipo de evidência externa.",
+                    "A exclusividade do uso de evidências na área da saúde pública."
+                ],
+                correctAnswer: "A incorporação formal e sistemática de mecanismos, estruturas e processos na gestão pública para que as evidências sejam usadas de forma rotineira e eficaz na tomada de decisões.",
+                hint: "Isso significa criar uma 'cultura' na qual as evidências são valorizadas e utilizadas como um pilar da gestão pública, e não apenas de forma pontual.",
+                explanation: "A 'institutionalização e governança do uso de evidências' refere-se à incorporação formal e sistemática de mecanismos, estruturas e processos na gestão pública para que as evidências sejam usadas de forma rotineira e eficaz na tomada de decisões. Isso implica criar uma cultura organizacional que valorize o uso de dados e pesquisas como base para a formulação, implementação e avaliação de políticas públicas, promovendo uma administração mais transparente, responsável e orientada por resultados."
+            }
+],
+            'Eixo Temático 4 - AFO: Contabilidade e Compras na Adm Pública': [
+        {
+                question: "1. Qual dos princípios orçamentários estabelece que a Lei Orçamentária Anual (LOA) deve conter apenas matéria orçamentária?",
+                options: [
+                    "Princípio da Unidade.",
+                    "Princípio da Exclusividade.",
+                    "Princípio da Universalidade.",
+                    "Princípio da Anualidade.",
+                    "Princípio da Publicidade."
+                ],
+                correctAnswer: "Princípio da Exclusividade.",
+                hint: "Este princípio impede que a LOA seja usada para aprovar temas que não sejam estritamente relacionados ao orçamento, como a criação de novas leis.",
+                explanation: "O Princípio da Exclusividade estabelece que a Lei Orçamentária Anual (LOA) deve conter apenas matéria orçamentária, ou seja, não pode incluir assuntos que não estejam diretamente relacionados à previsão e execução das receitas e despesas públicas. Isso garante que o orçamento seja um instrumento claro e específico para a gestão financeira do governo, evitando a inclusão de temas que possam desvirtuar sua finalidade."
+            },
+            {
+                question: "2. O ciclo orçamentário é composto por quatro etapas principais. Qual das opções abaixo representa a ordem correta dessas etapas?",
+                options: [
+                    "Elaboração, Aprovação, Execução e Fiscalização.",
+                    "Aprovação, Execução, Elaboração e Fiscalização.",
+                    "Execução, Elaboração, Aprovação e Fiscalização.",
+                    "Fiscalização, Elaboração, Aprovação e Execução.",
+                    "Elaboração, Execução, Fiscalização e Aprovação."
+                ],
+                correctAnswer: "Elaboração, Aprovação, Execução e Fiscalização.",
+                hint: "O processo começa com a proposta e termina com o controle, garantindo que o ciclo se complete.",
+                explanation: "O ciclo orçamentário é composto por quatro etapas principais: Elaboração, Aprovação, Execução e Fiscalização. A Elaboração envolve a criação da proposta orçamentária pelo Poder Executivo, que é então submetida ao Poder Legislativo para Aprovação. Após a aprovação, ocorre a Execução do orçamento, onde as receitas são arrecadadas e as despesas são realizadas. Por fim, a Fiscalização garante que os recursos sejam utilizados de acordo com o que foi aprovado, promovendo a transparência e a accountability."
+            },
+            {
+                question: "3. Na Contabilidade Pública, qual é o conceito que representa a diferença entre o Ativo e o Passivo, indicando o resultado acumulado das operações de uma entidade?",
+                options: [
+                    "Balanço Patrimonial.",
+                    "Superávit Financeiro.",
+                    "Patrimônio Líquido.",
+                    "Dívida Ativa.",
+                    "Superávit Orçamentário."
+                ],
+                correctAnswer: "Patrimônio Líquido.",
+                hint: "É um dos principais componentes do Balanço Patrimonial e pode ser afetado por fatos contábeis, como a apuração do resultado do exercício.",
+                explanation: "Na Contabilidade Pública, o Patrimônio Líquido representa a diferença entre o Ativo e o Passivo, indicando o resultado acumulado das operações de uma entidade. Ele é um dos principais componentes do Balanço Patrimonial e reflete a situação financeira da entidade em um determinado momento. O Patrimônio Líquido pode ser afetado por fatos contábeis, como a apuração do resultado do exercício, que inclui receitas e despesas."
+            },
+            {
+                question: "4. A Receita Pública passa por vários estágios. A arrecadação da receita acontece em qual momento?",
+                options: [
+                    "No estágio da Previsão.",
+                    "No estágio do Lançamento.",
+                    "No estágio da Arrecadação.",
+                    "No estágio do Recolhimento.",
+                    "No estágio do Empenho."
+                ],
+                correctAnswer: "No estágio da Arrecadação.",
+                hint: "É o estágio em que o dinheiro efetivamente entra nos cofres públicos, após a cobrança ou recebimento do crédito.",
+                explanation: "A Receita Pública passa por vários estágios, e a arrecadação da receita acontece no estágio da Arrecadação. Nesse momento, o dinheiro efetivamente entra nos cofres públicos, após a cobrança ou recebimento do crédito. Antes disso, a receita é prevista e lançada, mas é na arrecadação que ocorre o ingresso real dos recursos financeiros."
+            },
+            {
+                question: "5. Na execução da Despesa Pública, a ordem cronológica dos estágios é:",
+                options: [
+                    "Liquidação, Empenho, Pagamento.",
+                    "Empenho, Pagamento, Liquidação.",
+                    "Empenho, Liquidação, Pagamento.",
+                    "Pagamento, Empenho, Liquidação.",
+                    "Liquidação, Pagamento, Empenho."
+                ],
+                correctAnswer: "Empenho, Liquidação, Pagamento.",
+                hint: "Este é o 'trio' que formaliza a despesa, desde o compromisso até a entrega final dos recursos.",
+                explanation: "Na execução da Despesa Pública, a ordem cronológica dos estágios é Empenho, Liquidação, Pagamento. O Empenho é o compromisso assumido pelo governo de pagar uma despesa futura. A Liquidação é o reconhecimento do direito do credor, ou seja, a confirmação de que o serviço foi prestado ou o bem foi entregue. Por fim, o Pagamento é a efetiva entrega dos recursos financeiros ao credor."
+            },
+            {
+                question: "6. Qual princípio básico da Licitação garante que todos os licitantes tenham as mesmas chances de vencer a disputa, sem privilégios ou favorecimentos?",
+                options: [
+                    "Princípio da Publicidade.",
+                    "Princípio da Impessoalidade.",
+                    "Princípio da Moralidade.",
+                    "Princípio da Isonomia.",
+                    "Princípio da Vinculação ao Instrumento Convocatório."
+                ],
+                correctAnswer: "Princípio da Isonomia.",
+                hint: "Este princípio é o que garante a igualdade de condições para todos os participantes do processo licitatório.",
+                explanation: "O Princípio da Isonomia é o princípio básico da Licitação que garante que todos os licitantes tenham as mesmas chances de vencer a disputa, sem privilégios ou favorecimentos. Isso significa que todos os participantes devem ser tratados de forma justa e equitativa, assegurando que a competição seja leal e transparente."
+            },
+            {
+                question: "7. A contratação direta por 'inexigibilidade de licitação' ocorre quando:",
+                options: [
+                    "Não há orçamento disponível para a licitação.",
+                    "Há um número limitado de fornecedores no mercado.",
+                    "A competição é inviável, como no caso de um serviço técnico especializado com um único profissional notório.",
+                    "O valor da compra é abaixo do limite estabelecido pela lei.",
+                    "A licitação foi desertada (sem interessados)."
+                ],
+                correctAnswer: "A competição é inviável, como no caso de um serviço técnico especializado com um único profissional notório.",
+                hint: "É o oposto da dispensa de licitação, onde a licitação é possível, mas a lei permite que não seja realizada.",
+                explanation: "A contratação direta por 'inexigibilidade de licitação' ocorre quando a competição é inviável, como no caso de um serviço técnico especializado com um único profissional notório ou quando se trata de fornecedor exclusivo. Nesses casos, a lei permite que a Administração Pública contrate diretamente, sem a necessidade de realizar uma licitação, desde que sejam atendidos os requisitos legais."
+            },
+            {
+                question: "8. Uma característica fundamental do Contrato Administrativo é a 'cláusula exorbitante', que confere à Administração Pública poderes especiais. Um exemplo é:",
+                options: [
+                    "A impossibilidade de alterar o contrato após a assinatura.",
+                    "O poder de o contratado rescindir o contrato a qualquer momento.",
+                    "O poder de a Administração alterar unilateralmente as cláusulas contratuais, respeitados os limites da lei.",
+                    "A necessidade de aprovação judicial para qualquer alteração.",
+                    "A obrigatoriedade de conciliação para resolver qualquer conflito."
+                ],
+                correctAnswer: "O poder de a Administração alterar unilateralmente as cláusulas contratuais, respeitados os limites da lei.",
+                hint: "Essas cláusulas existem para garantir a supremacia do interesse público sobre o interesse particular.",
+                explanation: "Uma característica fundamental do Contrato Administrativo é a 'cláusula exorbitante', que confere à Administração Pública poderes especiais, como o poder de alterar unilateralmente as cláusulas contratuais, respeitados os limites da lei. Isso permite que a Administração ajuste o contrato para melhor adequação aos seus interesses, garantindo a supremacia do interesse público sobre o interesse particular. Essas cláusulas são essenciais para a flexibilidade e adaptabilidade dos contratos administrativos."
+            },
+            {
+                question: "9. No planejamento de compras e contratações públicas, qual documento formaliza a demanda e a necessidade da área solicitante, servindo como base para a elaboração do Termo de Referência ou Projeto Básico?",
+                options: [
+                    "O Plano Anual de Contratações.",
+                    "O Estudo Técnico Preliminar.",
+                    "O Plano Plurianual.",
+                    "O Relatório de Gerenciamento de Riscos.",
+                    "O Termo de Referência."
+                ],
+                correctAnswer: "O Estudo Técnico Preliminar.",
+                hint: "Este documento é a primeira etapa do planejamento, onde se analisa a viabilidade da contratação.",
+                explanation: "No planejamento de compras e contratações públicas, o Estudo Técnico Preliminar é o documento que formaliza a demanda e a necessidade da área solicitante, servindo como base para a elaboração do Termo de Referência ou Projeto Básico. Ele analisa a viabilidade da contratação, define os requisitos técnicos e especificações do objeto a ser contratado, e justifica a necessidade da aquisição, contribuindo para uma gestão mais eficiente dos recursos públicos."
+            },
+            {
+                question: "10. Qual a principal diferença entre Dívida Flutuante e Dívida Fundada?",
+                options: [
+                    "A Dívida Flutuante é de longo prazo, e a Fundada é de curto prazo.",
+                    "A Dívida Flutuante é de curto prazo, e a Fundada é de longo prazo, com autorização em lei específica.",
+                    "A Dívida Fundada se refere apenas a Restos a Pagar.",
+                    "Ambas são a mesma coisa, com diferentes nomes.",
+                    "A Dívida Flutuante não precisa de autorização legislativa para ser contraída."
+                ],
+                correctAnswer: "A Dívida Flutuante é de curto prazo, e a Fundada é de longo prazo, com autorização em lei específica.",
+                hint: "A dívida flutuante é temporária, como a de Restos a Pagar, enquanto a dívida fundada é consolidada e permanente.",
+                explanation: "A principal diferença entre Dívida Flutuante e Dívida Fundada é que a Dívida Flutuante é de curto prazo, geralmente relacionada a despesas correntes e Restos a Pagar, enquanto a Dívida Fundada é de longo prazo, com autorização em lei específica, e se refere a financiamentos e empréstimos que têm um prazo mais extenso para pagamento. A Dívida Fundada é consolidada e permanente, enquanto a Dívida Flutuante é temporária e pode ser quitada em um período mais curto."
+            }
+],
+            'Eixo Temático 5 - Transparência, Proteção de Dados, Comunicação': [
+                 {
+                question: "1. A Lei de Acesso à Informação (LAI) estabelece duas modalidades de transparência. Qual delas se refere à divulgação de informações de interesse geral, sem a necessidade de solicitação?",
+                options: [
+                    "Transparência Passiva.",
+                    "Transparência Ativa.",
+                    "Acesso Restrito.",
+                    "Dados Abertos.",
+                    "Publicidade Obrigatória."
+                ],
+                correctAnswer: "Transparência Ativa.",
+                hint: "Pense na ação proativa do governo em disponibilizar dados e informações publicamente.",
+                explanation: "A Lei de Acesso à Informação (LAI) estabelece duas modalidades de transparência, sendo a Transparência Ativa aquela que se refere à divulgação de informações de interesse geral, sem a necessidade de solicitação. Isso significa que o governo deve disponibilizar informações relevantes para a sociedade de forma proativa, como dados sobre receitas e despesas, contratos, licitações e outros assuntos de interesse público."
+            },
+            {
+                question: "2. De acordo com a Lei Geral de Proteção de Dados Pessoais (LGPD), qual o princípio que determina que o tratamento de dados pessoais deve ser feito para propósitos legítimos, específicos e informados ao titular, sem possibilidade de tratamento posterior de forma incompatível com essas finalidades?",
+                options: [
+                    "Princípio da Adequação.",
+                    "Princípio da Necessidade.",
+                    "Princípio da Finalidade.",
+                    "Princípio da Transparência.",
+                    "Princípio da Segurança."
+                ],
+                correctAnswer: "Princípio da Finalidade.",
+                hint: "Este princípio está diretamente relacionado ao motivo e ao objetivo para os quais os dados estão sendo coletados e tratados.",
+                explanation: "De acordo com a Lei Geral de Proteção de Dados Pessoais (LGPD), o Princípio da Finalidade determina que o tratamento de dados pessoais deve ser feito para propósitos legítimos, específicos e informados ao titular, sem possibilidade de tratamento posterior de forma incompatível com essas finalidades. Isso significa que os dados devem ser coletados e utilizados apenas para os fins previamente informados ao titular, garantindo transparência e respeito à privacidade."
+            },
+            {
+                question: "3. Na Comunicação Pública, a 'comunicação de serviço' tem como principal objetivo:",
+                options: [
+                    "Promover a imagem política de um governante.",
+                    "Informar o cidadão sobre a oferta de serviços públicos e os procedimentos para acessá-los.",
+                    "Fomentar o debate sobre políticas públicas.",
+                    "Realizar campanhas publicitárias de cunho comercial.",
+                    "Apenas divulgar notícias sobre o governo."
+                ],
+                correctAnswer: "Informar o cidadão sobre a oferta de serviços públicos e os procedimentos para acessá-los.",
+                hint: "É a comunicação prática, que visa orientar e facilitar a vida do cidadão no acesso aos serviços do Estado.",
+                explanation: "Na Comunicação Pública, a 'comunicação de serviço' tem como principal objetivo informar o cidadão sobre a oferta de serviços públicos e os procedimentos para acessá-los. Essa forma de comunicação é essencial para garantir que os cidadãos saibam como utilizar os serviços disponíveis, promovendo a transparência e a eficiência na administração pública."
+            },
+            {
+                question: "4. Qual é a principal função da 'linguagem simples' no atendimento ao cidadão?",
+                options: [
+                    "Simplificar a legislação para que não seja necessária a atuação de advogados.",
+                    "Reduzir a quantidade de informações nos documentos oficiais.",
+                    "Tornar a comunicação do governo clara, direta e acessível a todos, independentemente de sua escolaridade ou conhecimento técnico.",
+                    "Eliminar a necessidade de se utilizar termos técnicos.",
+                    "Atender apenas a população de baixa renda."
+                ],
+                correctAnswer: "Tornar a comunicação do governo clara, direta e acessível a todos, independentemente de sua escolaridade ou conhecimento técnico.",
+                hint: "Seu objetivo é garantir que a informação pública seja compreendida por todos os cidadãos, promovendo a inclusão.",
+                explanation: "A principal função da 'linguagem simples' no atendimento ao cidadão é tornar a comunicação do governo clara, direta e acessível a todos, independentemente de sua escolaridade ou conhecimento técnico. Isso é fundamental para garantir que todos os cidadãos possam compreender as informações públicas, participar ativamente da vida pública e exercer seus direitos de forma plena."
+            },
+            {
+                question: "5. Em Estatística, o conceito de 'Amostragem Probabilística' refere-se a um método de seleção de amostra em que:",
+                options: [
+                    "A seleção dos elementos da amostra é feita de forma totalmente aleatória, sem regras.",
+                    "Todos os elementos da população têm uma probabilidade conhecida e diferente de zero de serem selecionados para a amostra.",
+                    "A seleção é feita com base na conveniência do pesquisador.",
+                    "A amostra é selecionada com base na opinião de especialistas.",
+                    "A seleção dos elementos é feita intencionalmente para representar grupos específicos."
+                ],
+                correctAnswer: "Todos os elementos da população têm uma probabilidade conhecida e diferente de zero de serem selecionados para a amostra.",
+                hint: "Este tipo de amostragem é fundamental para que os resultados possam ser generalizados para toda a população.",
+                explanation: "Em Estatística, o conceito de 'Amostragem Probabilística' refere-se a um método de seleção de amostra em que todos os elementos da população têm uma probabilidade conhecida e diferente de zero de serem selecionados para a amostra. Isso garante que a amostra seja representativa da população, permitindo que os resultados obtidos possam ser generalizados e utilizados para inferências estatísticas."
+            },
+            {
+                question: "6. Qual das seguintes medidas de localização representa o valor que divide um conjunto de dados em duas partes iguais, com 50% dos valores acima e 50% abaixo dele?",
+                options: [
+                    "Média.",
+                    "Moda.",
+                    "Mediana.",
+                    "Variância.",
+                    "Desvio Padrão."
+                ],
+                correctAnswer: "Mediana.",
+                hint: "É uma medida de tendência central que é menos afetada por valores extremos (outliers) do que a média.",
+                explanation: "A Mediana é a medida de localização que representa o valor que divide um conjunto de dados em duas partes iguais, com 50% dos valores acima e 50% abaixo dele. É uma medida de tendência central que é menos afetada por valores extremos (outliers) do que a média, tornando-a uma escolha preferida em muitos casos onde a distribuição dos dados é assimétrica."
+            },
+            {
+                question: "7. A LGPD estabelece direitos para os titulares de dados pessoais. O direito de 'acesso' significa que o titular pode:",
+                options: [
+                    "Apenas solicitar a exclusão de seus dados.",
+                    "Acessar os dados de outras pessoas que estão na base do governo.",
+                    "Obter informações sobre se há tratamento de seus dados pessoais e quais são eles.",
+                    "Alterar qualquer dado de forma unilateral.",
+                    "Proibir a coleta de qualquer tipo de dado."
+                ],
+                correctAnswer: "Obter informações sobre se há tratamento de seus dados pessoais e quais são eles.",
+                hint: "É um dos pilares da transparência e do controle que o cidadão tem sobre suas próprias informações.",
+                explanation: "O direito de 'acesso' na LGPD significa que o titular pode obter informações sobre se há tratamento de seus dados pessoais e quais são eles. Isso permite que os cidadãos saibam como suas informações estão sendo utilizadas, promovendo a transparência e o controle sobre os dados pessoais. O acesso é um dos direitos fundamentais garantidos pela lei, permitindo que os titulares exerçam maior controle sobre suas informações."
+            },
+            {
+                question: "8. No contexto da Lei de Acesso à Informação (LAI), uma 'informação classificada' é aquela que:",
+                options: [
+                    "Pode ser divulgada livremente a qualquer pessoa.",
+                    "Não pode ser acessada de forma alguma, em nenhuma hipótese.",
+                    "É considerada sigilosa e tem sua divulgação restrita por um período de tempo, sob critérios definidos em lei, para proteger a segurança da sociedade e do Estado.",
+                    "Já está disponível em bases de dados abertos.",
+                    "Foi obtida por meio de um pedido de transparência passiva."
+                ],
+                correctAnswer: "É considerada sigilosa e tem sua divulgação restrita por um período de tempo, sob critérios definidos em lei, para proteger a segurança da sociedade e do Estado.",
+                hint: "A LAI prevê três graus de sigilo: ultrassecreto, secreto e reservado.",
+                explanation: "No contexto da Lei de Acesso à Informação (LAI), uma 'informação classificada' é aquela que é considerada sigilosa e tem sua divulgação restrita por um período de tempo, sob critérios definidos em lei, para proteger a segurança da sociedade e do Estado. A LAI prevê três graus de sigilo: ultrassecreto, secreto e reservado, cada um com diferentes prazos e condições para acesso, visando garantir a proteção de informações sensíveis."
+            },
+            {
+                question: "9. Em Estatística, 'parâmetro' e 'estatística' são conceitos distintos. O parâmetro se refere a uma medida calculada com base na:",
+                options: [
+                    "Amostra.",
+                    "População.",
+                    "Mediana.",
+                    "Média.",
+                    "Desvio Padrão."
+                ],
+                correctAnswer: "População.",
+                hint: "É a medida que descreve uma característica da população inteira, enquanto a 'estatística' descreve a amostra.",
+                explanation: "Em Estatística, 'parâmetro' e 'estatística' são conceitos distintos. O parâmetro se refere a uma medida calculada com base na população, enquanto a 'estatística' é uma medida calculada com base em uma amostra da população. Os parâmetros são usados para descrever características de toda a população, enquanto as estatísticas são usadas para estimar esses parâmetros a partir de dados amostrais."
+            },
+            {
+                question: "10. No contexto da produção de conteúdo com Inteligência Artificial, a ética exige que:",
+                options: [
+                    "O conteúdo gerado seja sempre atribuído como sendo de autoria da IA.",
+                    "Não seja utilizado nenhum tipo de ferramenta de IA na produção de conteúdo público.",
+                    "O uso da IA seja transparente, que o conteúdo seja revisado e que a responsabilidade pela sua veracidade e adequação recaia sobre o agente público.",
+                    "O agente público transfira toda a responsabilidade pelo conteúdo gerado à IA.",
+                    "Sejam utilizadas apenas IA para textos e nunca para imagens."
+                ],
+                correctAnswer: "O uso da IA seja transparente, que o conteúdo seja revisado e que a responsabilidade pela sua veracidade e adequação recaia sobre o agente público.",
+                hint: "A ferramenta de IA é um auxílio, mas a responsabilidade final pelo conteúdo e sua ética são do ser humano.",
+                explanation: "No contexto da produção de conteúdo com Inteligência Artificial, a ética exige que o uso da IA seja transparente, que o conteúdo seja revisado e que a responsabilidade pela sua veracidade e adequação recaia sobre o agente público. Isso significa que, embora a IA possa ser uma ferramenta poderosa para auxiliar na criação de conteúdo, o agente público deve garantir que as informações sejam precisas, relevantes e respeitem os princípios éticos da administração pública."
+            }
+            ]
+        };
+
+        // Referências aos elementos da interface
+        const homeScreen = document.getElementById('home-screen');
+        const eixoContentScreen = document.getElementById('eixo-content-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        
+        const eixoContentTitle = document.getElementById('eixo-content-title');
+        const eixoContentText = document.getElementById('eixo-content-text');
+        const currentEixoTitle = document.getElementById('current-eixo-title');
+        const questionText = document.getElementById('question-text');
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const optionsContainer = document.getElementById('options-container');
+        const hintButton = document.getElementById('hint-button');
+        const hintText = document.getElementById('hint-text');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const nextButton = document.getElementById('next-button');
+        const finalScore = document.getElementById('final-score');
+
+        // Função para exibir a tela de conteúdo do eixo temático
+        function showEixoContent(eixo) {
+            quizState.currentEixo = eixo;
+            eixoContentTitle.textContent = ` ${eixo}`;
+            eixoContentText.innerHTML = eixoContent[eixo];
+            
+            homeScreen.classList.add('hidden');
+            eixoContentScreen.classList.remove('hidden');
+        }
+
+        // Função para iniciar o quiz após ver o conteúdo do eixo
+        function startQuiz() {
+            quizState.questions = quizData[quizState.currentEixo];
+            quizState.currentQuestionIndex = 0;
+            quizState.score = 0;
+
+            eixoContentScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            updateQuizUI();
+        }
+
+        // Função para voltar à tela inicial
+        function goToHome() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            eixoContentScreen.classList.add('hidden');
+            homeScreen.classList.remove('hidden');
+        }
+
+        // Função para atualizar a interface do quiz com a pergunta atual
+        function updateQuizUI() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            
+            currentEixoTitle.textContent = quizState.currentEixo;
+            questionText.textContent = currentQuestion.question;
+            questionCounter.textContent = `Pergunta ${quizState.currentQuestionIndex + 1} de ${quizState.questions.length}`;
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+            
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('w-full', 'bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white', 'text-gray-800', 'font-medium', 'py-3', 'px-4', 'rounded-lg', 'text-left', 'transition-colors', 'duration-200');
+                button.onclick = () => selectAnswer(button, option);
+                optionsContainer.appendChild(button);
+            });
+
+            // Resetar estados de dica e explicação
+            hintButton.classList.remove('hidden');
+            hintText.classList.add('hidden');
+            explanationContainer.classList.add('hidden');
+            nextButton.classList.add('hidden');
+        }
+        
+        // Função para mostrar a dica
+        function showHint() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            hintText.textContent = `Dica: ${currentQuestion.hint}`;
+            hintText.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+        }
+
+        // Função para selecionar uma resposta
+        function selectAnswer(selectedButton, selectedOption) {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correctAnswer;
+            
+            // Desabilitar todas as opções
+            Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+
+            // Destacar respostas
+            if (isCorrect) {
+                quizState.score++;
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-green-500', 'text-white');
+            } else {
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-red-500', 'text-white');
+                // Destacar a resposta correta também
+                Array.from(optionsContainer.children).find(btn => btn.textContent === currentQuestion.correctAnswer).classList.add('bg-green-500', 'text-white');
+            }
+            
+            // Mostrar a explicação e o botão de próxima pergunta
+            explanationText.textContent = currentQuestion.explanation;
+            explanationContainer.classList.remove('hidden');
+            nextButton.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+        }
+
+        // Função para avançar para a próxima pergunta
+        function nextQuestion() {
+            quizState.currentQuestionIndex++;
+            if (quizState.currentQuestionIndex < quizState.questions.length) {
+                updateQuizUI();
+            } else {
+                showResults();
+            }
+        }
+
+        // Função para exibir os resultados finais
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScore.textContent = `Você acertou ${quizState.score} de ${quizState.questions.length} perguntas do eixo '${quizState.currentEixo}'.`;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz CPNU - Bloco 6</title>
+    <link rel="icon" type="image/png" href="brasil.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 48rem;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .themed-button {
+            transition: all 0.2s;
+        }
+        .themed-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .themed-button-active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .top-border {
+            width: 100%;
+            height: 1.5rem;
+            background-color: #1e3a8a;
+        }
+        .themed-footer {
+            width: 100%;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.5rem 1rem; /* Aumentado para 1.5rem no eixo vertical (topo/fundo) */
+        }
+        .footer-border-image {
+            width: 100%;
+            height: 18px;
+            display: block;
+        }
+        .footer-content {
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .contact-link {
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+        .contact-link:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-border"></div>
+
+    <div class="container">
+        
+        <div id="home-screen" class="text-center">
+
+            <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">Quiz Preparatório CPNU - Bloco 6</h1>
+            <p class="text-lg text-gray-600 mb-8">Selecione um eixo temático para estudar os conteúdos e começar o quiz.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Conhecimentos Gerais')">
+                    Conhecimentos Gerais
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 1 - Desenvolvimento, Sustentabilidade e Inclusão')">
+                    Eixo 1: Desenvolvimento, Sustentabilidade e Inclusão
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 2 - Desenvolvimento Produtivo e Regional no Brasil')">
+                    Eixo 2: Desenvolvimento Produtivo e Regional no Brasil
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 3 - Gestão Estratégica e Regulação')">
+                    Eixo 3: Gestão Estratégica e Regulação
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 4 - Desenvolvimento Socieconômico no Brasil')">
+                    Eixo 4: Desenvolvimento Socieconômico no Brasil
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 5 - Desigualdades e Dinâmicas Socioeconômicas no Brasil')">
+                    Eixo 5: Desigualdades e Dinâmicas Socioeconômicas no Brasil
+                </button>
+            </div>
+            
+            <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center w-full mt-6 justify-center" onclick="goToPreviousPage()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    Voltar
+</button>
+        </div>
+
+        <div id="eixo-content-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4" id="eixo-content-title"></h2>
+            <div id="eixo-content-text" class="text-left bg-gray-50 p-6 rounded-xl shadow-inner overflow-y-auto max-h-96 text-gray-700">
+                </div>
+            <div class="mt-6 flex justify-between gap-4">
+                <button class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="startQuiz()">
+                    Iniciar Quiz
+                </button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <div class="mb-6 pb-4 border-b border-gray-300">
+                <p class="text-indigo-600 font-semibold text-lg" id="current-eixo-title"></p>
+                <h2 class="text-2xl font-bold mt-2 text-gray-800" id="question-text"></h2>
+                <div class="flex justify-between items-center text-sm mt-2">
+                    <p class="text-gray-500" id="question-counter"></p>
+                    <p class="text-green-600 font-bold" id="score-counter"></p>
+                </div>
+            </div>
+
+            <div id="options-container" class="space-y-4 mb-4">
+                </div>
+            
+            <button id="hint-button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-lg shadow-sm transition-colors duration-200 mt-4" onclick="showHint()">
+                Dica
+            </button>
+            <div id="hint-text" class="hidden mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-gray-700"></div>
+
+            <div id="explanation-container" class="hidden mt-6 p-6 rounded-lg border border-green-600 bg-green-50">
+                <p class="font-bold text-green-700 mb-2">Explicação:</p>
+                <p id="explanation-text" class="text-gray-700"></p>
+            </div>
+            
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="back-to-home-button" class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button id="next-button" class="w-1/2 hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="nextQuestion()">
+                    Próxima Pergunta
+                </button>
+            </div>
+        </div>
+
+        <div id="results-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4">Quiz Concluído!</h2>
+            <p id="final-score" class="text-xl mb-6 text-gray-800"></p>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                Voltar para o Início
+            </button>
+        </div>
+    </div>
+    
+    <footer class="w-full mt-auto">
+        <img src="7e4bab99-0869-4fec-bb88-19225341d17c (1).png" alt="Borda decorativa" class="footer-border-image">
+        <div class="themed-footer">
+    <div class="footer-content">
+        <div class="flex items-center space-x-4">
+           <a href="contato.html" class="text-sm text-gray-300 hover:text-white transition-colors duration-200">
+                Dúvidas? Entre em contato!
+            </a>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
+            <a href="mailto:contato@luizcodedev.tech" class="contact-link text-sm">Email</a>
+            <a href="https://wa.me/5511995432530" target="_blank" class="contact-link text-sm">WhatsApp</a>
+            <a href="https://www.linkedin.com/in/luiz-eduardo-82a942179/" target="_blank" class="contact-link text-sm">LinkedIn</a>
+        </div>
+    </div>
+    <div class="text-center text-gray-400 text-xs mt-2 md:mt-0">
+        &copy; 2025 LuizDev. Todos os direitos reservados.
+    </div>
+</div>
+    </footer>
+
+      
+
+     <script>
+        // Objeto global para armazenar o estado do quiz
+        let quizState = {
+            questions: [],
+            currentQuestionIndex: 0,
+            score: 0,
+            currentEixo: ''
+        };
+
+        function goToPreviousPage() {
+    // Isso fará o navegador voltar para a página anterior no histórico
+    window.history.back();
+}
+
+        // Conteúdo de estudo para cada eixo temático
+        const eixoContent = {
+            'Conhecimentos Gerais': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Desafios do estado de direito: democracia e cidadania.</li>
+                    <li>2. Políticas públicas: fundamentos, ciclos, federalismo e transformação digital.</li>
+                    <li>3. Ética e integridade: princípios, governança e transparência.</li>
+                    <li>4. Diversidade e inclusão na sociedade.</li>
+                    <li>5. Administração pública federal: princípios, reformas e finanças públicas.</li>
+                    <li>6. Trabalho e tecnologia: IA, automação e riscos no setor público.</li>
+                </ul>
+            `,
+            'Eixo Temático 1 - Desenvolvimento, Sustentabilidade e Inclusão': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Pioneiros das teorias do desenvolvimento econômico: Rosenstein-Rodan, Lewis, Hirschman e Singer.</li>
+                    <li>2. Teorias do
+desenvolvimento da Comissão Econômica para a América Latina e Caribe (Cepal).</li>
+                    <li>3. Celso Furtado:
+subdesenvolvimento, cultura e desenvolvimento regional.</li>
+                    <li>4. . Relação centro-periferia, teorias da dependência e ação
+do Estado no Brasil.</li>
+                    <li>5. Modelos de substituição de importações e liderado pelas exportações (export-led growth).</li>
+                   <li>6. Economia solidária, economia criativa, economia circular.</li>
+                    <li>7. Experiências de desenvolvimento comparadas:
+Inglaterra, Alemanha, EUA, Japão, Coreia do Sul e China.</li>
+                    <li>8. Sistemas de bem-estar social.</li>
+                    <li>9. Financiamento do
+desenvolvimento: modelos de financiamento e bancos de desenvolvimento.</li>    
+                    <li>10. Crescimento, mudança estrutural e
+meio ambiente: “Green New Deal”; “Big Push Ambiental”; a crítica da Ecologia Política.</li>
+                    <li>11. Desenvolvimento
+sustentável: conceitos, objetivos e diretrizes.</li>
+                    <li>12. Objetivos de Desenvolvimento Sustentável (ODS) e a Agenda 2030.</li>
+                    <li>13. Mudanças climáticas e desenvolvimento: mitigação e adaptação.</li>
+                    <li>14. Meio ambiente e desigualdades
+socioeconômicas: degradação ambiental, pobreza, racismo ambiental e justiça ambiental.</li>
+                    <li>15. Transição energética e
+desenvolvimento.</li>
+                </ul>
+            `,
+            'Eixo Temático 2 - Desenvolvimento Produtivo e Regional no Brasil': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1.Teorias de localização e desenvolvimento regional: teorias clássicas da localização, polos de crescimento, teoria da
+base de exportação, teoria do desenvolvimento desigual e modelos centro-periferia.</li>
+                    <li>2. Nova Geografia Econômica:
+retornos crescentes e economias de aglomeração.</li>
+                    <li>3. Ordenamento territorial no Brasil.</li>
+                    <li>4. Desenvolvimento regional,
+rural e urbano no Brasil.</li>
+                    <li>5. Indústria e desenvolvimento econômico.</li>
+                    <li>6. Sistemas nacionais, regionais e locais de
+inovação.</li>
+                    <li>7. Armadilha da renda média, doença holandesa e desindustrialização.</li>
+                    <li>8. Cadeias globais de valor.</li>
+                    <li>9 Diversificação e modernização produtiva no Brasil no século XX.</li> 
+                    <li>10. Globalização comercial, produtiva, tecnológica e
+financeira.</li>
+                    <li>11. Políticas de desenvolvimento regional no Brasil no século XXI: política nacional e planos regionais.</li>
+                    <li>12. Políticas de desenvolvimento territorial rural no Brasil no século XXI: agronegócio, agricultura familiar, segurança
+alimentar e nutricional.</li>
+                    <li>13. Políticas urbanas no Brasil no século XXI: habitação, mobilidade e saneamento básico.</li>
+                    <li>14. Políticas industriais no Brasil século XXI: instrumentos verticais e horizontais, conteúdo local e compras
+governamentais.</li>
+                    <li>15. Cultura e políticas culturais no Brasil no século XXI: desenvolvimento produtivo, financiamento
+e incentivo aos programas artístico-culturais.</li>
+
+                </ul>
+            `,
+            'Eixo Temático 3 - Gestão Estratégica e Regulação': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Planejamento e gestão estratégica: conceitos, princípios, etapas, níveis, métodos e ferramentas;</li>
+  <li>2. Estabelecimento de objetivos e metas organizacionais;</li>
+  <li>3. Métodos de desdobramento de objetivos e metas e elaboração de planos de ação e mapas estratégicos;</li>
+  <li>4. Análise de cenários;</li>
+  <li>5. Gestão de riscos: princípios, objetos, técnicas, modelos nacionais e internacionais, integração ao planejamento;</li>
+  <li>6. Governança e arranjos federativos territoriais: consórcios públicos, regiões metropolitanas, regiões integradas de desenvolvimento, aglomerações urbanas;</li>
+  <li>7. Noções de contabilidade, análise de demonstrativos econômico-financeiros e balanço patrimonial;</li>
+  <li>8. Noções de mercado de capitais, estrutura de capital e valor das empresas (valuation);</li>
+  <li>9. Análise de risco de crédito, de mercado, de liquidez e operacional;</li>
+  <li>10. Falhas de mercado e atuação do Estado;</li>
+  <li>11. Abordagens da regulação: teoria econômica da regulação, teoria da captura, teoria do agente principal e análise da concorrência;</li>
+  <li>12. Análise de impacto regulatório;</li>
+  <li>13. Órgãos reguladores no Brasil: histórico e característica das autarquias;</li>
+  <li>14. Regulação da indústria cinematográfica e videofonográfica;</li>
+  <li>15. Regulação do setor de petróleo, gás natural e biocombustíveis.</li>
+                </ul>
+            `,
+            'Eixo Temático 4 - Desenvolvimento Socieconômico no Brasil': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Liberalismo econômico, nacional-desenvolvimentismo e neoliberalismo: abordagens, definições e suas influências no Brasil;</li>
+  <li>2. Abolição da escravatura e transição do trabalho escravo para o trabalho livre no Brasil;</li>
+  <li>3. O início do ciclo do desenvolvimentismo: Era Vargas e a industrialização brasileira;</li>
+  <li>4. Plano de Metas e o papel do Estado no desenvolvimento;</li>
+  <li>5. Ditadura militar: desenvolvimento econômico e desigualdade;</li>
+  <li>6. Crise da dívida externa, hiperinflação e Consenso de Washington;</li>
+  <li>7. Plano Real e abertura comercial e financeira;</li>
+  <li>8. Empresas estatais e desenvolvimento no Brasil;</li>
+  <li>9. Privatizações no Brasil a partir dos anos 1990;</li>
+  <li>10. O início do século XXI: política social, ciclo de commodities e a retomada do crescimento;</li>
+  <li>11. A crise financeira internacional de 2008-2009 e seus impactos no Brasil;</li>
+  <li>12. Crise econômica, política e institucional: 2015-2016;</li>
+  <li>13. Pandemia de covid-19 e seus impactos socioeconômicos no Brasil;</li>
+  <li>14. Financeirização da economia brasileira no século XXI;</li>
+  <li>15. Rigidez estrutural e desindustrialização no Brasil;</li>
+  <li>16. Instituições e financiamento do desenvolvimento regional.</li>
+                    
+                </ul>
+            `,
+            'Eixo Temático 5 - Desigualdades e Dinâmicas Socioeconômicas no Brasil': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Dinâmica e estrutura demográfica: tendências da natalidade, fecundidade, mortalidade e seus determinantes; tendências e tipos de migração e seus determinantes; projeções de população;</li>
+  <li>2. Desigualdade de renda e riqueza no Brasil no final do século XX e no século XXI;</li>
+  <li>3. Desigualdades sociais no Brasil no século XXI: articulações entre raça, etnia, geração, classe, gênero e sexualidade;</li>
+  <li>4. Direitos sociais, definição, implementação, desafios e conquistas no Brasil;</li>
+  <li>5. Políticas públicas: universalização versus focalização;</li>
+  <li>6. O sistema de proteção social no Brasil após a Constituição de 1988;</li>
+  <li>7. Políticas redistributivas Brasil no século XXI;</li>
+  <li>8. Promoção e implementação de políticas afirmativas no Brasil no século XXI;</li>
+  <li>9. Políticas para povos indígenas e quilombolas;</li>
+  <li>10. Movimentos sociais, sindicatos e ações coletivas no Brasil após a Constituição de 1988;</li>
+  <li>11. Mercado de trabalho: formação, estruturação e regulação no Brasil;</li>
+  <li>12. Desemprego, emprego formal, trabalho autônomo, trabalho por conta própria e informalidade no Brasil: evolução no século XXI;</li>
+  <li>13. Terceirização, pejotização e uberização do trabalho no Brasil;</li>
+  <li>14. Pobreza, fome e insegurança alimentar e nutricional no Brasil: evolução no século XXI.</li>
+                    
+                </ul>
+            `
+        };
+
+        // Dados do quiz: perguntas, opções, respostas, dicas e explicações
+        const quizData = {
+             'Conhecimentos Gerais': [
+                 {
+                question: "Qual dos seguintes itens NÃO é considerado um direito fundamental garantido pela Constituição Federal de 1988?",
+                options: [
+                    "Direito à vida.",
+                    "Direito à liberdade de expressão.",
+                    "Direito de propriedade sobre recursos naturais do país.",
+                    "Direito à igualdade.",
+                    "Direito à moradia."
+                ],
+                correctAnswer: "Direito de propriedade sobre recursos naturais do país.",
+                hint: "A Constituição estabelece que os recursos naturais são bens da União, de domínio público.",
+                explanation: "Embora a Constituição garanta o direito à propriedade, os recursos naturais são considerados bens da União e não podem ser apropriados individualmente. O Estado é responsável por sua gestão e proteção, garantindo que sejam utilizados em benefício de toda a sociedade."
+            },
+            {
+                question: "No ciclo de políticas públicas, qual é a etapa que envolve a elaboração de planos, programas e projetos detalhados para alcançar os objetivos definidos?",
+                options: [
+                    "Formulação.",
+                    "Agenda.",
+                    "Monitoramento.",
+                    "Avaliação.",
+                    "Implementação."
+                ],
+                correctAnswer: "Formulação.",
+                hint: "É nesta fase que as soluções para o problema público são desenhadas e as estratégias são definidas.",
+                explanation: "A etapa de formulação é crucial no ciclo de políticas públicas, pois é onde se define como o problema identificado será abordado, quais recursos serão necessários e quais ações serão implementadas para alcançar os objetivos estabelecidos."
+            },
+            {
+                question: "Qual é o principal objetivo do princípio da 'transparência' na administração pública?",
+                options: [
+                    "Apenas divulgar os gastos públicos.",
+                    "Tornar as ações e decisões governamentais acessíveis e compreensíveis para a sociedade.",
+                    "Impedir a participação cidadã.",
+                    "Garantir a confidencialidade das informações.",
+                    "Apenas cumprir a Lei de Acesso à Informação (LAI)."
+                ],
+                correctAnswer: "Tornar as ações e decisões governamentais acessíveis e compreensíveis para a sociedade.",
+                hint: "A transparência vai além da simples divulgação; ela busca a inteligibilidade e o controle social sobre a gestão pública.",
+                explanation: "O princípio da transparência é fundamental para a democracia, pois permite que os cidadãos acompanhem e fiscalizem as ações do governo, promovendo a accountability e a confiança nas instituições públicas."
+            },
+            {
+                question: "Qual dos seguintes conceitos está diretamente ligado à ideia de que diferentes formas de discriminação (como raça, gênero e classe) não podem ser analisadas isoladamente, mas sim em suas interconexões?",
+                options: [
+                    "Federalismo.",
+                    "Intersetorialidade.",
+                    "Interseccionalidade.",
+                    "Transversalidade.",
+                    "Governabilidade."
+                ],
+                correctAnswer: "Interseccionalidade.",
+                hint: "Este conceito reconhece que as identidades sociais se cruzam e criam experiências únicas de opressão e privilégio.",
+                explanation: "A interseccionalidade é um conceito que analisa como diferentes formas de discriminação e opressão se interconectam, afetando as experiências de indivíduos e grupos de maneira complexa. É fundamental para entender a diversidade e a inclusão nas políticas públicas."
+            },
+            {
+                question: "A estrutura organizacional da Administração Pública Federal é regida por quais princípios constitucionais?",
+                options: [
+                    "Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência.",
+                    "Probidade, Meritocracia e Hierarquia.",
+                    "Eficiência, Descentralização e Autonomia.",
+                    "Transparência, Responsabilidade e Equidade.",
+                    "Legalidade, Publicidade, Autonomia e Flexibilidade."
+                ],
+                correctAnswer: "Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência.",
+                hint: "Esses são os cinco princípios fundamentais da Administração Pública, frequentemente lembrados pela sigla 'LIMPE'.",
+                explanation: "Os princípios constitucionais da Administração Pública são fundamentais para garantir que a gestão pública seja realizada de forma ética, transparente e eficiente, assegurando o respeito aos direitos dos cidadãos e a boa aplicação dos recursos públicos."
+            },
+            {
+                question: "A automação no setor público, impulsionada por novas tecnologias como a Inteligência Artificial, tem como um de seus principais desafios:",
+                options: [
+                    "Aumento da carga de trabalho dos servidores.",
+                    "A ausência de dados para treinamento de algoritmos.",
+                    "Aumento de burocracia nos processos.",
+                    "A necessidade de requalificação dos servidores e o risco de desumanização do serviço.",
+                    "A impossibilidade de monitorar os resultados."
+                ],
+                correctAnswer: "A necessidade de requalificação dos servidores e o risco de desumanização do serviço.",
+                hint: "Enquanto a tecnologia automatiza tarefas, a dimensão humana e a adaptabilidade dos profissionais se tornam ainda mais importantes.",
+                explanation: "A automação traz eficiência, mas também exige que os servidores se adaptem às novas tecnologias e mantenham a humanização no atendimento ao cidadão. O risco de desumanização é um desafio ético importante."
+            },
+            {
+                question: "Qual dos instrumentos a seguir estabelece as metas e prioridades do governo para um período de quatro anos?",
+                options: [
+                    "Lei de Diretrizes Orçamentárias (LDO).",
+                    "Lei Orçamentária Anual (LOA).",
+                    "Plano Plurianual (PPA).",
+                    "Lei de Responsabilidade Fiscal (LRF).",
+                    "Lei de Acesso à Informação (LAI)."
+                ],
+                correctAnswer: "Plano Plurianual (PPA).",
+                hint: "É o planejamento de médio prazo que orienta a elaboração da LDO e da LOA, definindo as grandes diretrizes governamentais.",
+                explanation: "O PPA é um instrumento de planejamento de médio prazo que estabelece as diretrizes, objetivos e metas da administração pública federal para um período de quatro anos, servindo como base para a elaboração da LDO e da LOA."
+            },
+            {
+                question: "A 'judicialização de políticas públicas' é um fenômeno que ocorre quando:",
+                options: [
+                    "O Poder Executivo cria leis sem a aprovação do Legislativo.",
+                    "As decisões políticas são tomadas exclusivamente pelo Poder Judiciário.",
+                    "O Poder Judiciário é acionado para resolver conflitos sobre a implementação ou a falta de políticas públicas.",
+                    "O Legislativo se sobrepõe ao Executivo na criação de políticas.",
+                    "O Judiciário se abstém de qualquer tipo de intervenção na área política."
+                ],
+                correctAnswer: "O Poder Judiciário é acionado para resolver conflitos sobre a implementação ou a falta de políticas públicas.",
+                hint: "Este fenômeno reflete a busca por direitos e a resolução de impasses políticos no âmbito judicial.",
+                explanation: "A judicialização de políticas públicas ocorre quando cidadãos ou grupos sociais recorrem ao Judiciário para garantir direitos ou questionar a omissão do Estado na implementação de políticas públicas. Isso pode ocorrer em diversas áreas, como saúde, educação e assistência social."
+            },
+            {
+                question: "O princípio da 'intersetorialidade' em políticas públicas refere-se à:",
+                options: [
+                    "Criação de políticas que atendam a um único setor da sociedade.",
+                    "Articulação e colaboração entre diferentes setores da administração pública para solucionar um problema complexo.",
+                    "Exclusividade de um setor na tomada de decisões.",
+                    "Centralização de todas as ações em um único ministério.",
+                    "Ausência de diálogo entre as diferentes esferas de governo."
+                ],
+                correctAnswer: "Articulação e colaboração entre diferentes setores da administração pública para solucionar um problema complexo.",
+                hint: "Problemas sociais complexos, como a violência urbana, exigem a cooperação de setores como segurança, educação, saúde e assistência social.",
+                explanation: "A intersetorialidade é essencial para a efetividade das políticas públicas, pois reconhece que muitos problemas sociais não podem ser resolvidos por um único setor, mas sim por uma abordagem integrada que envolva múltiplas áreas de atuação do governo."
+            },
+            {
+                question: "Qual a principal função de uma 'capacidade estatal'?",
+                options: [
+                    "Representar o Estado em nível internacional.",
+                    "Aumentar o poder do Legislativo sobre o Executivo.",
+                    "Apenas arrecadar impostos.",
+                    "A capacidade do Estado de realizar suas funções, implementar políticas e fornecer serviços de maneira eficaz.",
+                    "Controlar a mídia e a opinião pública."
+                ],
+                correctAnswer: "A capacidade do Estado de realizar suas funções, implementar políticas e fornecer serviços de maneira eficaz.",
+                hint: "É a competência técnica e administrativa do Estado que permite a ele cumprir com suas responsabilidades e gerar resultados para a sociedade.",
+                explanation: "A capacidade estatal é essencial para a efetividade das políticas públicas, pois envolve a habilidade do governo de planejar, executar e avaliar ações que atendam às necessidades da população. Sem essa capacidade, o Estado não consegue cumprir seu papel de forma eficiente."
+            },
+                {
+                    question: "Segundo a Constituição de 1988, qual a principal função dos direitos fundamentais, sociais e políticos?",
+                    options: ["Consolidar a democracia e a cidadania.", "Limitar o poder do Poder Executivo.", "Viabilizar a judicialização de políticas públicas.", "Aumentar a burocracia estatal."],
+                    correctAnswer: "Consolidar a democracia e a cidadania.",
+                    hint: "A Constituição de 88 é conhecida como a 'Constituição Cidadã'.",
+                    explanation: "A Constituição de 1988, conhecida como a 'Constituição Cidadã', tem como um de seus pilares a consolidação da democracia. Os direitos fundamentais, sociais e políticos servem para assegurar a participação ativa do cidadão e a proteção de suas liberdades, fortalecendo o Estado Democrático de Direito."
+                },
+                {
+                    question: "Na etapa de 'Formulação' do ciclo de políticas públicas, qual atividade é central?",
+                    options: ["Implementar planos e programas.", "Monitorar e avaliar os resultados.", "Elaborar alternativas e selecionar a melhor solução.", "Definir se o problema será tratado pelo governo."],
+                    correctAnswer: "Elaborar alternativas e selecionar a melhor solução.",
+                    hint: "Pense na fase que vem depois de identificar o problema, mas antes de agir.",
+                    explanation: "Após a fase de 'Agenda', onde o problema é reconhecido, a 'Formulação' é a etapa em que se criam as propostas de ação, avaliando as possíveis soluções e escolhendo a mais adequada para ser implementada."
+                },
+                {
+                    question: "A Lei de Acesso à Informação (LAI) e a transparência pública estão diretamente relacionadas a qual princípio constitucional da administração pública?",
+                    options: ["Legalidade.", "Impessoalidade.", "Moralidade.", "Publicidade."],
+                    correctAnswer: "Publicidade.",
+                    hint: "É o princípio que exige a divulgação dos atos da administração.",
+                    explanation: "A publicidade é o princípio constitucional que exige a transparência total dos atos da administração, salvo exceções legais. A Lei de Acesso à Informação (LAI) é o principal instrumento que concretiza este princípio, garantindo que o cidadão possa acessar as informações públicas."
+                },
+                {
+                    question: "Qual instrumento do planejamento-orçamento no Brasil define as diretrizes, metas e prioridades da administração pública federal para um período de quatro anos?",
+                    options: ["Plano Plurianual (PPA).", "Lei de Diretrizes Orçamentárias (LDO).", "Lei Orçamentária Anual (LOA).", "Plano Nacional de Desenvolvimento."],
+                    correctAnswer: "Plano Plurianual (PPA).",
+                    hint: "O nome do instrumento já indica sua abrangência de tempo.",
+                    explanation: "O PPA é o principal instrumento de planejamento de médio prazo do governo federal, definindo as diretrizes e os objetivos estratégicos para um período de quatro anos. A LDO e a LOA devem estar alinhadas com o que foi estabelecido no PPA."
+                },
+                {
+                    question: "Qual o princípio da Administração Pública que exige que a atuação dos agentes públicos seja voltada ao interesse público, não podendo beneficiar a si próprios ou a terceiros?",
+                    options: ["Moralidade.", "Impessoalidade.", "Eficiência.", "Legalidade."],
+                    correctAnswer: "Impessoalidade.",
+                    hint: "Pense na atuação 'sem rosto', sem distinção pessoal.",
+                    explanation: "O princípio da impessoalidade exige que a Administração Pública atue com o objetivo de alcançar o interesse público, sem favorecer ou prejudicar pessoas por razões pessoais. A conduta deve ser objetiva e voltada à finalidade da lei."
+                },
+                {
+                    question: "A governança pública, como conceito de gestão, tem como um de seus pilares a 'accountability'. O que esse termo significa?",
+                    options: ["A capacidade de inovar na gestão.", "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.", "A agilidade na execução de projetos.", "A gestão baseada em dados e evidências."],
+                    correctAnswer: "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.",
+                    hint: "É a junção de 'conta' e 'habilidade'.",
+                    explanation: "Accountability é o dever de prestar contas sobre as ações tomadas e de se responsabilizar pelas consequências delas. É um pilar fundamental da governança, promovendo a transparência e a responsabilidade na gestão pública."
+                },
+                {
+                    question: "A transformação digital na Administração Pública tem como principal objetivo:",
+                    options: ["Substituir servidores por robôs.", "Simplificar e desburocratizar os serviços para o cidadão.", "Aumentar a arrecadação de impostos.", "Centralizar todas as informações em um único sistema."],
+                    correctAnswer: "Simplificar e desburocratizar os serviços para o cidadão.",
+                    hint: "O foco é na melhoria da experiência do usuário, ou seja, do cidadão.",
+                    explanation: "A transformação digital na Administração Pública busca usar a tecnologia para simplificar processos, tornar os serviços mais acessíveis e eficientes, e melhorar a relação entre o governo e a população. O objetivo é facilitar a vida do cidadão."
+                },
+                {
+                    question: "De acordo com o edital, quais são os principais eixos da diversidade e inclusão na sociedade brasileira?",
+                    options: ["Gênero, raça, etnia e idade.", "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.", "Gênero e nacionalidade.", "Etnia, raça e classe social."],
+                    correctAnswer: "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.",
+                    hint: "Pense nos diversos grupos sociais que precisam de políticas de inclusão.",
+                    explanation: "O tema de diversidade e inclusão, conforme abordado em concursos públicos, engloba a garantia de direitos e a promoção da igualdade para grupos historicamente marginalizados, incluindo as dimensões de gênero, raça, etnia, orientação sexual, pessoas com deficiência (PCD) e a diversidade entre as gerações."
+                },
+                {
+                    question: "A Reforma Administrativa no Brasil, em diferentes momentos históricos, teve como uma de suas motivações a busca por:",
+                    options: ["Aumento da burocracia e do controle interno.", "Centralização do poder no governo federal.", "Maior eficiência e modernização da máquina pública.", "Redução do número de estados e municípios."],
+                    correctAnswer: "Maior eficiência e modernização da máquina pública.",
+                    hint: "Pense no objetivo de tornar o governo mais ágil e econômico.",
+                    explanation: "As reformas administrativas, desde a criação do DASP no período Vargas até as mais recentes, sempre buscaram melhorar a eficiência, a produtividade e a qualidade dos serviços públicos. O objetivo é modernizar o Estado para que ele responda melhor às demandas da sociedade."
+                },
+                {
+                    question: "Qual o principal risco ético associado ao uso de inteligência artificial (IA) e automação no setor público?",
+                    options: ["Aumento de produtividade.", "Redução de custos operacionais.", "A perda da transparência e a tomada de decisões não explicáveis.", "A simplificação de processos."],
+                    correctAnswer: "A perda da transparência e a tomada de decisões não explicáveis.",
+                    hint: "Pense na 'caixa preta' dos algoritmos.",
+                    explanation: "O uso de IA pode gerar um risco de 'caixa preta', onde o processo de tomada de decisão do algoritmo não é transparente ou facilmente compreendido. Isso pode minar a confiança do cidadão e dificultar a responsabilização por decisões que afetem direitos e serviços públicos, indo contra o princípio da publicidade e da transparência."
+                },
+                {
+                    question: "Qual é um dos principais desafios para a consolidação da democracia e do Estado de Direito no Brasil?",
+                    options: ["A centralização do poder no legislativo.", "A baixa participação popular em decisões políticas.", "A completa ausência de liberdade de expressão.", "A excessiva intervenção de organismos internacionais."],
+                    correctAnswer: "A baixa participação popular em decisões políticas.",
+                    hint: "Pense no papel do cidadão na vida política.",
+                    explanation: "A participação ativa da sociedade civil é crucial para a vitalidade democrática. A baixa participação pode levar à deslegitimação das instituições e à fragilização do controle social sobre o Estado."
+                },
+                {
+                    question: "No ciclo de políticas públicas, a etapa de 'Avaliação' é fundamental para qual propósito?",
+                    options: ["Apenas para punir os responsáveis por falhas.", "Para decidir se a política deve ser implementada ou não.", "Para medir a eficácia, eficiência e impacto da política.", "Para justificar novos gastos sem análise prévia."],
+                    correctAnswer: "Para medir a eficácia, eficiência e impacto da política.",
+                    hint: "Pense no que se faz depois que a política já foi implementada por um tempo.",
+                    explanation: "A avaliação busca verificar se a política pública alcançou os resultados esperados, se foi implementada de forma eficiente e qual foi seu impacto real na sociedade, fornecendo subsídios para ajustes ou para o planejamento de novas políticas."
+                },
+                {
+                    question: "Qual dos seguintes conceitos está mais associado à integridade pública?",
+                    options: ["A velocidade na tomada de decisões.", "A capacidade de gerar lucros.", "A adesão e defesa dos valores morais da organização.", "A centralização das informações."],
+                    correctAnswer: "A adesão e defesa dos valores morais da organização.",
+                    hint: "Pense na conduta do servidor público.",
+                    explanation: "A integridade pública refere-se ao alinhamento da conduta dos servidores e das instituições aos mais altos padrões éticos e morais, evitando conflitos de interesse e garantindo a confiança da população."
+                },
+                {
+                    question: "Políticas de ações afirmativas para a inclusão de grupos minoritários têm como objetivo principal:",
+                    options: ["Aumentar a desigualdade social.", "Apenas a inclusão de pessoas com deficiência.", "Corrigir desigualdades históricas e promover a igualdade de oportunidades.", "Excluir a maioria da sociedade."],
+                    correctAnswer: "Corrigir desigualdades históricas e promover a igualdade de oportunidades.",
+                    hint: "O objetivo é compensar injustiças do passado.",
+                    explanation: "Ações afirmativas são políticas temporárias que visam a compensar desigualdades históricas e estruturais, garantindo que grupos que foram marginalizados tenham acesso a oportunidades de forma equitativa."
+                },
+                {
+                    question: "A Lei de Responsabilidade Fiscal (LRF) tem como um de seus principais pilares o controle e a transparência na gestão de quais recursos?",
+                    options: ["Apenas os recursos da saúde.", "Apenas os recursos da educação.", "Os recursos financeiros e orçamentários dos entes federativos.", "Os recursos de empresas privadas."],
+                    correctAnswer: "Os recursos financeiros e orçamentários dos entes federativos.",
+                    hint: "Pense no controle dos gastos públicos em geral.",
+                    explanation: "A LRF estabelece normas de finanças públicas voltadas para a responsabilidade na gestão fiscal. Ela impõe limites para despesas com pessoal, dívidas e outras obrigações, promovendo a transparência e o equilíbrio das contas públicas."
+                },
+                {
+                    question: "O uso de Inteligência Artificial no setor público levanta preocupações sobre a 'exclusão digital', que se refere a:",
+                    options: ["Apenas a dificuldade de acesso à internet.", "O desemprego causado pela automação.", "A falta de capacitação de servidores para usar novas tecnologias.", "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados."],
+                    correctAnswer: "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados.",
+                    hint: "Pense nas pessoas que ficam de fora do mundo digital.",
+                    explanation: "A exclusão digital ocorre quando a digitalização dos serviços públicos não é acompanhada de políticas de inclusão, deixando de fora da acessibilidade e da cidadania digital aqueles que não possuem acesso, conhecimento ou habilidades para utilizar as novas tecnologias."
+                },
+                {
+                    question: "O conflito de interesses na Administração Pública ocorre quando:",
+                    options: ["O servidor público tem um cargo de liderança.", "O interesse privado do agente público se choca com o interesse público.", "O servidor trabalha em mais de um setor.", "O servidor utiliza a tecnologia no trabalho."],
+                    correctAnswer: "O interesse privado do agente público se choca com o interesse público.",
+                    hint: "Pense na dualidade entre o que é bom para o servidor e o que é bom para a sociedade.",
+                    explanation: "O conflito de interesses acontece quando o agente público utiliza sua posição para favorecer interesses particulares em detrimento do interesse coletivo. A Lei de Conflito de Interesses (Lei nº 12.813/2013) estabelece as regras para evitar essa situação."
+                },
+                {
+                    question: "No contexto do federalismo brasileiro, qual o principal desafio na implementação de políticas públicas sociais?",
+                    options: ["A ausência de recursos financeiros.", "A falta de leis federais.", "A coordenação entre os diferentes níveis de governo (União, estados e municípios).", "A dificuldade de acesso à internet."],
+                    correctAnswer: "A coordenação entre os diferentes níveis de governo (União, estados e municípios).",
+                    hint: "Pense nos desafios de fazer 3 esferas de governo trabalharem juntas.",
+                    explanation: "O federalismo impõe o desafio da coordenação entre os entes federativos para a oferta de serviços públicos. É fundamental que União, estados e municípios trabalhem em conjunto para garantir a efetividade das políticas, evitando duplicidade de ações e falhas na cobertura."
+                },
+                {
+                    question: "A 'interseccionalidade' é um conceito importante para a análise da diversidade, pois se refere a:",
+                    options: ["A união de diferentes grupos sociais em um único movimento.", "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.", "A separação de grupos sociais para uma análise individual.", "O estudo de apenas uma dimensão da identidade de uma pessoa."],
+                    correctAnswer: "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.",
+                    hint: "Pense no 'cruzamento' de diferentes dimensões da identidade de uma pessoa.",
+                    explanation: "A interseccionalidade reconhece que as identidades sociais não existem de forma isolada. A opressão e o privilégio são influenciados pela forma como gênero, raça, classe, orientação sexual, entre outros, se interligam e se manifestam nas experiências individuais."
+                },
+                {
+                    question: "Qual a principal vantagem da automação de processos na Administração Pública?",
+                    options: ["A eliminação de todos os servidores públicos.", "Aumento da burocracia.", "Maior agilidade e redução de erros em tarefas repetitivas.", "A substituição completa da tomada de decisão humana."],
+                    correctAnswer: "Maior agilidade e redução de erros em tarefas repetitivas.",
+                    hint: "Pense no que os robôs podem fazer melhor que os humanos, em termos de repetição.",
+                    explanation: "A automação permite que tarefas repetitivas e baseadas em regras sejam executadas de forma mais rápida e precisa por sistemas, liberando os servidores para se dedicarem a atividades mais complexas, estratégicas e que exigem interação humana."
+                }
+            ],
+            'Eixo Temático 1 - Desenvolvimento, Sustentabilidade e Inclusão': [
+                   {
+                question: "1. A teoria do 'Big Push' de Rosenstein-Rodan sugere que o desenvolvimento de um país subdesenvolvido requer:",
+                options: [
+                    "Apenas investimentos em um setor específico da economia.",
+                    "Investimentos pequenos e graduais em diversos setores.",
+                    "Uma grande quantidade de investimentos coordenados em vários setores da economia para superar as barreiras do subdesenvolvimento de uma só vez.",
+                    "A dependência de ajuda externa contínua.",
+                    "Apenas a liberalização total do comércio internacional."
+                ],
+                correctAnswer: "Uma grande quantidade de investimentos coordenados em vários setores da economia para superar as barreiras do subdesenvolvimento de uma só vez.",
+                hint: "A ideia é criar um 'empurrão' grande o suficiente para que a economia consiga entrar em um ciclo virtuoso de crescimento.",
+                explanation: "A teoria do 'Big Push' propõe que, para que países subdesenvolvidos consigam se desenvolver, é necessário um investimento maciço e coordenado em diversas áreas, como infraestrutura, educação e saúde. Isso ajudaria a superar as limitações estruturais que impedem o crescimento econômico, criando um efeito multiplicador que impulsiona o desenvolvimento de forma sustentável."
+            },
+            {
+                question: "2. Na teoria do desenvolvimento da Cepal, o conceito de 'deterioração dos termos de troca' refere-se ao fato de que, ao longo do tempo:",
+                options: [
+                    "O preço dos produtos manufaturados dos países periféricos aumenta em relação aos dos países centrais.",
+                    "O preço das matérias-primas dos países periféricos tende a diminuir em relação ao preço dos produtos industrializados dos países centrais.",
+                    "As exportações de ambos os blocos tendem a se valorizar igualmente.",
+                    "O custo de vida aumenta nos países do centro.",
+                    "A taxa de juros do mercado internacional se eleva."
+                ],
+                correctAnswer: "O preço das matérias-primas dos países periféricos tende a diminuir em relação ao preço dos produtos industrializados dos países centrais.",
+                hint: "Essa dinâmica reforça a desigualdade entre as economias do centro e da periferia, limitando o desenvolvimento destas últimas.",
+                explanation: "A teoria da Cepal (Comissão Econômica para a América Latina e o Caribe) argumenta que os países periféricos, ao exportarem principalmente matérias-primas, enfrentam uma tendência de deterioração dos termos de troca, ou seja, os preços que recebem por suas exportações tendem a cair em relação aos preços que pagam por produtos industrializados importados dos países centrais. Isso perpetua a dependência econômica e limita o desenvolvimento sustentável desses países."
+            },
+            {
+                question: "3. Qual das seguintes abordagens é a mais associada à 'economia circular'?",
+                options: [
+                    "Adoção do modelo de 'produzir, usar e descartar'.",
+                    "Foco no aumento da produção em massa e na redução de custos de mão de obra.",
+                    "A busca pela redução, reutilização, recuperação e reciclagem de materiais e produtos, visando eliminar o desperdício.",
+                    "A priorização de combustíveis fósseis como fonte de energia.",
+                    "A criação de produtos que não podem ser consertados ou reutilizados."
+                ],
+                correctAnswer: "A busca pela redução, reutilização, recuperação e reciclagem de materiais e produtos, visando eliminar o desperdício.",
+                hint: "O objetivo é manter os materiais em circulação na economia pelo maior tempo possível, imitando os ciclos da natureza.",
+                explanation: "A economia circular é um modelo de produção e consumo que visa minimizar o desperdício e maximizar o uso eficiente dos recursos, promovendo a sustentabilidade ambiental. Ela se opõe ao modelo linear tradicional de 'extrair, produzir, descartar' e busca criar um sistema onde os produtos são projetados para serem reutilizados e reciclados."
+            },
+            {
+                question: "4. A 'Agenda 2030' da ONU, com seus Objetivos de Desenvolvimento Sustentável (ODS), é baseada em três dimensões interconectadas. Quais são elas?",
+                options: [
+                    "Tecnológica, cultural e social.",
+                    "Política, econômica e militar.",
+                    "Econômica, social e ambiental.",
+                    "Regional, nacional e internacional.",
+                    "Pública, privada e mista."
+                ],
+                correctAnswer: "Econômica, social e ambiental.",
+                hint: "Os ODS buscam um equilíbrio entre a prosperidade humana e a proteção do planeta.",
+                explanation: "A Agenda 2030 propõe um modelo de desenvolvimento que integra as dimensões econômica, social e ambiental, reconhecendo que o progresso em uma área não deve ocorrer às custas das outras. Essa abordagem holística é fundamental para alcançar um desenvolvimento sustentável e inclusivo."
+            },
+            {
+                question: "5. A crítica da 'Ecologia Política' ao desenvolvimento se baseia, principalmente, em:",
+                options: [
+                    "A defesa de um crescimento econômico infinito.",
+                    "A ideia de que os problemas ambientais são puramente tecnológicos.",
+                    "A análise das relações de poder e desigualdade que estão por trás da degradação ambiental, mostrando como os custos ambientais e os benefícios econômicos são distribuídos de forma desigual.",
+                    "O apoio irrestrito a todas as políticas de mitigação de mudanças climáticas.",
+                    "A crença de que a natureza não tem valor econômico."
+                ],
+                correctAnswer: "A análise das relações de poder e desigualdade que estão por trás da degradação ambiental, mostrando como os custos ambientais e os benefícios econômicos são distribuídos de forma desigual.",
+                hint: "Essa abordagem destaca quem ganha e quem perde com a exploração dos recursos naturais e a poluição.",
+                explanation: "A Ecologia Política critica a forma como o desenvolvimento econômico tradicional ignora as desigualdades sociais e os impactos ambientais, enfatizando que as decisões sobre o uso dos recursos naturais são influenciadas por relações de poder que favorecem certos grupos em detrimento de outros, especialmente as comunidades mais vulneráveis."
+            },
+            {
+                question: "6. Qual das seguintes opções melhor descreve o modelo de desenvolvimento conhecido como 'substituição de importações'?",
+                options: [
+                    "Aumento da dependência de produtos estrangeiros.",
+                    "Foco na produção de bens primários para exportação.",
+                    "Um processo de industrialização que busca substituir a importação de bens manufaturados por sua produção interna.",
+                    "A adoção de políticas de livre comércio.",
+                    "A importação de mão de obra qualificada."
+                ],
+                correctAnswer: "Um processo de industrialização que busca substituir a importação de bens manufaturados por sua produção interna.",
+                hint: "É um modelo que visa fortalecer a indústria nacional e reduzir a vulnerabilidade externa de um país.",
+                explanation: "O modelo de substituição de importações é uma estratégia de desenvolvimento econômico que busca reduzir a dependência de produtos estrangeiros, promovendo a produção interna de bens manufaturados. Esse modelo foi amplamente adotado em países da América Latina durante o século XX como forma de estimular o crescimento econômico e a industrialização."
+            },
+            {
+                question: "7. O conceito de 'racismo ambiental' refere-se:",
+                options: [
+                    "A uma nova forma de racismo que se manifesta na internet.",
+                    "A uma ideologia que defende a pureza da natureza.",
+                    "Às políticas ambientais que buscam proteger apenas as áreas verdes das cidades.",
+                    "Às desigualdades raciais que levam minorias a serem desproporcionalmente expostas a riscos e impactos ambientais negativos.",
+                    "A um movimento que visa privatizar todas as reservas ambientais."
+                ],
+                correctAnswer: "Às desigualdades raciais que levam minorias a serem desproporcionalmente expostas a riscos e impactos ambientais negativos.",
+                hint: "Este termo destaca como a degradação ambiental e a poluição afetam mais as comunidades marginalizadas.",
+                explanation: "O racismo ambiental é um conceito que descreve como as comunidades racializadas e marginalizadas são frequentemente localizadas em áreas mais poluídas e vulneráveis, sofrendo desproporcionalmente os efeitos negativos das políticas ambientais e da degradação ambiental. É uma questão de justiça social e ambiental."
+            },
+            {
+                question: "8. No contexto dos 'sistemas de bem-estar social', qual é a principal característica do modelo conhecido como 'Estado-providência'?",
+                options: [
+                    "A ausência de qualquer intervenção estatal na economia.",
+                    "A provisão de serviços sociais básicos (como saúde, educação e seguridade social) pelo Estado para toda a população.",
+                    "O foco exclusivo em políticas de segurança e defesa.",
+                    "A privatização completa de todos os serviços públicos.",
+                    "Apenas a proteção da propriedade privada."
+                ],
+                correctAnswer: "A provisão de serviços sociais básicos (como saúde, educação e seguridade social) pelo Estado para toda a população.",
+                hint: "Este sistema é um pilar da democracia social e tem como objetivo reduzir as desigualdades e garantir a dignidade humana.",
+                explanation: "O Estado-providência é um modelo de organização social e econômica em que o Estado assume a responsabilidade de garantir o bem-estar dos cidadãos, oferecendo serviços essenciais e proteção social, visando reduzir as desigualdades e promover a justiça social."
+            },
+            {
+                question: "9. Qual é o papel dos 'bancos de desenvolvimento' no financiamento do desenvolvimento econômico?",
+                options: [
+                    "Oferecer crédito de curto prazo a juros altos.",
+                    "Apenas financiar projetos de grandes corporações privadas.",
+                    "Fornecer financiamento de longo prazo e com condições favoráveis para projetos de infraestrutura, inovação e sustentabilidade, muitas vezes em áreas de interesse público que o setor privado não atua.",
+                    "Limitar o crédito para a população de baixa renda.",
+                    "Atuar exclusivamente no mercado de câmbio."
+                ],
+                correctAnswer: "Fornecer financiamento de longo prazo e com condições favoráveis para projetos de infraestrutura, inovação e sustentabilidade, muitas vezes em áreas de interesse público que o setor privado não atua.",
+                hint: "Essas instituições são fundamentais para viabilizar investimentos estratégicos que geram impactos positivos para a sociedade.",
+                explanation: "Os bancos de desenvolvimento desempenham um papel crucial no financiamento de projetos que promovem o desenvolvimento econômico e social, especialmente em áreas onde o setor privado não tem interesse ou capacidade de investir, como infraestrutura, habitação e energia renovável."
+            },
+            {
+                question: "10. A transição energética, no contexto do desenvolvimento, refere-se a:",
+                options: [
+                    "Apenas à mudança de carros a gasolina para carros elétricos.",
+                    "O processo de substituição das fontes de energia não renováveis, como os combustíveis fósseis, por fontes limpas e renováveis, como a solar e a eólica, visando a descarbonização da economia.",
+                    "A exclusão de qualquer tipo de energia nuclear.",
+                    "O aumento do consumo de carvão mineral para geração de energia.",
+                    "O fim da produção de energia elétrica em todo o mundo."
+                ],
+                correctAnswer: "O processo de substituição das fontes de energia não renováveis, como os combustíveis fósseis, por fontes limpas e renováveis, como a solar e a eólica, visando a descarbonização da economia.",
+                hint: "É um pilar fundamental no combate às mudanças climáticas e na busca por um modelo de desenvolvimento mais sustentável.",
+                explanation: "A transição energética é essencial para reduzir as emissões de gases de efeito estufa e promover um desenvolvimento sustentável, garantindo que as futuras gerações tenham acesso a recursos naturais e um ambiente saudável."
+            }
+            ],
+            'Eixo Temático 2 - Desenvolvimento Produtivo e Regional no Brasil': [
+                   {
+                question: "1. A 'Nova Geografia Econômica', desenvolvida por Paul Krugman, explica a aglomeração de atividades econômicas em certas regiões com base, principalmente, em:",
+                options: [
+                    "Apenas na disponibilidade de recursos naturais.",
+                    "Custos de transporte zero e retornos decrescentes de escala.",
+                    "A interação entre retornos crescentes de escala, custos de transporte e a demanda por produtos, levando a economias de aglomeração.",
+                    "A exclusiva intervenção do Estado para decidir a localização das indústrias.",
+                    "A homogeneidade da paisagem e dos fatores de produção."
+                ],
+                correctAnswer: "A interação entre retornos crescentes de escala, custos de transporte e a demanda por produtos, levando a economias de aglomeração.",
+                hint: "Essa teoria busca explicar por que a produção se concentra em poucas localidades, em vez de se espalhar uniformemente.",
+                explanation: "A Nova Geografia Econômica de Krugman argumenta que a concentração de atividades econômicas em determinadas regiões ocorre devido a economias de aglomeração, onde empresas e trabalhadores se beneficiam da proximidade geográfica, reduzindo custos de transporte e aumentando a eficiência produtiva. Isso resulta em um ciclo de crescimento que atrai ainda mais atividades para essas áreas."
+            },
+            {
+                question: "2. O conceito de 'doença holandesa' se refere ao fenômeno em que:",
+                options: [
+                    "Uma economia se torna mais competitiva devido à forte industrialização.",
+                    "A descoberta ou exploração de um recurso natural abundante (como petróleo ou gás) leva a uma valorização da moeda, prejudicando outros setores da economia, como a indústria de manufatura e a agricultura.",
+                    "A globalização beneficia igualmente todos os setores da economia.",
+                    "O país importa mais do que exporta, sem consequências negativas.",
+                    "A economia se diversifica rapidamente."
+                ],
+                correctAnswer: "A descoberta ou exploração de um recurso natural abundante (como petróleo ou gás) leva a uma valorização da moeda, prejudicando outros setores da economia, como a indústria de manufatura e a agricultura.",
+                hint: "O nome vem da experiência da Holanda após a descoberta de gás natural nos anos 1960.",
+                explanation: "A 'doença holandesa' é um fenômeno econômico que ocorre quando a exploração de recursos naturais, como petróleo ou gás, leva a uma valorização excessiva da moeda local. Isso torna as exportações de outros setores menos competitivas no mercado internacional, resultando em uma desindustrialização e perda de empregos em setores não relacionados aos recursos naturais."
+            },
+            {
+                question: "3. No contexto do desenvolvimento regional, qual é a principal ideia por trás da 'teoria da base de exportação'?",
+                options: [
+                    "O crescimento de uma região depende apenas de investimentos internos.",
+                    "O crescimento de uma região é impulsionado por suas exportações (bens e serviços), que trazem renda para a economia local e geram empregos.",
+                    "A região deve se fechar para o comércio internacional.",
+                    "O crescimento é impulsionado apenas pelo setor público.",
+                    "A importação de produtos é a chave para o desenvolvimento."
+                ],
+                correctAnswer: "O crescimento de uma região é impulsionado por suas exportações (bens e serviços), que trazem renda para a economia local e geram empregos.",
+                hint: "A teoria destaca que as atividades que produzem para fora da região são o motor do crescimento local.",
+                explanation: "A teoria da base de exportação sugere que o desenvolvimento econômico de uma região é impulsionado pelas atividades que geram exportações. Essas atividades trazem renda externa, criam empregos e estimulam a economia local, promovendo um ciclo de crescimento que beneficia toda a região."
+            },
+            {
+                question: "4. Qual é o objetivo principal das 'políticas de conteúdo local' no contexto da política industrial?",
+                options: [
+                    "Incentivar as empresas a usarem apenas insumos importados.",
+                    "Obrigar as empresas a fecharem suas fábricas no exterior.",
+                    "Exigir que uma porcentagem mínima de um produto ou serviço seja produzida com insumos e mão de obra de origem nacional, a fim de fortalecer a cadeia produtiva interna e a indústria local.",
+                    "Proibir a exportação de produtos nacionais.",
+                    "Taxar fortemente os produtos de alta tecnologia."
+                ],
+                correctAnswer: "Exigir que uma porcentagem mínima de um produto ou serviço seja produzida com insumos e mão de obra de origem nacional, a fim de fortalecer a cadeia produtiva interna e a indústria local.",
+                hint: "É um instrumento para proteger e desenvolver a indústria nacional, especialmente em setores estratégicos.",
+                explanation: "As políticas de conteúdo local visam garantir que uma parte significativa dos produtos e serviços utilizados em setores estratégicos, como petróleo e gás, seja produzida internamente. Isso ajuda a fortalecer a indústria nacional, criar empregos e reduzir a dependência de fornecedores estrangeiros."
+            },
+            {
+                question: "5. A 'armadilha da renda média' é um conceito que descreve a situação em que um país:",
+                options: [
+                    "Atinge um nível de renda muito baixo e não consegue crescer.",
+                    "Consegue fazer a transição de uma economia de baixa renda para uma de renda média, mas não consegue progredir para uma de alta renda, estagnando seu crescimento.",
+                    "É um país rico que se torna pobre devido a uma crise econômica.",
+                    "Tem uma renda per capita igual à média mundial.",
+                    "Depende exclusivamente do agronegócio para crescer."
+                ],
+                correctAnswer: "Consegue fazer a transição de uma economia de baixa renda para uma de renda média, mas não consegue progredir para uma de alta renda, estagnando seu crescimento.",
+                hint: "O país perde competitividade em relação a economias de baixa renda e não consegue competir com economias de alta renda em inovação.",
+                explanation: "A armadilha da renda média ocorre quando um país atinge um nível de renda intermediária, mas não consegue avançar para um estágio de desenvolvimento mais elevado. Isso pode ser causado por uma série de fatores, como falta de inovação, baixa produtividade, dependência excessiva de setores primários e dificuldades em diversificar a economia."
+            },
+            {
+                question: "6. No Brasil, qual é a principal distinção entre 'agronegócio' e 'agricultura familiar' nas políticas de desenvolvimento rural?",
+                options: [
+                    "O agronegócio é voltado para o mercado interno, e a agricultura familiar, para o mercado externo.",
+                    "O agronegócio se concentra em commodities de exportação em larga escala, com uso intensivo de tecnologia e capital, enquanto a agricultura familiar está voltada para a produção de alimentos para o mercado interno e a subsistência, com menor escala e uso de mão de obra familiar.",
+                    "A agricultura familiar é uma atividade ilegal no Brasil.",
+                    "Ambas as atividades têm o mesmo foco e modelo de produção.",
+                    "Apenas o agronegócio recebe apoio governamental."
+                ],
+                correctAnswer: "O agronegócio se concentra em commodities de exportação em larga escala, com uso intensivo de tecnologia e capital, enquanto a agricultura familiar está voltada para a produção de alimentos para o mercado interno e a subsistência, com menor escala e uso de mão de obra familiar.",
+                hint: "A distinção é crucial para a formulação de políticas públicas específicas para cada setor.",
+                explanation: "No Brasil, o agronegócio é caracterizado por grandes propriedades rurais que produzem commodities para exportação, utilizando alta tecnologia e capital. Em contraste, a agricultura familiar envolve pequenos produtores que cultivam principalmente para o mercado interno e para a subsistência, empregando mão de obra familiar e práticas mais tradicionais. As políticas públicas devem reconhecer essas diferenças para promover o desenvolvimento rural de forma inclusiva e sustentável."
+            },
+            {
+                question: "7. A 'globalização produtiva' é caracterizada, principalmente, por:",
+                options: [
+                    "A produção de todos os bens em um único país.",
+                    "O isolamento de países em relação ao comércio internacional.",
+                    "A fragmentação do processo produtivo e a distribuição de suas etapas em diferentes países, formando as 'cadeias globais de valor'.",
+                    "A concentração de toda a produção na economia local.",
+                    "O aumento da proteção alfandegária."
+                ],
+                correctAnswer: "A fragmentação do processo produtivo e a distribuição de suas etapas em diferentes países, formando as 'cadeias globais de valor'.",
+                hint: "Um produto final pode ter partes fabricadas em vários países diferentes antes de ser montado.",
+                explanation: "A globalização produtiva refere-se à tendência das empresas de dividir o processo de produção em várias etapas, que são realizadas em diferentes países. Isso permite que as empresas aproveitem as vantagens comparativas de cada região, como mão de obra mais barata ou acesso a recursos naturais, resultando em cadeias globais de valor complexas e interconectadas."
+            },
+            {
+                question: "8. No campo das políticas urbanas no Brasil, a 'mobilidade' se refere a:",
+                options: [
+                    "Apenas ao transporte individual de carros.",
+                    "A capacidade de as pessoas e bens se moverem de forma eficiente e segura na cidade, abrangendo transporte público, ciclovias e calçadas, além do transporte privado.",
+                    "A construção de novos edifícios e moradias.",
+                    "A privatização de todos os serviços de transporte.",
+                    "O aumento de congestionamentos nas grandes cidades."
+                ],
+                correctAnswer: "A capacidade de as pessoas e bens se moverem de forma eficiente e segura na cidade, abrangendo transporte público, ciclovias e calçadas, além do transporte privado.",
+                hint: "O tema está diretamente ligado à qualidade de vida e à inclusão social nas cidades.",
+                explanation: "A mobilidade urbana é um aspecto crucial do planejamento das cidades, pois envolve a criação de sistemas de transporte que permitam o deslocamento eficiente e seguro de pessoas e mercadorias. Isso inclui o desenvolvimento de infraestrutura para transporte público, ciclovias, calçadas e vias para veículos particulares, visando reduzir congestionamentos, melhorar a qualidade do ar e promover a inclusão social."
+            },
+            {
+                question: "9. O conceito de 'polos de crescimento' de François Perroux sugere que o desenvolvimento de uma região ocorre a partir de:",
+                options: [
+                    "Uma distribuição uniforme dos investimentos em todo o território.",
+                    "O surgimento de indústrias e empresas líderes, com forte poder de arrastamento, que impulsionam o crescimento das atividades econômicas a sua volta.",
+                    "A dependência de ajuda externa.",
+                    "A ausência de qualquer tipo de planejamento regional.",
+                    "A especialização em apenas um setor de baixa tecnologia."
+                ],
+                correctAnswer: "O surgimento de indústrias e empresas líderes, com forte poder de arrastamento, que impulsionam o crescimento das atividades econômicas a sua volta.",
+                hint: "A ideia é que o crescimento não acontece de forma homogênea, mas se concentra em determinados 'polos'.",
+                explanation: "Os polos de crescimento são áreas onde a concentração de atividades econômicas, especialmente indústrias e serviços, gera um efeito multiplicador que estimula o desenvolvimento econômico regional. Essas áreas atraem investimentos, criam empregos e impulsionam o crescimento de outras atividades ao seu redor, contribuindo para a dinamização da economia local."
+            },
+            {
+                question: "10. Qual é a principal característica da globalização tecnológica?",
+                options: [
+                    "A restrição da circulação de conhecimento e tecnologia.",
+                    "A concentração de toda a inovação em apenas um país.",
+                    "A disseminação e o compartilhamento de tecnologias, conhecimentos e inovações entre países, impulsionando a interconexão global.",
+                    "A proibição do uso de tecnologia estrangeira.",
+                    "O aumento da dependência tecnológica de países em desenvolvimento."
+                ],
+                correctAnswer: "A disseminação e o compartilhamento de tecnologias, conhecimentos e inovações entre países, impulsionando a interconexão global.",
+                hint: "É um dos pilares da globalização, que facilita a integração de mercados e a produtividade.",
+                explanation: "A globalização tecnológica refere-se ao processo pelo qual inovações e tecnologias se espalham rapidamente entre países e regiões, facilitando a interconexão econômica e social. Isso permite que empresas e países adotem novas tecnologias, aumentem a produtividade e melhorem a competitividade no mercado global."
+            }
+            ],
+            'Eixo Temático 3 - Gestão Estratégica e Regulação': [
+                {
+                question: "1. No contexto da Gestão Estratégica, qual é a principal função de um 'mapa estratégico'?",
+                options: [
+                    "Detalhar os custos de cada projeto operacional da empresa.",
+                    "Representar graficamente as relações de causa e efeito entre os objetivos estratégicos de uma organização, a partir de diferentes perspectivas (financeira, clientes, processos, aprendizado e crescimento).",
+                    "Listar as metas de curto prazo de um setor específico.",
+                    "Mapear a localização geográfica de todas as unidades de uma empresa.",
+                    "Focar exclusivamente na análise da concorrência."
+                ],
+                correctAnswer: "Representar graficamente as relações de causa e efeito entre os objetivos estratégicos de uma organização, a partir de diferentes perspectivas (financeira, clientes, processos, aprendizado e crescimento).",
+                hint: "O mapa estratégico é uma ferramenta visual que integra a visão e a missão da organização com as ações necessárias para alcançá-las.",
+                explanation: "O mapa estratégico é uma ferramenta fundamental na gestão estratégica, pois permite que os líderes visualizem como os diferentes objetivos da organização estão interconectados. Ele ajuda a alinhar as iniciativas e recursos com a visão e missão da organização, facilitando a comunicação e o entendimento entre todos os níveis hierárquicos."
+            },
+            {
+                question: "2. Qual dos seguintes conceitos está diretamente ligado à atuação do Estado em casos de 'falhas de mercado'?",
+                options: [
+                    "Economia de escala.",
+                    "Vantagem comparativa.",
+                    "Externalidades (positivas ou negativas), bens públicos e assimetria de informação.",
+                    "Sistemas de precificação perfeita.",
+                    "Livre concorrência absoluta."
+                ],
+                correctAnswer: "Externalidades (positivas ou negativas), bens públicos e assimetria de informação.",
+                hint: "Quando o mercado não consegue alocar recursos de forma eficiente, essas falhas justificam a intervenção estatal para corrigir as distorções.",
+                explanation: "As falhas de mercado ocorrem quando o mercado não consegue alocar recursos de forma eficiente, resultando em ineficiências econômicas. O Estado pode intervir para corrigir essas falhas, por exemplo, regulando externalidades (como poluição), fornecendo bens públicos (como segurança e educação) e combatendo a assimetria de informação (onde uma parte tem mais informações que a outra, como em mercados financeiros)."
+            },
+            {
+                question: "3. A 'teoria da captura' da regulação sugere que os órgãos reguladores, com o tempo, tendem a:",
+                options: [
+                    "Atuar estritamente em defesa dos interesses do consumidor e do bem-estar social.",
+                    "Ser cooptados pelas indústrias que deveriam regular, passando a defender os interesses dos regulados em detrimento do interesse público.",
+                    "Aumentar sua independência em relação aos agentes privados.",
+                    "Eliminar completamente todas as regulamentações do mercado.",
+                    "Atuar apenas em setores de baixa importância econômica."
+                ],
+                correctAnswer: "Ser cooptados pelas indústrias que deveriam regular, passando a defender os interesses dos regulados em detrimento do interesse público.",
+                hint: "É uma crítica à ideia de que a regulação é sempre neutra e a favor do interesse público.",
+                explanation: "A teoria da captura sugere que, com o tempo, os órgãos reguladores podem se tornar influenciados ou dominados pelas indústrias que deveriam regular. Isso ocorre porque os regulados possuem mais informações e recursos para influenciar as decisões dos reguladores, resultando em regulamentações que favorecem os interesses privados em detrimento do bem-estar social."
+            },
+            {
+                question: "4. No âmbito da gestão de riscos, qual a finalidade da etapa de 'análise de riscos'?",
+                options: [
+                    "Identificar e listar todos os riscos possíveis, sem qualquer priorização.",
+                    "Simplesmente eliminar todos os riscos de uma vez.",
+                    "Avaliar a probabilidade de ocorrência e o impacto potencial de cada risco, a fim de priorizá-los e decidir sobre as melhores estratégias de mitigação.",
+                    "Alocar recursos financeiros para todas as áreas de risco, independentemente da gravidade.",
+                    "Apenas documentar os riscos já ocorridos."
+                ],
+                correctAnswer: "Avaliar a probabilidade de ocorrência e o impacto potencial de cada risco, a fim de priorizá-los e decidir sobre as melhores estratégias de mitigação.",
+                hint: "Essa etapa permite que a organização se concentre nos riscos mais significativos.",
+                explanation: "A análise de riscos é uma etapa crucial na gestão de riscos, pois permite identificar quais riscos são mais relevantes para a organização, considerando tanto a probabilidade de ocorrência quanto o impacto que poderiam ter. Com essa informação, a organização pode desenvolver estratégias eficazes para mitigar ou gerenciar esses riscos, garantindo uma abordagem proativa em vez de reativa."
+            },
+            {
+                question: "5. A 'Análise de Impacto Regulatório' (AIR) é uma ferramenta de gestão pública que tem como objetivo:",
+                options: [
+                    "Apenas justificar a criação de novas regulamentações.",
+                    "Analisar e quantificar os custos e benefícios de uma proposta regulatória, identificando possíveis alternativas e avaliando seus impactos sociais, econômicos e ambientais.",
+                    "Proibir a discussão sobre novas regulamentações.",
+                    "Substituir completamente a necessidade de consulta pública.",
+                    "Medir o impacto de uma regulamentação já existente, sem analisar propostas futuras."
+                ],
+                correctAnswer: "Analisar e quantificar os custos e benefícios de uma proposta regulatória, identificando possíveis alternativas e avaliando seus impactos sociais, econômicos e ambientais.",
+                hint: "A AIR busca garantir que as decisões regulatórias sejam baseadas em evidências e sejam as mais eficazes possíveis.",
+                explanation: "A Análise de Impacto Regulatório é uma ferramenta que visa avaliar as consequências de uma proposta regulatória antes de sua implementação. Ela ajuda a garantir que as regulamentações sejam eficientes, eficazes e proporcionais, considerando os custos e benefícios para a sociedade, e promovendo uma melhor governança pública."
+            },
+            {
+                question: "6. Qual das seguintes opções é uma característica central dos 'arranjos federativos territoriais' como consórcios públicos ou regiões metropolitanas?",
+                options: [
+                    "A ausência de cooperação entre os entes federativos (municípios, estados, etc.).",
+                    "A centralização total do poder de decisão em uma única entidade.",
+                    "A cooperação intergovernamental entre entes federativos para a gestão conjunta de serviços públicos e políticas de interesse comum, superando as limitações administrativas e financeiras de cada um individualmente.",
+                    "O aumento de barreiras comerciais entre os municípios.",
+                    "A privatização de todos os serviços públicos regionais."
+                ],
+                correctAnswer: "A cooperação intergovernamental entre entes federativos para a gestão conjunta de serviços públicos e políticas de interesse comum, superando as limitações administrativas e financeiras de cada um individualmente.",
+                hint: "Esses arranjos buscam sinergia e escala na prestação de serviços públicos em áreas com características urbanas e econômicas similares.",
+                explanation: "Os arranjos federativos territoriais, como consórcios públicos e regiões metropolitanas, são formas de cooperação entre diferentes níveis de governo para a gestão integrada de serviços públicos e políticas públicas. Eles visam otimizar recursos, melhorar a eficiência na prestação de serviços e promover o desenvolvimento regional, superando as limitações que cada ente federativo enfrentaria isoladamente."
+            },
+            {
+                question: "7. No contexto de contabilidade e finanças, o 'balanço patrimonial' de uma empresa apresenta:",
+                options: [
+                    "As receitas e despesas de um determinado período.",
+                    "Apenas os lucros e prejuízos.",
+                    "A situação financeira da empresa em um dado momento, listando seus ativos (bens e direitos), passivos (obrigações) e patrimônio líquido.",
+                    "O fluxo de caixa da empresa.",
+                    "As projeções de faturamento para o próximo ano."
+                ],
+                correctAnswer: "A situação financeira da empresa em um dado momento, listando seus ativos (bens e direitos), passivos (obrigações) e patrimônio líquido.",
+                hint: "É uma 'fotografia' da empresa em uma data específica.",
+                explanation: "O balanço patrimonial é um dos principais relatórios financeiros de uma empresa, que fornece uma visão geral de sua saúde financeira em um determinado momento. Ele mostra o que a empresa possui (ativos), o que deve (passivos) e o valor residual pertencente aos acionistas (patrimônio líquido)."
+            },
+            {
+                question: "8. A 'teoria econômica da regulação' defende que a regulação é uma intervenção do Estado que ocorre para:",
+                options: [
+                    "Favorecer exclusivamente os interesses dos agentes políticos.",
+                    "Apenas aumentar os custos operacionais das empresas.",
+                    "Corrigir ineficiências e falhas de mercado, maximizando o bem-estar social.",
+                    "Promover a desindustrialização de uma economia.",
+                    "Proteger somente os interesses das grandes corporações."
+                ],
+                correctAnswer: "Corrigir ineficiências e falhas de mercado, maximizando o bem-estar social.",
+                hint: "É a visão mais tradicional e otimista sobre a atuação do Estado na economia.",
+                explanation: "A teoria econômica da regulação argumenta que a intervenção estatal é necessária para corrigir falhas de mercado, como monopólios, externalidades e assimetrias de informação, promovendo uma alocação mais eficiente de recursos e maximizando o bem-estar social. Essa visão defende que a regulação deve ser feita de forma técnica e imparcial, visando o interesse público."
+            },
+            {
+                question: "9. O processo de 'Valuation' (avaliação de empresas) é uma técnica utilizada para:",
+                options: [
+                    "Simplesmente calcular o valor dos ativos fixos de uma empresa.",
+                    "Determinar o valor justo de uma empresa ou de seus ativos, com base em diferentes metodologias (fluxo de caixa descontado, múltiplos de mercado, etc.).",
+                    "Medir a inflação em um determinado setor.",
+                    "Calcular a carga tributária de uma companhia.",
+                    "Prever o preço das ações no mercado de capitais com 100% de precisão."
+                ],
+                correctAnswer: "Determinar o valor justo de uma empresa ou de seus ativos, com base em diferentes metodologias (fluxo de caixa descontado, múltiplos de mercado, etc.).",
+                hint: "É uma ferramenta fundamental em fusões, aquisições, investimentos e abertura de capital.",
+                explanation: "O Valuation é um processo crítico para investidores, gestores e analistas financeiros, pois permite avaliar o valor de uma empresa ou ativo, ajudando na tomada de decisões estratégicas, como fusões e aquisições, investimentos e planejamento financeiro."
+            },
+            {
+                question: "10. Os órgãos reguladores no Brasil, como a ANATEL ou a ANP, são caracterizados legalmente como:",
+                options: [
+                    "Empresas estatais dependentes do orçamento direto do governo federal.",
+                    "Ministérios com poder de legislar diretamente sobre os setores.",
+                    "Autarquias de regime especial, com autonomia administrativa, financeira e funcional, com a finalidade de regular e fiscalizar setores específicos da economia, como telecomunicações e petróleo.",
+                    "Organizações não governamentais (ONGs) sem vínculo com o Estado.",
+                    "Sociedades de economia mista."
+                ],
+                correctAnswer: "Autarquias de regime especial, com autonomia administrativa, financeira e funcional, com a finalidade de regular e fiscalizar setores específicos da economia, como telecomunicações e petróleo.",
+                hint: "Essa autonomia é essencial para que possam exercer suas funções de forma técnica e imparcial.",
+                explanation: "Os órgãos reguladores no Brasil são autarquias com autonomia para regular setores estratégicos da economia, como telecomunicações, energia e petróleo. Eles têm a responsabilidade de garantir a concorrência, proteger os consumidores e promover o desenvolvimento sustentável, atuando de forma independente do governo federal."
+            }
+            ],
+            'Eixo Temático 4 - Desenvolvimento Socieconômico no Brasil': [
+         {
+                question: "1. Qual abordagem econômica defendia a forte intervenção estatal e o investimento em setores estratégicos para promover a industrialização e o crescimento interno, em oposição ao livre mercado?",
+                options: [
+                    "Liberalismo econômico",
+                    "Neoliberalismo",
+                    "Nacional-desenvolvimentismo",
+                    "Consenso de Washington",
+                    "Plano Real"
+                ],
+                correctAnswer: "Nacional-desenvolvimentismo",
+                hint: "Essa abordagem foi muito forte no Brasil na metade do século XX.",
+                explanation: "O nacional-desenvolvimentismo é uma abordagem econômica que defende a intervenção do Estado na economia para promover o desenvolvimento industrial e econômico. No Brasil, essa abordagem foi especialmente forte durante a Era Vargas e continuou a influenciar políticas econômicas até os anos 1980, com foco na industrialização por substituição de importações e no fortalecimento da economia interna."
+            },
+            {
+                question: "2. Durante a Era Vargas (1930-1945), qual foi um dos pilares da política de industrialização por substituição de importações?",
+                options: [
+                    "Abertura total do mercado para produtos estrangeiros",
+                    "Foco exclusivo na agricultura",
+                    "Criação de empresas estatais de base, como a Companhia Siderúrgica Nacional (CSN)",
+                    "Diminuição do papel do Estado na economia",
+                    "Privatização de setores estratégicos"
+                ],
+                correctAnswer: "Criação de empresas estatais de base, como a Companhia Siderúrgica Nacional (CSN)",
+                hint: "Esse período marcou o início de uma forte presença do Estado na economia brasileira.",
+                explanation: "Durante a Era Vargas, o Brasil adotou uma política de industrialização por substituição de importações, que incluía a criação de empresas estatais em setores estratégicos, como a CSN. Essa estratégia visava reduzir a dependência de produtos importados e promover o desenvolvimento industrial interno, com forte intervenção do Estado na economia."
+            },
+            {
+                question: "3. O Plano de Metas, implementado no governo Juscelino Kubitschek, tinha como objetivo principal a expansão de quais setores para promover o desenvolvimento?",
+                options: [
+                    "Apenas o setor de serviços",
+                    "Cultura e turismo",
+                    "Energia, transportes, indústria de base, alimentação e educação",
+                    "Agricultura familiar",
+                    "Exclusivamente o mercado financeiro"
+                ],
+                correctAnswer: "Energia, transportes, indústria de base, alimentação e educação",
+                hint: "A famosa frase '50 anos em 5' está ligada a esse plano.",
+                explanation: "O Plano de Metas, lançado por Juscelino Kubitschek em 1956, visava acelerar o desenvolvimento econômico do Brasil através de investimentos em setores-chave como energia, transportes, indústria de base, alimentação e educação. O objetivo era modernizar a infraestrutura do país e promover o crescimento econômico acelerado, simbolizado pela famosa frase '50 anos em 5'."
+            },
+            {
+                question: "4. O 'Consenso de Washington', diretriz econômica de caráter neoliberal dos anos 1980 e 1990, propunha aos países em desenvolvimento a adoção de qual conjunto de políticas?",
+                options: [
+                    "Aumento do protecionismo e subsídios estatais",
+                    "Nacionalização de empresas privadas",
+                    "Gastos públicos elevados e controle de preços",
+                    "Privatizações, abertura comercial e financeira, e disciplina fiscal",
+                    "Forte regulação do mercado e aumento de impostos"
+                ],
+                correctAnswer: "Privatizações, abertura comercial e financeira, e disciplina fiscal",
+                hint: "Essas medidas foram adotadas por muitos países para lidar com a crise da dívida.",
+                explanation: "O Consenso de Washington foi um conjunto de políticas econômicas recomendadas a países em desenvolvimento, especialmente na América Latina, durante as crises econômicas dos anos 1980 e 1990. Essas políticas incluíam a privatização de empresas estatais, abertura dos mercados para comércio e investimentos estrangeiros, e a adoção de medidas fiscais rigorosas para controlar a inflação e o déficit público."
+            },
+            {
+                question: "5. O Plano Real, implementado em 1994, teve como principal objetivo o combate a qual problema econômico crônico no Brasil?",
+                options: [
+                    "O desemprego estrutural",
+                    "A alta dívida externa",
+                    "A hiperinflação",
+                    "A baixa produtividade da indústria",
+                    "A desigualdade social"
+                ],
+                correctAnswer: "A hiperinflação",
+                hint: "A estabilização da moeda foi o ponto central.",
+                explanation: "O Plano Real foi uma reforma econômica que visava estabilizar a economia brasileira, combatendo a hiperinflação que assolava o país. A criação de uma nova moeda, o real, e a adoção de medidas fiscais e monetárias rigorosas foram fundamentais para controlar a inflação e restaurar a confiança na economia."
+            },
+            {
+                question: "6. Qual era o principal argumento a favor das privatizações no Brasil a partir dos anos 1990?",
+                options: [
+                    "Aumento da intervenção estatal na economia",
+                    "Aumento da burocracia e controle governamental",
+                    "Diminuição da competitividade das empresas nacionais",
+                    "Aumento da eficiência e da competitividade do setor privado",
+                    "Manutenção do monopólio estatal"
+                ],
+                correctAnswer: "Aumento da eficiência e da competitividade do setor privado",
+                hint: "A ideia era que a iniciativa privada geriria os ativos de forma mais eficiente.",
+                explanation: "As privatizações no Brasil a partir dos anos 1990 foram justificadas pela crença de que o setor privado poderia operar com mais eficiência do que o setor público. A ideia era reduzir a burocracia, aumentar a competitividade e atrair investimentos estrangeiros, promovendo um ambiente econômico mais dinâmico e inovador."
+            },
+            {
+                question: "7. No início do século XXI, o crescimento econômico brasileiro foi impulsionado por um fator externo e por políticas internas. Quais são eles?",
+                options: [
+                    "Abertura total do mercado e aumento da dívida pública",
+                    "Crise global de 2008 e diminuição do consumo",
+                    "Boom de commodities e expansão de programas sociais",
+                    "Desinvestimento em infraestrutura e desindustrialização",
+                    "Aumento da inflação e privatizações"
+                ],
+                correctAnswer: "Boom de commodities e expansão de programas sociais",
+                hint: "A alta nos preços de minérios e grãos, e a melhoria da renda das famílias, foram cruciais.",
+                explanation: "O crescimento econômico brasileiro no início do século XXI foi impulsionado pelo boom de commodities, que elevou as exportações e os preços dos produtos primários, além da expansão de programas sociais que aumentaram a renda das famílias. Essas políticas ajudaram a reduzir a pobreza e a desigualdade, contribuindo para um ciclo de crescimento econômico sustentado."
+            },
+            {
+                question: "8. Em comparação com as economias desenvolvidas, o Brasil sofreu um impacto inicial relativamente menor da crise financeira de 2008. Qual foi a principal política adotada pelo governo brasileiro para mitigar os efeitos da crise?",
+                options: [
+                    "Aumento da taxa de juros e cortes drásticos nos gastos públicos",
+                    "Congelamento de salários e privatizações em massa",
+                    "Fortes desonerações fiscais e expansão do crédito e do investimento público",
+                    "Aumento do preço da gasolina e controle cambial",
+                    "Adoção de uma política de austeridade severa"
+                ],
+                correctAnswer: "Fortes desonerações fiscais e expansão do crédito e do investimento público",
+                hint: "A ideia era estimular a demanda interna para compensar a queda das exportações.",
+                explanation: "O governo brasileiro adotou uma série de medidas para estimular a economia durante a crise financeira de 2008, incluindo desonerações fiscais e aumento do crédito. Essas ações visavam compensar a queda nas exportações e manter o crescimento econômico, evitando uma recessão mais profunda."
+            },
+            {
+                question: "9. O conceito de 'rigidez estrutural' da economia brasileira e sua relação com a desindustrialização se refere a qual característica?",
+                options: [
+                    "A alta flexibilidade do mercado de trabalho e a baixa regulação",
+                    "A baixa capacidade de diversificação e a dependência de produtos primários",
+                    "A alta inovação tecnológica e o aumento da produtividade",
+                    "O crescimento acelerado do setor de manufatura",
+                    "O fortalecimento da cadeia produtiva de alta tecnologia"
+                ],
+                correctAnswer: "A baixa capacidade de diversificação e a dependência de produtos primários",
+                hint: "A economia brasileira tem dificuldades em se adaptar a novas tecnologias e em se desvincular da exportação de produtos básicos.",
+                explanation: "A rigidez estrutural da economia brasileira refere-se à dificuldade do país em diversificar sua base produtiva e reduzir a dependência de commodities. Isso resulta em uma economia vulnerável a choques externos e limita o crescimento sustentável, já que o setor industrial enfrenta desafios para se modernizar e competir globalmente."
+            },
+            {
+                question: "10. Qual instituição brasileira, criada para promover o desenvolvimento econômico e social, é conhecida por ser um dos principais financiadores de projetos de infraestrutura e de empresas no país, com foco em longo prazo?",
+                options: [
+                    "Banco Central do Brasil (BCB)",
+                    "Agência Nacional de Águas (ANA)",
+                    "Banco Nacional de Desenvolvimento Econômico e Social (BNDES)",
+                    "Receita Federal do Brasil",
+                    "Companhia de Desenvolvimento dos Vales do São Francisco e do Parnaíba (Codevasf)"
+                ],
+                correctAnswer: "Banco Nacional de Desenvolvimento Econômico e Social (BNDES)",
+                hint: "Seu nome já diz tudo: 'Desenvolvimento Econômico e Social'.",
+                explanation: "O BNDES é uma instituição financeira pública federal que desempenha um papel crucial no financiamento de projetos de infraestrutura, inovação e desenvolvimento social no Brasil. Ele busca promover o crescimento econômico sustentável e a inclusão social, apoiando tanto o setor público quanto o privado."
+            }
+],
+            'Eixo Temático 5 - Desigualdades e Dinâmicas Socioeconômicas no Brasil': [
+                     {
+                question: "1. No Brasil, qual das seguintes tendências demográficas se consolidou no final do século XX e início do XXI, com impacto significativo na estrutura etária da população?",
+                options: [
+                    "Aumento da taxa de natalidade e da fecundidade.",
+                    "Aumento da migração de retorno do Brasil para países desenvolvidos.",
+                    "Redução da taxa de mortalidade e da fecundidade, levando ao envelhecimento da população.",
+                    "Diminuição da expectativa de vida da população geral.",
+                    "Aumento da imigração de alto volume de países europeus."
+                ],
+                correctAnswer: "Redução da taxa de mortalidade e da fecundidade, levando ao envelhecimento da população.",
+                hint: "Essa transição demográfica tem grandes implicações para a previdência social e o mercado de trabalho.",
+                explanation: "A transição demográfica no Brasil, caracterizada pela redução das taxas de mortalidade e fecundidade, resultou em um envelhecimento gradual da população. Isso traz desafios significativos para a previdência social, o mercado de trabalho e as políticas públicas, exigindo adaptações para atender às necessidades de uma população cada vez mais idosa."
+            },
+            {
+                question: "2. A partir da Constituição Federal de 1988, o Brasil adotou um novo modelo de proteção social. Qual a principal característica desse novo sistema?",
+                options: [
+                    "Um sistema de proteção social mínimo, focado apenas em benefícios assistenciais.",
+                    "Um modelo universalista e abrangente, com a criação do Sistema Único de Saúde (SUS) e a expansão da previdência social e da assistência social.",
+                    "A privatização completa dos serviços de saúde e educação.",
+                    "A exclusão de trabalhadores informais do sistema previdenciário.",
+                    "A focalização de todas as políticas sociais para os 1% mais ricos."
+                ],
+                correctAnswer: "Um modelo universalista e abrangente, com a criação do Sistema Único de Saúde (SUS) e a expansão da previdência social e da assistência social.",
+                hint: "A CF/88 é conhecida como a 'Constituição Cidadã' por ampliar os direitos sociais.",
+                explanation: "A Constituição Federal de 1988 estabeleceu um novo paradigma de proteção social no Brasil, com foco na universalização dos direitos sociais. Isso incluiu a criação do Sistema Único de Saúde (SUS), que garante acesso à saúde para toda a população, além da ampliação da previdência social e da assistência social, visando reduzir desigualdades e promover o bem-estar social."
+            },
+            {
+                question: "3. Qual a principal diferença entre políticas públicas 'universalistas' e 'focalizadas'?",
+                options: [
+                    "As universalistas são exclusivas para a população de baixa renda, enquanto as focalizadas atendem a todos.",
+                    "As universalistas não são financiadas pelo Estado, enquanto as focalizadas são.",
+                    "As universalistas atendem a toda a população (ex: SUS), enquanto as focalizadas são direcionadas a grupos específicos em situação de vulnerabilidade (ex: Bolsa Família).",
+                    "As universalistas só existem em países desenvolvidos, enquanto as focalizadas são comuns no Brasil.",
+                    "As universalistas não têm impacto na redução da desigualdade, ao contrário das focalizadas."
+                ],
+                correctAnswer: "As universalistas atendem a toda a população (ex: SUS), enquanto as focalizadas são direcionadas a grupos específicos em situação de vulnerabilidade (ex: Bolsa Família).",
+                hint: "A discussão entre essas duas abordagens é central na política social brasileira.",
+                explanation: "As políticas públicas universalistas são aquelas que buscam atender a toda a população, independentemente de sua condição socioeconômica, como o Sistema Único de Saúde (SUS). Já as políticas focalizadas são direcionadas a grupos específicos que se encontram em situação de vulnerabilidade, como o Bolsa Família, visando reduzir desigualdades sociais e garantir direitos básicos."
+            },
+            {
+                question: "4. As políticas afirmativas no Brasil, especialmente no século XXI, buscam principalmente:",
+                options: [
+                    "Privilegiar indivíduos de alta renda no acesso à educação e ao mercado de trabalho.",
+                    "Garantir a igualdade formal de direitos, sem considerar as desigualdades históricas.",
+                    "Promover a igualdade substantiva, corrigindo as desigualdades históricas e estruturais de raça, etnia e gênero no acesso a oportunidades.",
+                    "Apenas criar cotas em concursos públicos, sem outras ações.",
+                    "Aumentar a segregação social e racial."
+                ],
+                correctAnswer: "Promover a igualdade substantiva, corrigindo as desigualdades históricas e estruturais de raça, etnia e gênero no acesso a oportunidades.",
+                hint: "As cotas raciais e sociais em universidades são um exemplo notável dessas políticas.",
+                explanation: "As políticas afirmativas no Brasil visam corrigir desigualdades históricas e estruturais, promovendo a inclusão de grupos historicamente marginalizados. Essas políticas incluem ações como cotas raciais e sociais em universidades, programas de ação afirmativa no mercado de trabalho e iniciativas para promover a igualdade de gênero. O objetivo é garantir que todos tenham acesso igualitário a oportunidades, independentemente de sua origem racial, étnica ou socioeconômica."        
+            },
+            {
+                question: "5. A 'uberização' do trabalho no Brasil é um fenômeno que se caracteriza por:",
+                options: [
+                    "O aumento de empregos formais e com carteira assinada no setor de tecnologia.",
+                    "O uso de plataformas digitais para mediar a relação de trabalho, descaracterizando o vínculo empregatício e aumentando a informalidade, o trabalho por conta própria e a ausência de direitos trabalhistas.",
+                    "A valorização dos sindicatos e o fortalecimento da CLT.",
+                    "A criação de um novo tipo de trabalho assalariado e estável.",
+                    "A diminuição da carga horária e o aumento da segurança no trabalho."
+                ],
+                correctAnswer: "O uso de plataformas digitais para mediar a relação de trabalho, descaracterizando o vínculo empregatício e aumentando a informalidade, o trabalho por conta própria e a ausência de direitos trabalhistas.",
+                hint: "Os trabalhadores de aplicativos de transporte e entrega são o exemplo mais comum desse tipo de trabalho.",
+                explanation: "A uberização do trabalho refere-se ao fenômeno em que plataformas digitais conectam trabalhadores a consumidores, muitas vezes sem estabelecer um vínculo empregatício formal. Isso resulta em precarização das condições de trabalho, com ausência de direitos trabalhistas, insegurança econômica e aumento da informalidade, refletindo uma tendência global de flexibilização do mercado de trabalho."
+            },
+            {
+                question: "6. A evolução da pobreza e da insegurança alimentar no Brasil no século XXI foi marcada por:",
+                options: [
+                    "Uma piora constante e ininterrupta da situação, sem melhoras em nenhum período.",
+                    "Melhora significativa na primeira década (2000s) devido a políticas redistributivas, seguida por um aumento nos anos mais recentes, em especial após 2015-2016 e durante a pandemia de Covid-19.",
+                    "Melhora constante desde 2001 até hoje, sem retrocessos.",
+                    "Um problema exclusivo das áreas rurais, sem impacto nas grandes cidades.",
+                    "Uma situação de plena segurança alimentar para toda a população."
+                ],
+                correctAnswer: "Melhora significativa na primeira década (2000s) devido a políticas redistributivas, seguida por um aumento nos anos mais recentes, em especial após 2015-2016 e durante a pandemia de Covid-19.",
+                hint: "Ações como o Fome Zero e o Bolsa Família tiveram um impacto positivo, mas crises recentes trouxeram retrocessos.",
+                explanation: "No início do século XXI, o Brasil implementou políticas sociais que reduziram significativamente a pobreza e a insegurança alimentar, como o Bolsa Família e o Fome Zero. No entanto, a partir de 2015-2016, com a crise econômica e política, houve um aumento da pobreza e da insegurança alimentar, exacerbado pela pandemia de Covid-19, que afetou ainda mais as populações vulneráveis."
+            },
+            {
+                question: "7. A 'financeirização' da economia brasileira no século XXI se manifesta por qual das seguintes características?",
+                options: [
+                    "A desvalorização completa do setor financeiro e bancário.",
+                    "O aumento da importância da produção industrial para o PIB.",
+                    "O crescimento do setor financeiro em relação ao setor produtivo, com maior peso da especulação e do mercado de capitais no direcionamento da economia.",
+                    "A diminuição da dívida pública e do crédito bancário.",
+                    "O enfraquecimento do poder dos bancos e das instituições financeiras."
+                ],
+                correctAnswer: "O crescimento do setor financeiro em relação ao setor produtivo, com maior peso da especulação e do mercado de capitais no direcionamento da economia.",
+                hint: "Esse fenômeno está ligado à globalização e à desindustrialização.",
+                explanation: "A financeirização da economia brasileira refere-se ao aumento da influência do setor financeiro sobre a economia real, com maior ênfase em operações especulativas e no mercado de capitais. Isso tem implicações significativas para o investimento produtivo, a distribuição de renda e a estabilidade econômica, contribuindo para uma maior volatilidade e desigualdade."
+            },
+            {
+                question: "8. No Brasil, qual das seguintes políticas é um exemplo de política redistributiva que visa diretamente reduzir a desigualdade de renda?",
+                options: [
+                    "Construção de rodovias em áreas urbanas.",
+                    "Expansão de escolas para a classe média.",
+                    "Aumento da taxa de juros básica da economia.",
+                    "Transferência de renda, como o Bolsa Família, que garante um mínimo de renda para famílias em situação de pobreza.",
+                    "Abertura total do mercado para produtos importados."
+                ],
+                correctAnswer: "Transferência de renda, como o Bolsa Família, que garante um mínimo de renda para famílias em situação de pobreza.",
+                hint: "Essa política busca distribuir a riqueza de forma mais equitativa.",
+                explanation: "O Bolsa Família é um programa de transferência de renda que visa reduzir a pobreza e a desigualdade no Brasil, garantindo um mínimo de renda para famílias em situação de vulnerabilidade social. Ele é um exemplo claro de política redistributiva, pois busca melhorar as condições de vida das populações mais pobres e promover a inclusão social."
+            },
+            {
+                question: "9. A 'pejotização' do trabalho é um fenômeno onde:",
+                options: [
+                    "Trabalhadores são contratados como pessoa física (CLT) para evitar impostos.",
+                    "Trabalhadores são obrigados a abrir uma empresa (Pessoa Jurídica - PJ) para prestar serviços a um contratante, sem o vínculo empregatício, para evitar direitos trabalhistas e encargos sociais.",
+                    "Empresas se tornam mais transparentes e pagam mais impostos.",
+                    "O governo promove a contratação de pessoas jurídicas para trabalhos de curto prazo.",
+                    "As grandes empresas contratam apenas trabalhadores informais."
+                ],
+                correctAnswer: "Trabalhadores são obrigados a abrir uma empresa (Pessoa Jurídica - PJ) para prestar serviços a um contratante, sem o vínculo empregatício, para evitar direitos trabalhistas e encargos sociais.",
+                hint: "É uma forma de precarização do trabalho, muitas vezes ilegal ou irregular.",
+                explanation: "A pejotização é um fenômeno onde trabalhadores são forçados a se registrar como pessoas jurídicas para prestar serviços, o que os desliga dos direitos trabalhistas garantidos pela CLT. Isso permite que as empresas evitem encargos sociais e benefícios trabalhistas, precarizando as condições de trabalho e aumentando a insegurança econômica dos trabalhadores."
+            },
+            {
+                question: "10. Após a Constituição de 1988, os movimentos sociais e sindicatos brasileiros ganharam força e visibilidade. Qual é uma das principais características de sua atuação nesse período?",
+                options: [
+                    "O enfraquecimento total do movimento sindical e social.",
+                    "O foco exclusivo em pautas locais e individuais, sem articulação nacional.",
+                    "A atuação em temas como reforma agrária, direitos indígenas e quilombolas, moradia, direitos LGBTQIA+, igualdade racial e a busca pela ampliação da participação popular e dos direitos sociais.",
+                    "O alinhamento total com as políticas neoliberais de desmonte do Estado.",
+                    "O surgimento de apenas um movimento social unificado para todas as causas."
+                ],
+                correctAnswer: "A atuação em temas como reforma agrária, direitos indígenas e quilombolas, moradia, direitos LGBTQIA+, igualdade racial e a busca pela ampliação da participação popular e dos direitos sociais.",
+                hint: "A redemocratização abriu espaço para que diversas pautas sociais ganhassem força e articulação política.",
+                explanation: "Após a Constituição de 1988, os movimentos sociais e sindicatos no Brasil se tornaram mais ativos e diversificados, abordando uma ampla gama de questões sociais e políticas. Eles desempenharam um papel crucial na luta por direitos sociais, igualdade racial, direitos indígenas, moradia digna e inclusão social, contribuindo para a construção de uma sociedade mais justa e democrática."
+            }
+            ]
+        };
+
+        // Referências aos elementos da interface
+        const homeScreen = document.getElementById('home-screen');
+        const eixoContentScreen = document.getElementById('eixo-content-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        
+        const eixoContentTitle = document.getElementById('eixo-content-title');
+        const eixoContentText = document.getElementById('eixo-content-text');
+        const currentEixoTitle = document.getElementById('current-eixo-title');
+        const questionText = document.getElementById('question-text');
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const optionsContainer = document.getElementById('options-container');
+        const hintButton = document.getElementById('hint-button');
+        const hintText = document.getElementById('hint-text');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const nextButton = document.getElementById('next-button');
+        const finalScore = document.getElementById('final-score');
+
+        // Função para exibir a tela de conteúdo do eixo temático
+        function showEixoContent(eixo) {
+            quizState.currentEixo = eixo;
+            eixoContentTitle.textContent = ` ${eixo}`;
+            eixoContentText.innerHTML = eixoContent[eixo];
+            
+            homeScreen.classList.add('hidden');
+            eixoContentScreen.classList.remove('hidden');
+        }
+
+        // Função para iniciar o quiz após ver o conteúdo do eixo
+        function startQuiz() {
+            quizState.questions = quizData[quizState.currentEixo];
+            quizState.currentQuestionIndex = 0;
+            quizState.score = 0;
+
+            eixoContentScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            updateQuizUI();
+        }
+
+        // Função para voltar à tela inicial
+        function goToHome() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            eixoContentScreen.classList.add('hidden');
+            homeScreen.classList.remove('hidden');
+        }
+
+        // Função para atualizar a interface do quiz com a pergunta atual
+        function updateQuizUI() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            
+            currentEixoTitle.textContent = quizState.currentEixo;
+            questionText.textContent = currentQuestion.question;
+            questionCounter.textContent = `Pergunta ${quizState.currentQuestionIndex + 1} de ${quizState.questions.length}`;
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+            
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('w-full', 'bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white', 'text-gray-800', 'font-medium', 'py-3', 'px-4', 'rounded-lg', 'text-left', 'transition-colors', 'duration-200');
+                button.onclick = () => selectAnswer(button, option);
+                optionsContainer.appendChild(button);
+            });
+
+            // Resetar estados de dica e explicação
+            hintButton.classList.remove('hidden');
+            hintText.classList.add('hidden');
+            explanationContainer.classList.add('hidden');
+            nextButton.classList.add('hidden');
+        }
+        
+        // Função para mostrar a dica
+        function showHint() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            hintText.textContent = `Dica: ${currentQuestion.hint}`;
+            hintText.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+        }
+
+        // Função para selecionar uma resposta
+        function selectAnswer(selectedButton, selectedOption) {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correctAnswer;
+            
+            // Desabilitar todas as opções
+            Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+
+            // Destacar respostas
+            if (isCorrect) {
+                quizState.score++;
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-green-500', 'text-white');
+            } else {
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-red-500', 'text-white');
+                // Destacar a resposta correta também
+                Array.from(optionsContainer.children).find(btn => btn.textContent === currentQuestion.correctAnswer).classList.add('bg-green-500', 'text-white');
+            }
+            
+            // Mostrar a explicação e o botão de próxima pergunta
+            explanationText.textContent = currentQuestion.explanation;
+            explanationContainer.classList.remove('hidden');
+            nextButton.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+        }
+
+        // Função para avançar para a próxima pergunta
+        function nextQuestion() {
+            quizState.currentQuestionIndex++;
+            if (quizState.currentQuestionIndex < quizState.questions.length) {
+                updateQuizUI();
+            } else {
+                showResults();
+            }
+        }
+
+        // Função para exibir os resultados finais
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScore.textContent = `Você acertou ${quizState.score} de ${quizState.questions.length} perguntas do eixo '${quizState.currentEixo}'.`;
+        }
+    </script>
+
+</body>
+</html>

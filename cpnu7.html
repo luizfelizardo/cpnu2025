@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz CPNU - Bloco 7</title>
+    <link rel="icon" type="image/png" href="brasil.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 48rem;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .themed-button {
+            transition: all 0.2s;
+        }
+        .themed-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .themed-button-active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .top-border {
+            width: 100%;
+            height: 1.5rem;
+            background-color: #1e3a8a;
+        }
+        .themed-footer {
+            width: 100%;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.5rem 1rem; /* Aumentado para 1.5rem no eixo vertical (topo/fundo) */
+        }
+        .footer-border-image {
+            width: 100%;
+            height: 18px;
+            display: block;
+        }
+        .footer-content {
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .contact-link {
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+        .contact-link:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-border"></div>
+
+    <div class="container">
+        
+        <div id="home-screen" class="text-center">
+
+            <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">Quiz Preparatório CPNU - Bloco 7</h1>
+            <p class="text-lg text-gray-600 mb-8">Selecione um eixo temático para estudar os conteúdos e começar o quiz.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Conhecimentos Gerais')">
+                    Conhecimentos Gerais
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 1 - Gestão Governamental e Métodos Aplicados')">
+                    Eixo 1: Gestão Governamental e Métodos Aplicados
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 2 - Políticas de Segurança, Ambiente Internacional')">
+                    Eixo 2: Políticas de Segurança, Ambiente Internacional
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 3 - Políticas de Segurança, Ambiente Nacional')">
+                    Eixo 3: Políticas de Segurança, Ambiente Nacional
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 4 - Políticas de Segurança Pública')">
+                    Eixo 4: Políticas de Segurança Pública
+                </button>
+                <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-4 px-6 rounded-lg text-xl" onclick="showEixoContent('Eixo Temático 5 - Políticas de Justiça e Cidadania')">
+                    Eixo 5: Políticas de Justiça e Cidadania
+                </button>
+            </div>
+            
+            <button class="themed-button bg-gray-200 hover:bg-indigo-500 hover:text-white text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center w-full mt-6 justify-center" onclick="goToPreviousPage()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    Voltar
+</button>
+        </div>
+
+        <div id="eixo-content-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4" id="eixo-content-title"></h2>
+            <div id="eixo-content-text" class="text-left bg-gray-50 p-6 rounded-xl shadow-inner overflow-y-auto max-h-96 text-gray-700">
+                </div>
+            <div class="mt-6 flex justify-between gap-4">
+                <button class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="startQuiz()">
+                    Iniciar Quiz
+                </button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <div class="mb-6 pb-4 border-b border-gray-300">
+                <p class="text-indigo-600 font-semibold text-lg" id="current-eixo-title"></p>
+                <h2 class="text-2xl font-bold mt-2 text-gray-800" id="question-text"></h2>
+                <div class="flex justify-between items-center text-sm mt-2">
+                    <p class="text-gray-500" id="question-counter"></p>
+                    <p class="text-green-600 font-bold" id="score-counter"></p>
+                </div>
+            </div>
+
+            <div id="options-container" class="space-y-4 mb-4">
+                </div>
+            
+            <button id="hint-button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-lg shadow-sm transition-colors duration-200 mt-4" onclick="showHint()">
+                Dica
+            </button>
+            <div id="hint-text" class="hidden mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-gray-700"></div>
+
+            <div id="explanation-container" class="hidden mt-6 p-6 rounded-lg border border-green-600 bg-green-50">
+                <p class="font-bold text-green-700 mb-2">Explicação:</p>
+                <p id="explanation-text" class="text-gray-700"></p>
+            </div>
+            
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="back-to-home-button" class="w-1/2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                    Voltar
+                </button>
+                <button id="next-button" class="w-1/2 hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200" onclick="nextQuestion()">
+                    Próxima Pergunta
+                </button>
+            </div>
+        </div>
+
+        <div id="results-screen" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-4">Quiz Concluído!</h2>
+            <p id="final-score" class="text-xl mb-6 text-gray-800"></p>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-colors duration-200" onclick="goToHome()">
+                Voltar para o Início
+            </button>
+        </div>
+    </div>
+    
+    <footer class="w-full mt-auto">
+        <img src="7e4bab99-0869-4fec-bb88-19225341d17c (1).png" alt="Borda decorativa" class="footer-border-image">
+        <div class="themed-footer">
+    <div class="footer-content">
+        <div class="flex items-center space-x-4">
+            <a href="contato.html" class="text-sm text-gray-300 hover:text-white transition-colors duration-200">
+                Dúvidas? Entre em contato!
+            </a>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
+            <a href="mailto:contato@luizcodedev.tech" class="contact-link text-sm">Email</a>
+            <a href="https://wa.me/5511995432530" target="_blank" class="contact-link text-sm">WhatsApp</a>
+            <a href="https://www.linkedin.com/in/luiz-eduardo-82a942179/" target="_blank" class="contact-link text-sm">LinkedIn</a>
+        </div>
+    </div>
+    <div class="text-center text-gray-400 text-xs mt-2 md:mt-0">
+        &copy; 2025 LuizDev. Todos os direitos reservados.
+    </div>
+</div>
+    </footer>
+
+      
+
+     <script>
+        // Objeto global para armazenar o estado do quiz
+        let quizState = {
+            questions: [],
+            currentQuestionIndex: 0,
+            score: 0,
+            currentEixo: ''
+        };
+
+        function goToPreviousPage() {
+    // Isso fará o navegador voltar para a página anterior no histórico
+    window.history.back();
+}
+
+        // Conteúdo de estudo para cada eixo temático
+        const eixoContent = {
+            'Conhecimentos Gerais': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1. Desafios do estado de direito: democracia e cidadania.</li>
+                    <li>2. Políticas públicas: fundamentos, ciclos, federalismo e transformação digital.</li>
+                    <li>3. Ética e integridade: princípios, governança e transparência.</li>
+                    <li>4. Diversidade e inclusão na sociedade.</li>
+                    <li>5. Administração pública federal: princípios, reformas e finanças públicas.</li>
+                    <li>6. Trabalho e tecnologia: IA, automação e riscos no setor público.</li>
+                </ul>
+            `,
+            'Eixo Temático 1 - Gestão Governamental e Métodos Aplicados': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1 Planejamento e Gestão Estratégica. 1.1 Processo de planejamento: Planejamento estratégico, tático e operacional; Visão, missão e valores. 1.2 Análise de Cenário. Construção de Cenários prospectivos. 1.3 Avaliações dos ambientes interno e externo. 1.4 Indicadores de desempenho organizacional e avaliação de resultados: ferramentas e metodologias para elaboração de indicadores e avaliação de resultados. 1.5 Gestão de projetos: Gestão e Gerenciamento de projetos - Conceitos básicos, estrutura e objetivos; Elaboração, análise e avaliação de projetos; Principais características dos modelos de gestão de projetos. 1.6 Gestão de risco. 1.7 Gestão de Crises: negociação, mediação e resolução de conflitos;</li>
+  <li>2 Contratações Públicas. 2.1 Normas Especiais para compras nas áreas de Defesa, Justiça e Segurança.</li>
+  <li>3 Gestão de Pessoas. 3.1 Conceitos, objetivos, desafios e características da gestão de pessoas. 3.2 Comportamento organizacional: relações indivíduo/organização, motivação, liderança, desempenho e comunicação. 3.3 Gestão de conflitos, discriminação no local de trabalho, racismo, diversidade, assédio e saúde mental.</li>
+  <li>4 Métodos e Pesquisa Aplicada à Gestão Pública. 4.1 Tipos de pesquisa: exploratória, descritiva, explicativa; uso de evidências científicas. 4.2 Métodos quantitativos: estatística básica, indicadores, inferência e testes estatísticos. 4.3 Métodos qualitativos: amostragem, coleta e análise de dados, codificação e análise de discurso.</li>
+                   
+                </ul>
+            `,
+            'Eixo Temático 2 - Políticas de Segurança, Ambiente Internacional': `
+                <ul class="list-disc list-inside space-y-2">
+                   <li>1 Segurança Internacional: conceitos e temas contemporâneos.</li>
+  <li>2 Segurança Regional: debate na América Latina, conceitos e temas contemporâneos.</li>
+  <li>3 Organizações internacionais: conceitos, debates contemporâneos e normas vinculadas aos setores de segurança e defesa no Brasil.</li>
+  <li>4 Missões de Paz das Nações Unidas e o Brasil nas Missões de Paz: tipologia e debates contemporâneos.</li>
+  <li>5 Grande Estratégia: conceitos e perspectivas a partir do Sul.</li>
+  <li>6 Geopolítica e Entorno Estratégico Brasileiro: debates contemporâneos.</li>
+  <li>7 Geopolítica das Fronteiras: debates contemporâneos e normas governamentais. 7.1 Política Nacional de Fronteiras.</li>
+  <li>8 Mudanças Climáticas: implicações e consequências para os setores de segurança e defesa.</li>
+  <li>9 Soberania Digital.</li>
+  <li>10 Direito Internacional dos Conflitos Armados.</li>
+  <li>11 Cibersegurança: conceitos e normas governamentais.</li>
+  <li>12 Tecnologias Aplicadas à Segurança e Defesa. 12.1 CiberDefesa: conceitos e normas governamentais. 12.2 Ciberataques e o uso da desinformação em operações de interferência estrangeira. 12.3 Biossegurança: conceitos e normas governamentais. 12.4 Biodefesa: conceitos e normas governamentais. 12.5 Tecnologias Emergentes (genômica, robótica, inteligência artificial, e nanotecnologia): aplicações para os setores de segurança e defesa.</li>
+                </ul>
+            `,
+            'Eixo Temático 3 - Políticas de Segurança, Ambiente Nacional': `
+                <ul class="list-disc list-inside space-y-2">
+                   <li>1 Defesa Nacional: conceitos e temas contemporâneos. 1.1 Estrutura Militar de Defesa. 1.2 Ministério da Defesa e Gabinete de Segurança Institucional: estrutura, organização e funcionamento. 1.3 Conselho de Defesa Nacional. 1.4 Conselho da República. 1.5 Câmara de Relações Exteriores e Defesa Nacional do Conselho de Governo.</li>
+  <li>2 Política Externa e Política de Defesa: atribuições dos poderes executivo, legislativo e judiciário. 2.1 Política Nacional de Defesa, Estratégia Nacional de Defesa e Livro Branco de Defesa.</li>
+  <li>3 Forças Armadas brasileiras: missões constitucionais e subsidiárias.</li>
+  <li>4 Operações de Garantia da Lei e da Ordem: tipologia e debates contemporâneos.</li>
+  <li>5 Logística em situações de crise: Logística Militar e Logística Humanitária.</li>
+  <li>6 Sistema Nacional de Mobilização Militar: debates contemporâneos e normas governamentais. 6.1 Política de Mobilização Nacional.</li>
+  <li>7 O papel das Forças Armadas no Estado Democrático de Direito.</li>
+  <li>8 Economia de Defesa. 8.1 autonomia estratégica. 8.2 Base Industrial de Defesa. 8.2.1 Compras públicas estratégicas. 8.2.2 Plano Nova Indústria Brasil: soberania e defesa nacionais. 8.3 Política de Ciência Tecnologia e Inovação de Defesa. 8.4 Dependência tecnológica.</li>
+  <li>9 Programa Espacial Brasileiro.</li>
+  <li>10 Programa Nuclear Brasileiro.</li>
+  <li>11 Segurança da Informação: conceitos e normas governamentais.</li>
+  <li>12 Debates internacionais sobre regulação de sistemas de IA. 12.1 Princípios de uso ético e responsável de IA.</li>
+  <li>13 Direito do Mar. 13.1 Mar Territorial, zona contígua, zona econômica exclusiva e plataforma continental. 13.2 Política Marítima Nacional.</li>
+  <li>14 Política Nacional de Segurança de Infraestruturas Críticas.</li>
+  <li>15 Sistema de Proteção da Amazônia.</li>
+                </ul>
+            `,
+            'Eixo Temático 4 - Políticas de Segurança Pública': `
+                <ul class="list-disc list-inside space-y-2">
+                  <li>1 Federalismo e Segurança Pública. 1.1 Política Nacional de Segurança Pública e Defesa Social. 1.2 Sistema Único de Segurança Pública. 1.3 Fundo Nacional de Segurança Pública. 1.4 Fundo Penitenciário Nacional. 1.5 Forças de Segurança Pública: tipologia e atribuições. 1.6 Os Municípios e a Segurança Pública: guardas civis municipais. 1.7 Sistema Nacional de Informações de Segurança Pública, Prisionais, de Rastreabilidade de Armas e Munições, de Material Genético, de Digitais e de Drogas (SINESP). 1.8 Sistema Nacional de Informações Penais (SISDEPEN). 1.9 Sistema Penitenciário Federal. 1.10 Sistema Nacional de Armas (SINARM). 1.11 Sistema Nacional de Acompanhamento e Combate à Violência nas Escolas (SNAVE).</li>
+  <li>2 Violência e Criminalidade. 2.1 Homicídios: dinâmicas regionais, aspectos socioeconômicos e institucionais. 2.2 Violência contra mulheres: dinâmicas regionais, aspectos socioeconômicos e institucionais. 2.3 Violência contra crianças e adolescentes: dinâmicas regionais, aspectos socioeconômicos e institucionais. 2.4. Letalidade e Vitimização Policial. 2.5 Crime organizado: Conceitos, legislação e dinâmicas regionais. 2.6 Milícias. 2.7 Crimes transnacionais, cooperação internacional. 2.8 Cibercrimes: crimes financeiros, fraudes, golpes, crimes de ódio e crimes contra crianças e adolescentes no ambiente digital. 2.9 Canais de denúncia de crimes. 2.10 Políticas de prevenção de fatores de risco da violência escolar.</li>
+  <li>3 Prisões e População Prisional. 3.1 Regras de Nelson Mandela e Regras de Bangkok. 3.2 Política Nacional de Atenção Integral à Saúde das Pessoas Privadas de Liberdade no Sistema Prisional. 3.3 Política Nacional de Educação Prisional. 3.4 Política Nacional de Trabalho Prisional. 3.5 Política Nacional de Alternativas Penais. 3.6 Política Nacional de Monitoração Eletrônica de Pessoas. 3.7 Políticas de prevenção à tortura no ambiente prisional. 3.8 Políticas de reintegração social.</li>
+  <li>4 Revisão externa das políticas de segurança pública: participação da sociedade civil, interação com organismos nacionais de controle e com organismos internacionais.</li>
+                    
+                </ul>
+            `,
+            'Eixo Temático 5 - Políticas de Justiça e Cidadania': `
+                <ul class="list-disc list-inside space-y-2">
+                    <li>1 Acesso à Justiça: história; Estratégia nacional para ampliação do acesso à justiça.</li>
+  <li>2 Migrações: Legislação, integração social e laboral de migrantes, refugiados e apátridas no Brasil. 2.1 Movimentos migratórios internacionais. 2.2 Migração e crises humanitárias.</li>
+  <li>3 Enfrentamento ao tráfico de pessoas e ao contrabando de migrantes.</li>
+  <li>4 Combate à corrupção: Recuperação de ativos; Estratégia Nacional de Combate à Corrupção e à Lavagem de Dinheiro (ENCCLA).</li>
+  <li>5 Política Nacional sobre Drogas.</li>
+  <li>6 Direito Internacional Humanitário.</li>
+  <li>7 Política Nacional de Relações de Consumo.</li>
+  <li>8 Cooperação Jurídica Internacional.</li>
+  <li>9 Direitos Digitais: Lei Geral de Proteção de Dados Pessoais e Marco Civil da Internet.</li>
+  <li>10 Proteção da infância em ambientes digitais: aplicação do ECA e medidas de segurança por design.</li>
+  <li>11 Políticas para os Povos Indígenas.</li>
+  <li>12 Crimes contra o Estado Democrático de Direito.</li>
+  <li>13 Questões Brasileiras Contemporâneas. 13.1 Soberania Nacional e Cidadania. 13.2 Desigualdades regionais e urbanas, de renda, educacionais, étnico-raciais, de gênero e geracionais. 13.3 Estrutura de classes, estratificação e mobilidade e inclusão social. 13.4 Desafios à democracia e à representação política dos diferentes grupos sociais. 13.5 Mobilização, organização e participação social, conselhos, conferências e outros fóruns; 13.6 Transparência e controle do Estado no Brasil. 13.7 Lawfare. 13.8 Polarização e extremismo violento em redes sociais. 13.9 Regulação de serviços digitais.</li>
+                    
+                </ul>
+            `
+        };
+
+        // Dados do quiz: perguntas, opções, respostas, dicas e explicações
+        const quizData = {
+             'Conhecimentos Gerais': [
+                {
+                    question: "Segundo a Constituição de 1988, qual a principal função dos direitos fundamentais, sociais e políticos?",
+                    options: ["Consolidar a democracia e a cidadania.", "Limitar o poder do Poder Executivo.", "Viabilizar a judicialização de políticas públicas.", "Aumentar a burocracia estatal."],
+                    correctAnswer: "Consolidar a democracia e a cidadania.",
+                    hint: "A Constituição de 88 é conhecida como a 'Constituição Cidadã'.",
+                    explanation: "A Constituição de 1988, conhecida como a 'Constituição Cidadã', tem como um de seus pilares a consolidação da democracia. Os direitos fundamentais, sociais e políticos servem para assegurar a participação ativa do cidadão e a proteção de suas liberdades, fortalecendo o Estado Democrático de Direito."
+                },
+                {
+                    question: "Na etapa de 'Formulação' do ciclo de políticas públicas, qual atividade é central?",
+                    options: ["Implementar planos e programas.", "Monitorar e avaliar os resultados.", "Elaborar alternativas e selecionar a melhor solução.", "Definir se o problema será tratado pelo governo."],
+                    correctAnswer: "Elaborar alternativas e selecionar a melhor solução.",
+                    hint: "Pense na fase que vem depois de identificar o problema, mas antes de agir.",
+                    explanation: "Após a fase de 'Agenda', onde o problema é reconhecido, a 'Formulação' é a etapa em que se criam as propostas de ação, avaliando as possíveis soluções e escolhendo a mais adequada para ser implementada."
+                },
+                {
+                    question: "A Lei de Acesso à Informação (LAI) e a transparência pública estão diretamente relacionadas a qual princípio constitucional da administração pública?",
+                    options: ["Legalidade.", "Impessoalidade.", "Moralidade.", "Publicidade."],
+                    correctAnswer: "Publicidade.",
+                    hint: "É o princípio que exige a divulgação dos atos da administração.",
+                    explanation: "A publicidade é o princípio constitucional que exige a transparência total dos atos da administração, salvo exceções legais. A Lei de Acesso à Informação (LAI) é o principal instrumento que concretiza este princípio, garantindo que o cidadão possa acessar as informações públicas."
+                },
+                {
+                    question: "Qual instrumento do planejamento-orçamento no Brasil define as diretrizes, metas e prioridades da administração pública federal para um período de quatro anos?",
+                    options: ["Plano Plurianual (PPA).", "Lei de Diretrizes Orçamentárias (LDO).", "Lei Orçamentária Anual (LOA).", "Plano Nacional de Desenvolvimento."],
+                    correctAnswer: "Plano Plurianual (PPA).",
+                    hint: "O nome do instrumento já indica sua abrangência de tempo.",
+                    explanation: "O PPA é o principal instrumento de planejamento de médio prazo do governo federal, definindo as diretrizes e os objetivos estratégicos para um período de quatro anos. A LDO e a LOA devem estar alinhadas com o que foi estabelecido no PPA."
+                },
+                {
+                    question: "Qual o princípio da Administração Pública que exige que a atuação dos agentes públicos seja voltada ao interesse público, não podendo beneficiar a si próprios ou a terceiros?",
+                    options: ["Moralidade.", "Impessoalidade.", "Eficiência.", "Legalidade."],
+                    correctAnswer: "Impessoalidade.",
+                    hint: "Pense na atuação 'sem rosto', sem distinção pessoal.",
+                    explanation: "O princípio da impessoalidade exige que a Administração Pública atue com o objetivo de alcançar o interesse público, sem favorecer ou prejudicar pessoas por razões pessoais. A conduta deve ser objetiva e voltada à finalidade da lei."
+                },
+                {
+                    question: "A governança pública, como conceito de gestão, tem como um de seus pilares a 'accountability'. O que esse termo significa?",
+                    options: ["A capacidade de inovar na gestão.", "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.", "A agilidade na execução de projetos.", "A gestão baseada em dados e evidências."],
+                    correctAnswer: "A responsabilidade de prestar contas e ser responsabilizado por atos e decisões.",
+                    hint: "É a junção de 'conta' e 'habilidade'.",
+                    explanation: "Accountability é o dever de prestar contas sobre as ações tomadas e de se responsabilizar pelas consequências delas. É um pilar fundamental da governança, promovendo a transparência e a responsabilidade na gestão pública."
+                },
+                {
+                    question: "A transformação digital na Administração Pública tem como principal objetivo:",
+                    options: ["Substituir servidores por robôs.", "Simplificar e desburocratizar os serviços para o cidadão.", "Aumentar a arrecadação de impostos.", "Centralizar todas as informações em um único sistema."],
+                    correctAnswer: "Simplificar e desburocratizar os serviços para o cidadão.",
+                    hint: "O foco é na melhoria da experiência do usuário, ou seja, do cidadão.",
+                    explanation: "A transformação digital na Administração Pública busca usar a tecnologia para simplificar processos, tornar os serviços mais acessíveis e eficientes, e melhorar a relação entre o governo e a população. O objetivo é facilitar a vida do cidadão."
+                },
+                {
+                    question: "De acordo com o edital, quais são os principais eixos da diversidade e inclusão na sociedade brasileira?",
+                    options: ["Gênero, raça, etnia e idade.", "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.", "Gênero e nacionalidade.", "Etnia, raça e classe social."],
+                    correctAnswer: "Gênero, raça, etnia, orientação sexual, pessoas com deficiência e diversidade geracional.",
+                    hint: "Pense nos diversos grupos sociais que precisam de políticas de inclusão.",
+                    explanation: "O tema de diversidade e inclusão, conforme abordado em concursos públicos, engloba a garantia de direitos e a promoção da igualdade para grupos historicamente marginalizados, incluindo as dimensões de gênero, raça, etnia, orientação sexual, pessoas com deficiência (PCD) e a diversidade entre as gerações."
+                },
+                {
+                    question: "A Reforma Administrativa no Brasil, em diferentes momentos históricos, teve como uma de suas motivações a busca por:",
+                    options: ["Aumento da burocracia e do controle interno.", "Centralização do poder no governo federal.", "Maior eficiência e modernização da máquina pública.", "Redução do número de estados e municípios."],
+                    correctAnswer: "Maior eficiência e modernização da máquina pública.",
+                    hint: "Pense no objetivo de tornar o governo mais ágil e econômico.",
+                    explanation: "As reformas administrativas, desde a criação do DASP no período Vargas até as mais recentes, sempre buscaram melhorar a eficiência, a produtividade e a qualidade dos serviços públicos. O objetivo é modernizar o Estado para que ele responda melhor às demandas da sociedade."
+                },
+                {
+                    question: "Qual o principal risco ético associado ao uso de inteligência artificial (IA) e automação no setor público?",
+                    options: ["Aumento de produtividade.", "Redução de custos operacionais.", "A perda da transparência e a tomada de decisões não explicáveis.", "A simplificação de processos."],
+                    correctAnswer: "A perda da transparência e a tomada de decisões não explicáveis.",
+                    hint: "Pense na 'caixa preta' dos algoritmos.",
+                    explanation: "O uso de IA pode gerar um risco de 'caixa preta', onde o processo de tomada de decisão do algoritmo não é transparente ou facilmente compreendido. Isso pode minar a confiança do cidadão e dificultar a responsabilização por decisões que afetem direitos e serviços públicos, indo contra o princípio da publicidade e da transparência."
+                },
+                {
+                    question: "Qual é um dos principais desafios para a consolidação da democracia e do Estado de Direito no Brasil?",
+                    options: ["A centralização do poder no legislativo.", "A baixa participação popular em decisões políticas.", "A completa ausência de liberdade de expressão.", "A excessiva intervenção de organismos internacionais."],
+                    correctAnswer: "A baixa participação popular em decisões políticas.",
+                    hint: "Pense no papel do cidadão na vida política.",
+                    explanation: "A participação ativa da sociedade civil é crucial para a vitalidade democrática. A baixa participação pode levar à deslegitimação das instituições e à fragilização do controle social sobre o Estado."
+                },
+                {
+                    question: "No ciclo de políticas públicas, a etapa de 'Avaliação' é fundamental para qual propósito?",
+                    options: ["Apenas para punir os responsáveis por falhas.", "Para decidir se a política deve ser implementada ou não.", "Para medir a eficácia, eficiência e impacto da política.", "Para justificar novos gastos sem análise prévia."],
+                    correctAnswer: "Para medir a eficácia, eficiência e impacto da política.",
+                    hint: "Pense no que se faz depois que a política já foi implementada por um tempo.",
+                    explanation: "A avaliação busca verificar se a política pública alcançou os resultados esperados, se foi implementada de forma eficiente e qual foi seu impacto real na sociedade, fornecendo subsídios para ajustes ou para o planejamento de novas políticas."
+                },
+                {
+                    question: "Qual dos seguintes conceitos está mais associado à integridade pública?",
+                    options: ["A velocidade na tomada de decisões.", "A capacidade de gerar lucros.", "A adesão e defesa dos valores morais da organização.", "A centralização das informações."],
+                    correctAnswer: "A adesão e defesa dos valores morais da organização.",
+                    hint: "Pense na conduta do servidor público.",
+                    explanation: "A integridade pública refere-se ao alinhamento da conduta dos servidores e das instituições aos mais altos padrões éticos e morais, evitando conflitos de interesse e garantindo a confiança da população."
+                },
+                {
+                    question: "Políticas de ações afirmativas para a inclusão de grupos minoritários têm como objetivo principal:",
+                    options: ["Aumentar a desigualdade social.", "Apenas a inclusão de pessoas com deficiência.", "Corrigir desigualdades históricas e promover a igualdade de oportunidades.", "Excluir a maioria da sociedade."],
+                    correctAnswer: "Corrigir desigualdades históricas e promover a igualdade de oportunidades.",
+                    hint: "O objetivo é compensar injustiças do passado.",
+                    explanation: "Ações afirmativas são políticas temporárias que visam a compensar desigualdades históricas e estruturais, garantindo que grupos que foram marginalizados tenham acesso a oportunidades de forma equitativa."
+                },
+                {
+                    question: "A Lei de Responsabilidade Fiscal (LRF) tem como um de seus principais pilares o controle e a transparência na gestão de quais recursos?",
+                    options: ["Apenas os recursos da saúde.", "Apenas os recursos da educação.", "Os recursos financeiros e orçamentários dos entes federativos.", "Os recursos de empresas privadas."],
+                    correctAnswer: "Os recursos financeiros e orçamentários dos entes federativos.",
+                    hint: "Pense no controle dos gastos públicos em geral.",
+                    explanation: "A LRF estabelece normas de finanças públicas voltadas para a responsabilidade na gestão fiscal. Ela impõe limites para despesas com pessoal, dívidas e outras obrigações, promovendo a transparência e o equilíbrio das contas públicas."
+                },
+                {
+                    question: "O uso de Inteligência Artificial no setor público levanta preocupações sobre a 'exclusão digital', que se refere a:",
+                    options: ["Apenas a dificuldade de acesso à internet.", "O desemprego causado pela automação.", "A falta de capacitação de servidores para usar novas tecnologias.", "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados."],
+                    correctAnswer: "A incapacidade de parte da população acessar e interagir com serviços públicos digitalizados.",
+                    hint: "Pense nas pessoas que ficam de fora do mundo digital.",
+                    explanation: "A exclusão digital ocorre quando a digitalização dos serviços públicos não é acompanhada de políticas de inclusão, deixando de fora da acessibilidade e da cidadania digital aqueles que não possuem acesso, conhecimento ou habilidades para utilizar as novas tecnologias."
+                },
+                {
+                    question: "O conflito de interesses na Administração Pública ocorre quando:",
+                    options: ["O servidor público tem um cargo de liderança.", "O interesse privado do agente público se choca com o interesse público.", "O servidor trabalha em mais de um setor.", "O servidor utiliza a tecnologia no trabalho."],
+                    correctAnswer: "O interesse privado do agente público se choca com o interesse público.",
+                    hint: "Pense na dualidade entre o que é bom para o servidor e o que é bom para a sociedade.",
+                    explanation: "O conflito de interesses acontece quando o agente público utiliza sua posição para favorecer interesses particulares em detrimento do interesse coletivo. A Lei de Conflito de Interesses (Lei nº 12.813/2013) estabelece as regras para evitar essa situação."
+                },
+                {
+                    question: "No contexto do federalismo brasileiro, qual o principal desafio na implementação de políticas públicas sociais?",
+                    options: ["A ausência de recursos financeiros.", "A falta de leis federais.", "A coordenação entre os diferentes níveis de governo (União, estados e municípios).", "A dificuldade de acesso à internet."],
+                    correctAnswer: "A coordenação entre os diferentes níveis de governo (União, estados e municípios).",
+                    hint: "Pense nos desafios de fazer 3 esferas de governo trabalharem juntas.",
+                    explanation: "O federalismo impõe o desafio da coordenação entre os entes federativos para a oferta de serviços públicos. É fundamental que União, estados e municípios trabalhem em conjunto para garantir a efetividade das políticas, evitando duplicidade de ações e falhas na cobertura."
+                },
+                {
+                    question: "A 'interseccionalidade' é um conceito importante para a análise da diversidade, pois se refere a:",
+                    options: ["A união de diferentes grupos sociais em um único movimento.", "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.", "A separação de grupos sociais para uma análise individual.", "O estudo de apenas uma dimensão da identidade de uma pessoa."],
+                    correctAnswer: "A forma como múltiplas identidades sociais (raça, gênero, classe) se cruzam, criando experiências únicas de opressão e privilégio.",
+                    hint: "Pense no 'cruzamento' de diferentes dimensões da identidade de uma pessoa.",
+                    explanation: "A interseccionalidade reconhece que as identidades sociais não existem de forma isolada. A opressão e o privilégio são influenciados pela forma como gênero, raça, classe, orientação sexual, entre outros, se interligam e se manifestam nas experiências individuais."
+                },
+                {
+                    question: "Qual a principal vantagem da automação de processos na Administração Pública?",
+                    options: ["A eliminação de todos os servidores públicos.", "Aumento da burocracia.", "Maior agilidade e redução de erros em tarefas repetitivas.", "A substituição completa da tomada de decisão humana."],
+                    correctAnswer: "Maior agilidade e redução de erros em tarefas repetitivas.",
+                    hint: "Pense no que os robôs podem fazer melhor que os humanos, em termos de repetição.",
+                    explanation: "A automação permite que tarefas repetitivas e baseadas em regras sejam executadas de forma mais rápida e precisa por sistemas, liberando os servidores para se dedicarem a atividades mais complexas, estratégicas e que exigem interação humana."
+                }
+            ],
+            'Eixo Temático 1 - Gestão Governamental e Métodos Aplicados': [
+              {
+                question: "1. O planejamento estratégico é a ferramenta que define o(a):",
+                options: [
+                    "Detalhamento das atividades diárias dos colaboradores.",
+                    "Alocação de recursos para um projeto específico.",
+                    "Direção de longo prazo da organização, definindo sua visão e objetivos.",
+                    "Procedimento padrão para a execução de tarefas rotineiras."
+                ],
+                correctAnswer: "Direção de longo prazo da organização, definindo sua visão e objetivos.",
+                hint: "Pense no nível mais alto e de longo prazo da gestão governamental.",
+                explanation: "O planejamento estratégico é um processo que estabelece a direção e as prioridades de uma organização a longo prazo. Ele define a visão, missão, valores e objetivos estratégicos, orientando todas as ações e decisões futuras da organização."
+            },
+            {
+                question: "2. Qual a principal distinção entre 'Visão' e 'Missão' de uma organização?",
+                options: [
+                    "A Visão é o propósito atual, enquanto a Missão é o que a organização aspira ser no futuro.",
+                    "Visão e Missão são conceitos sinônimos e intercambiáveis.",
+                    "A Visão é o que a organização quer se tornar no futuro, enquanto a Missão é seu propósito fundamental de existir.",
+                    "A Missão define os valores, e a Visão define os objetivos táticos."
+                ],
+                correctAnswer: "A Visão é o que a organização quer se tornar no futuro, enquanto a Missão é seu propósito fundamental de existir.",
+                hint: "A Missão responde 'Por que existimos?' e a Visão responde 'Onde queremos chegar?'.",
+                explanation: "A Missão de uma organização descreve seu propósito fundamental e o motivo de sua existência, enquanto a Visão é uma declaração aspiracional que descreve o que a organização deseja alcançar no futuro. Juntas, elas orientam a estratégia e as ações da organização."
+            },
+            {
+                question: "3. O objetivo principal de um indicador de desempenho organizacional é:",
+                options: [
+                    "Apenas comparar o desempenho da organização com outras do mesmo setor.",
+                    "Medir a eficácia e a eficiência de um processo ou resultado, fornecendo dados para a tomada de decisão.",
+                    "Garantir a execução de todas as tarefas de forma manual.",
+                    "Descrever a história e a cultura da organização."
+                ],
+                correctAnswer: "Medir a eficácia e a eficiência de um processo ou resultado, fornecendo dados para a tomada de decisão.",
+                hint: "Indicadores servem para quantificar e avaliar o sucesso das ações da gestão.",
+                explanation: "Indicadores de desempenho são ferramentas essenciais para monitorar e avaliar o progresso em direção aos objetivos organizacionais. Eles fornecem dados quantitativos ou qualitativos que ajudam na tomada de decisões informadas, permitindo ajustes e melhorias contínuas nos processos."
+            },
+            {
+                question: "4. Qual a característica mais fundamental que define um 'projeto'?",
+                options: [
+                    "É uma atividade contínua e rotineira, sem prazo para terminar.",
+                    "É um esforço temporário, com início, meio e fim definidos, para criar um produto, serviço ou resultado único.",
+                    "É uma tarefa que não requer planejamento prévio.",
+                    "É sempre de baixo custo e com recursos ilimitados."
+                ],
+                correctAnswer: "É um esforço temporário, com início, meio e fim definidos, para criar um produto, serviço ou resultado único.",
+                hint: "Projetos não são parte da operação normal da organização.",
+                explanation: "Um projeto é caracterizado por sua natureza temporária e única. Ele tem um objetivo específico a ser alcançado dentro de um prazo determinado, diferentemente das operações contínuas e repetitivas da organização."
+            },
+            {
+                question: "5. A primeira etapa do processo de Gestão de Risco é:",
+                options: [
+                    "Mitigar os riscos identificados, criando planos de contingência.",
+                    "Identificar os riscos, listando eventos que podem impactar negativamente a organização.",
+                    "Acompanhar e monitorar os riscos ao longo do tempo.",
+                    "Transferir os riscos para terceiros através de seguros."
+                ],
+                correctAnswer: "Identificar os riscos, listando eventos que podem impactar negativamente a organização.",
+                hint: "Você não pode gerenciar algo que ainda não conhece.",
+                explanation: "A gestão de risco começa com a identificação dos riscos potenciais que podem afetar a organização. Isso envolve a análise do ambiente interno e externo para reconhecer ameaças e vulnerabilidades, permitindo que a organização se prepare para lidar com esses riscos de maneira eficaz."
+            },
+            {
+                question: "6. As 'Normas Especiais para compras nas áreas de Defesa, Justiça e Segurança' têm como finalidade:",
+                options: [
+                    "Tornar o processo de contratação mais lento para essas áreas.",
+                    "Proibir a realização de licitações para a compra de materiais e equipamentos.",
+                    "Adequar os procedimentos de contratação às especificidades, urgências e sigilos necessários a essas áreas estratégicas.",
+                    "Permitir a contratação de qualquer fornecedor sem a necessidade de justificativa."
+                ],
+                correctAnswer: "Adequar os procedimentos de contratação às especificidades, urgências e sigilos necessários a essas áreas estratégicas.",
+                hint: "Essas áreas possuem necessidades únicas que exigem regras diferenciadas daquelas aplicadas a contratações comuns.",
+                explanation: "As Normas Especiais para compras nas áreas de Defesa, Justiça e Segurança visam garantir que as contratações públicas nessas áreas sejam realizadas de forma eficiente, segura e adequada às suas particularidades, como a necessidade de sigilo, rapidez e especificações técnicas especiais."
+            },
+            {
+                question: "7. O campo de estudo do 'Comportamento Organizacional' foca principalmente na análise de:",
+                options: [
+                    "Apenas o desempenho financeiro da organização.",
+                    "As máquinas e equipamentos utilizados no trabalho.",
+                    "A interação entre indivíduos, grupos e a estrutura da organização no ambiente de trabalho.",
+                    "O processo de produção de bens e serviços."
+                ],
+                correctAnswer: "A interação entre indivíduos, grupos e a estrutura da organização no ambiente de trabalho.",
+                hint: "Este estudo busca entender como as pessoas se comportam e interagem no contexto de uma organização.",
+                explanation: "O Comportamento Organizacional é um campo interdisciplinar que estuda como as pessoas se comportam dentro das organizações. Ele analisa a dinâmica entre indivíduos, grupos e a estrutura organizacional, buscando melhorar o ambiente de trabalho e a eficácia organizacional."
+            },
+            {
+                question: "8. A principal característica da pesquisa qualitativa, em contraste com a quantitativa, é o foco em:",
+                options: [
+                    "Números e medições estatísticas.",
+                    "Grandes amostras representativas e testes estatísticos.",
+                    "Análise de dados não numéricos, como entrevistas, discursos e observações, para compreender o 'porquê' e o 'como'.",
+                    "Apenas na coleta de dados através de questionários fechados."
+                ],
+                correctAnswer: "Análise de dados não numéricos, como entrevistas, discursos e observações, para compreender o 'porquê' e o 'como'.",
+                hint: "A pesquisa qualitativa se aprofunda nos detalhes e nas percepções, em vez de se limitar a números.",
+                explanation: "A pesquisa qualitativa é caracterizada pela coleta e análise de dados não numéricos, como entrevistas, observações e textos. Ela busca compreender os significados, experiências e perspectivas dos participantes, focando no 'porquê' e 'como' dos fenômenos estudados, ao contrário da pesquisa quantitativa, que se concentra em dados numéricos e estatísticos."
+            },
+            {
+                question: "9. Qual é a principal característica de uma 'liderança transformacional'?",
+                options: [
+                    "Mantém o status quo e foca em recompensas e punições imediatas.",
+                    "Delega todas as tarefas sem fornecer orientações claras.",
+                    "Inspira e motiva a equipe a ir além do esperado, promovendo inovação e crescimento pessoal.",
+                    "Foca exclusivamente em seguir as regras e procedimentos estabelecidos."
+                ],
+                correctAnswer: "Inspira e motiva a equipe a ir além do esperado, promovendo inovação e crescimento pessoal.",
+                hint: "O objetivo desse tipo de líder é transformar e elevar a equipe.",
+                explanation: "Líderes transformacionais são aqueles que inspiram e motivam seus seguidores a alcançar mais do que o esperado, promovendo mudanças positivas e inovação. Eles focam no desenvolvimento pessoal e profissional de sua equipe, criando um ambiente de trabalho estimulante e engajador."
+            },
+            {
+                question: "10. Qual a importância de abordar a saúde mental no local de trabalho?",
+                options: [
+                    "Apenas para cumprir leis trabalhistas, sem impacto real no desempenho.",
+                    "É irrelevante para a produtividade da equipe.",
+                    "Aumenta a competitividade e o estresse entre os funcionários.",
+                    "Garante o bem-estar dos colaboradores e, consequentemente, melhora o desempenho, a produtividade e a retenção de talentos."
+                ],
+                correctAnswer: "Garante o bem-estar dos colaboradores e, consequentemente, melhora o desempenho, a produtividade e a retenção de talentos.",
+                hint: "A saúde mental tem uma correlação direta com a saúde organizacional.",
+                explanation: "Promover a saúde mental no ambiente de trabalho é essencial para o bem-estar dos colaboradores. Funcionários mentalmente saudáveis são mais produtivos, engajados e têm menor propensão a faltar ao trabalho, o que beneficia toda a organização."
+            }
+            ],
+            'Eixo Temático 2 - Políticas de Segurança, Ambiente Internacional': [
+             {
+                question: "1. No contexto de Cibersegurança, qual é o principal objetivo de um 'firewall'?",
+                options: [
+                    "Aumentar a velocidade das conexões de uma rede local para evitar gargalos.",
+                    "Proteger uma rede contra acessos não autorizados por meio do controle de tráfego.",
+                    "Analisar o conteúdo de e-mails recebidos para buscar e-mails suspeitos e vírus.",
+                    "Apenas criptografar informações sensíveis da rede para maior segurança."
+                ],
+                correctAnswer: "Proteger uma rede contra acessos não autorizados por meio do controle de tráfego.",
+                hint: "Pense na função de uma 'parede de fogo' virtual, que filtra e bloqueia o que entra e sai.",
+                explanation: "Um firewall é um sistema de segurança de rede que monitora e controla o tráfego de entrada e saída com base em regras de segurança predefinidas. Ele atua como uma barreira entre uma rede confiável e uma não confiável, ajudando a prevenir acessos não autorizados e ataques cibernéticos."
+            },
+            {
+                question: "2. Qual conceito abaixo se relaciona diretamente com a capacidade do Estado de exercer controle efetivo sobre seu espaço digital e suas infraestruturas?",
+                options: [
+                    "Soberania Digital.",
+                    "Geopolítica do Atlântico.",
+                    "Tecnologia Emergente.",
+                    "Políticas de Defesa."
+                ],
+                correctAnswer: "Soberania Digital.",
+                hint: "É a aplicação do conceito tradicional de soberania ao ambiente virtual.",
+                explanation: "A Soberania Digital refere-se à capacidade de um Estado de exercer controle sobre seus dados, infraestruturas digitais e políticas relacionadas ao ambiente virtual. Isso inclui a proteção contra interferências externas, a regulação do uso da internet e a garantia da segurança cibernética dentro de suas fronteiras."
+            },
+            {
+                question: "3. O Direito Internacional dos Conflitos Armados (DICA) é um ramo conhecido também como:",
+                options: [
+                    "Direito da Guerra Fria e dos conflitos biológicos.",
+                    "Direito da Ciberdefesa e da Segurança do Atlântico.",
+                    "Direito da Ciberespionagem e das fronteiras terrestres.",
+                    "Direito Internacional Humanitário, focado na proteção de civis."
+                ],
+                correctAnswer: "Direito Internacional Humanitário, focado na proteção de civis.",
+                hint: "Seu principal objetivo é proteger pessoas que não participam ou deixaram de participar das hostilidades.",
+                explanation: "O Direito Internacional dos Conflitos Armados (DICA), também conhecido como Direito Internacional Humanitário, é um conjunto de normas que regulam a condução dos conflitos armados, com o objetivo principal de proteger pessoas que não participam ou deixaram de participar das hostilidades, como civis, feridos e prisioneiros de guerra."
+            },
+            {
+                question: "4. Qual a principal função de uma Missão de Paz da Organização das Nações Unidas (ONU)?",
+                options: [
+                    "Apoiar a estabilização de países pós-conflito, visando a paz e a segurança.",
+                    "Apenas realizar operações de espionagem e coleta de informações internacionais.",
+                    "Intervir militarmente em conflitos sem a aprovação de todas as partes envolvidas.",
+                    "Realizar a anexação de territórios por meio de acordos diplomáticos e militares."
+                ],
+                correctAnswer: "Apoiar a estabilização de países pós-conflito, visando a paz e a segurança.",
+                hint: "O Brasil tem uma longa história de participação em missões com esse objetivo.",
+                explanation: "As Missões de Paz da ONU são operações internacionais que visam apoiar a estabilização de países que passaram por conflitos armados. Elas buscam promover a paz, proteger civis, ajudar na reconstrução e fortalecer instituições locais, sempre com o consentimento das partes envolvidas."
+            },
+            {
+                question: "5. A Geopolítica do Entorno Estratégico Brasileiro se refere, principalmente, à análise das relações do Brasil com:",
+                options: [
+                    "Apenas os países da Europa e da Ásia e suas políticas.",
+                    "Seus vizinhos na América do Sul e na região do Atlântico Sul.",
+                    "Apenas a OTAN, a ONU e as demais organizações militares.",
+                    "Apenas países da Organização dos Países Exportadores de Petróleo."
+                ],
+                correctAnswer: "Seus vizinhos na América do Sul e na região do Atlântico Sul.",
+                hint: "O entorno estratégico do Brasil é sua área de influência geográfica mais imediata.",
+                explanation: "A Geopolítica do Entorno Estratégico Brasileiro envolve a análise das relações políticas, econômicas e de segurança com os países vizinhos na América do Sul e na região do Atlântico Sul. Essa área é crucial para a defesa dos interesses nacionais, a cooperação regional e a estabilidade política e econômica do Brasil."
+            },
+            {
+                question: "6. Qual tecnologia emergente é frequentemente utilizada na análise de dados para identificar padrões em ciberataques?",
+                options: [
+                    "A nanotecnologia, por meio do uso de dispositivos microscópicos.",
+                    "A Inteligência Artificial, por meio de sistemas que aprendem e tomam decisões.",
+                    "A robótica, por meio de robôs autônomos para defesa de redes.",
+                    "A genômica, por meio da análise de códigos genéticos de vírus."
+                ],
+                correctAnswer: "A Inteligência Artificial, por meio de sistemas que aprendem e tomam decisões.",
+                hint: "É uma tecnologia que permite que sistemas aprendam e tomem decisões a partir de dados.",
+                explanation: "A Inteligência Artificial (IA) é uma tecnologia emergente que tem sido amplamente adotada na cibersegurança. Ela permite a análise de grandes volumes de dados para identificar padrões e anomalias que podem indicar ciberataques, ajudando na detecção precoce e na resposta rápida a ameaças."
+            },
+            {
+                question: "7. O conceito de 'Biossegurança' está principalmente ligado à:",
+                options: [
+                    "A segurança e proteção de sistemas de computadores.",
+                    "O uso e controle de armas de fogo em operações de segurança.",
+                    "A prevenção de riscos associados ao uso de agentes biológicos e organismos.",
+                    "A defesa e controle das fronteiras terrestres."
+                ],
+                correctAnswer: "A prevenção de riscos associados ao uso de agentes biológicos e organismos.",
+                hint: "O prefixo 'bio' remete à vida e aos seres vivos.",
+                explanation: "A Biossegurança envolve um conjunto de práticas, normas e medidas destinadas a proteger a saúde humana, animal e ambiental contra os riscos associados ao uso de agentes biológicos, como vírus, bactérias e organismos geneticamente modificados. Ela é fundamental em laboratórios, indústrias e áreas de pesquisa que lidam com esses agentes."
+            },
+            {
+                question: "8. A Ciberdefesa se diferencia da Cibersegurança por seu foco principal em:",
+                options: [
+                    "Apenas proteger os dados pessoais de cidadãos e empresas privadas.",
+                    "Proteger as infraestruturas críticas e a soberania do Estado contra ataques.",
+                    "Aumentar a produtividade das grandes empresas de tecnologia.",
+                    "Apenas proteger sistemas de computadores de uso doméstico."
+                ],
+                correctAnswer: "Proteger as infraestruturas críticas e a soberania do Estado contra ataques.",
+                hint: "A Ciberdefesa tem uma dimensão mais estratégica e de Estado.",
+                explanation: "A Ciberdefesa é uma área focada na proteção das infraestruturas críticas do Estado, como redes de energia, comunicações e sistemas governamentais, contra ameaças cibernéticas que possam comprometer a soberania nacional. Já a Cibersegurança é um conceito mais amplo, que abrange a proteção de dados e sistemas em geral, incluindo o setor privado e o uso individual."
+            },
+            {
+                question: "9. Qual o principal papel das Organizações Internacionais, como a ONU, nos setores de segurança e defesa?",
+                options: [
+                    "Promover a criação de acordos comerciais e financeiras entre países.",
+                    "Estabelecer normas, negociações e cooperação para a paz e segurança globais.",
+                    "Substituir os exércitos nacionais e o papel do Estado na defesa.",
+                    "Determinar a política interna de cada país e o tipo de governo."
+                ],
+                correctAnswer: "Estabelecer normas, negociações e cooperação para a paz e segurança globais.",
+                hint: "Elas promovem o diálogo e a colaboração entre os Estados para evitar conflitos.",
+                explanation: "Organizações Internacionais, como a ONU, desempenham um papel crucial na promoção da paz e segurança globais. Elas facilitam o diálogo entre países, estabelecem normas internacionais e coordenam esforços para resolver conflitos, prevenir guerras e promover a cooperação em questões de segurança."
+            },
+            {
+                question: "10. As mudanças climáticas têm implicações para os setores de segurança e defesa, principalmente por:",
+                options: [
+                    "Apenas afetar o clima em países do hemisfério norte e não no sul.",
+                    "Diminuir a necessidade de cooperação internacional sobre recursos.",
+                    "Aumentar o risco de desastres naturais e escassez, gerando conflitos.",
+                    "Não apresentar qualquer impacto na estabilidade global dos países."
+                ],
+                correctAnswer: "Aumentar o risco de desastres naturais e escassez, gerando conflitos.",
+                hint: "O impacto do clima é uma nova ameaça que afeta a estabilidade de estados e regiões.",
+                explanation: "As mudanças climáticas podem levar a desastres naturais mais frequentes e severos, além de causar escassez de recursos essenciais como água e alimentos. Esses fatores podem gerar tensões sociais e políticas, aumentando o risco de conflitos internos e entre países, o que torna a adaptação e a mitigação dessas mudanças uma questão de segurança global."
+            }
+
+            ],
+            'Eixo Temático 3 - Políticas de Segurança, Ambiente Nacional': [
+     {
+                question: "1. No Brasil, qual órgão de consulta do Presidente da República é responsável por se manifestar sobre temas relacionados à soberania nacional e à defesa do Estado?",
+                options: [
+                    "Gabinete de Segurança Institucional (GSI).",
+                    "Conselho da República.",
+                    "Conselho de Defesa Nacional.",
+                    "Ministério da Defesa."
+                ],
+                correctAnswer: "Conselho de Defesa Nacional.",
+                hint: "É um órgão constitucional que assessora diretamente o Presidente em assuntos de defesa.",
+                explanation: "O Conselho de Defesa Nacional (CDN) é um órgão previsto na Constituição Federal do Brasil, responsável por assessorar o Presidente da República em questões relacionadas à soberania nacional, à defesa do Estado e à integridade territorial. Ele é composto por ministros de Estado e outras autoridades designadas pelo Presidente."
+            },
+            {
+                question: "2. Qual documento estabelece as diretrizes de longo prazo da política de defesa do Brasil, definindo os desafios e as prioridades para a defesa nacional?",
+                options: [
+                    "Política Nacional de Fronteiras.",
+                    "Estratégia Nacional de Defesa.",
+                    "Livro Branco de Defesa Nacional.",
+                    "Política Nacional de Defesa."
+                ],
+                correctAnswer: "Política Nacional de Defesa.",
+                hint: "Este documento é a base para a formulação da Estratégia Nacional de Defesa.",
+                explanation: "A Política Nacional de Defesa (PND) é o documento que estabelece as diretrizes fundamentais para a defesa do Brasil. Ela define os objetivos, princípios e prioridades da defesa nacional, orientando a formulação de políticas e estratégias subsequentes, como a Estratégia Nacional de Defesa (END)."
+            },
+            {
+                question: "3. Uma das missões constitucionais das Forças Armadas brasileiras é a defesa da Pátria. Qual é a outra missão constitucional?",
+                options: [
+                    "Garantia da Lei e da Ordem (GLO).",
+                    "Auxílio à população em desastres naturais.",
+                    "Proteção das fronteiras contra o crime organizado.",
+                    "Garantia dos poderes constitucionais e, por iniciativa de qualquer deles, da lei e da ordem."
+                ],
+                correctAnswer: "Garantia dos poderes constitucionais e, por iniciativa de qualquer deles, da lei e da ordem.",
+                hint: "Está descrita no Art. 142 da Constituição Federal.",
+                explanation: "As Forças Armadas brasileiras têm como missões constitucionais a defesa da Pátria e a garantia dos poderes constitucionais, bem como, por iniciativa de qualquer deles, da lei e da ordem. Isso significa que as Forças Armadas podem ser acionadas para apoiar o Estado em situações excepcionais, como crises políticas ou ameaças à ordem pública."
+            },
+            {
+                question: "4. As Operações de Garantia da Lei e da Ordem (GLO) podem ser acionadas em que circunstâncias?",
+                options: [
+                    "Apenas em casos de guerra declarada.",
+                    "Em qualquer situação de insegurança pública, sem necessidade de autorização.",
+                    "Apenas após esgotados os instrumentos de segurança pública e mediante decisão do Presidente da República.",
+                    "Apenas pelo poder judiciário."
+                ],
+                correctAnswer: "Apenas após esgotados os instrumentos de segurança pública e mediante decisão do Presidente da República.",
+                hint: "É uma medida excepcional e temporária para a manutenção da ordem pública.",
+                explanation: "As Operações de Garantia da Lei e da Ordem (GLO) são ações realizadas pelas Forças Armadas para apoiar as forças de segurança pública em situações excepcionais, como grandes eventos, crises ou desastres. Elas só podem ser acionadas após o esgotamento dos recursos das forças de segurança pública e mediante decisão do Presidente da República, garantindo que a intervenção militar seja uma medida de último recurso."
+            },
+            {
+                question: "5. A Logística Humanitária se diferencia da Logística Militar principalmente por seu foco em:",
+                options: [
+                    "Apenas o transporte de tropas e armamentos.",
+                    "Atender às necessidades de populações civis afetadas por desastres.",
+                    "O uso de tecnologias avançadas para espionagem militar.",
+                    "A gestão de compras públicas de equipamentos de defesa."
+                ],
+                correctAnswer: "Atender às necessidades de populações civis afetadas por desastres.",
+                hint: "É um braço da logística que atua em situações de crises humanitárias.",
+                explanation: "A Logística Humanitária é um ramo da logística que se concentra em fornecer assistência e recursos para populações civis afetadas por desastres naturais, conflitos ou crises humanitárias. Seu objetivo é garantir a entrega eficiente de suprimentos essenciais, como alimentos, água, medicamentos e abrigo, para salvar vidas e aliviar o sofrimento."
+            },
+            {
+                question: "6. A Base Industrial de Defesa (BID) brasileira é um conceito estratégico que visa:",
+                options: [
+                    "Apenas a importação de armamentos de outros países.",
+                    "Desenvolver e produzir equipamentos e sistemas de defesa de forma autônoma no país.",
+                    "Privatizar todas as indústrias de defesa.",
+                    "Apenas exportar produtos de defesa para a OTAN."
+                ],
+                correctAnswer: "Desenvolver e produzir equipamentos e sistemas de defesa de forma autônoma no país.",
+                hint: "Sua principal meta é reduzir a dependência tecnológica externa.",
+                explanation: "A Base Industrial de Defesa (BID) é um conjunto de empresas, instituições e recursos que atuam no desenvolvimento, produção e manutenção de equipamentos e sistemas de defesa. O objetivo é garantir a autonomia tecnológica e operacional do país, reduzindo a dependência de fornecedores estrangeiros e fortalecendo a indústria nacional."
+            },
+            {
+                question: "7. Qual documento, de publicação quadrienal, detalha a situação das Forças Armadas e as diretrizes estratégicas para o período?",
+                options: [
+                    "Estratégia Nacional de Defesa.",
+                    "Livro Branco de Defesa Nacional.",
+                    "Política de Mobilização Nacional.",
+                    "Conselho de Defesa Nacional."
+                ],
+                correctAnswer: "Livro Branco de Defesa Nacional.",
+                hint: "Funciona como um documento de transparência e prestação de contas à sociedade.",
+                explanation: "O Livro Branco de Defesa Nacional é um documento oficial que apresenta a análise da situação das Forças Armadas, os desafios enfrentados e as diretrizes estratégicas para o período de quatro anos. Ele serve como um instrumento de transparência, permitindo à sociedade compreender as políticas e prioridades de defesa do país."
+            },
+            {
+                question: "8. No contexto do Direito do Mar, a 'Zona Econômica Exclusiva' (ZEE) do Brasil é a área onde o país tem o direito de:",
+                options: [
+                    "Exercer soberania total sobre o mar, o espaço aéreo e o leito marinho.",
+                    "Explorar e gerir os recursos naturais, tanto vivos quanto não vivos.",
+                    "Proibir a passagem de navios estrangeiros em qualquer circunstância.",
+                    "Ter jurisdição apenas para questões de segurança militar."
+                ],
+                correctAnswer: "Explorar e gerir os recursos naturais, tanto vivos quanto não vivos.",
+                hint: "O Brasil tem direitos econômicos, mas a liberdade de navegação é mantida.",
+                explanation: "A Zona Econômica Exclusiva (ZEE) é uma área marítima que se estende até 200 milhas náuticas a partir da costa de um país, onde este tem direitos exclusivos para explorar e gerir os recursos naturais, tanto vivos (como peixes) quanto não vivos (como petróleo e minerais). No entanto, outros países mantêm a liberdade de navegação e sobrevoo nessa área."
+            },
+            {
+                question: "9. O Programa Espacial Brasileiro é de grande relevância estratégica para a defesa nacional, principalmente para:",
+                options: [
+                    "Exploração do turismo espacial.",
+                    "Desenvolvimento de armas nucleares.",
+                    "Comunicação, sensoriamento remoto e monitoramento de fronteiras.",
+                    "Apenas o desenvolvimento de satélites meteorológicos."
+                ],
+                correctAnswer: "Comunicação, sensoriamento remoto e monitoramento de fronteiras.",
+                hint: "Satélites e tecnologia espacial são cruciais para a vigilância e defesa do território.",
+                explanation: "O Programa Espacial Brasileiro, coordenado pela Agência Espacial Brasileira (AEB), é fundamental para a defesa nacional, pois permite o desenvolvimento e lançamento de satélites que auxiliam na comunicação, no sensoriamento remoto e no monitoramento das fronteiras. Essas capacidades são essenciais para a vigilância do território, a gestão de recursos naturais e a resposta a emergências."
+            },
+            {
+                question: "10. Qual a função do Sistema de Proteção da Amazônia (SIPAM) no contexto de defesa e segurança?",
+                options: [
+                    "É um programa de privatização de terras na Amazônia.",
+                    "Um sistema de vigilância e monitoramento ambiental para apoiar operações de defesa e segurança.",
+                    "Um órgão responsável apenas pela demarcação de terras indígenas.",
+                    "Uma organização não-governamental para a proteção da fauna."
+                ],
+                correctAnswer: "Um sistema de vigilância e monitoramento ambiental para apoiar operações de defesa e segurança.",
+                hint: "O sistema integra dados de vários sensores para apoiar a tomada de decisões.",
+                explanation: "O Sistema de Proteção da Amazônia (SIPAM) é uma iniciativa que utiliza tecnologia de ponta para monitorar a região amazônica, integrando dados de satélites, radares e outras fontes. Ele apoia operações de defesa e segurança, ajudando a combater atividades ilegais como desmatamento, mineração e tráfico de drogas."
+            }
+],
+            'Eixo Temático 4 - Políticas de Segurança Pública': [
+       {
+                question: "1. Qual é o principal objetivo da Política Nacional de Segurança Pública e Defesa Social (PNSPDS), conforme a Lei nº 13.675/2018?",
+                options: [
+                    "Apenas a reestruturação das Forças Armadas no combate ao crime em áreas de fronteira.",
+                    "A articulação da União, estados e municípios para a prevenção, repressão e redução da criminalidade e violência.",
+                    "Somente a integração de sistemas de inteligência e controle de armas no nível estadual.",
+                    "O fortalecimento exclusivo das polícias militares, sem envolver a Polícia Federal."
+                ],
+                correctAnswer: "A articulação da União, estados e municípios para a prevenção, repressão e redução da criminalidade e violência.",
+                hint: "Pense na palavra-chave 'integração' entre os entes federativos.",
+                explanation: "A Política Nacional de Segurança Pública e Defesa Social (PNSPDS) tem como objetivo principal promover a articulação entre a União, estados e municípios para desenvolver ações integradas de prevenção, repressão e redução da criminalidade e violência. Ela busca fortalecer a cooperação entre diferentes níveis de governo e instituições de segurança pública para enfrentar os desafios da segurança de forma mais eficaz."
+            },
+            {
+                question: "2. No âmbito das Forças de Segurança Pública, qual é a principal atribuição das Guardas Civis Municipais, de acordo com o texto constitucional?",
+                options: [
+                    "A repressão ostensiva de crimes transnacionais e de crimes de grande repercussão nacional.",
+                    "O policiamento ostensivo e a preservação da ordem pública em todo o território brasileiro.",
+                    "A proteção de bens, serviços e instalações do município, e em conjunto, a segurança e a ordem pública.",
+                    "Atuar exclusivamente na esfera prisional, administrando cadeias públicas e centros de detenção."
+                ],
+                correctAnswer: "A proteção de bens, serviços e instalações do município, e em conjunto, a segurança e a ordem pública.",
+                hint: "Seu papel está restrito ao âmbito municipal.",
+                explanation: "As Guardas Civis Municipais são responsáveis pela proteção dos bens, serviços e instalações do município. Elas também podem atuar em conjunto com outras forças de segurança pública na preservação da segurança e da ordem pública, mas sua atuação é limitada ao âmbito municipal, conforme previsto na Constituição Federal."
+            },
+            {
+                question: "3. O Sistema Único de Segurança Pública (SUSP) é um modelo de gestão que busca, entre outras coisas, a integração operacional e de dados entre:",
+                options: [
+                    "Apenas o Ministério da Justiça e o Ministério da Defesa.",
+                    "As polícias federal, civis, militares, corpos de bombeiros e guardas municipais.",
+                    "As agências de inteligência do Exército, Marinha e Aeronáutica.",
+                    "Exclusivamente as forças policiais estaduais e as organizações internacionais."
+                ],
+                correctAnswer: "As polícias federal, civis, militares, corpos de bombeiros e guardas municipais.",
+                hint: "O SUSP abrange um conjunto diversificado de instituições de segurança.",
+                explanation: "O Sistema Único de Segurança Pública (SUSP) é um modelo de gestão que visa integrar as diversas instituições de segurança pública no Brasil, incluindo polícias federal, civis, militares, corpos de bombeiros e guardas municipais. O objetivo é promover a cooperação, o compartilhamento de informações e a coordenação de ações para melhorar a eficiência e a eficácia na prevenção e combate à criminalidade."
+            },
+            {
+                question: "4. As Regras de Nelson Mandela são um conjunto de diretrizes internacionais que estabelecem padrões mínimos para qual área?",
+                options: [
+                    "O uso de tecnologias de vigilância em grandes metrópoles.",
+                    "A cooperação entre países no combate ao crime organizado.",
+                    "O tratamento de reclusos e a administração de estabelecimentos prisionais.",
+                    "A prevenção de crimes cibernéticos em plataformas digitais."
+                ],
+                correctAnswer: "O tratamento de reclusos e a administração de estabelecimentos prisionais.",
+                hint: "Estas regras tratam de direitos e dignidade das pessoas presas.",
+                explanation: "As Regras de Nelson Mandela, adotadas pela ONU em 2015, são um conjunto de diretrizes que estabelecem padrões mínimos para o tratamento de reclusos e a administração de estabelecimentos prisionais. Elas visam garantir a dignidade, os direitos humanos e a reintegração social das pessoas privadas de liberdade, promovendo práticas que respeitem sua condição humana."
+            },
+            {
+                question: "5. O Sistema Nacional de Informações de Segurança Pública, Prisionais, de Rastreabilidade de Armas e Munições, de Material Genético, de Digitais e de Drogas (SINESP) tem como objetivo principal:",
+                options: [
+                    "Criar um banco de dados unificado com informações sobre todos os presos brasileiros.",
+                    "Gerenciar e integrar informações de segurança pública, prisionais e de rastreabilidade para os entes federativos.",
+                    "Desenvolver a tecnologia para a identificação de criminosos através de material genético.",
+                    "Apenas o registro e a fiscalização de armas de fogo no Brasil."
+                ],
+                correctAnswer: "Gerenciar e integrar informações de segurança pública, prisionais e de rastreabilidade para os entes federativos.",
+                hint: "A própria sigla (SINESP) já descreve o escopo de suas responsabilidades.",
+                explanation: "O SINESP é um sistema integrado que visa gerenciar e compartilhar informações relevantes para a segurança pública entre a União, estados e municípios. Ele abrange dados sobre segurança pública, sistema prisional, rastreabilidade de armas e munições, material genético, digitais e drogas, facilitando a cooperação e a tomada de decisões estratégicas."
+            },
+            {
+                question: "6. Qual é a principal característica dos crimes transnacionais, o que exige a colaboração de outras nações para sua prevenção e combate?",
+                options: [
+                    "O envolvimento de mais de um país na sua execução, planejamento ou efeitos.",
+                    "Apenas o uso de criptomoedas em suas transações financeiras.",
+                    "A necessidade de atuação exclusiva das Forças Armadas.",
+                    "O foco apenas em ataques cibernéticos a infraestruturas críticas."
+                ],
+                correctAnswer: "O envolvimento de mais de um país na sua execução, planejamento ou efeitos.",
+                hint: "A 'transnacionalidade' indica que o crime ultrapassa as fronteiras de um país.",
+                explanation: "Crimes transnacionais são aqueles que envolvem mais de um país, seja na sua execução, planejamento ou nos efeitos que causam. Exemplos incluem tráfico de drogas, tráfico de pessoas, terrorismo e crimes cibernéticos. Devido à sua natureza, esses crimes exigem cooperação internacional para serem eficazmente combatidos."
+            },
+            {
+                question: "7. A Política Nacional de Atenção Integral à Saúde das Pessoas Privadas de Liberdade no Sistema Prisional (PNAISP) tem como objetivo:",
+                options: [
+                    "Apenas o financiamento de hospitais para a população em geral.",
+                    "Substituir o trabalho de agentes de saúde por agentes de segurança nas prisões.",
+                    "Garantir o acesso das pessoas presas aos mesmos serviços de saúde ofertados no SUS.",
+                    "A remoção de presos com doenças crônicas para hospitais particulares."
+                ],
+                correctAnswer: "Garantir o acesso das pessoas presas aos mesmos serviços de saúde ofertados no SUS.",
+                hint: "O acesso à saúde é um direito fundamental, mesmo para pessoas em situação de privação de liberdade.",
+                explanation: "A PNAISP visa assegurar que as pessoas privadas de liberdade tenham acesso integral aos serviços de saúde, conforme previsto no Sistema Único de Saúde (SUS). Isso inclui a promoção da saúde, a prevenção de doenças, o tratamento e a reabilitação, garantindo que os direitos humanos sejam respeitados dentro do sistema prisional."
+            },
+            {
+                question: "8. O que são as 'milícias' no contexto do crime organizado no Brasil?",
+                options: [
+                    "Grupos formados por policiais e militares para combater o tráfico de drogas.",
+                    "Associações de civis que agem em legítima defesa de suas propriedades.",
+                    "Grupos armados que exploram atividades ilícitas e exercem controle sobre territórios.",
+                    "Organizações formadas apenas para a gestão de serviços comunitários de bairros."
+                ],
+                correctAnswer: "Grupos armados que exploram atividades ilícitas e exercem controle sobre territórios.",
+                hint: "As milícias se apresentam como 'protetoras' de uma comunidade, mas na verdade operam como organizações criminosas.",
+                explanation: "As milícias são grupos armados, muitas vezes compostos por ex-policiais, policiais ou militares, que exercem controle sobre determinados territórios, especialmente em áreas urbanas. Eles se envolvem em diversas atividades ilícitas, como extorsão, controle de serviços públicos (água, luz, transporte) e tráfico de drogas, atuando de forma violenta e coercitiva para manter seu domínio."
+            },
+            {
+                question: "9. A Política Nacional de Monitoração Eletrônica de Pessoas tem como principal meta:",
+                options: [
+                    "Ampliar a vigilância de todos os cidadãos em espaço público.",
+                    "A fiscalização de pessoas com prisão domiciliar ou em regime semiaberto.",
+                    "Apenas o monitoramento de pessoas em liberdade condicional para o crime de roubo.",
+                    "Substituir completamente o sistema de videomonitoramento de segurança."
+                ],
+                correctAnswer: "A fiscalização de pessoas com prisão domiciliar ou em regime semiaberto.",
+                hint: "É uma ferramenta para fiscalizar e acompanhar o cumprimento de medidas cautelares.",
+                explanation: "A Política Nacional de Monitoração Eletrônica de Pessoas visa utilizar tecnologias de monitoramento, como tornozeleiras eletrônicas, para fiscalizar indivíduos que estão cumprindo penas em regime domiciliar ou semiaberto. Isso ajuda a garantir o cumprimento das condições impostas pela justiça, ao mesmo tempo em que contribui para a redução da superlotação carcerária."
+            },
+            {
+                question: "10. Qual a importância do Sistema Nacional de Acompanhamento e Combate à Violência nas Escolas (SNAVE) no contexto de segurança pública?",
+                options: [
+                    "Apenas o controle e a fiscalização de eventos esportivos em escolas.",
+                    "Gerir dados sobre a violência escolar, fornecer diretrizes e coordenar ações de prevenção e combate.",
+                    "A criação de um banco de dados de alunos com desempenho acadêmico abaixo da média.",
+                    "O desenvolvimento de tecnologias de videomonitoramento para todas as escolas públicas."
+                ],
+                correctAnswer: "Gerir dados sobre a violência escolar, fornecer diretrizes e coordenar ações de prevenção e combate.",
+                hint: "O sistema foi criado para enfrentar e prevenir a violência dentro do ambiente escolar.",
+                explanation: "O Sistema Nacional de Acompanhamento e Combate à Violência nas Escolas (SNAVE) é uma iniciativa que visa monitorar, analisar e combater a violência no ambiente escolar. Ele coleta dados sobre incidentes de violência, fornece diretrizes para políticas públicas e coordena ações entre diferentes níveis de governo para garantir um ambiente seguro para estudantes e educadores."
+            }
+],
+            'Eixo Temático 5 - Políticas de Justiça e Cidadania': [
+                {
+                question: "1. Qual é a principal função da Estratégia Nacional de Combate à Corrupção e à Lavagem de Dinheiro (ENCCLA)?",
+                options: [
+                    "Apenas a criação de novas leis para aumentar as penas de crimes de colarinho branco.",
+                    "A coordenação de ações e a integração de órgãos dos três Poderes da República para prevenir e combater a corrupção e a lavagem de dinheiro.",
+                    "A fiscalização exclusiva de contas bancárias de servidores públicos federais.",
+                    "Apenas a educação da população sobre os perigos da corrupção."
+                ],
+                correctAnswer: "A coordenação de ações e a integração de órgãos dos três Poderes da República para prevenir e combater a corrupção e a lavagem de dinheiro.",
+                hint: "Pense na palavra 'estratégia' e na integração de diferentes instituições.",
+                explanation: "A Estratégia Nacional de Combate à Corrupção e à Lavagem de Dinheiro (ENCCLA) é um programa que visa coordenar ações entre diversos órgãos dos três Poderes da República (Executivo, Legislativo e Judiciário) para prevenir e combater a corrupção e a lavagem de dinheiro. Ela promove a troca de informações, o desenvolvimento de políticas públicas e a implementação de medidas eficazes para enfrentar esses crimes."
+            },
+            {
+                question: "2. A Lei Geral de Proteção de Dados Pessoais (LGPD) tem como um de seus fundamentos a proteção da:",
+                options: [
+                    "Soberania nacional e a defesa do território brasileiro.",
+                    "Privacidade e a liberdade de expressão em redes sociais.",
+                    "Liberdade, da privacidade e do livre desenvolvimento da personalidade da pessoa natural.",
+                    "Integridade física de migrantes e refugiados."
+                ],
+                correctAnswer: "Liberdade, da privacidade e do livre desenvolvimento da personalidade da pessoa natural.",
+                hint: "A LGPD trata de como seus dados pessoais devem ser tratados por empresas e órgãos públicos.",
+                explanation: "A Lei Geral de Proteção de Dados Pessoais (LGPD) foi criada para proteger os direitos fundamentais de liberdade e privacidade das pessoas naturais, regulando o tratamento de dados pessoais por parte de empresas e órgãos públicos. Ela estabelece princípios e regras para a coleta, armazenamento, uso e compartilhamento desses dados, garantindo que os indivíduos tenham controle sobre suas informações pessoais."
+            },
+            {
+                question: "3. O enfrentamento ao 'tráfico de pessoas' se diferencia do 'contrabando de migrantes' principalmente porque o primeiro envolve:",
+                options: [
+                    "Apenas a exploração sexual de migrantes.",
+                    "O consentimento da pessoa transportada, sem o uso de coação, para entrar ilegalmente em um país.",
+                    "A aquisição, aliciamento, transporte ou acolhimento de pessoas com o uso de coação, com o fim de exploração.",
+                    "Apenas a movimentação de pessoas que são apátridas."
+                ],
+                correctAnswer: "A aquisição, aliciamento, transporte ou acolhimento de pessoas com o uso de coação, com o fim de exploração.",
+                hint: "O tráfico de pessoas tem como característica a exploração e o não consentimento.",
+                explanation: "O tráfico de pessoas é um crime que envolve a aquisição, aliciamento, transporte ou acolhimento de indivíduos mediante o uso de coação, fraude ou engano, com o objetivo de explorá-los, seja sexualmente, no trabalho forçado ou em outras formas de servidão. Já o contrabando de migrantes refere-se ao transporte ilegal de pessoas que consentem em entrar em um país, geralmente para escapar de condições adversas em seus países de origem."
+            },
+            {
+                question: "4. Qual é o principal objetivo da Política Nacional de Relações de Consumo?",
+                options: [
+                    "A fiscalização de empresas que comercializam produtos piratas.",
+                    "Apenas o controle de preços de produtos essenciais para a população de baixa renda.",
+                    "A defesa e proteção do consumidor, a educação e a informação para a cidadania, e a harmonização das relações de consumo.",
+                    "A regulamentação de serviços de transporte e entrega de mercadorias no âmbito nacional."
+                ],
+                correctAnswer: "A defesa e proteção do consumidor, a educação e a informação para a cidadania, e a harmonização das relações de consumo.",
+                hint: "Pense nas atribuições do PROCON, que atuam neste âmbito.",
+                explanation: "A Política Nacional de Relações de Consumo tem como objetivo principal garantir a defesa e proteção dos direitos dos consumidores, promovendo a educação e a informação para a cidadania. Ela busca harmonizar as relações de consumo, assegurando que os consumidores tenham acesso a produtos e serviços de qualidade, além de mecanismos eficazes para resolver conflitos com fornecedores."
+            },
+            {
+                question: "5. A cooperação jurídica internacional no Brasil é um mecanismo que permite:",
+                options: [
+                    "Apenas a extradição de cidadãos brasileiros para outros países.",
+                    "A troca de informações e a assistência mútua entre autoridades brasileiras e estrangeiras em investigações criminais.",
+                    "O reconhecimento de diplomas e títulos acadêmicos de estrangeiros.",
+                    "A doação de recursos financeiros para outros países em situações de crise."
+                ],
+                correctAnswer: "A troca de informações e a assistência mútua entre autoridades brasileiras e estrangeiras em investigações criminais.",
+                hint: "Este instrumento é vital para o combate a crimes transnacionais.",
+                explanation: "A cooperação jurídica internacional é um mecanismo que facilita a colaboração entre autoridades judiciais e policiais de diferentes países. No Brasil, ela permite a troca de informações, a assistência mútua em investigações criminais, a execução de medidas cautelares e a extradição, entre outras ações. Esse instrumento é essencial para enfrentar crimes que ultrapassam fronteiras, como o tráfico de drogas, o terrorismo e a lavagem de dinheiro."
+            },
+            {
+                question: "6. As Regras de Bangkok são um conjunto de diretrizes internacionais voltadas para qual grupo específico no sistema prisional?",
+                options: [
+                    "Jovens infratores em centros de internação.",
+                    "Pessoas com deficiência privadas de liberdade.",
+                    "Mulheres presas e medidas não privativas de liberdade para mulheres infratoras.",
+                    "Idosos que cumprem pena em regimes especiais."
+                ],
+                correctAnswer: "Mulheres presas e medidas não privativas de liberdade para mulheres infratoras.",
+                hint: "O nome completo da regra é 'Regras das Nações Unidas para o Tratamento de Mulheres Presas e Medidas Não Privativas de Liberdade para Mulheres Infratoras'.",
+                explanation: "As Regras de Bangkok, adotadas pela ONU em 2010, são um conjunto de diretrizes que visam garantir o tratamento adequado e humanitário das mulheres presas. Elas reconhecem as necessidades específicas das mulheres no sistema prisional, promovendo medidas que respeitem sua dignidade, saúde e direitos humanos, além de incentivar alternativas à privação de liberdade quando possível."
+            },
+            {
+                question: "7. A Lei nº 14.197/2021 tipificou crimes contra o Estado Democrático de Direito. Qual é um dos principais crimes incluídos nesta legislação?",
+                options: [
+                    "Furtos e roubos em bancos e agências do governo.",
+                    "Crimes contra a soberania nacional, como espionagem e traição.",
+                    "Tentativa de abolição violenta do Estado Democrático de Direito.",
+                    "Uso de redes sociais para divulgação de notícias falsas."
+                ],
+                correctAnswer: "Tentativa de abolição violenta do Estado Democrático de Direito.",
+                hint: "A lei surgiu após a revogação da antiga Lei de Segurança Nacional.",
+                explanation: "A Lei nº 14.197/2021 foi criada para proteger o Estado Democrático de Direito no Brasil, tipificando crimes como a tentativa de abolição violenta do regime democrático. Essa legislação visa garantir a estabilidade política e social do país, prevenindo ações que possam ameaçar os princípios democráticos estabelecidos na Constituição."
+            },
+            {
+                question: "8. A 'Lawfare' é um termo que se refere ao uso estratégico do direito com qual finalidade?",
+                options: [
+                    "O uso do direito para garantir os direitos humanos em zonas de conflito.",
+                    "A utilização de instrumentos jurídicos para deslegitimar, perseguir ou neutralizar adversários políticos e ideológicos.",
+                    "A criação de um ambiente jurídico favorável à cooperação internacional.",
+                    "O uso de leis para promover a inclusão social e a igualdade."
+                ],
+                correctAnswer: "A utilização de instrumentos jurídicos para deslegitimar, perseguir ou neutralizar adversários políticos e ideológicos.",
+                hint: "É uma combinação das palavras 'law' (lei) e 'warfare' (guerra).",
+                explanation: "A 'Lawfare' é uma estratégia que envolve o uso do sistema jurídico para atingir objetivos políticos, muitas vezes através de processos judiciais que visam deslegitimar ou enfraquecer adversários. Essa prática pode incluir a manipulação de leis, o uso excessivo de litígios e a exploração de brechas legais para fins políticos, comprometendo a justiça e a democracia."
+            },
+            {
+                question: "9. No contexto de proteção da infância em ambientes digitais, o ECA (Estatuto da Criança e do Adolescente) prevê que:",
+                options: [
+                    "As crianças e adolescentes devem ser proibidos de usar a internet.",
+                    "É dever da família, da comunidade, da sociedade e do poder público assegurar os direitos da criança e do adolescente, inclusive no ambiente digital.",
+                    "A internet deve ser fiscalizada por todos os pais de crianças e adolescentes.",
+                    "A responsabilidade pela segurança de crianças na internet é exclusiva de empresas de tecnologia."
+                ],
+                correctAnswer: "É dever da família, da comunidade, da sociedade e do poder público assegurar os direitos da criança e do adolescente, inclusive no ambiente digital.",
+                hint: "O ECA é abrangente e se aplica a todos os contextos de vida da criança, incluindo o online.",
+                explanation: "O Estatuto da Criança e do Adolescente (ECA) estabelece que é responsabilidade conjunta da família, da comunidade, da sociedade e do poder público garantir os direitos das crianças e adolescentes. Isso inclui a proteção no ambiente digital, onde é fundamental assegurar que eles tenham acesso seguro à internet, com orientações sobre o uso responsável e a prevenção de riscos como o cyberbullying e a exposição a conteúdos inadequados."
+            },
+            {
+                question: "10. Qual a importância das Políticas para os Povos Indígenas no contexto de Justiça e Cidadania?",
+                options: [
+                    "Apenas a demarcação de terras indígenas e o financiamento de projetos agrícolas.",
+                    "Garantir a proteção dos direitos fundamentais dos povos indígenas, sua cultura, tradições e território.",
+                    "Integrar completamente os povos indígenas à sociedade urbana, desconsiderando suas tradições.",
+                    "Desenvolver programas de capacitação profissional para que os indígenas trabalhem em grandes cidades."
+                ],
+                correctAnswer: "Garantir a proteção dos direitos fundamentais dos povos indígenas, sua cultura, tradições e território.",
+                hint: "Estas políticas visam a garantir a cidadania plena e a autodeterminação dos povos indígenas.",
+                explanation: "As Políticas para os Povos Indígenas são essenciais para assegurar que os direitos fundamentais desses povos sejam respeitados, incluindo o direito à terra, à cultura, à educação e à saúde. Elas buscam promover a inclusão social e a cidadania plena, respeitando as especificidades culturais e a autodeterminação dos povos indígenas."
+            }
+            ]
+        };
+
+        // Referências aos elementos da interface
+        const homeScreen = document.getElementById('home-screen');
+        const eixoContentScreen = document.getElementById('eixo-content-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        
+        const eixoContentTitle = document.getElementById('eixo-content-title');
+        const eixoContentText = document.getElementById('eixo-content-text');
+        const currentEixoTitle = document.getElementById('current-eixo-title');
+        const questionText = document.getElementById('question-text');
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const optionsContainer = document.getElementById('options-container');
+        const hintButton = document.getElementById('hint-button');
+        const hintText = document.getElementById('hint-text');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const nextButton = document.getElementById('next-button');
+        const finalScore = document.getElementById('final-score');
+
+        // Função para exibir a tela de conteúdo do eixo temático
+        function showEixoContent(eixo) {
+            quizState.currentEixo = eixo;
+            eixoContentTitle.textContent = ` ${eixo}`;
+            eixoContentText.innerHTML = eixoContent[eixo];
+            
+            homeScreen.classList.add('hidden');
+            eixoContentScreen.classList.remove('hidden');
+        }
+
+        // Função para iniciar o quiz após ver o conteúdo do eixo
+        function startQuiz() {
+            quizState.questions = quizData[quizState.currentEixo];
+            quizState.currentQuestionIndex = 0;
+            quizState.score = 0;
+
+            eixoContentScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            updateQuizUI();
+        }
+
+        // Função para voltar à tela inicial
+        function goToHome() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            eixoContentScreen.classList.add('hidden');
+            homeScreen.classList.remove('hidden');
+        }
+
+        // Função para atualizar a interface do quiz com a pergunta atual
+        function updateQuizUI() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            
+            currentEixoTitle.textContent = quizState.currentEixo;
+            questionText.textContent = currentQuestion.question;
+            questionCounter.textContent = `Pergunta ${quizState.currentQuestionIndex + 1} de ${quizState.questions.length}`;
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+            
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('w-full', 'bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white', 'text-gray-800', 'font-medium', 'py-3', 'px-4', 'rounded-lg', 'text-left', 'transition-colors', 'duration-200');
+                button.onclick = () => selectAnswer(button, option);
+                optionsContainer.appendChild(button);
+            });
+
+            // Resetar estados de dica e explicação
+            hintButton.classList.remove('hidden');
+            hintText.classList.add('hidden');
+            explanationContainer.classList.add('hidden');
+            nextButton.classList.add('hidden');
+        }
+        
+        // Função para mostrar a dica
+        function showHint() {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            hintText.textContent = `Dica: ${currentQuestion.hint}`;
+            hintText.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+        }
+
+        // Função para selecionar uma resposta
+        function selectAnswer(selectedButton, selectedOption) {
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correctAnswer;
+            
+            // Desabilitar todas as opções
+            Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+
+            // Destacar respostas
+            if (isCorrect) {
+                quizState.score++;
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-green-500', 'text-white');
+            } else {
+                selectedButton.classList.remove('bg-gray-200', 'hover:bg-indigo-500', 'hover:text-white');
+                selectedButton.classList.add('bg-red-500', 'text-white');
+                // Destacar a resposta correta também
+                Array.from(optionsContainer.children).find(btn => btn.textContent === currentQuestion.correctAnswer).classList.add('bg-green-500', 'text-white');
+            }
+            
+            // Mostrar a explicação e o botão de próxima pergunta
+            explanationText.textContent = currentQuestion.explanation;
+            explanationContainer.classList.remove('hidden');
+            nextButton.classList.remove('hidden');
+            hintButton.classList.add('hidden');
+            scoreCounter.textContent = `Pontuação: ${quizState.score}`;
+        }
+
+        // Função para avançar para a próxima pergunta
+        function nextQuestion() {
+            quizState.currentQuestionIndex++;
+            if (quizState.currentQuestionIndex < quizState.questions.length) {
+                updateQuizUI();
+            } else {
+                showResults();
+            }
+        }
+
+        // Função para exibir os resultados finais
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScore.textContent = `Você acertou ${quizState.score} de ${quizState.questions.length} perguntas do eixo '${quizState.currentEixo}'.`;
+        }
+    </script>
+
+</body>
+</html>
